@@ -20,15 +20,15 @@ namespace ClickyKeys
     public partial class OverlayForm : Form
     {
         public InputCounter _counter;
-        private SettingsService _settingsService;
-        private PanelsService _panelsService;
+        private readonly SettingsService _settingsService;
+        private readonly PanelsService _panelsService;
         private Settings _settings;
-        private PanelState _panel_settings;
+        private readonly PanelState _panel_settings;
 
-        private Dictionary<Keys, GlassPanel> _panelsByKeyCode = new();
-        private Dictionary<int, GlassPanel> _panelsById = new();
+        private readonly Dictionary<Keys, GlassPanel> _panelsByKeyCode = [];
+        private readonly Dictionary<int, GlassPanel> _panelsById = [];
 
-        private int grid_collumns = 4;
+        private int grid_columns = 4;
         private int grid_rows = 4;
 
         private readonly WinFormsTimer _timer = new() { Interval = 200 }; // IU refreshing interval
@@ -41,14 +41,14 @@ namespace ClickyKeys
             _panelsService = panels_settings;
             _settings = _settingsService.Load();
             _panel_settings = _panelsService.Load();
-            
+
 
             InitializeComponent();
 
             _counter = new InputCounter(this);
 
 
-            loadFromSettings();
+            LoadFromSettings();
             _counter.LoadPanels(_panel_settings);
             _counter.Start();
 
@@ -56,24 +56,27 @@ namespace ClickyKeys
             _timer.Start();
         }
 
-        public void loadFromSettings()
+        public void LoadFromSettings()
         {
             _settings = _settingsService.Load();
             BackColor = ColorTranslator.FromHtml(_settings.BackgroundColor);
-            PrepareGrid(_settings.GridColumns, _settings.GridRows);
+            PrepareGrid(_settings.GridColumns, _settings.GridRows, _settings.PanelsSpacing);
         }
 
-        public void PrepareGrid(int columns, int rows)
+        public void PrepareGrid(int columns, int rows, int spacing = 0)
         {
-            grid_collumns = columns;
+            grid_columns = columns;
             grid_rows = rows;
 
 
             _grid.Controls.Clear();
-            Size = new Size((int)(45 + columns * 200), (int)(100 + rows * 120));
-            _grid.Size = new Size(columns * 200, rows * 120);
+            Size = new Size(
+                (int)(45 + columns * 200 + (columns - 0) * 2 * spacing),
+                (int)(100 + rows * 120 + (rows - 0) * 2 * spacing));
+            _grid.Size = new Size(columns * 200 + columns * 2 * spacing, rows * 120 + rows * 2 * spacing);
             _grid.ColumnCount = columns;
             _grid.RowCount = rows;
+            _grid.Location = new Point(9 + spacing, 33 + spacing);
 
             _grid.ColumnStyles.Clear();
             for (int i = 0; i < columns; i++)
@@ -100,7 +103,6 @@ namespace ClickyKeys
                 else d = $"{_panel_settings.Panels[i].Description}";
 
                 n = _panel_settings.Panels[i].KeyCode;
-                // d = _panel_settings.Panels[i].Description;
                 input = _panel_settings.Panels[i].Input;
 
                 var panel = new GlassPanel(this)
@@ -124,7 +126,7 @@ namespace ClickyKeys
 
         public void UpdateOpacity(int opacity)
         {
-            for (int i = 0; i < grid_collumns * grid_rows; i++)
+            for (int i = 0; i < grid_columns * grid_rows; i++)
             {
                 _panelsById[i].PanelOpacity = opacity;
                 _panelsById[i].TriggerFlash();
@@ -135,10 +137,10 @@ namespace ClickyKeys
         private void UpdateValues()
         {
             var stats = _counter.GetStats();
-            for (int i = 0; i < grid_collumns * grid_rows; i++)
+            for (int i = 0; i < grid_columns * grid_rows; i++)
             {
                 var panel = _panelsById[i];
-                foreach (var (c, it, n, v) in stats.Take(grid_collumns * grid_rows)) 
+                foreach (var (c, it, n, v) in stats.Take(grid_columns * grid_rows))
                 {
                     if (panel.Key == c && panel.Type == it)
                     {
@@ -177,13 +179,13 @@ namespace ClickyKeys
 
             _counter.LoadPanels(_panel_settings);
 
-            loadFromSettings();
+            LoadFromSettings();
         }
 
 
         public void ShowSettings()
         {
-            SettingsForm _settings = new SettingsForm(this, _settingsService);
+            SettingsForm _settings = new(this, _settingsService);
             _settings.Show();
         }
 
@@ -196,7 +198,7 @@ namespace ClickyKeys
         {
             if (e.KeyCode == Keys.F11)
                 toolStrip.Visible = false;
-            for (int i = 0; i < grid_collumns * grid_rows; i++)
+            for (int i = 0; i < grid_columns * grid_rows; i++)
                 _panelsById[i].GlassPanelKeyDown(e);
 
         }
@@ -211,12 +213,12 @@ namespace ClickyKeys
             toolStrip.Visible = !toolStrip.Visible;
             if (toolStrip.Visible == true)
             {
-                Size = new Size((int)(45 + grid_collumns * 200), (int)(100 + grid_rows * 120));
+                Size = new Size((int)(45 + grid_columns * 200), (int)(100 + grid_rows * 120));
                 _grid.Location = new Point(9, 33);
             }
             else
             {
-                Size = new Size((int)(45 + grid_collumns * 200), (int)(72 + grid_rows * 120));
+                Size = new Size((int)(45 + grid_columns * 200), (int)(72 + grid_rows * 120));
                 _grid.Location = new Point(9, 9);
             }
         }

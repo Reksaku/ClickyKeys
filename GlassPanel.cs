@@ -92,8 +92,8 @@ namespace ClickyKeys
         [Category("Appearance"), Description("Value text color on the panel")]
         public Color ValueTextColor { get; set; } = Color.Black;
 
-        [Category("Appearance"), Description("Panel opacity 0..255")]
-        public int PanelOpacity { get; set; } = 180;
+        [Category("Appearance"), Description("Panel opacity 0..100")]
+        public int PanelOpacity { get; set; } = 80;
 
         [Category("Setup"), Description("Key assigned to the panel")]
         public Keys Key { get; set; } = Keys.None;
@@ -157,7 +157,8 @@ namespace ClickyKeys
             using var path = Rounded(r, CornerRadius);
 
             // shadow (slight offset)
-            using (var shadow = new SolidBrush(Color.FromArgb((int)(PanelOpacity * 0.35 + 50 * _flash), 0, 0, 0)))
+            int PanelOpacityBin = (int)(PanelOpacity * 255 / 100);
+            using (var shadow = new SolidBrush(Color.FromArgb((int)(PanelOpacityBin * 0.35 + 50 * _flash), 0, 0, 0)))
             {
                 var sRect = r; sRect.Offset(3, 3);
                 using var sPath = Rounded(sRect, CornerRadius);
@@ -165,7 +166,7 @@ namespace ClickyKeys
             }
 
             // glass fill
-            int aFill = Math.Clamp(PanelOpacity + (int)(40 * _flash), 0, 255);
+            int aFill = Math.Clamp(PanelOpacityBin + (int)(40 * _flash), 0, 255);
             using (var fill = new SolidBrush(Color.FromArgb(aFill, PanelColor)))
                 g.FillPath(fill, path);
 

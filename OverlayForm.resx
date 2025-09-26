@@ -217,7 +217,7 @@
     <value>3</value>
   </data>
   <data name="_grid.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 33</value>
+    <value>9, 34</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="_grid.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
