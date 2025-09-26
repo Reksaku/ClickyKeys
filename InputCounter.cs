@@ -166,9 +166,9 @@ namespace ClickyKeys
                 _panelCounts[key] = 0;
         }
 
-        public IReadOnlyList<(string Name, int Value)> GetStats()
+        public IReadOnlyList<(Keys Code, InputType Input, string Name, int Value)> GetStats()
         {
-            var list = new List<(string, int)>();
+            var list = new List<(Keys, InputType, string, int)>();
 
             for (int i = 0; i < _panelsState.Panels.Count; i++)
             {
@@ -178,14 +178,18 @@ namespace ClickyKeys
                 bool isMouse = p.Input == InputType.MouseLeft || p.Input == InputType.MouseRight;
                 if (!isKey && !isMouse) continue;
 
-                var label = !string.IsNullOrWhiteSpace(p.Description)
-                    ? p.Description
-                    : (isMouse
+                //var label = !string.IsNullOrWhiteSpace(p.Description)
+                //    ? p.Description
+                //    : (isMouse
+                //        ? (p.Input == InputType.MouseLeft ? "LMB" : "RMB")
+                //        : p.KeyCode.ToString().ToUpperInvariant());
+
+                var label = isMouse
                         ? (p.Input == InputType.MouseLeft ? "LMB" : "RMB")
-                        : p.KeyCode.ToString().ToUpperInvariant());
+                        : p.Description;
 
                 var val = _panelCounts.TryGetValue(i, out var v) ? v : 0;
-                list.Add((label, val));
+                list.Add((p.KeyCode, p.Input, label, val));
             }
 
             return list;

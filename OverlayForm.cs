@@ -25,7 +25,7 @@ namespace ClickyKeys
         private Settings _settings;
         private PanelState _panel_settings;
 
-        private Dictionary<string, GlassPanel> _panelsByDescription = new();
+        private Dictionary<Keys, GlassPanel> _panelsByKeyCode = new();
         private Dictionary<int, GlassPanel> _panelsById = new();
 
         private int grid_collumns = 4;
@@ -41,6 +41,7 @@ namespace ClickyKeys
             _panelsService = panels_settings;
             _settings = _settingsService.Load();
             _panel_settings = _panelsService.Load();
+            
 
             InitializeComponent();
 
@@ -64,7 +65,6 @@ namespace ClickyKeys
 
         public void PrepareGrid(int columns, int rows)
         {
-            string n;
             grid_collumns = columns;
             grid_rows = rows;
 
@@ -82,11 +82,26 @@ namespace ClickyKeys
             for (int i = 0; i < rows; i++)
                 _grid.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / rows));
 
+            ConfigureGrid(columns, rows);
 
+
+
+        }
+
+        public void ConfigureGrid(int columns, int rows)
+        {
+            Keys n;
+            string d;
+            InputType input;
             for (int i = 0; i < columns * rows; i++)
             {
-                if (_panel_settings.Panels[i].Description != "") n = $"{_panel_settings.Panels[i].Description}";
-                else n = $"id. {i}";
+                if (_panel_settings.Panels[i].Input == InputType.Key && _panel_settings.Panels[i].KeyCode == Keys.None)
+                    d = $"id. {i}";
+                else d = $"{_panel_settings.Panels[i].Description}";
+
+                n = _panel_settings.Panels[i].KeyCode;
+                // d = _panel_settings.Panels[i].Description;
+                input = _panel_settings.Panels[i].Input;
 
                 var panel = new GlassPanel(this)
                 {
@@ -94,16 +109,17 @@ namespace ClickyKeys
                     Key = n,
                     Value = -1,
                     ID = i,
+                    Description = d,
+                    Type = input,
                     KeyTextColor = ColorTranslator.FromHtml(_settings.KeyTextColor),
                     ValueTextColor = ColorTranslator.FromHtml(_settings.ValueTextColor),
                     PanelColor = ColorTranslator.FromHtml(_settings.PanelsColor),
                     PanelOpacity = _settings.PanelsOpacity
                 };
-                _panelsByDescription[n] = panel;
+                _panelsByKeyCode[n] = panel;
                 _panelsById[i] = panel;
                 _grid.Controls.Add(panel);
             }
-
         }
 
         public void UpdateOpacity(int opacity)
@@ -122,9 +138,9 @@ namespace ClickyKeys
             for (int i = 0; i < grid_collumns * grid_rows; i++)
             {
                 var panel = _panelsById[i];
-                foreach (var (n, v) in stats.Take(grid_collumns * grid_rows)) 
+                foreach (var (c, it, n, v) in stats.Take(grid_collumns * grid_rows)) 
                 {
-                    if (panel.Key == n)
+                    if (panel.Key == c && panel.Type == it)
                     {
                         try
                         {

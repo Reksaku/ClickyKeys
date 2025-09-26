@@ -14,6 +14,19 @@
   <ItemGroup>
     <None Remove="Icon_128.png" />
   </ItemGroup>
+	
+  <PropertyGroup>
+    <AppDataFolder>$(APPDATA)</AppDataFolder>
+  </PropertyGroup>
+	
+  <ItemGroup Condition=" '$(AppDataFolder)' != '' and Exists('$(AppDataFolder)\ClickyKeys\') ">
+    <None Include="$(AppDataFolder)\ClickyKeys\settings.json">
+      <Link>settings.json</Link>
+    </None>
+      <None Include="$(AppDataFolder)\ClickyKeys\panels.json">
+      <Link>panels.json</Link>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\Icons\Icon_128.ico" />

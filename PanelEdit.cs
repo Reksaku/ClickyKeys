@@ -74,8 +74,8 @@ namespace ClickyKeys
 
         private void btnInput_Click(object sender, EventArgs e)
         {
-            btnInput.Text = "-";
-            waitingForKey = true;
+            //btnInput.Text = "-";
+            //waitingForKey = true;
         }
 
         public void PanelKeyDown(KeyEventArgs e)
@@ -92,7 +92,7 @@ namespace ClickyKeys
 
         private static Keys NormalizeKey(Keys k)
         {
-            
+
             k &= Keys.KeyCode;
 
             return k switch
@@ -127,19 +127,25 @@ namespace ClickyKeys
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (selected_key != Keys.NoName)
-            {              
+            {
                 _panel.OverridePanel(textDescription.Text, input, selected_key);
                 _panel.CloseEditPanel();
-            }            
+            }
             else
                 _panel.CloseEditPanel();
 
             _appCtx?.ExitThread();
             if (_hookThread != null && _hookThread.IsAlive)
             {
-                
+
                 _hookThread.Join(1000);
             }
+        }
+
+        private void btnInput_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnInput.Text = "-";
+            waitingForKey = true;
         }
     }
     public static class ControlExtensions

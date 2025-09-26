@@ -96,7 +96,13 @@ namespace ClickyKeys
         public int PanelOpacity { get; set; } = 180;
 
         [Category("Setup"), Description("Key assigned to the panel")]
-        public string Key { get; set; } = "?";
+        public Keys Key { get; set; } = Keys.None;
+
+        [Category("Setup"), Description("Input type")]
+        public InputType Type { get; set; } = InputType.Key;
+
+        [Category("Setup"), Description("Panel description")]
+        public string Description { get; set; } = "";
 
         [Category("Setup"), Description("Panel value")]
         public int Value { get; set; } = 0;
@@ -110,19 +116,22 @@ namespace ClickyKeys
 
         public void TriggerFlash()
         {
-            _flash = 1.0;
-            _target = PEAK_SCALE;
-            _rampingUp = true;
-            _anim.Stop();
-            _anim.Start();
-            Invalidate();
+            if(panel.Visible == false)
+            {           
+                _flash = 1.0;
+                _target = PEAK_SCALE;
+                _rampingUp = true;
+                _anim.Stop();
+                _anim.Start();
+                Invalidate();
+            }
         }
 
         // ---------- DRAWING ----------
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            lblKey.Text = Key;
+            lblKey.Text = Description;
             lblValue.Text = Value.ToString();
 
             lblKey.ForeColor = KeyTextColor;
@@ -188,8 +197,6 @@ namespace ClickyKeys
 
         private void GlassPanel_Click(object sender, EventArgs e)
         {
-             
-            
             panel.Visible = true;
             panel.Size = new Size(200, 120);
             settingsPanel.StartKeyDownThread();
@@ -204,7 +211,7 @@ namespace ClickyKeys
 
         public void OverridePanel(string description, InputType input, Keys key_code)
         {
-            Key = description;
+            Description = description;
             _overlay.EditPanel(ID, description, input, key_code);
         }
 

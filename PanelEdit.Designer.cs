@@ -47,6 +47,7 @@
             btnInput.TextAlign = ContentAlignment.TopCenter;
             btnInput.UseVisualStyleBackColor = true;
             btnInput.Click += btnInput_Click;
+            btnInput.MouseDown += btnInput_MouseDown;
             // 
             // textDescription
             // 
