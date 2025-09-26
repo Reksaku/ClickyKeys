@@ -58,9 +58,10 @@ namespace ClickyKeys
                         _globalHook = null;
                     }
                 }
-            });
-
-            _hookThread.IsBackground = true;
+            })
+            {
+                IsBackground = true
+            };
             _hookThread.SetApartmentState(ApartmentState.STA);
             _hookThread.Start();
 
@@ -72,11 +73,6 @@ namespace ClickyKeys
             _panel.CloseEditPanel();
         }
 
-        private void btnInput_Click(object sender, EventArgs e)
-        {
-            //btnInput.Text = "-";
-            //waitingForKey = true;
-        }
 
         public void PanelKeyDown(KeyEventArgs e)
         {
@@ -147,6 +143,7 @@ namespace ClickyKeys
             btnInput.Text = "-";
             waitingForKey = true;
         }
+
     }
     public static class ControlExtensions
     {

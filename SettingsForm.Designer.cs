@@ -33,6 +33,8 @@
             btnExit = new Button();
             label1 = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
+            trBrSpacing = new TrackBar();
+            label9 = new Label();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
@@ -48,9 +50,14 @@
             label7 = new Label();
             label8 = new Label();
             trBrOpacity = new TrackBar();
+            labelColumns = new Label();
+            labelSapcing = new Label();
+            labelOpacity = new Label();
+            labelRows = new Label();
             colDial = new ColorDialog();
             btnApply = new Button();
             tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trBrSpacing).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trBrColumns).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trBrRows).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trBrOpacity).BeginInit();
@@ -91,9 +98,12 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.Anchor = AnchorStyles.None;
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.7061863F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 72.2938156F));
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.7549858F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 64.24502F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 98F));
+            tableLayoutPanel1.Controls.Add(trBrSpacing, 1, 8);
+            tableLayoutPanel1.Controls.Add(label9, 0, 8);
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(label2, 0, 1);
             tableLayoutPanel1.Controls.Add(label3, 0, 2);
@@ -110,27 +120,56 @@
             tableLayoutPanel1.Controls.Add(label7, 0, 6);
             tableLayoutPanel1.Controls.Add(label8, 0, 7);
             tableLayoutPanel1.Controls.Add(trBrOpacity, 1, 7);
+            tableLayoutPanel1.Controls.Add(labelColumns, 2, 2);
+            tableLayoutPanel1.Controls.Add(labelSapcing, 2, 8);
+            tableLayoutPanel1.Controls.Add(labelOpacity, 2, 7);
+            tableLayoutPanel1.Controls.Add(labelRows, 2, 1);
             tableLayoutPanel1.Location = new Point(12, 12);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 10;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.RowCount = 12;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.142857F));
             tableLayoutPanel1.Size = new Size(776, 667);
             tableLayoutPanel1.TabIndex = 4;
+            // 
+            // trBrSpacing
+            // 
+            trBrSpacing.Anchor = AnchorStyles.None;
+            trBrSpacing.Location = new Point(255, 443);
+            trBrSpacing.Maximum = 30;
+            trBrSpacing.Name = "trBrSpacing";
+            trBrSpacing.Size = new Size(408, 49);
+            trBrSpacing.TabIndex = 7;
+            trBrSpacing.ValueChanged += trBrSpacing_ValueChanged;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 14F);
+            label9.Location = new Point(3, 440);
+            label9.Name = "label9";
+            label9.Size = new Size(198, 38);
+            label9.TabIndex = 6;
+            label9.Text = "Panels spacing";
+            label9.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14F);
-            label2.Location = new Point(3, 66);
+            label2.Location = new Point(3, 55);
             label2.Name = "label2";
             label2.Size = new Size(81, 38);
             label2.TabIndex = 2;
@@ -141,18 +180,18 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14F);
-            label3.Location = new Point(3, 132);
+            label3.Location = new Point(3, 110);
             label3.Name = "label3";
-            label3.Size = new Size(132, 38);
+            label3.Size = new Size(125, 38);
             label3.TabIndex = 2;
-            label3.Text = "Collumns";
+            label3.Text = "Columns";
             label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14F);
-            label4.Location = new Point(3, 198);
+            label4.Location = new Point(3, 165);
             label4.Name = "label4";
             label4.Size = new Size(156, 38);
             label4.TabIndex = 2;
@@ -163,7 +202,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 14F);
-            label5.Location = new Point(3, 264);
+            label5.Location = new Point(3, 220);
             label5.Name = "label5";
             label5.Size = new Size(178, 38);
             label5.TabIndex = 2;
@@ -174,7 +213,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 14F);
-            label6.Location = new Point(3, 330);
+            label6.Location = new Point(3, 275);
             label6.Name = "label6";
             label6.Size = new Size(166, 38);
             label6.TabIndex = 2;
@@ -184,10 +223,10 @@
             // trBrColumns
             // 
             trBrColumns.Anchor = AnchorStyles.None;
-            trBrColumns.Location = new Point(218, 135);
+            trBrColumns.Location = new Point(255, 113);
             trBrColumns.Minimum = 1;
             trBrColumns.Name = "trBrColumns";
-            trBrColumns.Size = new Size(555, 60);
+            trBrColumns.Size = new Size(408, 49);
             trBrColumns.TabIndex = 4;
             trBrColumns.Value = 5;
             trBrColumns.ValueChanged += trBrColumns_ValueChanged;
@@ -196,7 +235,7 @@
             // 
             comboBox1.Anchor = AnchorStyles.Top;
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(307, 3);
+            comboBox1.Location = new Point(271, 3);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(377, 33);
             comboBox1.TabIndex = 3;
@@ -205,10 +244,10 @@
             // trBrRows
             // 
             trBrRows.Anchor = AnchorStyles.None;
-            trBrRows.Location = new Point(218, 69);
+            trBrRows.Location = new Point(255, 58);
             trBrRows.Minimum = 1;
             trBrRows.Name = "trBrRows";
-            trBrRows.Size = new Size(555, 60);
+            trBrRows.Size = new Size(408, 49);
             trBrRows.TabIndex = 4;
             trBrRows.Value = 2;
             trBrRows.ValueChanged += trBrRows_ValueChanged;
@@ -216,7 +255,7 @@
             // btnKeyTextColor
             // 
             btnKeyTextColor.Anchor = AnchorStyles.Top;
-            btnKeyTextColor.Location = new Point(313, 201);
+            btnKeyTextColor.Location = new Point(277, 168);
             btnKeyTextColor.Name = "btnKeyTextColor";
             btnKeyTextColor.Size = new Size(365, 35);
             btnKeyTextColor.TabIndex = 5;
@@ -227,7 +266,7 @@
             // btnValueTextColor
             // 
             btnValueTextColor.Anchor = AnchorStyles.Top;
-            btnValueTextColor.Location = new Point(313, 267);
+            btnValueTextColor.Location = new Point(277, 223);
             btnValueTextColor.Name = "btnValueTextColor";
             btnValueTextColor.Size = new Size(365, 35);
             btnValueTextColor.TabIndex = 5;
@@ -238,7 +277,7 @@
             // btnPanelsColor
             // 
             btnPanelsColor.Anchor = AnchorStyles.Top;
-            btnPanelsColor.Location = new Point(313, 333);
+            btnPanelsColor.Location = new Point(277, 278);
             btnPanelsColor.Name = "btnPanelsColor";
             btnPanelsColor.Size = new Size(365, 35);
             btnPanelsColor.TabIndex = 5;
@@ -249,7 +288,7 @@
             // btnBackgroundColor
             // 
             btnBackgroundColor.Anchor = AnchorStyles.Top;
-            btnBackgroundColor.Location = new Point(313, 399);
+            btnBackgroundColor.Location = new Point(277, 333);
             btnBackgroundColor.Name = "btnBackgroundColor";
             btnBackgroundColor.Size = new Size(365, 35);
             btnBackgroundColor.TabIndex = 5;
@@ -261,9 +300,9 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 14F);
-            label7.Location = new Point(3, 396);
+            label7.Location = new Point(3, 330);
             label7.Name = "label7";
-            label7.Size = new Size(172, 66);
+            label7.Size = new Size(234, 38);
             label7.TabIndex = 2;
             label7.Text = "Background color";
             label7.TextAlign = ContentAlignment.MiddleLeft;
@@ -272,7 +311,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 14F);
-            label8.Location = new Point(3, 462);
+            label8.Location = new Point(3, 385);
             label8.Name = "label8";
             label8.Size = new Size(193, 38);
             label8.TabIndex = 2;
@@ -283,14 +322,62 @@
             // 
             trBrOpacity.Anchor = AnchorStyles.None;
             trBrOpacity.LargeChange = 1;
-            trBrOpacity.Location = new Point(218, 465);
-            trBrOpacity.Maximum = 255;
+            trBrOpacity.Location = new Point(255, 388);
+            trBrOpacity.Maximum = 100;
             trBrOpacity.Name = "trBrOpacity";
-            trBrOpacity.Size = new Size(555, 60);
+            trBrOpacity.Size = new Size(408, 49);
             trBrOpacity.TabIndex = 1;
-            trBrOpacity.TickFrequency = 22;
-            trBrOpacity.Value = 180;
+            trBrOpacity.TickFrequency = 10;
+            trBrOpacity.Value = 100;
             trBrOpacity.ValueChanged += trBrOpacity_ValueChanged;
+            // 
+            // labelColumns
+            // 
+            labelColumns.Anchor = AnchorStyles.Top;
+            labelColumns.AutoSize = true;
+            labelColumns.Font = new Font("Segoe UI", 14F);
+            labelColumns.Location = new Point(695, 110);
+            labelColumns.Name = "labelColumns";
+            labelColumns.Size = new Size(62, 38);
+            labelColumns.TabIndex = 6;
+            labelColumns.Text = "000";
+            labelColumns.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // labelSapcing
+            // 
+            labelSapcing.Anchor = AnchorStyles.Top;
+            labelSapcing.AutoSize = true;
+            labelSapcing.Font = new Font("Segoe UI", 14F);
+            labelSapcing.Location = new Point(684, 440);
+            labelSapcing.Name = "labelSapcing";
+            labelSapcing.Size = new Size(84, 38);
+            labelSapcing.TabIndex = 6;
+            labelSapcing.Text = "30 px";
+            labelSapcing.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // labelOpacity
+            // 
+            labelOpacity.Anchor = AnchorStyles.Top;
+            labelOpacity.AutoSize = true;
+            labelOpacity.Font = new Font("Segoe UI", 14F);
+            labelOpacity.Location = new Point(680, 385);
+            labelOpacity.Name = "labelOpacity";
+            labelOpacity.Size = new Size(93, 38);
+            labelOpacity.TabIndex = 6;
+            labelOpacity.Text = "100 %";
+            labelOpacity.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // labelRows
+            // 
+            labelRows.Anchor = AnchorStyles.Top;
+            labelRows.AutoSize = true;
+            labelRows.Font = new Font("Segoe UI", 14F);
+            labelRows.Location = new Point(695, 55);
+            labelRows.Name = "labelRows";
+            labelRows.Size = new Size(62, 38);
+            labelRows.TabIndex = 6;
+            labelRows.Text = "000";
+            labelRows.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnApply
             // 
@@ -317,6 +404,7 @@
             Text = "Settings";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)trBrSpacing).EndInit();
             ((System.ComponentModel.ISupportInitialize)trBrColumns).EndInit();
             ((System.ComponentModel.ISupportInitialize)trBrRows).EndInit();
             ((System.ComponentModel.ISupportInitialize)trBrOpacity).EndInit();
@@ -346,5 +434,11 @@
         private Label label7;
         private TrackBar trBrOpacity;
         private Label label8;
+        private Label label9;
+        private TrackBar trBrSpacing;
+        private Label labelSapcing;
+        private Label labelColumns;
+        private Label labelOpacity;
+        private Label labelRows;
     }
 }

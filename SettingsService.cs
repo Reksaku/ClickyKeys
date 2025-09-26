@@ -78,8 +78,8 @@ namespace ClickyKeys
         [JsonPropertyName("grid_columns")]
         public int GridColumns { get; set; } = 4;
 
-        //[JsonPropertyName("tile_spacing")]
-        //public int TileSpacing { get; set; } = 0;
+        [JsonPropertyName("panels_spacing")]
+        public int PanelsSpacing { get; set; } = 0;
 
         //[JsonPropertyName("line_height")]
         //public int LineHeight { get; set; } = 0;
@@ -104,7 +104,7 @@ namespace ClickyKeys
         // Opacity
 
         [JsonPropertyName("panels_opacity")]
-        public int PanelsOpacity { get; set; } = 180;
+        public int PanelsOpacity { get; set; } = 25;
 
         //[JsonPropertyName("text_opacity")]
         //public double TextOpacity { get; set; } = 1.0;

@@ -31,6 +31,14 @@ namespace ClickyKeys
         {
             trBrColumns.Value = _settings.GridColumns;
             trBrRows.Value = _settings.GridRows;
+            trBrSpacing.Value = _settings.PanelsSpacing;
+            trBrOpacity.Value = _settings.PanelsOpacity;  
+
+            labelRows.Text = _settings.GridRows.ToString();
+            labelColumns.Text = _settings.GridColumns.ToString();
+            labelSapcing.Text = _settings.PanelsSpacing.ToString() + " px";
+            labelOpacity.Text = _settings.PanelsOpacity.ToString() + " %";
+
             btnKeyTextColor.BackColor = ColorTranslator.FromHtml(_settings.KeyTextColor);
             btnValueTextColor.BackColor = ColorTranslator.FromHtml(_settings.ValueTextColor);
             btnPanelsColor.BackColor = ColorTranslator.FromHtml(_settings.PanelsColor);
@@ -39,33 +47,39 @@ namespace ClickyKeys
 
         private void trBrRows_ValueChanged(object sender, EventArgs e)
         {
-            _overlay.PrepareGrid(trBrColumns.Value, trBrRows.Value);
+            labelRows.Text = trBrRows.Value.ToString();
+            _overlay.PrepareGrid(trBrColumns.Value, trBrRows.Value, trBrSpacing.Value);
         }
 
         private void trBrColumns_ValueChanged(object sender, EventArgs e)
         {
-            _overlay.PrepareGrid(trBrColumns.Value, trBrRows.Value);
+            labelColumns.Text = trBrColumns.Value.ToString();
+            _overlay.PrepareGrid(trBrColumns.Value, trBrRows.Value, trBrSpacing.Value);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             _settings.GridColumns = trBrColumns.Value;
             _settings.GridRows = trBrRows.Value;
+            _settings.PanelsSpacing = trBrSpacing.Value;
+            _settings.PanelsOpacity = trBrOpacity.Value;
+
             _settingsService.Save(_settings);
-            _overlay.loadFromSettings();
+            _overlay.LoadFromSettings();
             Close();
         }
         private void btnApply_Click(object sender, EventArgs e)
         {
             _settings.GridColumns = trBrColumns.Value;
             _settings.GridRows = trBrRows.Value;
+            _settings.PanelsSpacing = trBrSpacing.Value;
             _settingsService.Save(_settings);
-            _overlay.loadFromSettings();
+            _overlay.LoadFromSettings();
         }
 
         private void btnExit_MouseClick(object sender, MouseEventArgs e)
         {
-            _overlay.loadFromSettings();
+            _overlay.LoadFromSettings();
             Close();
         }
 
@@ -111,8 +125,15 @@ namespace ClickyKeys
 
         private void trBrOpacity_ValueChanged(object sender, EventArgs e)
         {
+            labelOpacity.Text = trBrOpacity.Value.ToString() + " %";
             _overlay.UpdateOpacity(trBrOpacity.Value);
-            _settings.PanelsOpacity = trBrOpacity.Value;
+        }
+
+        private void trBrSpacing_ValueChanged(object sender, EventArgs e)
+        {
+            labelSapcing.Text = trBrSpacing.Value.ToString() + " px";
+            _overlay.PrepareGrid(trBrColumns.Value, trBrRows.Value, trBrSpacing.Value);
+
         }
     }
 
