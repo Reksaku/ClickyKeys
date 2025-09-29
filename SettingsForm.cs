@@ -17,6 +17,8 @@ namespace ClickyKeys
         private readonly OverlayForm _overlay;
         private readonly SettingsService _settingsService;
         private readonly Settings _settings;
+        private string valuesColor;
+        private string keysColor;
 
 
         public SettingsForm(OverlayForm overlay, SettingsService settings)
@@ -32,12 +34,14 @@ namespace ClickyKeys
             trBrColumns.Value = _settings.GridColumns;
             trBrRows.Value = _settings.GridRows;
             trBrSpacing.Value = _settings.PanelsSpacing;
-            trBrOpacity.Value = _settings.PanelsOpacity;  
+            trBrOpacity.Value = _settings.PanelsOpacity;
+            trBrFontSize.Value = _settings.FontSize;
 
             labelRows.Text = _settings.GridRows.ToString();
             labelColumns.Text = _settings.GridColumns.ToString();
             labelSapcing.Text = _settings.PanelsSpacing.ToString() + " px";
             labelOpacity.Text = _settings.PanelsOpacity.ToString() + " %";
+            labelFontSize.Text = _settings.FontSize.ToString() + " px";
 
             btnKeyTextColor.BackColor = ColorTranslator.FromHtml(_settings.KeyTextColor);
             btnValueTextColor.BackColor = ColorTranslator.FromHtml(_settings.ValueTextColor);
@@ -59,20 +63,24 @@ namespace ClickyKeys
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            _settings.GridColumns = trBrColumns.Value;
-            _settings.GridRows = trBrRows.Value;
-            _settings.PanelsSpacing = trBrSpacing.Value;
-            _settings.PanelsOpacity = trBrOpacity.Value;
+            SaveParams();
 
-            _settingsService.Save(_settings);
-            _overlay.LoadFromSettings();
             Close();
         }
         private void btnApply_Click(object sender, EventArgs e)
         {
+            SaveParams();
+        }
+
+        private void SaveParams()
+        {
             _settings.GridColumns = trBrColumns.Value;
             _settings.GridRows = trBrRows.Value;
             _settings.PanelsSpacing = trBrSpacing.Value;
+            _settings.PanelsOpacity = trBrOpacity.Value;
+            _settings.FontSize = trBrFontSize.Value;
+            _settings.ValueTextColor = valuesColor;
+
             _settingsService.Save(_settings);
             _overlay.LoadFromSettings();
         }
@@ -89,7 +97,8 @@ namespace ClickyKeys
             {
                 btnKeyTextColor.BackColor = colDial.Color;
                 var c = colDial.Color;
-                _settings.KeyTextColor = $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+                keysColor = $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+                _overlay.UpdateKeysColor(keysColor);
             }
         }
 
@@ -99,7 +108,8 @@ namespace ClickyKeys
             {
                 btnValueTextColor.BackColor = colDial.Color;
                 var c = colDial.Color;
-                _settings.ValueTextColor = $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+                valuesColor = $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+                _overlay.UpdateValuesColor(valuesColor);
             }
         }
 
@@ -134,6 +144,12 @@ namespace ClickyKeys
             labelSapcing.Text = trBrSpacing.Value.ToString() + " px";
             _overlay.PrepareGrid(trBrColumns.Value, trBrRows.Value, trBrSpacing.Value);
 
+        }
+
+        private void trBrFontSize_ValueChanged(object sender, EventArgs e)
+        {
+            labelFontSize.Text = trBrFontSize.Value.ToString() + " px";
+            _overlay.UpdateFont(trBrFontSize.Value);
         }
     }
 

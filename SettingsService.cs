@@ -114,8 +114,8 @@ namespace ClickyKeys
 
         // Font
 
-        //[JsonPropertyName("font_size")]
-        //public double FontSize { get; set; } = 1.0;
+        [JsonPropertyName("font_size")]
+        public int FontSize { get; set; } = 10;
 
 
 

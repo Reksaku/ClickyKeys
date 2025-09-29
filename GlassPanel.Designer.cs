@@ -35,11 +35,10 @@
             // 
             // lblKey
             // 
-            lblKey.Anchor = AnchorStyles.None;
-            lblKey.Font = new Font("Segoe UI", 14F);
-            lblKey.Location = new Point(30, 20);
+            lblKey.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            lblKey.Location = new Point(30, 12);
             lblKey.Name = "lblKey";
-            lblKey.Size = new Size(140, 40);
+            lblKey.Size = new Size(140, 60);
             lblKey.TabIndex = 0;
             lblKey.Text = "lblKey";
             lblKey.TextAlign = ContentAlignment.MiddleCenter;
@@ -48,11 +47,11 @@
             // lblValue
             // 
             lblValue.Anchor = AnchorStyles.Top;
-            lblValue.Font = new Font("Segoe UI", 14F);
+            lblValue.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point, 238);
             lblValue.ForeColor = Color.Black;
-            lblValue.Location = new Point(30, 60);
+            lblValue.Location = new Point(30, 57);
             lblValue.Name = "lblValue";
-            lblValue.Size = new Size(140, 40);
+            lblValue.Size = new Size(140, 60);
             lblValue.TabIndex = 1;
             lblValue.Text = "lblValue";
             lblValue.TextAlign = ContentAlignment.MiddleCenter;
@@ -72,9 +71,9 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Transparent;
+            Controls.Add(lblKey);
             Controls.Add(panel);
             Controls.Add(lblValue);
-            Controls.Add(lblKey);
             DoubleBuffered = true;
             Margin = new Padding(0);
             MinimumSize = new Size(200, 120);

@@ -54,6 +54,9 @@
             labelSapcing = new Label();
             labelOpacity = new Label();
             labelRows = new Label();
+            label10 = new Label();
+            trBrFontSize = new TrackBar();
+            labelFontSize = new Label();
             colDial = new ColorDialog();
             btnApply = new Button();
             tableLayoutPanel1.SuspendLayout();
@@ -61,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)trBrColumns).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trBrRows).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trBrOpacity).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trBrFontSize).BeginInit();
             SuspendLayout();
             // 
             // btnSave
@@ -124,6 +128,9 @@
             tableLayoutPanel1.Controls.Add(labelSapcing, 2, 8);
             tableLayoutPanel1.Controls.Add(labelOpacity, 2, 7);
             tableLayoutPanel1.Controls.Add(labelRows, 2, 1);
+            tableLayoutPanel1.Controls.Add(label10, 0, 9);
+            tableLayoutPanel1.Controls.Add(trBrFontSize, 1, 9);
+            tableLayoutPanel1.Controls.Add(labelFontSize, 2, 9);
             tableLayoutPanel1.Location = new Point(12, 12);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 12;
@@ -379,6 +386,41 @@
             labelRows.Text = "000";
             labelRows.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 14F);
+            label10.Location = new Point(3, 495);
+            label10.Name = "label10";
+            label10.Size = new Size(127, 38);
+            label10.TabIndex = 6;
+            label10.Text = "Font size";
+            label10.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // trBrFontSize
+            // 
+            trBrFontSize.Anchor = AnchorStyles.None;
+            trBrFontSize.Location = new Point(255, 498);
+            trBrFontSize.Maximum = 20;
+            trBrFontSize.Minimum = 10;
+            trBrFontSize.Name = "trBrFontSize";
+            trBrFontSize.Size = new Size(408, 49);
+            trBrFontSize.TabIndex = 7;
+            trBrFontSize.Value = 10;
+            trBrFontSize.ValueChanged += trBrFontSize_ValueChanged;
+            // 
+            // labelFontSize
+            // 
+            labelFontSize.Anchor = AnchorStyles.Top;
+            labelFontSize.AutoSize = true;
+            labelFontSize.Font = new Font("Segoe UI", 14F);
+            labelFontSize.Location = new Point(684, 495);
+            labelFontSize.Name = "labelFontSize";
+            labelFontSize.Size = new Size(84, 38);
+            labelFontSize.TabIndex = 6;
+            labelFontSize.Text = "20 px";
+            labelFontSize.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // btnApply
             // 
             btnApply.Location = new Point(440, 685);
@@ -408,6 +450,7 @@
             ((System.ComponentModel.ISupportInitialize)trBrColumns).EndInit();
             ((System.ComponentModel.ISupportInitialize)trBrRows).EndInit();
             ((System.ComponentModel.ISupportInitialize)trBrOpacity).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trBrFontSize).EndInit();
             ResumeLayout(false);
         }
 
@@ -440,5 +483,8 @@
         private Label labelColumns;
         private Label labelOpacity;
         private Label labelRows;
+        private Label label10;
+        private TrackBar trBrFontSize;
+        private Label labelFontSize;
     }
 }
