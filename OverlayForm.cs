@@ -133,6 +133,32 @@ namespace ClickyKeys
             }
         }
 
+        public void UpdateFont(int fontSize)
+        {
+            for (int i = 0; i < grid_columns * grid_rows; i++)
+            {
+                _panelsById[i].FontSize = fontSize;
+                _panelsById[i].ChangeStyle(fontSize);
+            }
+        }
+
+        public void UpdateValuesColor(string valuesColor)
+        {
+            for (int i = 0; i < grid_columns * grid_rows; i++)
+            {
+                _panelsById[i].ValueTextColor = ColorTranslator.FromHtml(valuesColor);
+                _panelsById[i].ChangeValueColor();
+            }
+        }
+        public void UpdateKeysColor(string keysColor)
+        {
+            for (int i = 0; i < grid_columns * grid_rows; i++)
+            {
+                _panelsById[i].KeyTextColor = ColorTranslator.FromHtml(keysColor);
+                _panelsById[i].ChangeKeysColor();
+            }
+        }
+
 
         private void UpdateValues()
         {

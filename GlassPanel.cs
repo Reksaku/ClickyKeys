@@ -110,6 +110,9 @@ namespace ClickyKeys
         [Category("Setup"), Description("Panel ID")]
         public int ID { get; set; } = 0;
 
+        [Category("Setup"), Description("Fozt size")]
+        public int FontSize { get; set; } = 14;
+
         // ---------- API callable from form  ----------
         [Browsable(false)]
         public bool IsAnimating => _anim.Enabled;
@@ -219,6 +222,21 @@ namespace ClickyKeys
         public void GlassPanelKeyDown(KeyEventArgs e)
         {
             settingsPanel.PanelKeyDown(e);
+        }
+
+        public void ChangeStyle(float fontSize)
+        {
+            lblKey.Font = new Font(lblKey.Font.FontFamily, fontSize);
+            lblValue.Font = new Font(lblValue.Font.FontFamily, fontSize);
+        }
+        
+        public void ChangeValueColor()
+        {
+            lblValue.ForeColor = ValueTextColor;
+        }
+        public void ChangeKeysColor()
+        {
+            lblKey.ForeColor = KeyTextColor;
         }
     }
 }
