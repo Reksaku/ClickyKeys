@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -25,25 +26,25 @@ namespace ClickyKeys
 
             if (!File.Exists(_filePath))
             {
-                Save(new Settings());
+                Save(new SettingsConfiguration());
             }
         }
 
-        public Settings Load() // Load data from settings.json
+        public SettingsConfiguration Load() // Load data from settings.json
         {
             lock (_lock)
             {
                 try
                 {
                     var json = File.ReadAllText(_filePath);
-                    return JsonSerializer.Deserialize<Settings>(json,
+                    return JsonSerializer.Deserialize<SettingsConfiguration>(json,
                         new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
-                           ?? new Settings();
+                           ?? new SettingsConfiguration();
                 }
                 catch
                 {
                     // Return to defaults
-                    var defaults = new Settings();
+                    var defaults = new SettingsConfiguration();
                     Save(defaults);
                     return defaults;
                 }
@@ -51,7 +52,7 @@ namespace ClickyKeys
         }
 
 
-        public void Save(Settings settings) // Override settings.json with new data
+        public void Save(SettingsConfiguration settings) // Override settings.json with new data
         {
             lock (_lock)
             {
@@ -65,10 +66,13 @@ namespace ClickyKeys
 
 
 
-    public class Settings // Default configuration
+    public class SettingsConfiguration // Default configuration
     {
         [JsonPropertyName("localization")]
         public string Localization { get; set; } = "English";
+
+        [JsonPropertyName("version")]
+        public string Version { get; set; } = "2.0.0";
 
         // Grid
 
@@ -78,8 +82,8 @@ namespace ClickyKeys
         [JsonPropertyName("grid_columns")]
         public int GridColumns { get; set; } = 4;
 
-        [JsonPropertyName("panels_spacing")]
-        public int PanelsSpacing { get; set; } = 0;
+        //[JsonPropertyName("panels_spacing")]
+        //public int PanelsSpacing { get; set; } = 0;
 
         //[JsonPropertyName("line_height")]
         //public int LineHeight { get; set; } = 0;
@@ -87,24 +91,24 @@ namespace ClickyKeys
         // Colors
 
         [JsonPropertyName("background_color")]
-        public string BackgroundColor { get; set; } = "#c0c0c0";
+        public string BackgroundColor { get; set; } = "#FFFFF7E5";
 
         [JsonPropertyName("panels_color")]
-        public string PanelsColor { get; set; } = "#ffffff";
+        public string PanelsColor { get; set; } = "#FFFCF7E7";
 
-        [JsonPropertyName("key_text_color")]
-        public string KeyTextColor { get; set; } = "#000000";
+        [JsonPropertyName("keys_text_color")]
+        public string KeysTextColor { get; set; } = "#FF5882D4";
 
-        [JsonPropertyName("value_text_color")]
-        public string ValueTextColor { get; set; } = "#ff0080";
+        [JsonPropertyName("values_text_color")]
+        public string ValuesTextColor { get; set; } = "#FFFF0101";
 
         //[JsonPropertyName("line_color")]
         //public string LineColor { get; set; } = "#000000";
 
         // Opacity
 
-        [JsonPropertyName("panels_opacity")]
-        public int PanelsOpacity { get; set; } = 25;
+        //[JsonPropertyName("panels_opacity")]
+        //public int PanelsOpacity { get; set; } = 25;
 
         //[JsonPropertyName("text_opacity")]
         //public double TextOpacity { get; set; } = 1.0;
@@ -114,25 +118,8 @@ namespace ClickyKeys
 
         // Font
 
-        [JsonPropertyName("font_size")]
-        public int FontSize { get; set; } = 10;
+        //[JsonPropertyName("font_size")]
+        //public double FontSize { get; set; } = 1.0;
 
-
-
-
-
-
-        [JsonIgnore]
-        public string BackgroundRgb => string.Join(", ", HexToRgb(BackgroundColor));
-
-        public static int[] HexToRgb(string hex)
-        {
-            var h = (hex ?? "#000000").TrimStart('#');
-            if (h.Length == 3) h = string.Concat(h.Select(c => $"{c}{c}"));
-            var r = Convert.ToInt32(h[..2], 16);
-            var g = Convert.ToInt32(h.Substring(2, 2), 16);
-            var b = Convert.ToInt32(h.Substring(4, 2), 16);
-            return new[] { r, g, b };
-        }
     }
 }
