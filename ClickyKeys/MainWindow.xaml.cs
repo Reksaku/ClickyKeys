@@ -58,7 +58,7 @@ namespace ClickyKeys
         private int rows;
         private int cols;
 
-        public MainWindow(bool transparent = false)
+        public MainWindow(bool transparent = false, InputCounter? counter = null)
         {
             _transparent = transparent;
 
@@ -68,18 +68,23 @@ namespace ClickyKeys
             InitializeComponent();
 
             // configuration for transparent mode
-            if (_transparent == true)
+            if (counter != null && transparent == true)
             {
+                _counter = counter;
                 WindowStyle = WindowStyle.None;
                 AllowsTransparency = true;
                 Background = Brushes.Transparent;
                 this.Title = "ClickyKeys: Transparent Mode";
                 ToolStrip.Visibility = Visibility.Collapsed;
             }
+            else
+            {
+                _counter = new InputCounter(this);
 
-
-            
-            _counter = new InputCounter(this);
+                // input counter start
+                _counter.Start();
+            }
+                
 
             LoadPanelConfiguration();
 
@@ -90,8 +95,6 @@ namespace ClickyKeys
             // timer start
             _uiTimer.Start();
 
-            // input counter start
-            _counter.Start();
 
             // color subscriber start 
             WrmSubscriberStart();            
@@ -200,15 +203,16 @@ namespace ClickyKeys
 
         private void InitTransparentMode()
         {
-            _transparentWindow = new MainWindow(true);
+            _transparentWindow = new MainWindow(true, _counter);
             _transparentWindow.Show();
 
         }
 
         private void Window_Closed(object? sender, EventArgs e)
         {
+            if (_transparent == false)
+                _counter.Dispose();
             _uiTimer.Stop();
-            _counter.Dispose();
             _transparentWindow?.Close();
             _transparentWindow = null;
         }
@@ -227,16 +231,17 @@ namespace ClickyKeys
 
         public void ToggleToolStrip()
         {
-            if (ToolStrip.Visibility == Visibility.Visible)
-            {
-                ToolStrip.Visibility = Visibility.Collapsed;
-                this.Topmost = !this.Topmost;
-            }
-            else
-            {
-                ToolStrip.Visibility = Visibility.Visible;
-                this.Topmost = !this.Topmost;
-            }
+            if (_transparent == false)
+                if (ToolStrip.Visibility == Visibility.Visible)
+                {
+                    ToolStrip.Visibility = Visibility.Collapsed;
+                    this.Topmost = !this.Topmost;
+                }
+                else
+                {
+                    ToolStrip.Visibility = Visibility.Visible;
+                    this.Topmost = !this.Topmost;
+                }
         }
 
         public void TransparentMode() 
@@ -365,7 +370,8 @@ namespace ClickyKeys
             //_counter.Dispose();
             for (int i = 0; i < rows*cols; i++)
             {
-                if (_panel_settings.Panels[i].Input == state.Input)
+                if (_panel_settings.Panels[i].Input == state.Input
+                    && _panel_settings.Panels[i].KeyCode == state.KeyCode)
                 {
                     _panel_settings.Panels[i].KeyCode = Key.None;
                     _panel_settings.Panels[i].Input = InputType.None;
