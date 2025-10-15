@@ -5,7 +5,7 @@ The program counts how many times you press chosen keys or mouse buttons and dis
 
 <div align="center">
   <picture>
-      <img src="./Resources/Images/Animation.gif" width="50%">
+      <img src="./Resources/Images/Animation.gif" width="25%">
   </picture>
 </div>
 
@@ -20,8 +20,8 @@ The program counts how many times you press chosen keys or mouse buttons and dis
   - Change text and background colors.  
 <div align="center">
   <picture>
-      <img src="./Resources/Images/Example_panel_5x3.png" width="45%">
-      <img src="./Resources/Images/Example_panel_3x2.png" width="28%">
+      <img src="./Resources/Images/Example_panel_3x3.png" width="40%">
+      <img src="./Resources/Images/Example_panel_3x1.png" width="40%">
   </picture>
 </div>
 
@@ -45,5 +45,4 @@ Because pressing buttons is fun, and sometimes you just want to know how much.
 A small side project made for simple geeky satisfaction.  
 
 ## 🔧 Planned / Ideas  
-- More styling options (fonts, themes).  
-- Multi language support. 
+- More styling options (fonts, themes).
