@@ -29,9 +29,9 @@ namespace ClickyKeys
         private double _target = BASE_SCALE;
         private bool _rampingUp = false;
 
-        private PanelsSettings newConfiguration = new PanelsSettings();
+        private readonly PanelsSettings newConfiguration = new();
 
-        private readonly DispatcherTimer _anim = new DispatcherTimer
+        private readonly DispatcherTimer _anim = new()
         {
             Interval = TimeSpan.FromMilliseconds(1000.0 / 60.0)
         };
@@ -72,6 +72,7 @@ namespace ClickyKeys
 
                 RaiseAnimBindings();
             };
+
 
         }
 
@@ -123,7 +124,7 @@ namespace ClickyKeys
             set => SetValue(InsetProperty, value);
         }
 
-        public Thickness InsetThickness => new Thickness(Math.Max(0, Inset));
+        public Thickness InsetThickness => new(Math.Max(0, Inset));
 
         public static readonly DependencyProperty PanelColorProperty =
             DependencyProperty.Register(nameof(PanelColor), typeof(Color), typeof(GlassPanelWpf),
@@ -232,6 +233,25 @@ namespace ClickyKeys
             set => SetValue(TypeProperty, value);
         }
 
+        public static readonly DependencyProperty KeyFontProperty =
+            DependencyProperty.Register(nameof(KeyFont), typeof(FontSettings), typeof(GlassPanelWpf),
+            new PropertyMetadata());
+
+        public FontSettings KeyFont
+        {
+            get => (FontSettings)GetValue(KeyFontProperty);
+            set => SetValue(KeyFontProperty, value);
+        }
+
+        public static readonly DependencyProperty ValueFontProperty =
+            DependencyProperty.Register(nameof(ValueFont), typeof(FontSettings), typeof(GlassPanelWpf),
+                new PropertyMetadata());
+            
+        public FontSettings ValueFont
+        {
+            get => (FontSettings)GetValue(ValueFontProperty);
+            set => SetValue(ValueFontProperty, value);
+        }
 
 
         public static readonly DependencyProperty KeyProperty =
@@ -281,7 +301,7 @@ namespace ClickyKeys
 
         private void OnInputKey(object sender, RoutedEventArgs e)
         {
-            if (!(InputManager.Current.MostRecentInputDevice is MouseDevice))
+            if (InputManager.Current.MostRecentInputDevice is not MouseDevice)
             {
                 e.Handled = true;
                 return;

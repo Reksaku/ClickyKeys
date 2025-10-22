@@ -7,13 +7,15 @@
     xmlns:local="clr-namespace:ClickyKeys"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:controls="clr-namespace:ClickyKeys.Controls"
     mc:Ignorable="d"
     Closing="Window_Closed"
     Title="Settings" 
-    Height="580" MinHeight="240" MaxHeight="750"
+    Height="770" MinHeight="240" MaxHeight="940"
     Width="440" MinWidth="440" MaxWidth="440"
     Icon="/Resources/Icon.ico">
-    
+
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -26,259 +28,340 @@
         <Label Content="Settings" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="28" Grid.Row="0"/>
 
         <ScrollViewer Grid.Row="1">
-        <Grid >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
-            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <Label Content="Grid rows" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Futura Bk BT" FontSize="18" x:Name="RowsLabel"/>
-            <materialDesign:DecimalUpDown HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Width="100" Grid.Row="0" Grid.Column="1" Minimum="1" Maximum="10" FontSize="16" x:Name="RowsCount"/>
-            <Button Content="Set" HorizontalAlignment="Left" Margin="140,0,0,0"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Click="Click_GridRows"/>
+                <StackPanel x:Name="GridSizeScetion" Grid.Row="0">
 
-            
-            <Label Content="Grid columns" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" FontFamily="Futura Bk BT" FontSize="18" x:Name="ColumnsLabel"/>
-            <materialDesign:DecimalUpDown HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Width="100" Grid.Row="2" Grid.Column="1" Minimum="1" Maximum="10" FontSize="16" x:Name="ColumnsCount"/>
-            <Button Content="Set" HorizontalAlignment="Left" Margin="140,0,0,0"  VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Click="Click_GridColumns"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
 
-            
-            <Label Content="Background color" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
-            <CheckBox x:Name="BackgroundPalletCheckBox" Content="Expand pallet" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="4" Grid.Column="1"/>
-            <materialDesign:ColorPicker x:Name="BackgroundColorPicker"
-                HorizontalAlignment="Center" VerticalAlignment="Center"
-                Width="200" Grid.Row="5" Grid.Column="1">
-                <materialDesign:ColorPicker.Style>
-                    <Style TargetType="materialDesign:ColorPicker">
-                       
-                        <Setter Property="Height" Value="36" />
+                        <Label Content="Grid rows" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Futura Bk BT" FontSize="18" x:Name="RowsLabel"/>
+                        <materialDesign:DecimalUpDown HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Width="100" Grid.Row="0" Grid.Column="1" Minimum="1" Maximum="10" FontSize="16" x:Name="RowsCount"/>
+                        <Button Content="Set" HorizontalAlignment="Left" Margin="140,0,0,0"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Click="Click_GridRows"/>
+                    </Grid>
 
-                        <Style.Triggers>
-                            <DataTrigger Value="True">
-                                <DataTrigger.Binding>
-                                    <Binding Path="IsChecked"
-                        Source="{x:Reference BackgroundPalletCheckBox}" />
-                                </DataTrigger.Binding>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Grid columns" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Futura Bk BT" FontSize="18" x:Name="ColumnsLabel"/>
+                        <materialDesign:DecimalUpDown HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Width="100" Grid.Row="0" Grid.Column="1" Minimum="1" Maximum="10" FontSize="16" x:Name="ColumnsCount"/>
+                        <Button Content="Set" HorizontalAlignment="Left" Margin="140,0,0,0"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Click="Click_GridColumns"/>
+                    </Grid>
+                </StackPanel>
 
-                                
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                        <Storyboard>
-                                            <DoubleAnimation
-                                    Storyboard.TargetProperty="Height"
-                                    To="80"
-                                    Duration="0:0:0.20">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
+                <StackPanel x:Name="ColorsSection" Grid.Row="1">
 
-                                
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                        <Storyboard>
-                                            <DoubleAnimation
-                                    Storyboard.TargetProperty="Height"
-                                    To="36"
-                                    Duration="0:0:0.20">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseIn"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.ExitActions>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </materialDesign:ColorPicker.Style>
-            </materialDesign:ColorPicker>
+                    <Label Content="Colors" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="16" Grid.Row="0"/>
 
-            
-            <Label Content="Panels color" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="7" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
-            <CheckBox x:Name="PanelsPalletCheckBox" Content="Expand pallet" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="7" Grid.Column="1"/>
-            <materialDesign:ColorPicker x:Name="PanelsColorPicker"
-                HorizontalAlignment="Center" VerticalAlignment="Center"
-                Width="200" Grid.Row="8" Grid.Column="1">
-                <materialDesign:ColorPicker.Style>
-                    <Style TargetType="materialDesign:ColorPicker">
-                        
-                        <Setter Property="Height" Value="36" />
+                    <Grid x:Name="BackgroundGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
 
-                        <Style.Triggers>
-                            <DataTrigger Value="True">
-                                <DataTrigger.Binding>
-                                    <Binding Path="IsChecked"
-                        Source="{x:Reference PanelsPalletCheckBox}" />
-                                </DataTrigger.Binding>
+                        <Label Content="Background color" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
+                        <CheckBox x:Name="BackgroundPalletCheckBox" Content="Expand pallet" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="0" Grid.Column="1"/>
+                        <materialDesign:ColorPicker x:Name="BackgroundColorPicker"
+     HorizontalAlignment="Center" VerticalAlignment="Center"
+     Width="200" Grid.Row="1" Grid.Column="1">
+                            <materialDesign:ColorPicker.Style>
+                                <Style TargetType="materialDesign:ColorPicker">
 
-                                
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                        <Storyboard>
-                                            <DoubleAnimation
-                                    Storyboard.TargetProperty="Height"
-                                    To="80"
-                                    Duration="0:0:0.20">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
+                                    <Setter Property="Height" Value="36" />
 
-                                
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                        <Storyboard>
-                                            <DoubleAnimation
-                                    Storyboard.TargetProperty="Height"
-                                    To="36"
-                                    Duration="0:0:0.20">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseIn"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.ExitActions>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </materialDesign:ColorPicker.Style>
-            </materialDesign:ColorPicker>
-            
-            
-            <Label Content="Keys text color" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="10" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
-            <CheckBox x:Name="KeyssPalletCheckBox" Content="Expand pallet" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="10" Grid.Column="1"/>
-            <materialDesign:ColorPicker x:Name="KeysColorPicker"
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <Binding Path="IsChecked"
+             Source="{x:Reference BackgroundPalletCheckBox}" />
+                                            </DataTrigger.Binding>
+
+
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                         Storyboard.TargetProperty="Height"
+                         To="80"
+                         Duration="0:0:0.20">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuadraticEase EasingMode="EaseOut"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+
+
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                         Storyboard.TargetProperty="Height"
+                         To="36"
+                         Duration="0:0:0.20">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuadraticEase EasingMode="EaseIn"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:ColorPicker.Style>
+                        </materialDesign:ColorPicker>
+                    </Grid>
+
+                    <Grid x:Name="PanelsdGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Panels color" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
+                        <CheckBox x:Name="PanelsPalletCheckBox" Content="Expand pallet" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="0" Grid.Column="1"/>
+                        <materialDesign:ColorPicker x:Name="PanelsColorPicker"
     HorizontalAlignment="Center" VerticalAlignment="Center"
-    Width="200" Grid.Row="11" Grid.Column="1">
-                <materialDesign:ColorPicker.Style>
-                    <Style TargetType="materialDesign:ColorPicker">
-                        
-                        <Setter Property="Height" Value="36" />
+    Width="200" Grid.Row="1" Grid.Column="1">
+                            <materialDesign:ColorPicker.Style>
+                                <Style TargetType="materialDesign:ColorPicker">
 
-                        <Style.Triggers>
-                            <DataTrigger Value="True">
-                                <DataTrigger.Binding>
-                                    <Binding Path="IsChecked"
+                                    <Setter Property="Height" Value="36" />
+
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <Binding Path="IsChecked"
+            Source="{x:Reference PanelsPalletCheckBox}" />
+                                            </DataTrigger.Binding>
+
+
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                        Storyboard.TargetProperty="Height"
+                        To="80"
+                        Duration="0:0:0.20">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuadraticEase EasingMode="EaseOut"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+
+
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                        Storyboard.TargetProperty="Height"
+                        To="36"
+                        Duration="0:0:0.20">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuadraticEase EasingMode="EaseIn"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:ColorPicker.Style>
+                        </materialDesign:ColorPicker>
+                    </Grid>
+
+                    <Grid x:Name="KeysdGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Keys text color" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
+                        <CheckBox x:Name="KeyssPalletCheckBox" Content="Expand pallet" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="0" Grid.Column="1"/>
+                        <materialDesign:ColorPicker x:Name="KeysColorPicker"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    Width="200" Grid.Row="1" Grid.Column="1">
+                            <materialDesign:ColorPicker.Style>
+                                <Style TargetType="materialDesign:ColorPicker">
+
+                                    <Setter Property="Height" Value="36" />
+
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <Binding Path="IsChecked"
                                     Source="{x:Reference KeyssPalletCheckBox}" />
-                                </DataTrigger.Binding>
+                                            </DataTrigger.Binding>
 
-                                
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                        <Storyboard>
-                                            <DoubleAnimation
+
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
+                                                    <Storyboard>
+                                                        <DoubleAnimation
                                             Storyboard.TargetProperty="Height"
                                             To="80"
                                             Duration="0:0:0.20">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuadraticEase EasingMode="EaseOut"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
 
-                                
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                        <Storyboard>
-                                            <DoubleAnimation
+
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
+                                                    <Storyboard>
+                                                        <DoubleAnimation
                                             Storyboard.TargetProperty="Height"
                                             To="36"
                                             Duration="0:0:0.20">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseIn"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.ExitActions>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </materialDesign:ColorPicker.Style>
-            </materialDesign:ColorPicker>
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuadraticEase EasingMode="EaseIn"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:ColorPicker.Style>
+                        </materialDesign:ColorPicker>
+                    </Grid>
 
-
-            <Label Content="Values text color" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="13" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
-            <CheckBox x:Name="ValuessPalletCheckBox" Content="Expand pallet" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="13" Grid.Column="1"/>
-            <materialDesign:ColorPicker x:Name="ValuesColorPicker"
+                    <Grid x:Name="ValuesdGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Values text color" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
+                        <CheckBox x:Name="ValuessPalletCheckBox" Content="Expand pallet" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="0" Grid.Column="1"/>
+                        <materialDesign:ColorPicker x:Name="ValuesColorPicker"
 HorizontalAlignment="Center" VerticalAlignment="Center"
-Width="200" Grid.Row="14" Grid.Column="1">
-                <materialDesign:ColorPicker.Style>
-                    <Style TargetType="materialDesign:ColorPicker">
-                        
-                        <Setter Property="Height" Value="36" />
+Width="200" Grid.Row="1" Grid.Column="1">
+                            <materialDesign:ColorPicker.Style>
+                                <Style TargetType="materialDesign:ColorPicker">
 
-                        <Style.Triggers>
-                            <DataTrigger Value="True">
-                                <DataTrigger.Binding>
-                                    <Binding Path="IsChecked"
+                                    <Setter Property="Height" Value="36" />
+
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <Binding Path="IsChecked"
                                 Source="{x:Reference ValuessPalletCheckBox}" />
-                                </DataTrigger.Binding>
+                                            </DataTrigger.Binding>
 
-                                
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                        <Storyboard>
-                                            <DoubleAnimation
+
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
+                                                    <Storyboard>
+                                                        <DoubleAnimation
                                         Storyboard.TargetProperty="Height"
                                         To="80"
                                         Duration="0:0:0.20">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuadraticEase EasingMode="EaseOut"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
 
-                                
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                        <Storyboard>
-                                            <DoubleAnimation
+
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
+                                                    <Storyboard>
+                                                        <DoubleAnimation
                                         Storyboard.TargetProperty="Height"
                                         To="36"
                                         Duration="0:0:0.20">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase EasingMode="EaseIn"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.ExitActions>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </materialDesign:ColorPicker.Style>
-            </materialDesign:ColorPicker>
-        </Grid>
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuadraticEase EasingMode="EaseIn"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:ColorPicker.Style>
+                        </materialDesign:ColorPicker>
+                    </Grid>
+
+                </StackPanel>
+
+                <StackPanel x:Name="FontsSection" Grid.Row="2">
+
+                    <Grid x:Name="KeysFontGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Keys font" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="16" Grid.Row="0"/>
+                        <controls:FontPicker Grid.Row="1" SettingsParameter="{Binding KeysFontSettings}" />
+                    </Grid>
+
+                    <Grid x:Name="ValuesFontGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Values font" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="16" Grid.Row="0"/>
+                        <controls:FontPicker Grid.Row="1" SettingsParameter="{Binding ValuesFontSettings}" />
+                    </Grid>
+
+                </StackPanel>
+
+
+            </Grid>
         </ScrollViewer>
 
         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="2">

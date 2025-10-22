@@ -4,9 +4,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:ClickyKeys"
              x:Name="root"
              Height="100" Width="200">
-
 
     <Grid x:Name="LayoutRoot"
           RenderTransformOrigin="0.5,0.5"
@@ -46,22 +46,31 @@
 
                 <TextBlock Grid.Row="0"
                 Text="{Binding Description}"
-                FontSize="20"
-                FontWeight="SemiBold"
                 Foreground="{Binding KeyTextBrush}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 TextAlignment="Center" 
-                Visibility="{Binding IsEditorOpen, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}"/>
+                Margin="0,0,0,-5"
+                Visibility="{Binding IsEditorOpen, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}"
+                       FontFamily="{Binding KeyFont.FontFamily, RelativeSource={RelativeSource AncestorType=local:GlassPanelWpf}}"
+                       FontSize="{Binding KeyFont.FontSize, RelativeSource={RelativeSource AncestorType=local:GlassPanelWpf}}"
+                       FontWeight="{Binding KeyFont.IsBold, Converter={StaticResource BoolToFontWeightConverter}}"
+                       FontStyle="{Binding KeyFont.IsItalic, Converter={StaticResource BoolToFontStyleConverter}}"
+                       TextDecorations="{Binding KeyFont.IsUnderline, Converter={StaticResource BoolToUnderlineConverter}}"/>
 
                 <TextBlock Grid.Row="1"
                 Text="{Binding Value}"
-                FontSize="20"
                 Foreground="{Binding ValueTextBrush}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                TextAlignment="Center" 
-                Visibility="{Binding IsEditorOpen, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}"/>
+                TextAlignment="Center"
+                Margin="0,0,0,0"
+                Visibility="{Binding IsEditorOpen, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}"
+                    FontFamily="{Binding ValueFont.FontFamily, RelativeSource={RelativeSource AncestorType=local:GlassPanelWpf}}"
+                    FontSize="{Binding ValueFont.FontSize, RelativeSource={RelativeSource AncestorType=local:GlassPanelWpf}}"
+                    FontWeight="{Binding ValueFont.IsBold, Converter={StaticResource BoolToFontWeightConverter}}"
+                    FontStyle="{Binding ValueFont.IsItalic, Converter={StaticResource BoolToFontStyleConverter}}"
+                    TextDecorations="{Binding ValueFont.IsUnderline, Converter={StaticResource BoolToUnderlineConverter}}"/>
             </Grid>
         </Grid>
 

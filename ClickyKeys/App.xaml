@@ -9,6 +9,12 @@
 
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <conv:DivideByConverter x:Key="DivideBy4" Divider="4"/>
+            <conv:FontFamilyJsonConverter x:Key="FontFamilyJsonConverter"/>
+
+            <conv:BoolToFontWeightConverter x:Key="BoolToFontWeightConverter" />
+            <conv:BoolToFontStyleConverter x:Key="BoolToFontStyleConverter" />
+            <conv:BoolToUnderlineConverter x:Key="BoolToUnderlineConverter" />
+
 
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />

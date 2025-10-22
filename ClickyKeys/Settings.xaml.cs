@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Metrics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime;
 using System.Text;
@@ -28,9 +29,11 @@ namespace ClickyKeys
     {
         private DependencyPropertyDescriptor _colorDp;
 
-        private SettingsConfiguration _settings;
+        private readonly SettingsConfiguration _settings;
 
         private readonly IOverlay _mainOverlay;
+        public FontSettings KeysFontSettings { get; set; } = new FontSettings();
+        public FontSettings ValuesFontSettings { get; set; } = new FontSettings();
 
         private Color backgroundColor;
         private Color panelsColor;
@@ -45,13 +48,16 @@ namespace ClickyKeys
 
             InitializeComponent();
 
+
+
+            DataContext = this;
+
             _colorDp = DependencyPropertyDescriptor.FromProperty(
             MD.ColorPicker.ColorProperty, typeof(MD.ColorPicker));
 
-            // 1) Background -> wysyłka do MainWindow tła
+
             _colorDp.AddValueChanged(BackgroundColorPicker, OnBackgroundColorChanged);
 
-            // 2) Panels -> wywołanie funkcji w MainWindow (pośrednio przez messenger)
             _colorDp.AddValueChanged(PanelsColorPicker, OnPanelsColorChanged);
 
             _colorDp.AddValueChanged(KeysColorPicker, OnKeysColorChanged);
@@ -60,6 +66,12 @@ namespace ClickyKeys
 
             this.Closed += OnClosedDetachHandlers;
 
+            SetOnStart();
+
+        }
+
+        private void SetOnStart()
+        {
             RowsCount.Value = _settings.GridRows;
             ColumnsCount.Value = _settings.GridColumns;
 
@@ -68,12 +80,15 @@ namespace ClickyKeys
             KeysColorPicker.Color = (Color)ColorConverter.ConvertFromString(_settings.KeysTextColor);
             ValuesColorPicker.Color = (Color)ColorConverter.ConvertFromString(_settings.ValuesTextColor);
 
+            KeysFontSettings = _settings.KeysFontSettings;
+            ValuesFontSettings = _settings.ValuesFontSettings;
+
         }
 
         private void OnBackgroundColorChanged(object sender, EventArgs e)
         {
             var picker = (MD.ColorPicker)sender;
-            backgroundColor = picker.Color;                  // Color? jeśli właściwość jest nullable
+            backgroundColor = picker.Color;                  
             WeakReferenceMessenger.Default.Send(
                 new ColorChangedMessage(backgroundColor, ColorTarget.Background));
         }
@@ -104,7 +119,6 @@ namespace ClickyKeys
 
         private void OnClosedDetachHandlers(object? sender, EventArgs e)
         {
-            // WAŻNE: odpinamy, żeby uniknąć wycieków pamięci
             if (_colorDp is null) return;
             _colorDp.RemoveValueChanged(BackgroundColorPicker, OnBackgroundColorChanged);
             _colorDp.RemoveValueChanged(PanelsColorPicker, OnPanelsColorChanged);
@@ -142,6 +156,8 @@ namespace ClickyKeys
             _settingsConfiguration.PanelsColor = converter.ConvertToString(panelsColor);
             _settingsConfiguration.KeysTextColor = converter.ConvertToString(keysColor);
             _settingsConfiguration.ValuesTextColor = converter.ConvertToString(valuesColor);
+            _settingsConfiguration.KeysFontSettings = KeysFontSettings;
+            _settingsConfiguration.ValuesFontSettings = ValuesFontSettings;
 
             _settingsService.Save(_settingsConfiguration);
             _mainOverlay.OnSettingsClose();
@@ -154,9 +170,28 @@ namespace ClickyKeys
             this.Close();
         }
 
+        private void Click_KeysSize(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void Click_ValuesSize(object? sender, EventArgs e)
+        {
+
+        }
+
+
         private void Window_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
         {
 
         }
     }
+
+    //public class FontPickerViewModel
+    //{
+    //    public FontSettings _fontSettings { get; } = new FontSettings();
+
+    //    public System.Collections.Generic.List<FontFamily> FontFamilies { get; } =
+    //        Fonts.SystemFontFamilies.OrderBy(f => f.Source).ToList();
+    //}
 }
