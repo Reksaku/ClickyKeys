@@ -105,6 +105,7 @@ namespace ClickyKeys
                 
 
         }
+
         private void OnPanelsColorChanged(Color c)
         {
             // on panels color change in settings -> change panels color
@@ -342,6 +343,8 @@ namespace ClickyKeys
                     Color panelColor = (Color)ColorConverter.ConvertFromString(settings.PanelsColor);
                     Color keysColor = (Color)ColorConverter.ConvertFromString(settings.KeysTextColor);
                     Color valuesColor = (Color)ColorConverter.ConvertFromString(settings.ValuesTextColor);
+                    FontSettings keysFont = settings.KeysFontSettings;
+                    FontSettings valuesFont = settings.ValuesFontSettings;
 
                     var panel = new GlassPanelWpf(this)
                     {
@@ -352,7 +355,9 @@ namespace ClickyKeys
                         Key = n,
                         PanelColor = panelColor,
                         KeyTextColor = keysColor,
-                        ValueTextColor = valuesColor
+                        ValueTextColor = valuesColor,
+                        KeyFont = keysFont,
+                        ValueFont = valuesFont,
                     };                        
 
                     _panelsById[id] = panel;

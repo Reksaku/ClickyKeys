@@ -5,7 +5,7 @@ The program counts how many times you press chosen keys or mouse buttons and dis
 
 <div align="center">
   <picture>
-      <img src="./Resources/Images/Animation.gif" width="25%">
+      <img src="./Resources/Images/Animation.gif" width="50%">
   </picture>
 </div>
 

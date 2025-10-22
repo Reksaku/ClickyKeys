@@ -118,8 +118,11 @@ namespace ClickyKeys
 
         // Font
 
-        //[JsonPropertyName("font_size")]
-        //public double FontSize { get; set; } = 1.0;
+        [JsonPropertyName("keys_font")]
+        public FontSettings KeysFontSettings { get; set; } = new();
+
+        [JsonPropertyName("values_font")]
+        public FontSettings ValuesFontSettings { get; set; } = new();
 
     }
 }
