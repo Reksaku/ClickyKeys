@@ -83,6 +83,7 @@ namespace ClickyKeys
             KeysFontSettings = _settings.KeysFontSettings;
             ValuesFontSettings = _settings.ValuesFontSettings;
 
+            BackgroundRainbowCheckBox.IsChecked = _settings.IsBackgroundRainbow;
         }
 
         private void OnBackgroundColorChanged(object sender, EventArgs e)
@@ -131,6 +132,11 @@ namespace ClickyKeys
         {
             _mainOverlay.OnSettingsClose();
         }
+
+        private void Click_BackgroundRainbowCheckBox(object? sender, EventArgs e)
+        {
+            _mainOverlay.SetBackgroundRainbow(BackgroundRainbowCheckBox.IsChecked);
+        }
         private void Click_GridRows(object? sender, EventArgs e)
         {
             _settings.GridRows = (int)RowsCount.Value;
@@ -158,6 +164,7 @@ namespace ClickyKeys
             _settingsConfiguration.ValuesTextColor = converter.ConvertToString(valuesColor);
             _settingsConfiguration.KeysFontSettings = KeysFontSettings;
             _settingsConfiguration.ValuesFontSettings = ValuesFontSettings;
+            _settingsConfiguration.IsBackgroundRainbow = BackgroundRainbowCheckBox.IsChecked ?? false;
 
             _settingsService.Save(_settingsConfiguration);
             _mainOverlay.OnSettingsClose();
@@ -182,6 +189,11 @@ namespace ClickyKeys
 
 
         private void Window_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
+
+        private void BackgroundRainbowCheckBox_Click(object sender, RoutedEventArgs e)
         {
 
         }
