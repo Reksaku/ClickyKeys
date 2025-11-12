@@ -11,7 +11,7 @@
     mc:Ignorable="d"
     Closing="Window_Closed"
     Title="Settings" 
-    Height="770" MinHeight="240" MaxHeight="940"
+    Height="790" MinHeight="240" MaxHeight="940"
     Width="440" MinWidth="440" MaxWidth="440"
     Icon="/Resources/Icon.ico">
 
@@ -30,6 +30,7 @@
         <ScrollViewer Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -360,6 +361,14 @@ Width="200" Grid.Row="1" Grid.Column="1">
 
                 </StackPanel>
 
+                <StackPanel x:Name="RainbowSection" Grid.Row="3">
+                    <Label Content="Experimental" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="16" Grid.Row="0"/>
+
+                    <Label Content="You may change saturation via panel pallet" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="12"/>
+                    
+                    <CheckBox x:Name="BackgroundRainbowCheckBox" Click="Click_BackgroundRainbowCheckBox" Content="Background rainbow mode" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                    
+                </StackPanel>
 
             </Grid>
         </ScrollViewer>

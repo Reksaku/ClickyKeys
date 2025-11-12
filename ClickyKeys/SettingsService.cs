@@ -72,7 +72,7 @@ namespace ClickyKeys
         public string Localization { get; set; } = "English";
 
         [JsonPropertyName("version")]
-        public string Version { get; set; } = "2.0.0";
+        public string Version { get; set; } = "2.1.0";
 
         // Grid
 
@@ -101,6 +101,9 @@ namespace ClickyKeys
 
         [JsonPropertyName("values_text_color")]
         public string ValuesTextColor { get; set; } = "#FFFF0101";
+
+        [JsonPropertyName("background_rainbow")]
+        public bool IsBackgroundRainbow { get; set; } = false;
 
         //[JsonPropertyName("line_color")]
         //public string LineColor { get; set; } = "#000000";

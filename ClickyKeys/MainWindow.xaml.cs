@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using MaterialDesignColors;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -34,12 +35,15 @@ namespace ClickyKeys
         void SavePanelConfiguration(PanelsSettings state);
         void OnSettingsClose();
         void OnGridChange(SettingsConfiguration settings);
+
+        void SetBackgroundRainbow(bool? IsTrue);
     }
 
     public partial class MainWindow : Window, IOverlay
     {
         private readonly InputCounter _counter;
         private readonly DispatcherTimer _uiTimer;
+        private readonly DispatcherTimer _backgroundTimer;
 
         private readonly SettingsService _settingsService = new();
         private SettingsConfiguration _settingsConfiguration;
@@ -54,6 +58,9 @@ namespace ClickyKeys
         private readonly bool _transparent;
 
         private MainWindow? _transparentWindow = null;
+
+        private ColorsPallet allColors = new();
+        private hsvColor BackgroundHSV = new();
 
         private int rows;
         private int cols;
@@ -95,6 +102,9 @@ namespace ClickyKeys
             // timer start
             _uiTimer.Start();
 
+            _backgroundTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(10) };
+            SetRainbowTimers();
+
 
             // color subscriber start 
             WrmSubscriberStart();            
@@ -102,9 +112,31 @@ namespace ClickyKeys
             // set panels grid
             SetGrid(_settingsConfiguration);
 
+            
+
                 
 
         }
+        private void SetRainbowTimers()
+        {
+            _backgroundTimer.Tick += (s, e) =>
+            {
+                double _hue = BackgroundHSV.hue;
+                double _sat = BackgroundHSV.sat;
+                double _val = BackgroundHSV.val;
+
+                // calculate saturation and value
+                RgbToHsv(allColors.background, out _, out _sat, out _val);
+
+                _hue = (_hue + 1) % 360; // hue rotation
+                if (_settingsConfiguration.IsBackgroundRainbow == true)
+                    Background = new SolidColorBrush(HsvToRgb(_hue, _sat, _val));
+
+                BackgroundHSV.hue = _hue;
+            };
+            _backgroundTimer.Start();
+        }
+
 
         private void OnPanelsColorChanged(Color c)
         {
@@ -150,7 +182,9 @@ namespace ClickyKeys
                         {
                             case ColorTarget.Background:
                                 // change on background color
-                                Background = new SolidColorBrush(c);
+                                allColors.background = c;
+                                if (_settingsConfiguration.IsBackgroundRainbow ==  false)
+                                    Background = new SolidColorBrush(c);
                                 break;
 
                             case ColorTarget.Panels:
@@ -178,7 +212,7 @@ namespace ClickyKeys
 
         public void LoadFromSettings()
         {
-            
+            allColors.background = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.BackgroundColor);
             Background = new BrushConverter().ConvertFromString(_settingsConfiguration.BackgroundColor) as Brush;
         }
 
@@ -300,6 +334,13 @@ namespace ClickyKeys
             SetGrid(_settingsConfiguration);
         }
 
+        public void SetBackgroundRainbow(bool? IsTrue) 
+        {
+            _settingsConfiguration.IsBackgroundRainbow = IsTrue ?? false;
+            if (_settingsConfiguration.IsBackgroundRainbow == false)
+                LoadFromSettings();
+        }
+
         public void OnGridChange(SettingsConfiguration settings)
         {
             SetGrid(settings);
@@ -392,6 +433,54 @@ namespace ClickyKeys
             LoadPanelConfiguration();
             SetGrid(_settingsConfiguration);
             //_counter.Start();
+        }
+
+        // RGB (0..255) -> HSV (H 0..360, S 0..1, V 0..1)
+        private static void RgbToHsv(Color c, out double h, out double s, out double v)
+        {
+            double r = c.R / 255.0;
+            double g = c.G / 255.0;
+            double b = c.B / 255.0;
+
+            double max = Math.Max(r, Math.Max(g, b));
+            double min = Math.Min(r, Math.Min(g, b));
+            double delta = max - min;
+
+            // Hue
+            if (delta == 0) h = 0;
+            else if (max == r) h = 60 * (((g - b) / delta) % 6);
+            else if (max == g) h = 60 * (((b - r) / delta) + 2);
+            else /* max == b */ h = 60 * (((r - g) / delta) + 4);
+
+            if (h < 0) h += 360;
+
+            // Saturation
+            s = (max == 0) ? 0 : delta / max;
+
+            // Value
+            v = max;
+        }
+
+        // HSV -> RGB (Color, 0..255)
+        private static Color HsvToRgb(double h, double s, double v)
+        {
+            double c = v * s;                 // chroma
+            double x = c * (1 - Math.Abs((h / 60) % 2 - 1));
+            double m = v - c;
+
+            double r1, g1, b1;
+            if (h < 60) (r1, g1, b1) = (c, x, 0);
+            else if (h < 120) (r1, g1, b1) = (x, c, 0);
+            else if (h < 180) (r1, g1, b1) = (0, c, x);
+            else if (h < 240) (r1, g1, b1) = (0, x, c);
+            else if (h < 300) (r1, g1, b1) = (x, 0, c);
+            else (r1, g1, b1) = (c, 0, x);
+
+            byte R = (byte)Math.Round((r1 + m) * 255);
+            byte G = (byte)Math.Round((g1 + m) * 255);
+            byte B = (byte)Math.Round((b1 + m) * 255);
+
+            return Color.FromRgb(R, G, B);
         }
     }
 
