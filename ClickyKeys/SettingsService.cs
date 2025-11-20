@@ -45,6 +45,7 @@ namespace ClickyKeys
                 {
                     // Return to defaults
                     var defaults = new SettingsConfiguration();
+                    defaults.Version = new ReleaseParameters().Version;
                     Save(defaults);
                     return defaults;
                 }
@@ -72,7 +73,7 @@ namespace ClickyKeys
         public string Localization { get; set; } = "English";
 
         [JsonPropertyName("version")]
-        public string Version { get; set; } = "2.1.0";
+        public string Version { get; set; } = "0.0.0";
 
         // Grid
 

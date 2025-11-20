@@ -65,6 +65,8 @@ namespace ClickyKeys
         private int rows;
         private int cols;
 
+        private readonly RequestReleasesAPI _releasesApiClient = new RequestReleasesAPI();
+
         public MainWindow(bool transparent = false, InputCounter? counter = null)
         {
             _transparent = transparent;
@@ -91,9 +93,11 @@ namespace ClickyKeys
                 // input counter start
                 _counter.Start();
             }
-                
 
             LoadPanelConfiguration();
+
+            VerifyVersion();
+            VerifySettings();
 
             // interface refresh rate
             _uiTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(10) };
@@ -137,6 +141,33 @@ namespace ClickyKeys
             _backgroundTimer.Start();
         }
 
+        private async void VerifyVersion()
+        {
+            var url = "https://clickykeys.fun/api/releases.php";
+            var data = await _releasesApiClient.GetJsonAsync<MyReleasesResponse[]>(url);
+            if (data != null)
+            {
+                if (data[data.Length-1].Version != new ReleaseParameters().Version)
+                {
+                    MyPopup.IsOpen = true;
+                }
+            }
+        }
+
+        private void VerifySettings()
+        {
+            if (_settingsConfiguration.Version != new ReleaseParameters().Version)
+            {
+                _settingsConfiguration.Version = new ReleaseParameters().Version;
+                _settingsService.Save(_settingsConfiguration);
+            }
+
+            if (_panel_settings.Version != new ReleaseParameters().Version)
+            { 
+                _panel_settings.Version = new ReleaseParameters().Version;
+                _panelsService.Save(_panel_settings);
+            }
+        }
 
         private void OnPanelsColorChanged(Color c)
         {
@@ -263,6 +294,33 @@ namespace ClickyKeys
         {
             _counter.Reset();
         }
+
+
+        private void ClosePopup_Click(object sender, RoutedEventArgs e)
+        {
+            MyPopup.IsOpen = false;
+        }
+
+        private void OpenLink_Click(object sender, RoutedEventArgs e)
+        {
+            string url = "https://clickykeys.fun/update";
+
+            try
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Nie udało się otworzyć linku: " + ex.Message);
+            }
+
+            MyPopup.IsOpen = false;
+        }
+
 
         public void ToggleToolStrip()
         {

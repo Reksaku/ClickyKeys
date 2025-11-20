@@ -10,7 +10,26 @@ using System.Windows.Media;
 
 namespace ClickyKeys
 {
+    public class ReleaseParameters
+    {
+        [JsonPropertyName("version")]
+        public string Version { get; set; } = "2.1.1";
 
+    }
+    public class MyReleasesResponse
+    {
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+
+        [JsonPropertyName("release_id")]
+        public string Version { get; set; } = string.Empty;
+
+        [JsonPropertyName("safety_signature")]
+        public string Signature { get; set; } = string.Empty;
+
+        [JsonPropertyName("release_date")]
+        public DateTime Release_date { get; set; }
+    }
     public enum InputType
     {
         None = 0,
@@ -55,12 +74,13 @@ namespace ClickyKeys
     public class PanelState
     {
         [JsonPropertyName("version")]
-        public string Version { get; set; } = "2.0.0";
+        public string Version { get; set; } = "0.0.0";
 
         [JsonPropertyName("panels")]
         public List<PanelsSettings> Panels { get; set; } = new();
     }
-     public class hsvColor
+
+    public class hsvColor
     {
         public double hue = 0.0;          
         public double sat = 1.0;         

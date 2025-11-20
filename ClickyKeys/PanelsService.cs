@@ -36,6 +36,7 @@ namespace ClickyKeys
             {
                 // create default 100 panels
                 var def = new PanelState();
+                def.Version = new ReleaseParameters().Version;
                 DeaultWSAD(def);
                 for (int i = 4; i < 100; i++)
                 {
