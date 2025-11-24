@@ -121,6 +121,45 @@ namespace ClickyKeys
                 
 
         }
+
+        //-------------------------
+        // Lambda section
+        //-------------------------
+
+        private void Settings_Click(object sender, RoutedEventArgs e) => ShowSettings();
+        private void ToggleToolbar_Click(object sender, RoutedEventArgs e) => ToggleToolStrip();
+        private void Reset_Click(object sender, RoutedEventArgs e) => ResetCounter();
+        private void TransparentMode_Click(object sender, RoutedEventArgs e) => TransparentMode();
+        private void Info_Click(object sender, RoutedEventArgs e) => ShowInfo();
+
+
+
+        //-------------------------
+        // Setup section
+        //-------------------------
+
+        private void LoadPanelConfiguration()
+        {
+            // loading panels preset
+            _panel_settings = _panelsService.Load();
+            // loading panels configuration 
+            _counter.LoadPanels(_panel_settings);
+        }
+
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _counter.Start();     // global hooks
+            _uiTimer.Start();     // UI refreshing
+        }
+
+        private void InitTransparentMode()
+        {
+            _transparentWindow = new MainWindow(true, _counter);
+            _transparentWindow.Show();
+
+        }
+
         private void SetRainbowTimers()
         {
             _backgroundTimer.Tick += (s, e) =>
@@ -140,6 +179,71 @@ namespace ClickyKeys
             };
             _backgroundTimer.Start();
         }
+
+        public void LoadFromSettings()
+        {
+            allColors.background = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.BackgroundColor);
+            Background = new BrushConverter().ConvertFromString(_settingsConfiguration.BackgroundColor) as Brush;
+        }
+
+
+        private void Window_Closed(object? sender, EventArgs e)
+        {
+            if (_transparent == false)
+                _counter.Dispose();
+            _uiTimer.Stop();
+            _transparentWindow?.Close();
+            _transparentWindow = null;
+        }
+
+        private void WrmSubscriberStart()
+        {
+            Loaded += (_, __) =>
+            {
+                WeakReferenceMessenger.Default.Register<ColorChangedMessage>(
+                    recipient: this,
+                    handler: (r, m) =>
+                    {
+                        if (m.Value is not Color c) return;
+
+                        switch (m.Target)
+                        {
+                            case ColorTarget.Background:
+                                // change on background color
+                                allColors.background = c;
+                                if (_settingsConfiguration.IsBackgroundRainbow == false)
+                                    Background = new SolidColorBrush(c);
+                                break;
+
+                            case ColorTarget.Panels:
+                                // function to change panels color
+                                OnPanelsColorChanged(c);
+                                break;
+                            case ColorTarget.Keys:
+                                // function to change panels color
+                                OnKeysColorChanged(c);
+                                break;
+                            case ColorTarget.Values:
+                                // function to change panels color
+                                OnValuesColorChanged(c);
+                                break;
+                        }
+                    });
+            };
+
+
+            Closed += (_, __) =>
+            {
+                WeakReferenceMessenger.Default.Unregister<ColorChangedMessage>(this);
+            };
+        }
+
+
+
+
+        //-------------------------
+        // Controls section
+        //-------------------------
 
         private async void VerifyVersion()
         {
@@ -168,6 +272,66 @@ namespace ClickyKeys
                 _panelsService.Save(_panel_settings);
             }
         }
+
+
+        public void ShowSettings()
+        {
+            Settings _settings = new(_settingsConfiguration, this);
+            _settings.Show();
+        }
+
+        public void ToggleToolStrip()
+        {
+            if (_transparent == false)
+                if (ToolStrip.Visibility == Visibility.Visible)
+                {
+                    ToolStrip.Visibility = Visibility.Collapsed;
+                    this.Topmost = !this.Topmost;
+                }
+                else
+                {
+                    ToolStrip.Visibility = Visibility.Visible;
+                    this.Topmost = !this.Topmost;
+                }
+        }
+
+        public void ResetCounter()
+        {
+            _counter.Reset();
+        }
+        public void TransparentMode()
+        {
+            if (_transparentWindow == null)
+            {
+                myGrid.Visibility = Visibility.Collapsed;
+                Settings_Button.Visibility = Visibility.Collapsed;
+                InitTransparentMode();
+            }
+            else
+            {
+                myGrid.Visibility = Visibility.Visible;
+                Settings_Button.Visibility = Visibility.Visible;
+                _transparentWindow?.Close();
+                _transparentWindow = null;
+            }
+
+        }
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        public void ShowInfo()
+        {
+            Info _infoPage = new(this);
+            _infoPage.Show();
+        }
+
+
+
+        //-------------------------
+        // OnChanges section
+        //-------------------------
 
         private void OnPanelsColorChanged(Color c)
         {
@@ -199,102 +363,10 @@ namespace ClickyKeys
             }
         }
 
-        private void WrmSubscriberStart()
-        {
-            Loaded += (_, __) =>
-            {
-                WeakReferenceMessenger.Default.Register<ColorChangedMessage>(
-                    recipient: this,
-                    handler: (r, m) =>
-                    {
-                        if (m.Value is not Color c) return;
 
-                        switch (m.Target)
-                        {
-                            case ColorTarget.Background:
-                                // change on background color
-                                allColors.background = c;
-                                if (_settingsConfiguration.IsBackgroundRainbow ==  false)
-                                    Background = new SolidColorBrush(c);
-                                break;
-
-                            case ColorTarget.Panels:
-                                // function to change panels color
-                                OnPanelsColorChanged(c);
-                                break;
-                            case ColorTarget.Keys:
-                                // function to change panels color
-                                OnKeysColorChanged(c);
-                                break;
-                            case ColorTarget.Values:
-                                // function to change panels color
-                                OnValuesColorChanged(c);
-                                break;
-                        }
-                    });
-            };
-
-            
-            Closed += (_, __) =>
-            {
-                WeakReferenceMessenger.Default.Unregister<ColorChangedMessage>(this);
-            };
-        }
-
-        public void LoadFromSettings()
-        {
-            allColors.background = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.BackgroundColor);
-            Background = new BrushConverter().ConvertFromString(_settingsConfiguration.BackgroundColor) as Brush;
-        }
-
-        private void LoadPanelConfiguration()
-        {
-            // loading panels preset
-            _panel_settings = _panelsService.Load();
-            // loading panels configuration 
-            _counter.LoadPanels(_panel_settings);
-        }
-
-        private void Settings_Click(object sender, RoutedEventArgs e) => ShowSettings();
-        private void ToggleToolbar_Click(object sender, RoutedEventArgs e) => ToggleToolStrip();
-        private void Reset_Click(object sender, RoutedEventArgs e) => ResetCounter();
-        private void TransparentMode_Click(object sender, RoutedEventArgs e) => TransparentMode();
-
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            _counter.Start();     // global hooks
-            _uiTimer.Start();     // UI refreshing
-        }
-
-        private void InitTransparentMode()
-        {
-            _transparentWindow = new MainWindow(true, _counter);
-            _transparentWindow.Show();
-
-        }
-
-        private void Window_Closed(object? sender, EventArgs e)
-        {
-            if (_transparent == false)
-                _counter.Dispose();
-            _uiTimer.Stop();
-            _transparentWindow?.Close();
-            _transparentWindow = null;
-        }
-
-        public void ShowSettings()
-        {
-            Settings _settings = new(_settingsConfiguration, this);
-            _settings.Show();
-        }
-
-
-        public void ResetCounter()
-        {
-            _counter.Reset();
-        }
-
+        //-------------------------
+        // New version popup
+        //-------------------------
 
         private void ClosePopup_Click(object sender, RoutedEventArgs e)
         {
@@ -315,94 +387,18 @@ namespace ClickyKeys
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Nie udało się otworzyć linku: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
 
             MyPopup.IsOpen = false;
         }
 
 
-        public void ToggleToolStrip()
-        {
-            if (_transparent == false)
-                if (ToolStrip.Visibility == Visibility.Visible)
-                {
-                    ToolStrip.Visibility = Visibility.Collapsed;
-                    this.Topmost = !this.Topmost;
-                }
-                else
-                {
-                    ToolStrip.Visibility = Visibility.Visible;
-                    this.Topmost = !this.Topmost;
-                }
-        }
 
-        public void TransparentMode() 
-        {
-            if (_transparentWindow == null)
-            {
-                myGrid.Visibility = Visibility.Collapsed;
-                Settings_Button.Visibility = Visibility.Collapsed;
-                InitTransparentMode();
-            }
-            else
-            {
-                myGrid.Visibility = Visibility.Visible;
-                Settings_Button.Visibility = Visibility.Visible;
-                _transparentWindow?.Close();
-                _transparentWindow = null;
-            }
-            
-        }
 
-        private void UpdateValues()
-        {
-            var stats = _counter.GetStats();
-            for (int i = 0; i < cols * rows; i++)
-            {
-                var panel = _panelsById[i];
-                foreach (var (c, it, n, v) in stats.Take(cols * rows))
-                {
-                    if (panel.Key == c && panel.Type == it)
-                    {
-                        try
-                        {
-                            if (panel.Value != v)
-                            {
-                                panel.Value = v;
-                                panel.TriggerFlash();
-                            }
-                        }
-                        catch { }
-                    }
-                }
-
-            }
-        }
-
-        private void Exit_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        public void OnSettingsClose()
-        {
-            _settingsConfiguration = _settingsService.Load();
-            Background = new BrushConverter().ConvertFromString(_settingsConfiguration.BackgroundColor) as Brush;
-            SetGrid(_settingsConfiguration);
-        }
-
-        public void SetBackgroundRainbow(bool? IsTrue) 
-        {
-            _settingsConfiguration.IsBackgroundRainbow = IsTrue ?? false;
-            if (_settingsConfiguration.IsBackgroundRainbow == false)
-                LoadFromSettings();
-        }
-
-        public void OnGridChange(SettingsConfiguration settings)
-        {
-            SetGrid(settings);
-        }
+        //-------------------------
+        // Grid section
+        //-------------------------
 
         private void SetGrid(SettingsConfiguration settings)
         {
@@ -427,8 +423,8 @@ namespace ClickyKeys
             {
                 myGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
             }
-            
-            
+
+
             for (int r = 0; r < settings.GridRows; r++)
             {
                 for (int c = 0; c < settings.GridColumns; c++)
@@ -457,7 +453,7 @@ namespace ClickyKeys
                         ValueTextColor = valuesColor,
                         KeyFont = keysFont,
                         ValueFont = valuesFont,
-                    };                        
+                    };
 
                     _panelsById[id] = panel;
                     Grid.SetRow(panel, r);
@@ -469,10 +465,11 @@ namespace ClickyKeys
             }
 
         }
+
         public void SavePanelConfiguration(PanelsSettings state)
         {
             //_counter.Dispose();
-            for (int i = 0; i < rows*cols; i++)
+            for (int i = 0; i < rows * cols; i++)
             {
                 if (_panel_settings.Panels[i].Input == state.Input
                     && _panel_settings.Panels[i].KeyCode == state.KeyCode)
@@ -492,6 +489,64 @@ namespace ClickyKeys
             SetGrid(_settingsConfiguration);
             //_counter.Start();
         }
+
+
+
+
+        //-------------------------
+        // Controls section
+        //-------------------------
+
+        private void UpdateValues()
+        {
+            var stats = _counter.GetStats();
+            for (int i = 0; i < cols * rows; i++)
+            {
+                var panel = _panelsById[i];
+                foreach (var (c, it, n, v) in stats.Take(cols * rows))
+                {
+                    if (panel.Key == c && panel.Type == it)
+                    {
+                        try
+                        {
+                            if (panel.Value != v)
+                            {
+                                panel.Value = v;
+                                panel.TriggerFlash();
+                            }
+                        }
+                        catch { }
+                    }
+                }
+
+            }
+        }
+
+
+        public void OnSettingsClose()
+        {
+            _settingsConfiguration = _settingsService.Load();
+            Background = new BrushConverter().ConvertFromString(_settingsConfiguration.BackgroundColor) as Brush;
+            SetGrid(_settingsConfiguration);
+        }
+
+        public void SetBackgroundRainbow(bool? IsTrue) 
+        {
+            _settingsConfiguration.IsBackgroundRainbow = IsTrue ?? false;
+            if (_settingsConfiguration.IsBackgroundRainbow == false)
+                LoadFromSettings();
+        }
+
+        public void OnGridChange(SettingsConfiguration settings)
+        {
+            SetGrid(settings);
+        }
+
+
+
+        //-------------------------
+        // Colors converter section
+        //-------------------------
 
         // RGB (0..255) -> HSV (H 0..360, S 0..1, V 0..1)
         private static void RgbToHsv(Color c, out double h, out double s, out double v)

@@ -13,7 +13,7 @@ namespace ClickyKeys
     public class ReleaseParameters
     {
         [JsonPropertyName("version")]
-        public string Version { get; set; } = "2.1.1";
+        public string Version { get; set; } = "2.2.0";
 
     }
     public class MyReleasesResponse
