@@ -1,0 +1,163 @@
+﻿<Window x:Class="ClickyKeys.Info"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClickyKeys"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="About ClickyKeys"
+        Width="490" Height="780"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontFamily="Segoe UI"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12" VerticalAlignment="Center">
+            <Image Width="60" Height="60" Source="/Resources/Icon.ico" Margin="0,0,12,0"/>
+            <StackPanel>
+                <TextBlock Text="ClickyKeys"
+                           FontSize="24"
+                           FontWeight="Bold"/>
+                <TextBlock Text="Key &amp; click counter for gamers and geeks"
+                           FontSize="13"
+                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Main content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="0,0,0,8">
+
+                <!-- Features -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="Features"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Margin="0,0,0,6"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            • Counts key presses and mouse clicks you care about.
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            • Lets you assign custom labels to keys (e.g. Jump, Reload, Ability 1).
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            • Fully customizable overlay: layout, button size, colors, font.
+                        </TextBlock>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Privacy & Open Source -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="Privacy &amp; Open Source"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Margin="0,0,0,6"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            ClickyKeys processes your key presses and mouse clicks locally.
+                            No data is sent to any server.
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            The project is open source, so you can review the code, learn from it,
+                            or contribute improvements.
+                        </TextBlock>
+                    </StackPanel>
+                </materialDesign:Card>
+
+
+
+
+                <!-- Credits & Thanks -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="Credits &amp; Thanks"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Margin="0,0,0,6"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            ClickyKeys is a hobby project that grows thanks to people simply enjoy clicking with it.
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap"
+                                   Margin="0,8,0,0"
+                                   FontStyle="Italic">
+                            Thanks for using ClickyKeys!
+                        </TextBlock>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Links -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="Links"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Margin="0,0,0,6"/>
+
+                        <TextBlock Margin="0,0,0,4">
+                            Website:
+                            <Hyperlink NavigateUri="https://clickykeys.fun/about"
+                                       RequestNavigate="Hyperlink_RequestNavigate">
+                                https://clickykeys.fun
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,4">
+                            GitHub:
+                            <Hyperlink NavigateUri="https://github.com/Reksaku/ClickyKeys"
+                                       RequestNavigate="Hyperlink_RequestNavigate">
+                                github.com/Reksaku/ClickyKeys
+                            </Hyperlink>
+                        </TextBlock>
+
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Contact -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="Contact"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Margin="0,0,0,6"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            General contact: contact@clickykeys.fun
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            Bug reports &amp; feature requests: please use GitHub Issues
+                            or write to bugs@clickykeys.fun
+                        </TextBlock>
+                    </StackPanel>
+                </materialDesign:Card>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <DockPanel Grid.Row="2" Margin="0,8,0,0">
+            <TextBlock x:Name="textBoxVersion"
+                       DockPanel.Dock="Left"
+                       VerticalAlignment="Center"
+                       FontSize="11"
+                       Foreground="{DynamicResource MaterialDesignBodyLight}">
+                ClickyKeys · hobby project · v2.2.0
+            </TextBlock>
+            <Button DockPanel.Dock="Right"
+                    Width="80"
+                    Margin="150,0,0,0"
+                    Content="Close"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    IsCancel="True"
+                    Click="Exit_Click"/>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -5,7 +5,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:local="clr-namespace:ClickyKeys"
     x:Class="ClickyKeys.MainWindow"
-    Title="KlickyKeys" 
+    Title="ClickyKeys" 
     Width="Auto" Height="Auto" SizeToContent="WidthAndHeight"
     ResizeMode="NoResize"
     Closing="Window_Closed"
@@ -52,7 +52,7 @@
             <Button Click="TransparentMode_Click" Content="Transparent mode"/>
             <Button Click="ToggleToolbar_Click" Content="Hide toolbar (F11)"/>
             <Button Click="Reset_Click" Content="Reset (F12)"/>
-            
+            <Button Click="Info_Click" Content="Info"/>            
         </ToolBar>
 
         <Grid x:Name="myGrid">
