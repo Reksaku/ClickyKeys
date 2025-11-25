@@ -416,3 +416,28 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+
+# ClickyKeys.Packaging (MSIX packaging project)
+ClickyKeys.Packaging/AppPackages/
+ClickyKeys.Packaging/AppxPackages/
+ClickyKeys.Packaging/PackageLayout/
+
+# MSIX / APPX
+ClickyKeys.Packaging/*.msix
+ClickyKeys.Packaging/*.msixbundle
+ClickyKeys.Packaging/*.appx
+ClickyKeys.Packaging/*.appxbundle
+ClickyKeys.Packaging/*.msixupload
+ClickyKeys.Packaging/*.msixuploadbundle
+
+# resource index
+ClickyKeys.Packaging/*.pri
+
+# certs
+ClickyKeys.Packaging/*.pfx
+ClickyKeys.Packaging/*.cer
+
+# Publishing Profiles
+ClickyKeys.Packaging/Properties/PublishProfiles/*.pubxml.user
+Properties/PublishProfiles/*.pubxml.user
