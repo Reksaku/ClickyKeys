@@ -14,15 +14,19 @@ namespace ClickyKeys
 
         private readonly string _filePath;
         private readonly object _lock = new();
+        string appName = "ClickyKeys";
 
-        public SettingsService(string appName = "ClickyKeys")
+        public SettingsService(string file)
         {
             var appDataDir = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                appName);
+                appName, "settings");
 
             Directory.CreateDirectory(appDataDir);
-            _filePath = Path.Combine(appDataDir, "settings.json");
+            //string[] settingsList = { "settings", "settings_1", "settings_2", "settings_3", "settings_4" };
+            _filePath = Path.Combine(appDataDir, file);
+
+            
 
             if (!File.Exists(_filePath))
             {

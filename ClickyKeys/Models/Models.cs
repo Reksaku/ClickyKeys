@@ -15,6 +15,8 @@ namespace ClickyKeys
         [JsonPropertyName("version")]
         public string Version { get; set; } = "2.2.0";
 
+        public DistributionType Distribution { get; set; } = DistributionType.dev;
+
     }
     public class MyReleasesResponse
     {
@@ -29,6 +31,16 @@ namespace ClickyKeys
 
         [JsonPropertyName("release_date")]
         public DateTime Release_date { get; set; }
+
+        [JsonPropertyName("distribution")]
+        public DistributionType distribution { get; set; } = DistributionType.dev;
+    }
+    public enum DistributionType 
+    {
+        dev = 0,
+        store = 1,
+        github = 2
+
     }
     public enum InputType
     {

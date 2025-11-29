@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,12 +25,20 @@ using MD = MaterialDesignThemes.Wpf;
 
 namespace ClickyKeys
 {
-    
-    public partial class Settings : Window
+    public interface SettingsOverlay
+    {
+        void LoadSettingsFile(string file);
+        void SelectSettingsFile(string file);
+        void RevertSettingsFile();
+    }
+    public partial class Settings : Window, SettingsOverlay
     {
         private DependencyPropertyDescriptor _colorDp;
 
-        private readonly SettingsConfiguration _settings;
+        private SettingsConfiguration _settings;
+
+        private string _selectedSettingsProfile;
+        private string _temporarySettingsProfile = string.Empty;
 
         private readonly IOverlay _mainOverlay;
         public FontSettings KeysFontSettings { get; set; } = new FontSettings();
@@ -40,7 +49,7 @@ namespace ClickyKeys
         private Color keysColor;
         private Color valuesColor;
 
-        public Settings(SettingsConfiguration settingsConfiguration, IOverlay mainOverlay)
+        public Settings(SettingsConfiguration settingsConfiguration, IOverlay mainOverlay, string selectedPrifile)
         {
             _settings = settingsConfiguration;
             _mainOverlay = mainOverlay;
@@ -48,7 +57,7 @@ namespace ClickyKeys
 
             InitializeComponent();
 
-
+            _selectedSettingsProfile = selectedPrifile;
 
             DataContext = this;
 
@@ -75,15 +84,39 @@ namespace ClickyKeys
             RowsCount.Value = _settings.GridRows;
             ColumnsCount.Value = _settings.GridColumns;
 
+            BackgroundRainbowCheckBox.IsChecked = _settings.IsBackgroundRainbow;
+            if (_settings.IsBackgroundRainbow == true)
+                _mainOverlay.SetBackgroundRainbow(true);
+            else
+                _mainOverlay.SetBackgroundRainbow(false);
+
             BackgroundColorPicker.Color = (Color)ColorConverter.ConvertFromString(_settings.BackgroundColor);
             PanelsColorPicker.Color = (Color)ColorConverter.ConvertFromString(_settings.PanelsColor);
             KeysColorPicker.Color = (Color)ColorConverter.ConvertFromString(_settings.KeysTextColor);
             ValuesColorPicker.Color = (Color)ColorConverter.ConvertFromString(_settings.ValuesTextColor);
 
-            KeysFontSettings = _settings.KeysFontSettings;
-            ValuesFontSettings = _settings.ValuesFontSettings;
 
-            BackgroundRainbowCheckBox.IsChecked = _settings.IsBackgroundRainbow;
+            KeysFontPicker.SettingsParameter = _settings.KeysFontSettings;
+            ValuesFontPicker.SettingsParameter = _settings.ValuesFontSettings;
+
+
+            string name = string.Empty;
+            if (_temporarySettingsProfile != string.Empty)
+                name = _temporarySettingsProfile;
+            else 
+                name = _selectedSettingsProfile;
+
+            try
+            {
+                string[] names = Regex.Split(name, @"ClickyKeys\\settings\\");
+                name = Regex.Replace(names[1], @".json", " ");
+            }
+            catch (Exception)
+            {
+                name = Regex.Replace(name, @".json", "");
+            }
+
+            SettingsLabel.Content = $"Settings profile: {name}";
         }
 
         private void OnBackgroundColorChanged(object sender, EventArgs e)
@@ -130,7 +163,7 @@ namespace ClickyKeys
         }
         private void Window_Closed(object? sender, EventArgs e)
         {
-            _mainOverlay.OnSettingsClose();
+            _mainOverlay.OnSettingsClose(_selectedSettingsProfile);
         }
 
         private void Click_BackgroundRainbowCheckBox(object? sender, EventArgs e)
@@ -151,8 +184,12 @@ namespace ClickyKeys
         {
             _settings.GridColumns = (int)ColumnsCount.Value;
             _mainOverlay.OnGridChange(_settings);
+            if (NewFileNameTextBox.Visibility == Visibility.Visible)
+                _selectedSettingsProfile = NewFileNameTextBox.Text+".json";
+            else if(_temporarySettingsProfile != string.Empty)
+                _selectedSettingsProfile = _temporarySettingsProfile;
 
-            SettingsService _settingsService = new();
+            SettingsService _settingsService = new(_selectedSettingsProfile);
             SettingsConfiguration _settingsConfiguration = _settingsService.Load();
 
             _settingsConfiguration.GridColumns = (int)ColumnsCount.Value;
@@ -162,19 +199,29 @@ namespace ClickyKeys
             _settingsConfiguration.PanelsColor = converter.ConvertToString(panelsColor);
             _settingsConfiguration.KeysTextColor = converter.ConvertToString(keysColor);
             _settingsConfiguration.ValuesTextColor = converter.ConvertToString(valuesColor);
-            _settingsConfiguration.KeysFontSettings = KeysFontSettings;
-            _settingsConfiguration.ValuesFontSettings = ValuesFontSettings;
+            _settingsConfiguration.KeysFontSettings = KeysFontPicker.SettingsParameter;
+            _settingsConfiguration.ValuesFontSettings = ValuesFontPicker.SettingsParameter;
             _settingsConfiguration.IsBackgroundRainbow = BackgroundRainbowCheckBox.IsChecked ?? false;
 
             _settingsService.Save(_settingsConfiguration);
-            _mainOverlay.OnSettingsClose();
+            _mainOverlay.OnSettingsClose(_selectedSettingsProfile);
+            this.Close();
+        }
+        private void Click_Load(object? sender, EventArgs e)
+        {
+            SetLoader loading = new(this);
+            loading.Show();
+        }
+        private void Click_Close(object? sender, EventArgs e)
+        {
+            _mainOverlay.OnSettingsClose(_selectedSettingsProfile);
             this.Close();
         }
 
-        private void Click_Close(object? sender, EventArgs e)
+        private void Click_SaveAs(object? sender, EventArgs e)
         {
-            _mainOverlay.OnSettingsClose();
-            this.Close();
+            NewFileNameTextBox.Visibility = Visibility.Visible;
+            SaveAsButton.Visibility = Visibility.Hidden;
         }
 
         private void Click_KeysSize(object? sender, EventArgs e)
@@ -196,6 +243,26 @@ namespace ClickyKeys
         private void BackgroundRainbowCheckBox_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void LoadSettingsFile(string file)
+        {
+            SettingsService settingsService = new SettingsService(file);
+            _settings = settingsService.Load();
+            SetOnStart();
+            _mainOverlay.OnGridChange(_settings);
+        }
+        public void SelectSettingsFile(string file)
+        {
+            _temporarySettingsProfile = file;
+            SetOnStart();
+        }
+        public void RevertSettingsFile()
+        {
+            SettingsService settingsService = new SettingsService(_selectedSettingsProfile);
+            _settings = settingsService.Load();
+            SetOnStart();
+            _mainOverlay.OnGridChange(_settings);
         }
     }
 

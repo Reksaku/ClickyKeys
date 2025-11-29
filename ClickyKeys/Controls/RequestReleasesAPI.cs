@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -17,11 +18,18 @@ namespace ClickyKeys
             _httpClient = new HttpClient();
 
             // Custom User-Agent
+            ReleaseParameters parameters = new ReleaseParameters();
 
             _httpClient.DefaultRequestHeaders.UserAgent.Clear();
-            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(
-                $"ClickyKeysApp/{new ReleaseParameters().Version} (Type=application)"
-                );
+            _httpClient.DefaultRequestHeaders.UserAgent.Add(
+                new ProductInfoHeaderValue("ClickyKeysApp", parameters.Version));
+
+            _httpClient.DefaultRequestHeaders.UserAgent.Add(
+                new ProductInfoHeaderValue("Distro", parameters.Distribution.ToString()));
+
+            _httpClient.DefaultRequestHeaders.UserAgent.Add(
+                new ProductInfoHeaderValue("Type", "application"));
+
 
         }
 
