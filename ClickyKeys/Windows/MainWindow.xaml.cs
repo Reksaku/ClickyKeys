@@ -15,12 +15,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-
+using System.IO;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 using System.Windows.Threading;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
@@ -33,7 +33,7 @@ namespace ClickyKeys
     {
         void ToggleToolStrip();
         void SavePanelConfiguration(PanelsSettings state);
-        void OnSettingsClose();
+        void OnSettingsClose(string settingsPath);
         void OnGridChange(SettingsConfiguration settings);
 
         void SetBackgroundRainbow(bool? IsTrue);
@@ -45,7 +45,8 @@ namespace ClickyKeys
         private readonly DispatcherTimer _uiTimer;
         private readonly DispatcherTimer _backgroundTimer;
 
-        private readonly SettingsService _settingsService = new();
+        private string settingsFileName;
+        private SettingsService _settingsService;
         private SettingsConfiguration _settingsConfiguration;
 
         public ObservableCollection<StatRow> Stats { get; } = [];
@@ -67,12 +68,28 @@ namespace ClickyKeys
 
         private readonly RequestReleasesAPI _releasesApiClient = new RequestReleasesAPI();
 
+        private string defaultSettingsPath;
+
+
         public MainWindow(bool transparent = false, InputCounter? counter = null)
         {
             _transparent = transparent;
 
+
+
+            settingsFileName = "Light.json";
+            _settingsService = new(settingsFileName);
+
+            defaultSettingsPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                @"ClickyKeys", "settings", settingsFileName);
             _settingsConfiguration = _settingsService.Load();
-            LoadFromSettings();
+
+
+
+
+
+            LoadBackgroundFromSettings();
 
             InitializeComponent();
 
@@ -115,10 +132,6 @@ namespace ClickyKeys
             
             // set panels grid
             SetGrid(_settingsConfiguration);
-
-            
-
-                
 
         }
 
@@ -180,7 +193,7 @@ namespace ClickyKeys
             _backgroundTimer.Start();
         }
 
-        public void LoadFromSettings()
+        public void LoadBackgroundFromSettings()
         {
             allColors.background = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.BackgroundColor);
             Background = new BrushConverter().ConvertFromString(_settingsConfiguration.BackgroundColor) as Brush;
@@ -247,15 +260,38 @@ namespace ClickyKeys
 
         private async void VerifyVersion()
         {
-            var url = "https://clickykeys.fun/api/releases.php";
-            var data = await _releasesApiClient.GetJsonAsync<MyReleasesResponse[]>(url);
-            if (data != null)
+            if (new ReleaseParameters().Distribution == DistributionType.dev)
             {
-                if (data[data.Length-1].Version != new ReleaseParameters().Version)
-                {
-                    MyPopup.IsOpen = true;
-                }
+
             }
+            else if (new ReleaseParameters().Distribution == DistributionType.store)
+            {
+
+            }
+            else if (new ReleaseParameters().Distribution == DistributionType.github)
+            {
+                var url = "https://clickykeys.fun/api/releases.php";
+
+                try
+                {
+                    var data = await _releasesApiClient.GetJsonAsync<MyReleasesResponse[]>(url);
+                    if (data != null)
+                    {
+                        if (data[data.Length - 1].Version != new ReleaseParameters().Version)
+                        {
+                            MyPopup.IsOpen = true;
+                        }
+                    }
+                }                    
+                catch (Exception ex) {
+
+                }
+
+
+            }
+
+
+
         }
 
         private void VerifySettings()
@@ -276,7 +312,7 @@ namespace ClickyKeys
 
         public void ShowSettings()
         {
-            Settings _settings = new(_settingsConfiguration, this);
+            Settings _settings = new(_settingsConfiguration, this, settingsFileName);
             _settings.Show();
         }
 
@@ -523,8 +559,10 @@ namespace ClickyKeys
         }
 
 
-        public void OnSettingsClose()
+        public void OnSettingsClose(string settingsPath)
         {
+            _settingsService = new(settingsPath);
+            settingsFileName = settingsPath;
             _settingsConfiguration = _settingsService.Load();
             Background = new BrushConverter().ConvertFromString(_settingsConfiguration.BackgroundColor) as Brush;
             SetGrid(_settingsConfiguration);
@@ -534,7 +572,8 @@ namespace ClickyKeys
         {
             _settingsConfiguration.IsBackgroundRainbow = IsTrue ?? false;
             if (_settingsConfiguration.IsBackgroundRainbow == false)
-                LoadFromSettings();
+                //LoadBackgroundFromSettings();
+                SetGrid(_settingsConfiguration);
         }
 
         public void OnGridChange(SettingsConfiguration settings)
