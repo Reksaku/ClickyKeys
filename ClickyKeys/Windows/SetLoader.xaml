@@ -9,33 +9,33 @@
         xmlns:controls="clr-namespace:ClickyKeys.Controls"
         mc:Ignorable="d"
         Closing="Window_Closed"
-        Title="SetLoader" Height="380" Width="300" MaxWidth="300">
+        Title="SetLoader" Height="380" Width="295" MaxWidth="295">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="52"/>
         </Grid.RowDefinitions>
-        
+
         <Label x:Name="fileList" Content="Select settings profile" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="28" Grid.Row="0"/>
-        
+
         <ScrollViewer Grid.Row="1" >
             <Grid x:Name="filesList" >
 
 
             </Grid>
         </ScrollViewer>
-        
+
         <Grid VerticalAlignment="Bottom" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="135"/>
                 <ColumnDefinition Width="Auto"/>
 
             </Grid.ColumnDefinitions>
             <Button Content="Exit" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10,10,10" Click="Click_Exit" Grid.Column="0" />
-            <Button Content="Load" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,10,10" Click="Click_Load" Grid.Column="2" />
-            
+            <Button Content="Load" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,0,10" Click="Click_Load" Grid.Column="2" />
+
         </Grid>
     </Grid>
 </Window>

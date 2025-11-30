@@ -16,6 +16,8 @@
     <None Remove="Resources\Icon.ico" />
     <None Remove="Resources\Icon_128.ico" />
     <None Remove="Resources\Icon_small.ico" />
+    <None Remove="Resources\X_button.png" />
+    <None Remove="Resources\Y_button.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +30,8 @@
   <ItemGroup>
     <Resource Include="Resources\Icon.ico" />
     <Resource Include="Resources\Icon_small.ico" />
+    <Resource Include="Resources\X_button.png" />
+    <Resource Include="Resources\Y_button.png" />
   </ItemGroup>
 
 </Project>
