@@ -116,7 +116,7 @@ namespace ClickyKeys
                 name = Regex.Replace(name, @".json", "");
             }
 
-            SettingsLabel.Content = $"Settings profile: {name}";
+            ProfilesLabel.Content = $"Profile: {name}";
         }
 
         private void OnBackgroundColorChanged(object sender, EventArgs e)
@@ -149,6 +149,14 @@ namespace ClickyKeys
             valuesColor = picker.Color;
             WeakReferenceMessenger.Default.Send(
                 new ColorChangedMessage(valuesColor, ColorTarget.Values));
+        }
+
+        void ForceColorChange()
+        {
+            OnBackgroundColorChanged(BackgroundColorPicker, EventArgs.Empty);
+            OnPanelsColorChanged(PanelsColorPicker, EventArgs.Empty);
+            OnKeysColorChanged(KeysColorPicker, EventArgs.Empty);
+            OnValuesColorChanged(ValuesColorPicker, EventArgs.Empty);
         }
 
         private void OnClosedDetachHandlers(object? sender, EventArgs e)
@@ -248,14 +256,33 @@ namespace ClickyKeys
         public void LoadSettingsFile(string file)
         {
             SettingsService settingsService = new SettingsService(file);
-            _settings = settingsService.Load();
-            SetOnStart();
+            var loaded = settingsService.Load();
+
+            // Przepisujemy wartości do _settings zamiast podmieniać referencję
+            CopySettings(_settings, loaded);
+
+            // Grid i panele dalej używają _settings,
+            // ale już z wartościami z nowego pliku
             _mainOverlay.OnGridChange(_settings);
+
+            // Jeśli chcesz odświeżyć UI ustawień (nazwę profilu itd.)
+            SetOnStart();
+            ForceColorChange();
+
         }
         public void SelectSettingsFile(string file)
         {
             _temporarySettingsProfile = file;
-            SetOnStart();
+
+            // !! Tu cos się dzieje - coś rozpina hooki fontów z main window
+
+            //SetOnStart();
+            //ValuesFontPicker.InitializeComponent();
+            //KeysFontPicker.InitializeComponent();
+            //ForceColorChange();
+            //_mainOverlay.OnSettingsClose(_temporarySettingsProfile);
+            
+
         }
         public void RevertSettingsFile()
         {
@@ -263,6 +290,29 @@ namespace ClickyKeys
             _settings = settingsService.Load();
             SetOnStart();
             _mainOverlay.OnGridChange(_settings);
+        }
+
+        private static void CopySettings(SettingsConfiguration target, SettingsConfiguration source)
+        {
+            target.GridRows = source.GridRows;
+            target.GridColumns = source.GridColumns;
+            target.BackgroundColor = source.BackgroundColor;
+            target.PanelsColor = source.PanelsColor;
+            target.KeysTextColor = source.KeysTextColor;
+            target.ValuesTextColor = source.ValuesTextColor;
+            target.IsBackgroundRainbow = source.IsBackgroundRainbow;
+
+            CopyFontSettings(target.KeysFontSettings, source.KeysFontSettings);
+            CopyFontSettings(target.ValuesFontSettings, source.ValuesFontSettings);
+        }
+
+        private static void CopyFontSettings(FontSettings target, FontSettings source)
+        {
+            target.FontFamily = source.FontFamily;
+            target.FontSize = source.FontSize;
+            target.IsBold = source.IsBold;
+            target.IsItalic = source.IsItalic;
+            target.IsUnderline = source.IsUnderline;
         }
     }
 
