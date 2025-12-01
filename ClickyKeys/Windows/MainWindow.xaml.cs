@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using ControlzEx.Standard;
+using MahApps.Metro.Controls;
 using MaterialDesignColors;
 using Microsoft.VisualBasic;
 using System;
@@ -76,6 +78,8 @@ namespace ClickyKeys
 
         private string defaultSettingsPath;
 
+        private int _tutorialStep = 0;
+
 
         public MainWindow(bool transparent = false, InputCounter? counter = null)
         {
@@ -137,6 +141,11 @@ namespace ClickyKeys
             
             // set panels grid
             SetGrid(_settingsConfiguration);
+
+            if(ConfigSettings.ShowTutorial == true)
+            {
+                ShowTutorial();
+            }
 
         }
 
@@ -292,6 +301,154 @@ namespace ClickyKeys
 
 
 
+        //-------------------------
+        // Tutorial section
+        //-------------------------
+
+
+        private void ShowTutorial()
+        {
+            _tutorialStep = 0;
+            TutorialOverlay.Visibility = Visibility.Visible;
+            UpdateTutorialText();
+        }
+
+        private void UpdateTutorialText()
+        {
+            Color panelColor = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.PanelsColor);
+            Color keysColor = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.KeysTextColor);
+            Color valuesColor = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.ValuesTextColor);
+            FontSettings keysFont = _settingsConfiguration.KeysFontSettings;
+            FontSettings valuesFont = _settingsConfiguration.ValuesFontSettings;
+            GlassPanelWpf panel = new(this)
+            {
+                Value = 67,
+                Description = "Example",
+                PanelColor = panelColor,
+                KeyTextColor = keysColor,
+                ValueTextColor = valuesColor,
+                KeyFont = keysFont,
+                ValueFont = valuesFont,
+            };
+
+            switch (_tutorialStep)
+            {
+                case 0:
+                    TutorialText.TextAlignment = TextAlignment.Center;
+                    TutorialText.Text = "Welcome to ClickyKeys!\n" +
+                        "\nLet me guide you through a quick tutorial." +
+                        "\nClick Next to continue.";
+                    break;
+                case 1:
+                    TutorialText.Text = "These are your display panels — the main feature of ClickyKeys.\n" +
+                        "\nLet’s take a look at an example.";
+                    PanelBoxGlow.Visibility = Visibility.Visible;
+                    SetBorder(_panelsById[4], PanelBoxGlow, 10, 8, 180, 84);
+                    break;
+                case 2:
+                    TutorialText.TextAlignment = TextAlignment.Left;
+                    TutorialText.Text = "Left-click a panel to edit its settings.";
+                    SetBorder(_panelsById[4], PanelBox, -4, -4, 200, 100);
+                    PanelBox.Visibility = Visibility.Visible;
+                    PanelBoxGrid.Children.Add(panel);
+                    break;
+                case 3:
+                    TutorialText.Text = "In the Description field, enter the name of the tile." +
+                        "\nThen press Input and choose the key you want to assign.";
+                    SetBorder(_panelsById[4], PanelBoxGlow, 50, 14, 96, 36);
+                    
+                    PanelBoxGrid.Children.RemoveAt(0);
+                    PanelBoxGrid.Children.Add(panel);
+                    panel.OpenEditor();
+                    break;
+                case 4:
+                    TutorialText.Text = "Confirm your changes using the green button," +
+                        "\nor discard them using the red one.";
+                    SetBorder(_panelsById[4], PanelBoxGlow, 98, 46, 80, 38);
+                    PanelBoxGrid.Children.RemoveAt(0);
+                    PanelBoxGrid.Children.Add(panel);
+                    panel.OpenEditor();
+                    panel.DescriptionBox.Text = "Sprint";
+                    panel.InputBtn.Content = "Shift";
+                    break;
+                case 5:
+                    TutorialText.Text = "To customize the program’s appearance, open the Settings tab in the top-left corner.";
+                    PanelBoxGrid.Children.RemoveAt(0);
+                    SetBorder(Settings_Button, PanelBoxGlow, 5, 5, 70, 40);
+                    break;
+                case 6:
+                    TutorialText.Text = "To save your layout for later, click Save As at the bottom." +
+                        "\nEnter a name and press Save." +
+                        "\nSaved profiles can be loaded from the Load tab.";
+                    break;
+                case 7:
+                    TutorialText.TextAlignment = TextAlignment.Center;
+                    TutorialText.Text = "That's all!" +
+                        "\nEnjoy using ClickyKeys!";
+                    break;
+
+                default:
+                    TutorialOverlay.Visibility = Visibility.Collapsed;
+                    SetTutorialAsMarked();
+                    break;
+            }
+        }
+
+        private void NextTutorial_Click(object sender, RoutedEventArgs e)
+        {
+            _tutorialStep++;
+            UpdateTutorialText();
+        }
+
+        private void SkipTutorial_Click(object sender, RoutedEventArgs e)
+        {
+            TutorialOverlay.Visibility = Visibility.Collapsed;
+            SetTutorialAsMarked();
+        }
+
+        private void SetBorder(FrameworkElement target, Border targetBox, double offsetX = 0, double offsetY = 0, double sizeX = 10, double sizeY = 10)
+        {
+            if (!TutorialOverlay.IsVisible)
+                return;
+
+            var point = target.TransformToAncestor(this).Transform(new Point(0, 0));
+
+            targetBox.HorizontalAlignment = HorizontalAlignment.Left;
+            targetBox.VerticalAlignment = VerticalAlignment.Top;
+            targetBox.Width = sizeX;
+            targetBox.Height = sizeY;
+
+            targetBox.Margin = new Thickness(
+                point.X+ offsetX,
+                point.Y+ offsetY,
+                0,
+                0);
+        }
+
+        private void SetTutorialAsMarked()
+        {
+            try
+            {
+                lock (_lock)
+                {
+                    var options = new JsonSerializerOptions { WriteIndented = true };
+                    Configuration config = new();
+                    config.ShowTutorial = false;
+
+                    var json = JsonSerializer.Serialize(config, options);
+
+                    string appName = "ClickyKeys";
+                    var appDataDir = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                        appName);
+                    Directory.CreateDirectory(appDataDir);
+                    string _filePath = Path.Combine(appDataDir, "config.json");
+
+                    File.WriteAllText(_filePath, json); // file override
+                }
+            }
+            catch { }
+        }
 
         //-------------------------
         // Controls section

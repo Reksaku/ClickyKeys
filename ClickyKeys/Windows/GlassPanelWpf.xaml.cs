@@ -97,6 +97,7 @@ namespace ClickyKeys
             DescriptionBox.Text = "";
             InputBtn.Content = "Input";
             IsEditorOpen = false;
+            EditorBorder.Visibility = Visibility.Hidden;
         }
 
 
@@ -279,14 +280,19 @@ namespace ClickyKeys
             set { _isEditorOpen = value; OnPropertyChanged(nameof(IsEditorOpen)); }
         }
 
-        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        public void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            EditorPopup.Height = MainRectangle.ActualHeight;
-            EditorPopup.Width = MainRectangle.ActualWidth;
+            EditorBorder.Height = MainRectangle.ActualHeight;
+            EditorBorder.Width = MainRectangle.ActualWidth;
+            OpenEditor();
+        }
+
+        public void OpenEditor()
+        {
+            EditorBorder.Visibility = Visibility.Visible;
             IsEditorOpen = true;
             TriggerFlash();
         }
-        
 
         private void OnCloseEditor(object sender, RoutedEventArgs e) => CloseEditPanel();
         private void OnSaveEditor(object sender, RoutedEventArgs e) => SaveEditPanel();
