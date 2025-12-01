@@ -10,7 +10,7 @@
   <Identity
     Name="HobbyClickies.ClickyKeys"
     Publisher="CN=4C6425B0-D78D-4451-ACD9-ABBD0C924ECD"
-    Version="2.2.0.0" />
+    Version="2.2.1.0" />
 
   <Properties>
     <DisplayName>ClickyKeys</DisplayName>

@@ -25,6 +25,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Threading;
+using static System.Windows.Forms.Design.AxImporter;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace ClickyKeys
@@ -431,12 +432,6 @@ namespace ClickyKeys
             {
                 lock (_lock)
                 {
-                    var options = new JsonSerializerOptions { WriteIndented = true };
-                    Configuration config = new();
-                    config.ShowTutorial = false;
-
-                    var json = JsonSerializer.Serialize(config, options);
-
                     string appName = "ClickyKeys";
                     var appDataDir = Path.Combine(
                         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
@@ -444,7 +439,18 @@ namespace ClickyKeys
                     Directory.CreateDirectory(appDataDir);
                     string _filePath = Path.Combine(appDataDir, "config.json");
 
-                    File.WriteAllText(_filePath, json); // file override
+
+                    var json = File.ReadAllText(_filePath);
+                    Configuration config = JsonSerializer.Deserialize<Configuration>(json,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+                            ?? new Configuration();
+
+                    config.ShowTutorial = false;
+
+                    var options = new JsonSerializerOptions { WriteIndented = true };
+                    json = JsonSerializer.Serialize(config, options);
+                    File.WriteAllText(_filePath, json);
+
                 }
             }
             catch { }
@@ -584,13 +590,6 @@ namespace ClickyKeys
             {
                 lock (_lock)
                 {
-                    string[] names = Regex.Split(profile, @"ClickyKeys\\settings\\");
-
-                    var options = new JsonSerializerOptions { WriteIndented = true };
-                    Configuration config = new();
-                    config.SettingsProfile = names[1];
-                    var json = JsonSerializer.Serialize(config, options);
-
                     string appName = "ClickyKeys";
                     var appDataDir = Path.Combine(
                         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
@@ -598,7 +597,18 @@ namespace ClickyKeys
                     Directory.CreateDirectory(appDataDir);
                     string _filePath = Path.Combine(appDataDir, "config.json");
 
-                    File.WriteAllText(_filePath, json); // file override
+
+                    var json = File.ReadAllText(_filePath);
+                    Configuration config = JsonSerializer.Deserialize<Configuration>(json,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+                            ?? new Configuration();
+
+                    string[] names = Regex.Split(profile, @"ClickyKeys\\settings\\");
+                    config.SettingsProfile = names[1];
+
+                    var options = new JsonSerializerOptions { WriteIndented = true };
+                    json = JsonSerializer.Serialize(config, options);
+                    File.WriteAllText(_filePath, json);
                 }
             }
             catch { }
