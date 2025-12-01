@@ -11,7 +11,7 @@
     mc:Ignorable="d"
     Closing="Window_Closed"
     Title="Settings" 
-    Height="865" MinHeight="240" MaxHeight="1040"
+    Height="865" MinHeight="240" MaxHeight="1045"
     Width="440" MinWidth="440" MaxWidth="440"
     Icon="/Resources/Icon.ico">
 
@@ -60,7 +60,7 @@
             <RowDefinition Height="42"/>
             <RowDefinition Height="33"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="52"/>
         </Grid.RowDefinitions>
 
 
@@ -421,7 +421,7 @@ Width="200" Grid.Row="1" Grid.Column="1">
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Button Content="Load" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10,10,10" Grid.Column="0" Click="Click_Load"/>
-            <TextBox x:Name="NewFileNameTextBox" Style="{StaticResource PlaceholderTextBox}" Tag="New settings" Text="" Margin="0,10,5,10" Visibility="Hidden" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="NewFileNameTextBox" Style="{StaticResource PlaceholderTextBox}" Width="200" TextWrapping="NoWrap" MaxLength="30" Tag="New settings" Text="" Margin="0,10,5,10" Visibility="Hidden" Grid.Column="1" Grid.ColumnSpan="2"/>
             <Button x:Name="SaveAsButton" Content="Save As" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,10,10" Grid.Column="2" Click="Click_SaveAs"/>
             <Button Content="Save" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,10,10" Grid.Column="3" Click="Click_SaveAndClose"/>
             <Button Content="Exit" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Grid.Column="4" Click="Click_Close"/>

@@ -30,7 +30,7 @@ namespace ClickyKeys
 
             Directory.CreateDirectory(appDataDir);
 
-            _filePath = Path.Combine(appDataDir, "default_panels.json");
+            _filePath = Path.Combine(appDataDir, "default panels.json");
 
             if (!File.Exists(_filePath))
             {
