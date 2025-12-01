@@ -10,14 +10,6 @@ using System.Windows.Media;
 
 namespace ClickyKeys
 {
-    public class ReleaseParameters
-    {
-        [JsonPropertyName("version")]
-        public string Version { get; set; } = "2.2.0";
-
-        public DistributionType Distribution { get; set; } = DistributionType.dev;
-
-    }
     public class MyReleasesResponse
     {
         [JsonPropertyName("id")]
@@ -46,7 +38,7 @@ namespace ClickyKeys
     public class Configuration
     {
         [JsonPropertyName("version")]
-        public string Version { get; set; } = "2.2.0";
+        public string Version { get; set; } = "2.2.1";
 
         [JsonPropertyName("distribution")]
         public DistributionType Distribution { get; set; } = DistributionType.dev;

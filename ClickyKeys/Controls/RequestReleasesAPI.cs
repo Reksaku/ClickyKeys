@@ -18,7 +18,7 @@ namespace ClickyKeys
             _httpClient = new HttpClient();
 
             // Custom User-Agent
-            ReleaseParameters parameters = new ReleaseParameters();
+            Configuration parameters = new Configuration();
 
             _httpClient.DefaultRequestHeaders.UserAgent.Clear();
             _httpClient.DefaultRequestHeaders.UserAgent.Add(

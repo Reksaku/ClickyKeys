@@ -15,7 +15,7 @@ namespace ClickyKeys
 
     public class FontSettings : INotifyPropertyChanged
     {
-        private FontFamily _fontFamily = new FontFamily("Arial");
+        private FontFamily _fontFamily = new FontFamily("Arial Rounded MT");
         private double _fontSize = 36.0;
         private bool _isBold;
         private bool _isItalic;

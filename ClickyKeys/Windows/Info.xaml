@@ -67,7 +67,7 @@
                                    Margin="0,0,0,6"/>
                         <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
                             ClickyKeys processes your key presses and mouse clicks locally.
-                            No data is sent to any server.
+                            No user data is sent to any server.
                         </TextBlock>
                         <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
                             The project is open source, so you can review the code, learn from it,

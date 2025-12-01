@@ -23,7 +23,7 @@ namespace ClickyKeys
                 appName, "settings");
 
             Directory.CreateDirectory(appDataDir);
-            //string[] settingsList = { "settings", "settings_1", "settings_2", "settings_3", "settings_4" };
+            
             _filePath = Path.Combine(appDataDir, file);
 
             
@@ -49,7 +49,7 @@ namespace ClickyKeys
                 {
                     // Return to defaults
                     var defaults = new SettingsConfiguration();
-                    defaults.Version = new ReleaseParameters().Version;
+                    defaults.Version = new Configuration().Version;
                     Save(defaults);
                     return defaults;
                 }
@@ -96,16 +96,16 @@ namespace ClickyKeys
         // Colors
 
         [JsonPropertyName("background_color")]
-        public string BackgroundColor { get; set; } = "#FFFFF7E5";
+        public string BackgroundColor { get; set; } = "#FFC6D3E1";
 
         [JsonPropertyName("panels_color")]
-        public string PanelsColor { get; set; } = "#FFFCF7E7";
+        public string PanelsColor { get; set; } = "#FFFBFBFB";
 
         [JsonPropertyName("keys_text_color")]
-        public string KeysTextColor { get; set; } = "#FF5882D4";
+        public string KeysTextColor { get; set; } = "#FFEFA3A3";
 
         [JsonPropertyName("values_text_color")]
-        public string ValuesTextColor { get; set; } = "#FFFF0101";
+        public string ValuesTextColor { get; set; } = "#FF98BBB8";
 
         [JsonPropertyName("background_rainbow")]
         public bool IsBackgroundRainbow { get; set; } = false;

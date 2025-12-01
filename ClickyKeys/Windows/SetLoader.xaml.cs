@@ -17,9 +17,7 @@ using System.Windows.Media.Imaging;
 
 namespace ClickyKeys
 {
-    /// <summary>
-    /// Logika interakcji dla klasy SetLoader.xaml
-    /// </summary>
+
     public partial class SetLoader : Window
     {
         private readonly SettingsOverlay _settingsOverlay;

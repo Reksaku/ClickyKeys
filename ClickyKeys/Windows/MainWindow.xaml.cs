@@ -299,51 +299,49 @@ namespace ClickyKeys
 
         private async void VerifyVersion()
         {
-            if (new ReleaseParameters().Distribution == DistributionType.dev)
+            var url = "https://clickykeys.fun/api/releases.php";
+            try
             {
 
-            }
-            else if (new ReleaseParameters().Distribution == DistributionType.store)
-            {
+                if (new Configuration().Distribution == DistributionType.dev)
+                {
 
-            }
-            else if (new ReleaseParameters().Distribution == DistributionType.github)
-            {
-                var url = "https://clickykeys.fun/api/releases.php";
-
-                try
+                }
+                else if (new Configuration().Distribution == DistributionType.store)
+                {
+                    await _releasesApiClient.GetJsonAsync<MyReleasesResponse[]>(url);
+                }
+                else if (new Configuration().Distribution == DistributionType.github)
                 {
                     var data = await _releasesApiClient.GetJsonAsync<MyReleasesResponse[]>(url);
                     if (data != null)
                     {
-                        if (data[data.Length - 1].Version != new ReleaseParameters().Version)
+                        Version programVersion = new Version(new Configuration().Version);
+                        Version officialReleaseVersion = new Version(data[data.Length - 1].Version);
+
+                        if(officialReleaseVersion.CompareTo(programVersion) > 0)
                         {
                             MyPopup.IsOpen = true;
                         }
                     }
-                }                    
-                catch (Exception ex) {
-
                 }
 
-
             }
-
-
+            catch (Exception ex) { }
 
         }
 
         private void VerifySettings()
         {
-            if (_settingsConfiguration.Version != new ReleaseParameters().Version)
+            if (_settingsConfiguration.Version != new Configuration().Version)
             {
-                _settingsConfiguration.Version = new ReleaseParameters().Version;
+                _settingsConfiguration.Version = new Configuration().Version;
                 _settingsService.Save(_settingsConfiguration);
             }
 
-            if (_panel_settings.Version != new ReleaseParameters().Version)
+            if (_panel_settings.Version != new Configuration().Version)
             { 
-                _panel_settings.Version = new ReleaseParameters().Version;
+                _panel_settings.Version = new Configuration().Version;
                 _panelsService.Save(_panel_settings);
             }
         }
@@ -532,7 +530,7 @@ namespace ClickyKeys
 
         private void OpenLink_Click(object sender, RoutedEventArgs e)
         {
-            string url = "https://clickykeys.fun/update";
+            string url = "https://clickykeys.fun/update#downloads";
 
             try
             {
