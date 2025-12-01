@@ -33,7 +33,9 @@
             <ComboBoxItem>16</ComboBoxItem>
             <ComboBoxItem>18</ComboBoxItem>
             <ComboBoxItem>24</ComboBoxItem>
+            <ComboBoxItem>30</ComboBoxItem>
             <ComboBoxItem>36</ComboBoxItem>
+            <ComboBoxItem>42</ComboBoxItem>
             <ComboBoxItem>48</ComboBoxItem>
         </ComboBox>
 

@@ -17,7 +17,7 @@ namespace ClickyKeys.Controls
 {
     public partial class FontPicker : UserControl
     {
-        // Publiczny DP: wstrzyknij różne instancje FontSettings dla różnych pickerów
+        // Public DP
         public static readonly DependencyProperty SettingsProperty =
             DependencyProperty.Register(
                 nameof(SettingsParameter),
@@ -31,7 +31,7 @@ namespace ClickyKeys.Controls
             set => SetValue(SettingsProperty, value);
         }
 
-        // Źródło czcionek (posortowane)
+        // Sorted fonts source
         public List<FontFamily> FontFamilies { get; } =
             Fonts.SystemFontFamilies.OrderBy(f => f.Source).ToList();
 
