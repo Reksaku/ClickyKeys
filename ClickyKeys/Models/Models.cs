@@ -42,6 +42,22 @@ namespace ClickyKeys
         github = 2
 
     }
+
+    public class Configuration
+    {
+        [JsonPropertyName("version")]
+        public string Version { get; set; } = "2.2.0";
+
+        [JsonPropertyName("distribution")]
+        public DistributionType Distribution { get; set; } = DistributionType.dev;
+
+        [JsonPropertyName("settings_profile")]
+        public string SettingsProfile { get; set; } = "default_settings.json";
+        
+        [JsonPropertyName("panels_profile")]
+        public string PanelsProfile { get; set; } = "default_panels.json";
+    }
+
     public enum InputType
     {
         None = 0,
