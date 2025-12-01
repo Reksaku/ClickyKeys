@@ -76,13 +76,12 @@
 
 
 
-        <Popup x:Name="EditorPopup"
-               Placement="Center"
-               StaysOpen="True"
-               AllowsTransparency="True"
-               IsOpen="{Binding IsEditorOpen}"
-               Opacity="1"
-               >
+        <Border x:Name="EditorBorder"
+            Visibility="Hidden"
+            Opacity="1"
+            Width="180"
+            Height="80"
+            >
             <Border Background="#CCFFFFFF" CornerRadius="{Binding CornerRadius}" Padding="8">
 
                 <StackPanel>
@@ -106,11 +105,12 @@
                                  HorizontalAlignment="Center"/>
                         <Button Content="Input" x:Name="InputBtn"
                                 Click="OnInputKey" 
-                                FontSize="14" 
+                                FontSize="12" 
                                 Grid.Row="1" 
                                 Grid.Column="0" Grid.ColumnSpan="2"
-                                Margin="5,0,5,2"/>
-                        <Button Content="" Background="Red"
+                                Margin="5,0,5,0"
+                                Height="30"/>
+                        <Button Content="" Background="Red" x:Name="DenayButton"
                                 Width ="{Binding ActualHeight, 
                                     RelativeSource={RelativeSource AncestorType=Control},
                                     Converter={StaticResource DivideBy4}}"
@@ -127,6 +127,6 @@
 
                 </StackPanel>
             </Border>
-        </Popup>
+        </Border>
     </Grid>
 </UserControl>

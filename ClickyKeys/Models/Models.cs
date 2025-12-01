@@ -44,10 +44,13 @@ namespace ClickyKeys
         public DistributionType Distribution { get; set; } = DistributionType.dev;
 
         [JsonPropertyName("settings_profile")]
-        public string SettingsProfile { get; set; } = "default_settings.json";
+        public string SettingsProfile { get; set; } = "default settings.json";
         
         [JsonPropertyName("panels_profile")]
-        public string PanelsProfile { get; set; } = "default_panels.json";
+        public string PanelsProfile { get; set; } = "default panels.json";
+
+        [JsonPropertyName("show_tutorial")]
+        public bool ShowTutorial { get; set; } = true;
     }
 
     public enum InputType
