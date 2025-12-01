@@ -76,6 +76,7 @@ namespace ClickyKeys
             this.Closed += OnClosedDetachHandlers;
 
             SetOnStart();
+            this.Tag = "idle";
 
         }
 
@@ -217,8 +218,13 @@ namespace ClickyKeys
         }
         private void Click_Load(object? sender, EventArgs e)
         {
-            SetLoader loading = new(this);
-            loading.Show();
+            if(this.Tag.ToString() != "loading")
+            {
+                SetLoader loading = new(this);
+                this.Tag = "loading";
+                loading.Show();
+            }
+
         }
         private void Click_Close(object? sender, EventArgs e)
         {
@@ -258,14 +264,10 @@ namespace ClickyKeys
             SettingsService settingsService = new SettingsService(file);
             var loaded = settingsService.Load();
 
-            // Przepisujemy wartości do _settings zamiast podmieniać referencję
-            CopySettings(_settings, loaded);
+             CopySettings(_settings, loaded);
 
-            // Grid i panele dalej używają _settings,
-            // ale już z wartościami z nowego pliku
             _mainOverlay.OnGridChange(_settings);
 
-            // Jeśli chcesz odświeżyć UI ustawień (nazwę profilu itd.)
             SetOnStart();
             ForceColorChange();
 
@@ -274,14 +276,9 @@ namespace ClickyKeys
         {
             _temporarySettingsProfile = file;
 
-            // !! Tu cos się dzieje - coś rozpina hooki fontów z main window
+            SetOnStart();
 
-            //SetOnStart();
-            //ValuesFontPicker.InitializeComponent();
-            //KeysFontPicker.InitializeComponent();
-            //ForceColorChange();
-            //_mainOverlay.OnSettingsClose(_temporarySettingsProfile);
-            
+            this.Tag = "idle";
 
         }
         public void RevertSettingsFile()
@@ -290,6 +287,7 @@ namespace ClickyKeys
             _settings = settingsService.Load();
             SetOnStart();
             _mainOverlay.OnGridChange(_settings);
+            this.Tag = "idle";
         }
 
         private static void CopySettings(SettingsConfiguration target, SettingsConfiguration source)

@@ -10,6 +10,7 @@
         Width="490" Height="780"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
+        Closing="Window_Closed"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontFamily="Segoe UI"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}">
@@ -157,7 +158,7 @@
                     Content="Close"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     IsCancel="True"
-                    Click="Exit_Click"/>
+                    Click="Click_Close"/>
         </DockPanel>
     </Grid>
 </Window>

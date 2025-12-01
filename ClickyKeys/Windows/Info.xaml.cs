@@ -35,11 +35,14 @@ namespace ClickyKeys
             e.Handled = true;
         }
 
-        private void Exit_Click(object sender, RoutedEventArgs e) => CloseInfo();
-
-        private void CloseInfo()
+        private void Click_Close(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Window_Closed(object? sender, EventArgs e)
+        {
+            _mainOverlay.OnInfoClose();
         }
     }
 }

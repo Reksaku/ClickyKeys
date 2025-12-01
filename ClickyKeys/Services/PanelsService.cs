@@ -26,11 +26,11 @@ namespace ClickyKeys
         {
             var appDataDir = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                appName);
+                appName,"panels");
 
             Directory.CreateDirectory(appDataDir);
 
-            _filePath = Path.Combine(appDataDir, "panels.json");
+            _filePath = Path.Combine(appDataDir, "default_panels.json");
 
             if (!File.Exists(_filePath))
             {
