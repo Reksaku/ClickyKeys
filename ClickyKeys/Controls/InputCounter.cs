@@ -12,7 +12,6 @@ namespace ClickyKeys
 
         private readonly ConcurrentDictionary<int, int> _panelCounts = new();
         private readonly Dictionary<Key, int> _keyToPanel = new();
-        private readonly HashSet<Key> _trackedKeys = new();
         private readonly HashSet<Key> _pressed = new();
         private readonly object _pressedLock = new();
 
@@ -24,6 +23,13 @@ namespace ClickyKeys
         private int? _mouseX1PanelIndex;
         private int? _mouseX2PanelIndex;
 
+        // Fired on UI thread (low-level hooks pump on the installing thread)
+        // whenever a tracked panel's counter changes.
+        public event Action<int, int>? PanelValueChanged;
+
+        // Fired when all counters are reset (F12).
+        public event Action? CountersReset;
+
         public InputCounter(IOverlay overlay) => _overlay = overlay;
 
         public void LoadPanels(PanelState state)
@@ -31,9 +37,11 @@ namespace ClickyKeys
             _panelsState = state ?? new PanelState();
 
             _keyToPanel.Clear();
-            _trackedKeys.Clear();
             _mouseLeftPanelIndex = null;
             _mouseRightPanelIndex = null;
+            _mouseMiddlePanelIndex = null;
+            _mouseX1PanelIndex = null;
+            _mouseX2PanelIndex = null;
 
             foreach (var (panel, idx) in _panelsState.Panels.Select((p, i) => (p, i)))
             {
@@ -43,7 +51,6 @@ namespace ClickyKeys
                     if (!_keyToPanel.ContainsKey(norm))
                     {
                         _keyToPanel[norm] = idx;
-                        _trackedKeys.Add(norm);
                         _panelCounts.TryAdd(idx, 0);
                     }
                 }
@@ -97,19 +104,26 @@ namespace ClickyKeys
         {
             foreach (var k in _panelCounts.Keys.ToList())
                 _panelCounts[k] = 0;
+            CountersReset?.Invoke();
         }
 
-        public void ResetSingle(Key KeyCode)
+        public int GetPanelCount(int panelIndex) =>
+            _panelCounts.TryGetValue(panelIndex, out var v) ? v : 0;
+
+        /// <summary>
+        /// Zeroes the counter for a specific panel. Previously this method
+        /// took a <see cref="Key"/> and iterated <c>_keyToPanel.Keys</c> with
+        /// an enumeration index, which — because <c>Dictionary</c> iteration
+        /// order is undefined — zeroed the wrong counter. Callers already
+        /// know the panel index, so we take it directly.
+        /// </summary>
+        public void ResetSingle(int panelIndex)
         {
-            int i = 0;
-            foreach (var k in _keyToPanel.Keys)
-            {
-                if (k == KeyCode)
-                {
-                    _panelCounts[i] = 0;
-                }
-                i++;
-            }
+            if (!_panelCounts.ContainsKey(panelIndex))
+                return;
+
+            _panelCounts[panelIndex] = 0;
+            PanelValueChanged?.Invoke(panelIndex, 0);
         }
 
         public IReadOnlyList<(Key Code, InputType Input, string Name, int Value)> GetStats()
@@ -159,8 +173,11 @@ namespace ClickyKeys
                 _pressed.Add(norm);
             }
 
-            if (_trackedKeys.Contains(norm) && _keyToPanel.TryGetValue(norm, out var panelIndex))
-                _panelCounts.AddOrUpdate(panelIndex, 1, (_, v) => v + 1);
+            if (_keyToPanel.TryGetValue(norm, out var panelIndex))
+            {
+                var newValue = _panelCounts.AddOrUpdate(panelIndex, 1, (_, v) => v + 1);
+                PanelValueChanged?.Invoke(panelIndex, newValue);
+            }
 
             if (wpfKey == Key.F12) Reset();
             else if (wpfKey == Key.F11) _overlay.ToggleToolStrip();
@@ -174,14 +191,20 @@ namespace ClickyKeys
 
         private void OnMouseDown(MouseButton btn)
         {
-            switch (btn)
+            int? idx = btn switch
             {
-                case MouseButton.Left when _mouseLeftPanelIndex.HasValue: _panelCounts.AddOrUpdate(_mouseLeftPanelIndex.Value, 1, (_, v) => v + 1); break;
-                case MouseButton.Right when _mouseRightPanelIndex.HasValue: _panelCounts.AddOrUpdate(_mouseRightPanelIndex.Value, 1, (_, v) => v + 1); break;
-                case MouseButton.Middle when _mouseMiddlePanelIndex.HasValue: _panelCounts.AddOrUpdate(_mouseMiddlePanelIndex.Value, 1, (_, v) => v + 1); break;
-                case MouseButton.XButton1 when _mouseX1PanelIndex.HasValue: _panelCounts.AddOrUpdate(_mouseX1PanelIndex.Value, 1, (_, v) => v + 1); break;
-                case MouseButton.XButton2 when _mouseX2PanelIndex.HasValue: _panelCounts.AddOrUpdate(_mouseX2PanelIndex.Value, 1, (_, v) => v + 1); break;
-            }
+                MouseButton.Left => _mouseLeftPanelIndex,
+                MouseButton.Right => _mouseRightPanelIndex,
+                MouseButton.Middle => _mouseMiddlePanelIndex,
+                MouseButton.XButton1 => _mouseX1PanelIndex,
+                MouseButton.XButton2 => _mouseX2PanelIndex,
+                _ => null
+            };
+
+            if (!idx.HasValue) return;
+
+            var newValue = _panelCounts.AddOrUpdate(idx.Value, 1, (_, v) => v + 1);
+            PanelValueChanged?.Invoke(idx.Value, newValue);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace ClickyKeys
     public class Configuration
     {
         [JsonPropertyName("version")]
-        public string Version { get; set; } = "2.2.1";
+        public string Version { get; set; } = "2.2.2";
 
         [JsonPropertyName("distribution")]
         public DistributionType Distribution { get; set; } = DistributionType.dev;

@@ -1,13 +1,14 @@
-﻿using System;
+﻿using ControlzEx.Standard;
+using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
-using System.Globalization;
-using System.Windows.Data;
-using ControlzEx.Standard;
 
 namespace ClickyKeys
 {
@@ -63,14 +64,18 @@ namespace ClickyKeys
                     _scale = Lerp(_scale, _target, 1.0 - DECAY_LERP);
                 }
 
-                if (Math.Abs(_scale - BASE_SCALE) < 0.01 && _flash < 0.03)
+
+                bool changed = false;
+
+                var newFlash = Math.Max(0.0, _flash * FLASH_DECAY);
+                if (Math.Abs(newFlash - _flash) > 0.001)
                 {
-                    _scale = BASE_SCALE;
-                    _flash = 0.0;
-                    _anim.Stop();
+                    _flash = newFlash;
+                    changed = true;
                 }
 
-                RaiseAnimBindings();
+                if (changed)
+                    RaiseAnimBindings();
             };
 
 
@@ -81,15 +86,13 @@ namespace ClickyKeys
 
         public void TriggerFlash()
         {
-            if (!IsEditorOpen)
-            {
-                _flash = 1.0;
-                _target = PEAK_SCALE;
-                _rampingUp = true;
-                _anim.Stop();
-                _anim.Start();
-                RaiseAnimBindings();
-            }
+
+            if (IsEditorOpen)
+                return;
+
+            var sb = (Storyboard)Resources["FlashStoryboard"];
+            sb.Stop();
+            sb.Begin();
         }
 
         public void CloseEditPanel()
@@ -97,7 +100,7 @@ namespace ClickyKeys
             DescriptionBox.Text = "";
             InputBtn.Content = "Input";
             IsEditorOpen = false;
-            EditorBorder.Visibility = Visibility.Hidden;
+            EditorBorder.Visibility = Visibility.Collapsed;
         }
 
 

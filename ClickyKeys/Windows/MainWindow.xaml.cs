@@ -22,6 +22,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Threading;
@@ -46,8 +47,6 @@ namespace ClickyKeys
     public partial class MainWindow : Window, IOverlay
     {
         private readonly InputCounter _counter;
-        private readonly DispatcherTimer _uiTimer;
-        private readonly DispatcherTimer _backgroundTimer;
 
         private string settingsFileName;
         private SettingsService _settingsService;
@@ -65,7 +64,10 @@ namespace ClickyKeys
         private MainWindow? _transparentWindow = null;
 
         private ColorsPallet allColors = new();
-        private hsvColor BackgroundHSV = new();
+
+        // Single mutable brush backing Background; animated on the composition
+        // thread when rainbow mode is on — no per-frame allocations.
+        private readonly SolidColorBrush _backgroundBrush = new(Colors.White);
 
         private int rows;
         private int cols;
@@ -123,25 +125,27 @@ namespace ClickyKeys
 
             LoadPanelConfiguration();
 
-            VerifyVersion();
+            // Skip the update check in the transparent sub-window — it shares
+            // the parent's counter and shouldn't ping the API a second time
+            // or raise a duplicate popup.
+            if (!_transparent)
+                VerifyVersion(ConfigSettings);
             VerifySettings();
 
-            // interface refresh rate
-            _uiTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(10) };
-            _uiTimer.Tick += (_, __) => UpdateValues();
+            // Push updates into the UI only when a counter actually changes
+            // (hook callbacks already run on the UI thread). This replaces the
+            // former 100 Hz DispatcherTimer polling of every panel.
+            _counter.PanelValueChanged += OnCounterPanelValueChanged;
+            _counter.CountersReset += OnCountersReset;
 
-            // timer start
-            _uiTimer.Start();
+            // color subscriber start
+            WrmSubscriberStart();
 
-            _backgroundTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(10) };
-            SetRainbowTimers();
-
-
-            // color subscriber start 
-            WrmSubscriberStart();            
-            
             // set panels grid
             SetGrid(_settingsConfiguration);
+
+            // Kick off rainbow animation if enabled (otherwise no-op).
+            UpdateRainbowState();
 
             if(ConfigSettings.ShowTutorial == true)
             {
@@ -175,12 +179,6 @@ namespace ClickyKeys
         }
 
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            _counter.Start();     // global hooks
-            _uiTimer.Start();     // UI refreshing
-        }
-
         private void InitTransparentMode()
         {
             _transparentWindow = new MainWindow(true, _counter);
@@ -188,30 +186,57 @@ namespace ClickyKeys
 
         }
 
-        private void SetRainbowTimers()
+        /// <summary>
+        /// Drives the background color. When rainbow is OFF the brush holds a
+        /// static color. When ON a <see cref="ColorAnimationUsingKeyFrames"/>
+        /// cycles the single <see cref="_backgroundBrush"/> on the WPF
+        /// composition thread — no per-frame allocations, no UI-thread ticks.
+        /// </summary>
+        private void UpdateRainbowState()
         {
-            _backgroundTimer.Tick += (s, e) =>
+            // Always clear any running animation first.
+            _backgroundBrush.BeginAnimation(SolidColorBrush.ColorProperty, null);
+
+            // Make sure Background is bound to our mutable brush (may be
+            // Brushes.Transparent in transparent mode — leave that alone).
+            if (!_transparent && !ReferenceEquals(Background, _backgroundBrush))
+                Background = _backgroundBrush;
+
+            if (!_settingsConfiguration.IsBackgroundRainbow)
             {
-                double _hue = BackgroundHSV.hue;
-                double _sat = BackgroundHSV.sat;
-                double _val = BackgroundHSV.val;
+                _backgroundBrush.Color = allColors.background;
+                return;
+            }
 
-                // calculate saturation and value
-                RgbToHsv(allColors.background, out _, out _sat, out _val);
+            // Derive saturation/value from the user's chosen background color
+            // so the rainbow respects their brightness preference.
+            RgbToHsv(allColors.background, out _, out double sat, out double val);
 
-                _hue = (_hue + 1) % 360; // hue rotation
-                if (_settingsConfiguration.IsBackgroundRainbow == true)
-                    Background = new SolidColorBrush(HsvToRgb(_hue, _sat, _val));
-
-                BackgroundHSV.hue = _hue;
+            var anim = new ColorAnimationUsingKeyFrames
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(6)),
+                RepeatBehavior = RepeatBehavior.Forever
             };
-            _backgroundTimer.Start();
+
+            const int steps = 24;
+            for (int i = 0; i <= steps; i++)
+            {
+                double hue = i * 360.0 / steps;
+                var color = HsvToRgb(hue, sat, val);
+                anim.KeyFrames.Add(new LinearColorKeyFrame(
+                    color,
+                    KeyTime.FromPercent((double)i / steps)));
+            }
+
+            _backgroundBrush.BeginAnimation(SolidColorBrush.ColorProperty, anim);
         }
 
         public void LoadBackgroundFromSettings()
         {
             allColors.background = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.BackgroundColor);
-            Background = new BrushConverter().ConvertFromString(_settingsConfiguration.BackgroundColor) as Brush;
+            _backgroundBrush.Color = allColors.background;
+            if (!_transparent)
+                Background = _backgroundBrush;
         }
 
         Configuration LoadInitSettings()
@@ -251,9 +276,16 @@ namespace ClickyKeys
 
         private void Window_Closed(object? sender, EventArgs e)
         {
+            // Unhook from counter events on both main and transparent windows
+            // to prevent leaks and updates into disposed controls.
+            _counter.PanelValueChanged -= OnCounterPanelValueChanged;
+            _counter.CountersReset -= OnCountersReset;
+
+            // Stop any background animation we own.
+            _backgroundBrush.BeginAnimation(SolidColorBrush.ColorProperty, null);
+
             if (_transparent == false)
                 _counter.Dispose();
-            _uiTimer.Stop();
             _transparentWindow?.Close();
             _transparentWindow = null;
         }
@@ -271,10 +303,15 @@ namespace ClickyKeys
                         switch (m.Target)
                         {
                             case ColorTarget.Background:
-                                // change on background color
+                                // Mutate the existing brush rather than
+                                // replacing it, so any running rainbow
+                                // animation stays attached; in rainbow mode
+                                // rebuild the animation with new sat/val.
                                 allColors.background = c;
-                                if (_settingsConfiguration.IsBackgroundRainbow == false)
-                                    Background = new SolidColorBrush(c);
+                                if (_settingsConfiguration.IsBackgroundRainbow)
+                                    UpdateRainbowState();
+                                else
+                                    _backgroundBrush.Color = c;
                                 break;
 
                             case ColorTarget.Panels:
@@ -460,38 +497,69 @@ namespace ClickyKeys
         // Controls section
         //-------------------------
 
-        private async void VerifyVersion()
+        /// <summary>
+        /// Checks the releases endpoint according to the active distribution.
+        /// <para>
+        /// The previous implementation called <c>new Configuration()</c> in
+        /// every branch, which always returned the default (<c>dev</c>) —
+        /// so the store and github branches were dead code. This version
+        /// uses the configuration actually loaded from <c>config.json</c>.
+        /// </para>
+        /// </summary>
+        private async void VerifyVersion(Configuration cfg)
         {
-            var url = "https://clickykeys.fun/api/releases.php";
+            const string url = "https://clickykeys.fun/api/releases.php";
+
             try
             {
-
-                if (new Configuration().Distribution == DistributionType.dev)
+                switch (cfg.Distribution)
                 {
+                    case DistributionType.dev:
+                        // No update check in dev builds.
+                        return;
 
-                }
-                else if (new Configuration().Distribution == DistributionType.store)
-                {
-                    await _releasesApiClient.GetJsonAsync<MyReleasesResponse[]>(url);
-                }
-                else if (new Configuration().Distribution == DistributionType.github)
-                {
-                    var data = await _releasesApiClient.GetJsonAsync<MyReleasesResponse[]>(url);
-                    if (data != null)
-                    {
-                        Version programVersion = new Version(new Configuration().Version);
-                        Version officialReleaseVersion = new Version(data[data.Length - 1].Version);
+                    case DistributionType.store:
+                        // Ping only — the Store handles real updates.
+                        // Result intentionally discarded.
+                        await _releasesApiClient.GetJsonAsync<MyReleasesResponse[]>(url);
+                        return;
 
-                        if(officialReleaseVersion.CompareTo(programVersion) > 0)
+                    case DistributionType.github:
+                        var data = await _releasesApiClient
+                            .GetJsonAsync<MyReleasesResponse[]>(url);
+
+                        if (data == null || data.Length == 0)
+                            return;
+
+                        // Pick the highest valid version rather than trusting
+                        // the last element in the response.
+                        Version? latest = null;
+                        foreach (var entry in data)
                         {
-                            MyPopup.IsOpen = true;
+                            if (Version.TryParse(entry.Version, out var parsed)
+                                && (latest == null || parsed > latest))
+                            {
+                                latest = parsed;
+                            }
                         }
-                    }
+
+                        if (latest == null)
+                            return;
+
+                        if (!Version.TryParse(cfg.Version, out var current))
+                            return;
+
+                        if (latest > current)
+                            MyPopup.IsOpen = true;
+                        return;
                 }
-
             }
-            catch (Exception ex) { }
-
+            catch (Exception ex)
+            {
+                // Surface the failure to attached debuggers / log collectors
+                // rather than silently eating it.
+                Debug.WriteLine($"VerifyVersion failed: {ex}");
+            }
         }
 
         private void VerifySettings()
@@ -525,7 +593,8 @@ namespace ClickyKeys
             settingsFileName = settingsPath;
             SaveProfileToConfig(settingsFileName);
             _settingsConfiguration = _settingsService.Load();
-            Background = new BrushConverter().ConvertFromString(_settingsConfiguration.BackgroundColor) as Brush;
+            LoadBackgroundFromSettings();
+            UpdateRainbowState();
             SetGrid(_settingsConfiguration);
             OpenedSettings = false;
         }
@@ -614,37 +683,34 @@ namespace ClickyKeys
             catch { }
         }
 
-        private void UpdateValues()
+        /// <summary>
+        /// Event-driven replacement for the old 100 Hz UpdateValues() polling.
+        /// Called directly from <see cref="InputCounter"/> on the UI thread
+        /// whenever a tracked counter changes — O(1) lookup, one panel update,
+        /// one flash trigger.
+        /// </summary>
+        private void OnCounterPanelValueChanged(int panelIndex, int newValue)
         {
-            var stats = _counter.GetStats();
-            for (int i = 0; i < cols * rows; i++)
-            {
-                var panel = _panelsById[i];
-                foreach (var (c, it, n, v) in stats.Take(cols * rows))
-                {
-                    if (panel.Key == c && panel.Type == it)
-                    {
-                        try
-                        {
-                            if (panel.Value != v)
-                            {
-                                panel.Value = v;
-                                panel.TriggerFlash();
-                            }
-                        }
-                        catch { }
-                    }
-                }
+            if (!_panelsById.TryGetValue(panelIndex, out var panel))
+                return;
 
-            }
+            if (panel.Value == newValue)
+                return;
+
+            panel.Value = newValue;
+            panel.TriggerFlash();
+        }
+
+        private void OnCountersReset()
+        {
+            foreach (var panel in _panelsById.Values)
+                panel.Value = 0;
         }
 
         public void SetBackgroundRainbow(bool? IsTrue)
         {
             _settingsConfiguration.IsBackgroundRainbow = IsTrue ?? false;
-            if (_settingsConfiguration.IsBackgroundRainbow == false)
-                //LoadBackgroundFromSettings();
-                SetGrid(_settingsConfiguration);
+            UpdateRainbowState();
         }
 
         public void OnGridChange(SettingsConfiguration settings)
@@ -722,94 +788,133 @@ namespace ClickyKeys
         // Grid section
         //-------------------------
 
+        /// <summary>
+        /// Syncs the visible grid to <paramref name="settings"/>. A full rebuild
+        /// (Children.Clear + new <see cref="GlassPanelWpf"/> instances) only
+        /// runs when the grid dimensions changed. Otherwise existing panels
+        /// have their state updated in place, which preserves their
+        /// <c>Value</c>/flash state and avoids WPF control construction costs.
+        /// </summary>
         private void SetGrid(SettingsConfiguration settings)
         {
+            // Parse shared state once rather than in every iteration.
+            Color panelColor = (Color)ColorConverter.ConvertFromString(settings.PanelsColor);
+            Color keysColor = (Color)ColorConverter.ConvertFromString(settings.KeysTextColor);
+            Color valuesColor = (Color)ColorConverter.ConvertFromString(settings.ValuesTextColor);
+            FontSettings keysFont = settings.KeysFontSettings;
+            FontSettings valuesFont = settings.ValuesFontSettings;
 
-            int id = 0;
-            Key n;
-            string d;
-            InputType input;
+            bool dimensionsChanged =
+                settings.GridRows != rows ||
+                settings.GridColumns != cols ||
+                _panelsById.Count != settings.GridRows * settings.GridColumns;
+
+            if (!dimensionsChanged)
+            {
+                // Fast path: reuse existing controls.
+                int total = rows * cols;
+                for (int id = 0; id < total; id++)
+                {
+                    if (_panelsById.TryGetValue(id, out var existing))
+                        ApplyPanelState(existing, id, panelColor, keysColor,
+                            valuesColor, keysFont, valuesFont, resetValue: false);
+                }
+                return;
+            }
+
+            // Full rebuild: dimensions changed.
             myGrid.Children.Clear();
             myGrid.RowDefinitions.Clear();
             myGrid.ColumnDefinitions.Clear();
+            _panelsById.Clear();
 
-            // update grid size
             rows = settings.GridRows;
             cols = settings.GridColumns;
 
-            for (int r = 0; r < settings.GridRows; r++)
-            {
-                myGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-            }
-            for (int c = 0; c < settings.GridColumns; c++)
-            {
-                myGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-            }
+            for (int r = 0; r < rows; r++)
+                myGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            for (int c = 0; c < cols; c++)
+                myGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
-
-            for (int r = 0; r < settings.GridRows; r++)
+            int nextId = 0;
+            for (int r = 0; r < rows; r++)
             {
-                for (int c = 0; c < settings.GridColumns; c++)
+                for (int c = 0; c < cols; c++)
                 {
-                    if (_panel_settings.Panels[id].Input == InputType.None && _panel_settings.Panels[id].KeyCode == Key.None)
-                        d = $"id. {id}";
-                    else d = $"{_panel_settings.Panels[id].Description}";
+                    var panel = new GlassPanelWpf(this) { ID = nextId };
+                    ApplyPanelState(panel, nextId, panelColor, keysColor,
+                        valuesColor, keysFont, valuesFont, resetValue: true);
 
-                    n = _panel_settings.Panels[id].KeyCode;
-                    input = _panel_settings.Panels[id].Input;
-                    Color panelColor = (Color)ColorConverter.ConvertFromString(settings.PanelsColor);
-                    Color keysColor = (Color)ColorConverter.ConvertFromString(settings.KeysTextColor);
-                    Color valuesColor = (Color)ColorConverter.ConvertFromString(settings.ValuesTextColor);
-                    FontSettings keysFont = settings.KeysFontSettings;
-                    FontSettings valuesFont = settings.ValuesFontSettings;
-
-                    var panel = new GlassPanelWpf(this)
-                    {
-                        ID = id,
-                        Value = 0,
-                        Description = d,
-                        Type = input,
-                        Key = n,
-                        PanelColor = panelColor,
-                        KeyTextColor = keysColor,
-                        ValueTextColor = valuesColor,
-                        KeyFont = keysFont,
-                        ValueFont = valuesFont,
-                    };
-
-                    _panelsById[id] = panel;
+                    _panelsById[nextId] = panel;
                     Grid.SetRow(panel, r);
                     Grid.SetColumn(panel, c);
-
                     myGrid.Children.Add(panel);
-                    id++;
+                    nextId++;
                 }
             }
+        }
 
+        private void ApplyPanelState(
+            GlassPanelWpf panel,
+            int id,
+            Color panelColor,
+            Color keysColor,
+            Color valuesColor,
+            FontSettings keysFont,
+            FontSettings valuesFont,
+            bool resetValue)
+        {
+            var cfg = _panel_settings.Panels[id];
+
+            panel.Description = (cfg.Input == InputType.None && cfg.KeyCode == Key.None)
+                ? $"id. {id}"
+                : cfg.Description;
+            panel.Type = cfg.Input;
+            panel.Key = cfg.KeyCode;
+            panel.PanelColor = panelColor;
+            panel.KeyTextColor = keysColor;
+            panel.ValueTextColor = valuesColor;
+            panel.KeyFont = keysFont;
+            panel.ValueFont = valuesFont;
+
+            // For newly-constructed panels seed the value from the live
+            // counter (0 if unknown). In-place updates keep the current
+            // display value so the user doesn't see counters flash to 0.
+            if (resetValue)
+                panel.Value = _counter?.GetPanelCount(id) ?? 0;
         }
 
         public void SavePanelConfiguration(PanelsSettings state)
         {
-            //_counter.Dispose();
+            // If the chosen input is already bound to another panel, clear
+            // that panel and zero its counter. Pass the index directly so the
+            // reset hits the correct counter (old code iterated a Dictionary
+            // and used the iteration index — undefined ordering, wrong panel).
             for (int i = 0; i < rows * cols; i++)
             {
+                if (i == state.Index) continue;
+
                 if (_panel_settings.Panels[i].Input == state.Input
                     && _panel_settings.Panels[i].KeyCode == state.KeyCode)
                 {
                     _panel_settings.Panels[i].KeyCode = Key.None;
                     _panel_settings.Panels[i].Input = InputType.None;
                     _panel_settings.Panels[i].Description = "";
-                    _counter.ResetSingle(state.KeyCode);
+                    _counter.ResetSingle(i);
                 }
             }
+
             int id = state.Index;
             _panel_settings.Panels[id].KeyCode = state.KeyCode;
             _panel_settings.Panels[id].Input = state.Input;
             _panel_settings.Panels[id].Description = state.Description;
+
+            // Reassigning a panel invalidates its running count.
+            _counter.ResetSingle(id);
+
             _panelsService.Save(_panel_settings);
             LoadPanelConfiguration();
             SetGrid(_settingsConfiguration);
-            //_counter.Start();
         }
 
 
