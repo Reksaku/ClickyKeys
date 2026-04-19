@@ -8,13 +8,59 @@
              x:Name="root"
              Height="100" Width="200">
 
+    <UserControl.Resources>
+
+        <Storyboard x:Key="FlashStoryboard">
+
+            <!-- POWIĘKSZENIE -->
+            <DoubleAnimation
+            Storyboard.TargetName="ScaleTf"
+            Storyboard.TargetProperty="ScaleX"
+            To="1.05"
+            Duration="0:0:0.09" />
+
+            <DoubleAnimation
+            Storyboard.TargetName="ScaleTf"
+            Storyboard.TargetProperty="ScaleY"
+            To="1.05"
+            Duration="0:0:0.09" />
+
+            <!-- POWRÓT -->
+            <DoubleAnimation
+            Storyboard.TargetName="ScaleTf"
+            Storyboard.TargetProperty="ScaleX"
+            To="0.95"
+            BeginTime="0:0:0.09"
+            Duration="0:0:0.22">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+
+            <DoubleAnimation
+            Storyboard.TargetName="ScaleTf"
+            Storyboard.TargetProperty="ScaleY"
+            To="0.95"
+            BeginTime="0:0:0.09"
+            Duration="0:0:0.22">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+
+        </Storyboard>
+
+    </UserControl.Resources>
+
+
     <Grid x:Name="LayoutRoot"
           RenderTransformOrigin="0.5,0.5"
           MouseLeftButtonDown="OnMouseLeftButtonDown"
-          SnapsToDevicePixels="True">
+          SnapsToDevicePixels="True"
+          CacheMode="BitmapCache">
 
         <Grid.RenderTransform>
-            <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
+            <ScaleTransform x:Name="ScaleTf" ScaleX="0.95" ScaleY="0.95"/>
         </Grid.RenderTransform>
 
         <Grid Margin="{Binding InsetThickness}">
@@ -77,7 +123,7 @@
 
 
         <Border x:Name="EditorBorder"
-            Visibility="Hidden"
+            Visibility="Collapsed"
             Opacity="1"
             Width="180"
             Height="80"
