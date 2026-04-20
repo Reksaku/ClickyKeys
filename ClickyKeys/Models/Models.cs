@@ -40,12 +40,16 @@ namespace ClickyKeys
         [JsonPropertyName("version")]
         public string Version { get; set; } = "2.2.2";
 
-        [JsonPropertyName("distribution")]
-        public DistributionType Distribution { get; set; } = DistributionType.dev;
+        // Distribution was previously a JSON-serializable property, which
+        // meant any user could edit config.json and switch their "channel"
+        // (e.g. silence update prompts by flipping to dev). It now lives in
+        // BuildInfo.Distribution as a compile-time constant that cannot be
+        // overridden from disk. Existing JSON entries named "distribution"
+        // are ignored on load (System.Text.Json skips unknown properties).
 
         [JsonPropertyName("settings_profile")]
         public string SettingsProfile { get; set; } = "default settings.json";
-        
+
         [JsonPropertyName("panels_profile")]
         public string PanelsProfile { get; set; } = "default panels.json";
 

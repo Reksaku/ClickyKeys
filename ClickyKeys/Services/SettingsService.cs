@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ClickyKeys
@@ -16,6 +18,26 @@ namespace ClickyKeys
         private readonly object _lock = new();
         string appName = "ClickyKeys";
 
+        // Cached once per process — constructing JsonSerializerOptions on every
+        // save is expensive and (before .NET 7) warmed a new serialization
+        // cache per instance.
+        private static readonly JsonSerializerOptions WriteOptions = new()
+        {
+            WriteIndented = true
+        };
+
+        private static readonly JsonSerializerOptions ReadOptions = new()
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        // Debounce plumbing. Callers fire SaveDebounced as often as they like;
+        // only the latest payload actually hits disk, after a short quiet
+        // period. FlushAsync lets shutdown wait for the trailing write.
+        private readonly object _debounceLock = new();
+        private CancellationTokenSource? _debounceCts;
+        private Task _pendingSave = Task.CompletedTask;
+
         public SettingsService(string file)
         {
             var appDataDir = Path.Combine(
@@ -23,10 +45,10 @@ namespace ClickyKeys
                 appName, "settings");
 
             Directory.CreateDirectory(appDataDir);
-            
+
             _filePath = Path.Combine(appDataDir, file);
 
-            
+
 
             if (!File.Exists(_filePath))
             {
@@ -41,8 +63,7 @@ namespace ClickyKeys
                 try
                 {
                     var json = File.ReadAllText(_filePath);
-                    return JsonSerializer.Deserialize<SettingsConfiguration>(json,
-                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+                    return JsonSerializer.Deserialize<SettingsConfiguration>(json, ReadOptions)
                            ?? new SettingsConfiguration();
                 }
                 catch
@@ -57,14 +78,74 @@ namespace ClickyKeys
         }
 
 
-        public void Save(SettingsConfiguration settings) // Override settings.json with new data
+        /// <summary>
+        /// Synchronous atomic save. Writes to a sibling ".tmp" file and moves
+        /// it over the target, so a crash mid-write can't leave an invalid
+        /// JSON blob behind.
+        /// </summary>
+        public void Save(SettingsConfiguration settings)
         {
+            var json = JsonSerializer.Serialize(settings, WriteOptions);
             lock (_lock)
             {
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                var json = JsonSerializer.Serialize(settings, options);
-                File.WriteAllText(_filePath, json); // file override
+                AtomicFile.WriteAllText(_filePath, json);
             }
+        }
+
+        /// <summary>
+        /// Async atomic save. Serialization runs on the caller's context, then
+        /// the actual disk write happens off the UI thread. Safe to call from
+        /// UI event handlers with <c>await</c>.
+        /// </summary>
+        public async Task SaveAsync(SettingsConfiguration settings, CancellationToken ct = default)
+        {
+            var json = JsonSerializer.Serialize(settings, WriteOptions);
+            await AtomicFile.WriteAllTextAsync(_filePath, json, ct).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Coalesces rapid-fire saves (e.g. dragging a color picker) into a
+        /// single trailing write. Each call cancels the previous pending
+        /// write and schedules a new one after <paramref name="delay"/>.
+        /// </summary>
+        public void SaveDebounced(SettingsConfiguration settings, TimeSpan? delay = null)
+        {
+            var wait = delay ?? TimeSpan.FromMilliseconds(500);
+
+            lock (_debounceLock)
+            {
+                _debounceCts?.Cancel();
+                _debounceCts = new CancellationTokenSource();
+                var token = _debounceCts.Token;
+
+                _pendingSave = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await Task.Delay(wait, token).ConfigureAwait(false);
+                        await SaveAsync(settings, token).ConfigureAwait(false);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // Superseded by a newer SaveDebounced — fine.
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"SettingsService.SaveDebounced failed: {ex}");
+                    }
+                }, token);
+            }
+        }
+
+        /// <summary>
+        /// Awaits any in-flight debounced save. Call on window close so the
+        /// user's latest change is durable before the process exits.
+        /// </summary>
+        public Task FlushAsync()
+        {
+            Task pending;
+            lock (_debounceLock) { pending = _pendingSave; }
+            return pending;
         }
 
     }

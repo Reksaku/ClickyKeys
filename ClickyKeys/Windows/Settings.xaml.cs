@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Globalization;
 using System.Linq;
@@ -189,7 +190,7 @@ namespace ClickyKeys
             _settings.GridColumns = (int)ColumnsCount.Value;
             _mainOverlay.OnGridChange(_settings);
         }
-        private void Click_SaveAndClose(object? sender, EventArgs e)
+        private async void Click_SaveAndClose(object? sender, EventArgs e)
         {
             _settings.GridColumns = (int)ColumnsCount.Value;
             _mainOverlay.OnGridChange(_settings);
@@ -212,7 +213,19 @@ namespace ClickyKeys
             _settingsConfiguration.ValuesFontSettings = ValuesFontPicker.SettingsParameter;
             _settingsConfiguration.IsBackgroundRainbow = BackgroundRainbowCheckBox.IsChecked ?? false;
 
-            _settingsService.Save(_settingsConfiguration);
+            // Async atomic save: doesn't block the UI thread while the file
+            // hits disk. If the async path fails for any reason we fall back
+            // to the synchronous save so the user's changes still land.
+            try
+            {
+                await _settingsService.SaveAsync(_settingsConfiguration);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Click_SaveAndClose: SaveAsync failed, falling back: {ex}");
+                _settingsService.Save(_settingsConfiguration);
+            }
+
             _mainOverlay.OnSettingsClose(_selectedSettingsProfile);
             this.Close();
         }
