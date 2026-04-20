@@ -17,7 +17,10 @@ namespace ClickyKeys
         {
             _httpClient = new HttpClient();
 
-            // Custom User-Agent
+            // Custom User-Agent. The distribution ID comes from BuildInfo
+            // (compile-time) rather than from the JSON-deserialised
+            // Configuration so the user can't spoof their channel by
+            // editing config.json.
             Configuration parameters = new Configuration();
 
             _httpClient.DefaultRequestHeaders.UserAgent.Clear();
@@ -25,7 +28,7 @@ namespace ClickyKeys
                 new ProductInfoHeaderValue("ClickyKeysApp", parameters.Version));
 
             _httpClient.DefaultRequestHeaders.UserAgent.Add(
-                new ProductInfoHeaderValue("Distro", parameters.Distribution.ToString()));
+                new ProductInfoHeaderValue("Distro", BuildInfo.Distribution.ToString()));
 
             _httpClient.DefaultRequestHeaders.UserAgent.Add(
                 new ProductInfoHeaderValue("Type", "application"));

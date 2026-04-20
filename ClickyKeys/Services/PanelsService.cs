@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 
 using System.Windows.Input;
@@ -15,12 +17,19 @@ namespace ClickyKeys
     internal class PanelsService
     {
         private readonly string _filePath;
+        private readonly object _lock = new();
+
         private static readonly JsonSerializerOptions JsonOptions = new()
 
         {
             WriteIndented = true,
             Converters = { new JsonStringEnumConverter() }
         };
+
+        // Debounce plumbing — same shape as SettingsService.
+        private readonly object _debounceLock = new();
+        private CancellationTokenSource? _debounceCts;
+        private Task _pendingSave = Task.CompletedTask;
 
         public PanelsService(string appName = "ClickyKeys")
         {
@@ -59,17 +68,76 @@ namespace ClickyKeys
             def.Panels.Add(new PanelsSettings { Index = 3, KeyCode = Key.D, Description = "D" });
         }
 
+        /// <summary>
+        /// Synchronous atomic save. Uses <see cref="AtomicFile"/> so a crash
+        /// during the write can't leave a truncated JSON file that the next
+        /// Load() would fail on.
+        /// </summary>
         public void Save(PanelState state)
         {
             var json = JsonSerializer.Serialize(state, JsonOptions);
-            File.WriteAllText(_filePath, json);
+            lock (_lock)
+            {
+                AtomicFile.WriteAllText(_filePath, json);
+            }
+        }
+
+        /// <summary>
+        /// Async atomic save for UI callers that don't want to block.
+        /// </summary>
+        public async Task SaveAsync(PanelState state, CancellationToken ct = default)
+        {
+            var json = JsonSerializer.Serialize(state, JsonOptions);
+            await AtomicFile.WriteAllTextAsync(_filePath, json, ct).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Debounced save — coalesces bursts of edits into one trailing write.
+        /// </summary>
+        public void SaveDebounced(PanelState state, TimeSpan? delay = null)
+        {
+            var wait = delay ?? TimeSpan.FromMilliseconds(500);
+
+            lock (_debounceLock)
+            {
+                _debounceCts?.Cancel();
+                _debounceCts = new CancellationTokenSource();
+                var token = _debounceCts.Token;
+
+                _pendingSave = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await Task.Delay(wait, token).ConfigureAwait(false);
+                        await SaveAsync(state, token).ConfigureAwait(false);
+                    }
+                    catch (OperationCanceledException) { }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"PanelsService.SaveDebounced failed: {ex}");
+                    }
+                }, token);
+            }
+        }
+
+        /// <summary>
+        /// Awaits any in-flight debounced save. Call on shutdown.
+        /// </summary>
+        public Task FlushAsync()
+        {
+            Task pending;
+            lock (_debounceLock) { pending = _pendingSave; }
+            return pending;
         }
 
         public PanelState Load()
         {
-            var json = File.ReadAllText(_filePath);
-            return ValidateFormat(JsonSerializer.Deserialize<PanelState>(json, JsonOptions)
-                   ?? new PanelState());
+            lock (_lock)
+            {
+                var json = File.ReadAllText(_filePath);
+                return ValidateFormat(JsonSerializer.Deserialize<PanelState>(json, JsonOptions)
+                       ?? new PanelState());
+            }
         }
         private PanelState ValidateFormat(PanelState fileData)
         {

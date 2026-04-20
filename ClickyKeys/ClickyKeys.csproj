@@ -10,6 +10,7 @@
     <FileVersion>2.2.1</FileVersion>
     <AssemblyVersion>2.2.1</AssemblyVersion>
     <Company>Hobby Clickies</Company>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>

@@ -254,7 +254,7 @@ namespace ClickyKeys
                     Configuration config = new();
                     var options = new JsonSerializerOptions { WriteIndented = true };
                     var json = JsonSerializer.Serialize(config, options);
-                    File.WriteAllText(_filePath, json);
+                    AtomicFile.WriteAllText(_filePath, json);
                     return config;
                 }
             else
@@ -283,6 +283,23 @@ namespace ClickyKeys
 
             // Stop any background animation we own.
             _backgroundBrush.BeginAnimation(SolidColorBrush.ColorProperty, null);
+
+            // Block (briefly) on any pending debounced writes so the user's
+            // latest edit is durable before the process exits. Only the main
+            // window owns the services; the transparent sub-window shares
+            // them and would double-flush otherwise.
+            if (!_transparent)
+            {
+                try
+                {
+                    _panelsService.FlushAsync().Wait(TimeSpan.FromSeconds(2));
+                    _settingsService.FlushAsync().Wait(TimeSpan.FromSeconds(2));
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Window_Closed flush failed: {ex}");
+                }
+            }
 
             if (_transparent == false)
                 _counter.Dispose();
@@ -328,12 +345,35 @@ namespace ClickyKeys
                                 break;
                         }
                     });
+
+                // Keep the transparent sub-window in sync with panel edits
+                // done on the main window. Only the transparent instance
+                // needs to react here — the main window already applies the
+                // change inline in SavePanelConfiguration.
+                if (_transparent)
+                {
+                    WeakReferenceMessenger.Default.Register<PanelsChangedMessage>(
+                        recipient: this,
+                        handler: (r, m) =>
+                        {
+                            if (m.Value == null) return;
+
+                            _panel_settings = m.Value;
+                            // The transparent window shares the parent's
+                            // counter, so we do NOT reload it here (the
+                            // parent already did).
+                            SetGrid(_settingsConfiguration);
+                        });
+                }
             };
 
 
             Closed += (_, __) =>
             {
-                WeakReferenceMessenger.Default.Unregister<ColorChangedMessage>(this);
+                // UnregisterAll covers both ColorChangedMessage and the
+                // transparent-only PanelsChangedMessage subscription without
+                // needing the caller to remember which channels were live.
+                WeakReferenceMessenger.Default.UnregisterAll(this);
             };
         }
 
@@ -486,11 +526,14 @@ namespace ClickyKeys
 
                     var options = new JsonSerializerOptions { WriteIndented = true };
                     json = JsonSerializer.Serialize(config, options);
-                    File.WriteAllText(_filePath, json);
+                    AtomicFile.WriteAllText(_filePath, json);
 
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"SetTutorialAsMarked failed: {ex}");
+            }
         }
 
         //-------------------------
@@ -500,10 +543,17 @@ namespace ClickyKeys
         /// <summary>
         /// Checks the releases endpoint according to the active distribution.
         /// <para>
-        /// The previous implementation called <c>new Configuration()</c> in
-        /// every branch, which always returned the default (<c>dev</c>) —
-        /// so the store and github branches were dead code. This version
-        /// uses the configuration actually loaded from <c>config.json</c>.
+        /// Distribution now comes from <see cref="BuildInfo.Distribution"/>
+        /// — a compile-time constant — instead of the JSON-deserialised
+        /// <see cref="Configuration"/>. That way a user can't edit
+        /// <c>config.json</c> to flip to <c>dev</c> and suppress the update
+        /// prompt.
+        /// </para>
+        /// <para>
+        /// Both the <c>store</c> and <c>github</c> channels now follow the
+        /// same verify-and-notify flow: fetch the releases feed, filter by
+        /// this build's channel, pick the highest valid version, and raise
+        /// <c>MyPopup</c> if it is newer than the running version.
         /// </para>
         /// </summary>
         private async void VerifyVersion(Configuration cfg)
@@ -512,47 +562,47 @@ namespace ClickyKeys
 
             try
             {
-                switch (cfg.Distribution)
+                // Dev builds intentionally skip the check — no release feed
+                // to compare against.
+                if (BuildInfo.Distribution == DistributionType.dev)
+                    return;
+
+                // store + github share the same logic. If more channels are
+                // added later, add them to the guard below.
+                if (BuildInfo.Distribution != DistributionType.store
+                    && BuildInfo.Distribution != DistributionType.github)
+                    return;
+
+                var data = await _releasesApiClient
+                    .GetJsonAsync<MyReleasesResponse[]>(url);
+
+                if (data == null || data.Length == 0)
+                    return;
+
+                // Only consider releases tagged for this build's channel so
+                // a store build doesn't get prompted about a github-only
+                // release and vice versa.
+                Version? latest = null;
+                foreach (var entry in data)
                 {
-                    case DistributionType.dev:
-                        // No update check in dev builds.
-                        return;
+                    if (entry.distribution != BuildInfo.Distribution)
+                        continue;
 
-                    case DistributionType.store:
-                        // Ping only — the Store handles real updates.
-                        // Result intentionally discarded.
-                        await _releasesApiClient.GetJsonAsync<MyReleasesResponse[]>(url);
-                        return;
-
-                    case DistributionType.github:
-                        var data = await _releasesApiClient
-                            .GetJsonAsync<MyReleasesResponse[]>(url);
-
-                        if (data == null || data.Length == 0)
-                            return;
-
-                        // Pick the highest valid version rather than trusting
-                        // the last element in the response.
-                        Version? latest = null;
-                        foreach (var entry in data)
-                        {
-                            if (Version.TryParse(entry.Version, out var parsed)
-                                && (latest == null || parsed > latest))
-                            {
-                                latest = parsed;
-                            }
-                        }
-
-                        if (latest == null)
-                            return;
-
-                        if (!Version.TryParse(cfg.Version, out var current))
-                            return;
-
-                        if (latest > current)
-                            MyPopup.IsOpen = true;
-                        return;
+                    if (Version.TryParse(entry.Version, out var parsed)
+                        && (latest == null || parsed > latest))
+                    {
+                        latest = parsed;
+                    }
                 }
+
+                if (latest == null)
+                    return;
+
+                if (!Version.TryParse(cfg.Version, out var current))
+                    return;
+
+                if (latest > current)
+                    MyPopup.IsOpen = true;
             }
             catch (Exception ex)
             {
@@ -677,10 +727,16 @@ namespace ClickyKeys
 
                     var options = new JsonSerializerOptions { WriteIndented = true };
                     json = JsonSerializer.Serialize(config, options);
-                    File.WriteAllText(_filePath, json);
+                    // Atomic write — if the process dies mid-write the user's
+                    // config.json stays the previous valid copy rather than a
+                    // truncated file that crashes next startup.
+                    AtomicFile.WriteAllText(_filePath, json);
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"SaveProfileToConfig failed: {ex}");
+            }
         }
 
         /// <summary>
@@ -912,9 +968,23 @@ namespace ClickyKeys
             // Reassigning a panel invalidates its running count.
             _counter.ResetSingle(id);
 
-            _panelsService.Save(_panel_settings);
-            LoadPanelConfiguration();
+            // Debounced atomic save — coalesces rapid-fire panel edits into a
+            // single trailing write and doesn't block the UI thread on disk.
+            // The in-memory state is already authoritative for this session,
+            // so the UI updates (LoadPanels + SetGrid) don't need to wait.
+            _panelsService.SaveDebounced(_panel_settings);
+
+            // Rebind the live counter to the new layout and refresh the grid
+            // before the disk write finishes. No need to reload from disk —
+            // _panel_settings is already the source of truth here.
+            _counter.LoadPanels(_panel_settings);
             SetGrid(_settingsConfiguration);
+
+            // Broadcast the change so the transparent sub-window (which
+            // shares _counter but has its own UI tree) rebuilds its grid
+            // without having to re-read the JSON file.
+            WeakReferenceMessenger.Default.Send(
+                new PanelsChangedMessage(_panel_settings));
         }
 
 
