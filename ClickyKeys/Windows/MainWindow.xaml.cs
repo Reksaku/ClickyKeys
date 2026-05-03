@@ -1,12 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using ControlzEx.Standard;
+using Hardcodet.Wpf.TaskbarNotification;
 using MahApps.Metro.Controls;
 using MaterialDesignColors;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.IO;
@@ -41,6 +43,7 @@ namespace ClickyKeys
         void OnSettingsClose(string settingsPath);
         void OnGridChange(SettingsConfiguration settings);
         public void OnInfoClose();
+        public void OnStatsClose();
         void SetBackgroundRainbow(bool? IsTrue);
     }
 
@@ -52,8 +55,6 @@ namespace ClickyKeys
         private SettingsService _settingsService;
         private SettingsConfiguration _settingsConfiguration;
 
-        public ObservableCollection<StatRow> Stats { get; } = [];
-
         private readonly Dictionary<int, GlassPanelWpf> _panelsById = [];
 
         private readonly PanelsService _panelsService = new();
@@ -62,6 +63,17 @@ namespace ClickyKeys
         private readonly bool _transparent;
 
         private MainWindow? _transparentWindow = null;
+
+        // System tray icon — created only on the master (non-transparent)
+        // window in InitTrayIcon. Null on the transparent sub-window so we
+        // never end up with two icons in the tray for one app instance.
+        private TaskbarIcon? _trayIcon;
+
+        // Set to true by Exit_Click before Application.Shutdown so the
+        // Closing handler knows the user explicitly asked to quit, instead
+        // of merely clicking the title-bar X (which we hijack into a
+        // minimize-to-tray).
+        private bool _exitRequested = false;
 
         private ColorsPallet allColors = new();
 
@@ -74,6 +86,7 @@ namespace ClickyKeys
 
         private bool OpenedInfo = false;
         private bool OpenedSettings = false;
+        private bool OpenedStats = false;
 
         private readonly object _lock = new();
 
@@ -121,6 +134,11 @@ namespace ClickyKeys
 
                 // input counter start
                 _counter.Start();
+
+                // Tray icon belongs to the master window only — the
+                // transparent sub-window shares this app instance and must
+                // not register a second icon.
+                InitTrayIcon();
             }
 
             LoadPanelConfiguration();
@@ -163,6 +181,7 @@ namespace ClickyKeys
         private void Reset_Click(object sender, RoutedEventArgs e) => ResetCounter();
         private void TransparentMode_Click(object sender, RoutedEventArgs e) => TransparentMode();
         private void Info_Click(object sender, RoutedEventArgs e) => ShowInfo();
+        private void Stats_Click(object sender, RoutedEventArgs e) => ShowStats();
 
 
 
@@ -274,8 +293,24 @@ namespace ClickyKeys
                 }
         }
 
-        private void Window_Closed(object? sender, EventArgs e)
+        private void Window_Closed(object? sender, CancelEventArgs e)
         {
+            // ----- Test shutdown path -----
+            // Minimize-to-tray hijack. The user clicking the title-bar X
+            // (or Alt+F4) on the master window is treated as "tuck this
+            // away, keep tracking" rather than "exit". Real exit happens
+            // through Exit_Click or the tray menu's Exit item, both of
+            // which set _exitRequested before calling Application.Shutdown.
+            //
+            //if (!_transparent && !_exitRequested && _trayIcon != null)
+            //{
+            //    e.Cancel = true;
+            //    HideToTray();
+            //    return;
+            //}
+
+            // ----- Real shutdown path -----
+
             // Unhook from counter events on both main and transparent windows
             // to prevent leaks and updates into disposed controls.
             _counter.PanelValueChanged -= OnCounterPanelValueChanged;
@@ -305,6 +340,16 @@ namespace ClickyKeys
                 _counter.Dispose();
             _transparentWindow?.Close();
             _transparentWindow = null;
+
+            // Remove the tray icon from the system tray. Done last so it
+            // disappears at the same moment as the window — anything
+            // earlier and the user could see an orphaned icon if the
+            // shutdown hangs on the service flushes above.
+            if (!_transparent)
+            {
+                _trayIcon?.Dispose();
+                _trayIcon = null;
+            }
         }
 
         private void WrmSubscriberStart()
@@ -460,6 +505,21 @@ namespace ClickyKeys
                         "\nSaved profiles can be loaded from the Load tab.";
                     break;
                 case 7:
+                    SetBorder(Settings_Button, PanelBoxGlow, 85, 5, 130, 40);
+                    TutorialText.Text = "The Transparent mode button lets you hide" +
+                        "\nthe background and UI buttons.";
+                    break;
+                case 8:
+                    SetBorder(Settings_Button, PanelBoxGlow, 457, 5, 65, 40);
+                    TutorialText.Text = "Curious how many keys you've pressed in total?" +
+                        "\nCheck the Stats tab — your data is stored only on your local drive.";
+                    break;
+                case 9:
+                    SetBorder(Settings_Button, PanelBoxGlow, 520, 5, 55, 40);
+                    TutorialText.Text = "To learn more about the ClickyKeys project," +
+                        "\nvisit the Info tab.";
+                    break;
+                case 10:
                     TutorialText.TextAlignment = TextAlignment.Center;
                     TutorialText.Text = "That's all!" +
                         "\nEnjoy using ClickyKeys!";
@@ -687,7 +747,122 @@ namespace ClickyKeys
         }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
+            // Mark the shutdown as user-initiated so the Closing handler
+            // skips the minimize-to-tray hijack and lets the window
+            // actually tear down.
+            _exitRequested = true;
             Application.Current.Shutdown();
+        }
+
+        // -----------------------------------------------------------------
+        // Tray / minimize-to-tray
+        // -----------------------------------------------------------------
+
+        /// <summary>
+        /// Creates the system-tray icon programmatically. The previous
+        /// keyed XAML resource was lazy and never resolved, so the tray
+        /// icon never appeared in earlier builds. Building it here also
+        /// lets us wire C# delegates for double-click and the menu items
+        /// without needing those handlers reachable from XAML.
+        /// </summary>
+        private void InitTrayIcon()
+        {
+            try
+            {
+                _trayIcon = new TaskbarIcon
+                {
+                    IconSource = new System.Windows.Media.Imaging.BitmapImage(
+                        new Uri("pack://application:,,,/Resources/Icon.ico", UriKind.Absolute)),
+                    ToolTipText = "ClickyKeys (running — click to restore)",
+                };
+
+                var menu = new ContextMenu();
+
+                var showItem = new MenuItem { Header = "Show" };
+                showItem.Click += (_, __) => RestoreFromTray();
+                menu.Items.Add(showItem);
+
+                var settingsItem = new MenuItem { Header = "Settings" };
+                settingsItem.Click += (_, __) =>
+                {
+                    RestoreFromTray();
+                    ShowSettings();
+                };
+                menu.Items.Add(settingsItem);
+
+                var statsItem = new MenuItem { Header = "Stats" };
+                statsItem.Click += (_, __) =>
+                {
+                    RestoreFromTray();
+                    ShowStats();
+                };
+                menu.Items.Add(statsItem);
+
+                menu.Items.Add(new Separator());
+
+                var exitItem = new MenuItem { Header = "Exit" };
+                exitItem.Click += (_, __) =>
+                {
+                    _exitRequested = true;
+                    Application.Current.Shutdown();
+                };
+                menu.Items.Add(exitItem);
+
+                _trayIcon.ContextMenu = menu;
+                _trayIcon.TrayMouseDoubleClick += (_, __) => RestoreFromTray();
+            }
+            catch (Exception ex)
+            {
+                // Tray init failure must not crash startup — the rest of
+                // the app works fine without it, just without the
+                // minimize-to-tray affordance. The Closing handler checks
+                // _trayIcon for null before deciding to hijack close.
+                Debug.WriteLine($"InitTrayIcon failed: {ex}");
+                _trayIcon = null;
+            }
+        }
+
+        /// <summary>
+        /// Hides the window and removes it from the Windows taskbar so the
+        /// only remaining surface is the tray icon. The input hook and
+        /// <see cref="KeyStatsService"/> keep running in the background,
+        /// so stats accumulate while the window is hidden.
+        /// </summary>
+        private void HideToTray()
+        {
+            ShowInTaskbar = false;
+            Hide();
+        }
+
+        /// <summary>
+        /// Brings the window back from the tray. Restores both window
+        /// state and taskbar presence, then forces it to the foreground —
+        /// without the brief Topmost flip Windows often draws the
+        /// restored window behind whatever the user is currently focused
+        /// on.
+        /// </summary>
+        private void RestoreFromTray()
+        {
+            Show();
+            if (WindowState == WindowState.Minimized)
+                WindowState = WindowState.Normal;
+            ShowInTaskbar = true;
+            Activate();
+            Topmost = true;
+            Topmost = false;
+            Focus();
+        }
+
+        /// <summary>
+        /// Catches user-initiated minimize (title-bar button, Win+Down,
+        /// taskbar click) and routes it through HideToTray instead of
+        /// leaving the window as a Windows-taskbar minimized stub.
+        /// </summary>
+        private void Window_StateChanged(object? sender, EventArgs e)
+        {
+            if (_transparent) return;
+            if (WindowState == WindowState.Minimized)
+                HideToTray();
         }
 
         public void ShowInfo()
@@ -702,6 +877,23 @@ namespace ClickyKeys
         public void OnInfoClose()
         {
             OpenedInfo = false;
+        }
+
+        // Stats window — exact mirror of the Info pattern: single-instance
+        // guarded by OpenedStats, shown non-modally, signal back via
+        // OnStatsClose so the guard resets when the user closes it.
+        public void ShowStats()
+        {
+            if (OpenedStats == false)
+            {
+                Stats _statsPage = new(this);
+                _statsPage.Show();
+                OpenedStats = true;
+            }
+        }
+        public void OnStatsClose()
+        {
+            OpenedStats = false;
         }
         private void SaveProfileToConfig(string profile)
         {
@@ -1039,13 +1231,5 @@ namespace ClickyKeys
 
             return Color.FromRgb(R, G, B);
         }
-    }
-
-    public sealed class StatRow
-    {
-        public Key Code { get; set; }
-        public InputType Input { get; set; }
-        public string Name { get; set; } = "";
-        public int Value { get; set; }
     }
 }
