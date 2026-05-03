@@ -38,7 +38,7 @@ namespace ClickyKeys
     public class Configuration
     {
         [JsonPropertyName("version")]
-        public string Version { get; set; } = "2.2.2";
+        public string Version { get; set; } = "2.3.0";
 
         // Distribution was previously a JSON-serializable property, which
         // meant any user could edit config.json and switch their "channel"

@@ -5,27 +5,24 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:local="clr-namespace:ClickyKeys"
     x:Class="ClickyKeys.MainWindow"
-    Title="ClickyKeys" 
+    Title="ClickyKeys"
     Width="Auto" Height="Auto" SizeToContent="WidthAndHeight"
-    ResizeMode="NoResize"
+    ResizeMode="CanMinimize"
+    WindowStyle="SingleBorderWindow"
     Closing="Window_Closed"
+    StateChanged="Window_StateChanged"
     Icon="/Resources/Icon.ico">
 
 
 
     <Window.Resources>
-        <tb:TaskbarIcon x:Key="NotifyIcon"
-                        IconSource="/Resources/Icon.ico"
-                        ToolTipText="ClickyKeys">
-            <tb:TaskbarIcon.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Show" />
-                    <MenuItem Header="Settings" Click="Settings_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Exit" Click="Exit_Click"/>
-                </ContextMenu>
-            </tb:TaskbarIcon.ContextMenu>
-        </tb:TaskbarIcon>
+        
+        <!--
+          Tray icon is created in code-behind (InitTrayIcon) so it can be
+          shared across the window lifecycle without relying on lazy XAML
+          resource resolution. The previous keyed <tb:TaskbarIcon> here was
+          never instantiated because nothing looked it up by key.
+        -->
 
         <Style TargetType="ToolBar">
             <Setter Property="Template">
@@ -45,18 +42,19 @@
     <Window.Style>
         <StaticResource ResourceKey="MaterialDesignWindow"/>
     </Window.Style>
-
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="305*"/>
             <ColumnDefinition Width="177*"/>
         </Grid.ColumnDefinitions>
         <DockPanel LastChildFill="True" Background="{Binding Background}" Grid.ColumnSpan="2">
-            <ToolBar DockPanel.Dock="Top" Height="52" x:Name="ToolStrip">
+            <ToolBar DockPanel.Dock="Top" Height="52" ScrollViewer.CanContentScroll="True" x:Name="ToolStrip">
                 <Button Click="Settings_Click" Content="Settings" x:Name="Settings_Button"/>
                 <Button Click="TransparentMode_Click" Content="Transparent mode"/>
                 <Button Click="ToggleToolbar_Click" Content="Hide toolbar (F11)"/>
                 <Button Click="Reset_Click" Content="Reset (F12)"/>
+                <Button Click="Stats_Click" Content="Stats"/>
                 <Button Click="Info_Click" Content="Info"/>
             </ToolBar>
 
