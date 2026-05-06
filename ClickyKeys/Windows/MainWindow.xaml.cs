@@ -111,7 +111,7 @@ namespace ClickyKeys
             _settingsConfiguration = _settingsService.Load();
 
 
-            
+
 
 
             LoadBackgroundFromSettings();
@@ -165,7 +165,19 @@ namespace ClickyKeys
             // Kick off rainbow animation if enabled (otherwise no-op).
             UpdateRainbowState();
 
-            if(ConfigSettings.ShowTutorial == true)
+            // Update detection. Compare the version baked into this build
+            // (BuildInfo.Version) with the one persisted in config.json. If
+            // the build is newer, the user just installed an update — replay
+            // the tutorial from step 0 (the "your ClickyKeys was updated"
+            // intro) and bring the on-disk config up to the new version so
+            // the next launch won't re-trigger the update flow.
+            bool justUpdated = !_transparent && HandleAppUpdate(ConfigSettings);
+
+            if (justUpdated)
+            {
+                ShowTutorial(0);
+            }
+            else if (ConfigSettings.ShowTutorial == true)
             {
                 ShowTutorial();
             }
@@ -291,6 +303,71 @@ namespace ClickyKeys
                         return new Configuration();
                     }
                 }
+        }
+
+        /// <summary>
+        /// Compares the version baked into this build (<see cref="BuildInfo.Version"/>)
+        /// with the one persisted in <c>config.json</c>. When the build is
+        /// strictly newer the user has just installed an update: the
+        /// in-memory <paramref name="cfg"/> and the on-disk config are
+        /// bumped to the build version, and the method returns <c>true</c>
+        /// so the caller can replay the tutorial from step 0.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> when an update was detected and the config was
+        /// updated; <c>false</c> otherwise (versions match, build is
+        /// older, or the build version is unparseable).
+        /// </returns>
+        private bool HandleAppUpdate(Configuration cfg)
+        {
+            // If the build version itself is unparseable we can't make a
+            // meaningful comparison — bail out and leave config alone.
+            if (!Version.TryParse(BuildInfo.Version, out var coded))
+                return false;
+
+            // Treat an unparseable / missing config version as "older than
+            // anything", so a corrupted version field self-heals on next
+            // launch.
+            bool storedParsed = Version.TryParse(cfg.Version, out var stored);
+
+            if (!storedParsed || coded > stored)
+            {
+                cfg.Version = BuildInfo.Version;
+                SaveInitSettings(cfg);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Atomically persists <paramref name="cfg"/> to
+        /// <c>%AppData%\ClickyKeys\config.json</c>. Mirrors the write path
+        /// used by <see cref="LoadInitSettings"/> and
+        /// <see cref="SetTutorialAsMarked"/> so all three stay in sync.
+        /// </summary>
+        private void SaveInitSettings(Configuration cfg)
+        {
+            try
+            {
+                lock (_lock)
+                {
+                    string appName = "ClickyKeys";
+                    var appDataDir = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                        appName);
+                    Directory.CreateDirectory(appDataDir);
+                    string filePath = Path.Combine(appDataDir, "config.json");
+
+                    var options = new JsonSerializerOptions { WriteIndented = true };
+                    var json = JsonSerializer.Serialize(cfg, options);
+                    AtomicFile.WriteAllText(filePath, json);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"SaveInitSettings failed: {ex}");
+            }
         }
 
         private void Window_Closed(object? sender, CancelEventArgs e)
@@ -429,9 +506,9 @@ namespace ClickyKeys
         //-------------------------
 
 
-        private void ShowTutorial()
+        private void ShowTutorial(int starting_step = 1)
         {
-            _tutorialStep = 0;
+            _tutorialStep = starting_step;
             TutorialOverlay.Visibility = Visibility.Visible;
             UpdateTutorialText();
         }
@@ -445,7 +522,7 @@ namespace ClickyKeys
             FontSettings valuesFont = _settingsConfiguration.ValuesFontSettings;
             GlassPanelWpf panel = new(this)
             {
-                Value = 67,
+                Value = 42,
                 Description = "Example",
                 PanelColor = panelColor,
                 KeyTextColor = keysColor,
@@ -458,33 +535,38 @@ namespace ClickyKeys
             {
                 case 0:
                     TutorialText.TextAlignment = TextAlignment.Center;
+                    TutorialText.Text = "Your ClickyKeys was updated\n" +
+                        "\nIt may be a good opportunity to see the tutorial again.";
+                    break;
+                case 1:
+                    TutorialText.TextAlignment = TextAlignment.Center;
                     TutorialText.Text = "Welcome to ClickyKeys!\n" +
                         "\nLet me guide you through a quick tutorial." +
                         "\nClick Next to continue.";
                     break;
-                case 1:
+                case 2:
                     TutorialText.Text = "These are your display panels — the main feature of ClickyKeys.\n" +
                         "\nLet’s take a look at an example.";
                     PanelBoxGlow.Visibility = Visibility.Visible;
                     SetBorder(_panelsById[4], PanelBoxGlow, 10, 8, 180, 84);
                     break;
-                case 2:
+                case 3:
                     TutorialText.TextAlignment = TextAlignment.Left;
                     TutorialText.Text = "Left-click a panel to edit its settings.";
                     SetBorder(_panelsById[4], PanelBox, -4, -4, 200, 100);
                     PanelBox.Visibility = Visibility.Visible;
                     PanelBoxGrid.Children.Add(panel);
                     break;
-                case 3:
+                case 4:
                     TutorialText.Text = "In the Description field, enter the name of the tile." +
                         "\nThen press Input and choose the key you want to assign.";
                     SetBorder(_panelsById[4], PanelBoxGlow, 50, 14, 96, 36);
-                    
+
                     PanelBoxGrid.Children.RemoveAt(0);
                     PanelBoxGrid.Children.Add(panel);
                     panel.OpenEditor();
                     break;
-                case 4:
+                case 5:
                     TutorialText.Text = "Confirm your changes using the green button," +
                         "\nor discard them using the red one.";
                     SetBorder(_panelsById[4], PanelBoxGlow, 98, 46, 80, 38);
@@ -494,32 +576,32 @@ namespace ClickyKeys
                     panel.DescriptionBox.Text = "Sprint";
                     panel.InputBtn.Content = "Shift";
                     break;
-                case 5:
+                case 6:
                     TutorialText.Text = "To customize the program’s appearance, open the Settings tab in the top-left corner.";
                     PanelBoxGrid.Children.RemoveAt(0);
                     SetBorder(Settings_Button, PanelBoxGlow, 5, 5, 70, 40);
                     break;
-                case 6:
+                case 7:
                     TutorialText.Text = "To save your layout for later, click Save As at the bottom." +
                         "\nEnter a name and press Save." +
                         "\nSaved profiles can be loaded from the Load tab.";
                     break;
-                case 7:
+                case 8:
                     SetBorder(Settings_Button, PanelBoxGlow, 85, 5, 130, 40);
                     TutorialText.Text = "The Transparent mode button lets you hide" +
                         "\nthe background and UI buttons.";
                     break;
-                case 8:
+                case 9:
                     SetBorder(Settings_Button, PanelBoxGlow, 457, 5, 65, 40);
                     TutorialText.Text = "Curious how many keys you've pressed in total?" +
                         "\nCheck the Stats tab — your data is stored only on your local drive.";
                     break;
-                case 9:
+                case 10:
                     SetBorder(Settings_Button, PanelBoxGlow, 520, 5, 55, 40);
                     TutorialText.Text = "To learn more about the ClickyKeys project," +
                         "\nvisit the Info tab.";
                     break;
-                case 10:
+                case 11:
                     TutorialText.TextAlignment = TextAlignment.Center;
                     TutorialText.Text = "That's all!" +
                         "\nEnjoy using ClickyKeys!";
@@ -557,8 +639,8 @@ namespace ClickyKeys
             targetBox.Height = sizeY;
 
             targetBox.Margin = new Thickness(
-                point.X+ offsetX,
-                point.Y+ offsetY,
+                point.X + offsetX,
+                point.Y + offsetY,
                 0,
                 0);
         }
@@ -681,7 +763,7 @@ namespace ClickyKeys
             }
 
             if (_panel_settings.Version != new Configuration().Version)
-            { 
+            {
                 _panel_settings.Version = new Configuration().Version;
                 _panelsService.Save(_panel_settings);
             }
@@ -690,7 +772,7 @@ namespace ClickyKeys
 
         public void ShowSettings()
         {
-            if(OpenedSettings == false)
+            if (OpenedSettings == false)
             {
                 Settings _settings = new(_settingsConfiguration, this, settingsFileName);
                 _settings.Show();

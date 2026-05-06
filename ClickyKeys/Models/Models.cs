@@ -27,7 +27,7 @@ namespace ClickyKeys
         [JsonPropertyName("distribution")]
         public DistributionType distribution { get; set; } = DistributionType.dev;
     }
-    public enum DistributionType 
+    public enum DistributionType
     {
         dev = 0,
         store = 1,
@@ -37,8 +37,12 @@ namespace ClickyKeys
 
     public class Configuration
     {
+        // Default to the version baked into the running binary so a fresh
+        // config.json is never marked as "older" than the build that wrote
+        // it. The hardcoded build version lives in BuildInfo so there's
+        // one source of truth for update detection.
         [JsonPropertyName("version")]
-        public string Version { get; set; } = "2.3.0";
+        public string Version { get; set; } = BuildInfo.Version;
 
         // Distribution was previously a JSON-serializable property, which
         // meant any user could edit config.json and switch their "channel"
@@ -78,11 +82,13 @@ namespace ClickyKeys
         MouseWheelRight = 23,
     }
 
-    public enum ColorTarget { 
-        Panels, 
+    public enum ColorTarget
+    {
+        Panels,
         Background,
         Keys,
-        Values}
+        Values
+    }
 
 
     public class PanelsSettings
@@ -109,9 +115,9 @@ namespace ClickyKeys
 
     public class hsvColor
     {
-        public double hue = 0.0;          
-        public double sat = 1.0;         
-        public double val = 1.0;         
+        public double hue = 0.0;
+        public double sat = 1.0;
+        public double val = 1.0;
     }
 
     public class ColorsPallet
