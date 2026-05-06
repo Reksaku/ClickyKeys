@@ -16,5 +16,15 @@ namespace ClickyKeys
     public static class BuildInfo
     {
         public const DistributionType Distribution = DistributionType.dev;
+
+        /// <summary>
+        /// Version baked into this build. Compared at startup against the
+        /// version persisted in <c>config.json</c>; when this constant is
+        /// strictly greater than the config value an update is detected,
+        /// the tutorial is replayed (via <c>ShowTutorial(0)</c>) and the
+        /// config is bumped to match. Bump this every release alongside
+        /// <c>FileVersion</c>/<c>AssemblyVersion</c> in the .csproj.
+        /// </summary>
+        public const string Version = "2.3.0";
     }
 }
