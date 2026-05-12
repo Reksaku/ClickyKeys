@@ -7,16 +7,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
-    <FileVersion>2.2.1</FileVersion>
-    <AssemblyVersion>2.2.1</AssemblyVersion>
+    <FileVersion>2.3.1</FileVersion>
+    <AssemblyVersion>2.3.1</AssemblyVersion>
     <Company>Hobby Clickies</Company>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\Icon.ico" />
-    <None Remove="Resources\Icon_128.ico" />
-    <None Remove="Resources\Icon_small.ico" />
     <None Remove="Resources\X_button.png" />
     <None Remove="Resources\Y_button.png" />
   </ItemGroup>
@@ -30,7 +28,6 @@
 
   <ItemGroup>
     <Resource Include="Resources\Icon.ico" />
-    <Resource Include="Resources\Icon_small.ico" />
     <Resource Include="Resources\X_button.png" />
     <Resource Include="Resources\Y_button.png" />
   </ItemGroup>

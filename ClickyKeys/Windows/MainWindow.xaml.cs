@@ -533,10 +533,19 @@ namespace ClickyKeys
 
             switch (_tutorialStep)
             {
+                //-------------------------
+                // Idea for the next update: refactor tutorial - new dediacated window with changelog possibility
+                //-------------------------
+
                 case 0:
                     TutorialText.TextAlignment = TextAlignment.Center;
                     TutorialText.Text = "Your ClickyKeys was updated\n" +
-                        "\nIt may be a good opportunity to see the tutorial again.";
+                        "\nVersion 2.3.1 changes:" +
+                        "\n1. Minimizing application no longer deletes" +
+                        "\nan icon from Windows taskbar" +
+                        "\n2. Better icon scaling added" +
+                        "\n" +
+                        "\nDo you want to see the tutorial again?";
                     break;
                 case 1:
                     TutorialText.TextAlignment = TextAlignment.Center;
@@ -943,8 +952,8 @@ namespace ClickyKeys
         private void Window_StateChanged(object? sender, EventArgs e)
         {
             if (_transparent) return;
-            if (WindowState == WindowState.Minimized)
-                HideToTray();
+            //if (WindowState == WindowState.Minimized)
+            //    HideToTray();
         }
 
         public void ShowInfo()
