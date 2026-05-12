@@ -135,7 +135,7 @@
                         </TextBlock>
                         <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
                             Bug reports &amp; feature requests: please use GitHub Issues
-                            or write to bugs@clickykeys.fun
+                            or write to contact@clickykeys.fun
                         </TextBlock>
                     </StackPanel>
                 </materialDesign:Card>
