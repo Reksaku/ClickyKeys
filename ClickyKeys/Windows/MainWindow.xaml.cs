@@ -14,6 +14,7 @@ using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
 using System.Runtime;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -23,6 +24,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
@@ -95,6 +97,36 @@ namespace ClickyKeys
         private string defaultSettingsPath;
 
         private int _tutorialStep = 0;
+
+        /// <summary>
+        /// Hiding window by cloaking, Window will be rendered in background and 
+        /// could be captured by streaming programs
+        /// </summary>
+
+        [DllImport("dwmapi.dll")]
+        private static extern int DwmSetWindowAttribute(
+            IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+
+        private const int DWMWA_CLOAK = 13;
+
+        private void SetCloaked(bool cloak)
+        {
+            var hwnd = new WindowInteropHelper(this).Handle;
+            int value = cloak ? 1 : 0;
+            DwmSetWindowAttribute(hwnd, DWMWA_CLOAK, ref value, Marshal.SizeOf<int>());
+            _isCloaked = cloak;
+            if (cloak) _cloakedAt = DateTime.UtcNow;
+        }
+
+        private DateTime _cloakedAt = DateTime.MinValue;
+
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetShellWindow();
+
+        private bool _isCloaked = false;
 
 
         public MainWindow(bool transparent = false, InputCounter? counter = null)
@@ -539,11 +571,12 @@ namespace ClickyKeys
 
                 case 0:
                     TutorialText.TextAlignment = TextAlignment.Center;
-                    TutorialText.Text = "Your ClickyKeys was updated\n" +
-                        "\nVersion 2.3.1 changes:" +
-                        "\n1. Minimizing application no longer deletes" +
-                        "\nan icon from Windows taskbar" +
-                        "\n2. Better icon scaling added" +
+                    TutorialText.Text = "Your ClickyKeys has been updated\n" +
+                        "\nVersion 2.3.2 changes:" +
+                        "\n1. Minimized applications should still be visible " +
+                        "\nfor recording software" +
+                        "\n2. In cases where auto-update is unavailable," +
+                        "\nusers should now be informed correctly" +
                         "\n" +
                         "\nDo you want to see the tutorial again?";
                     break;
@@ -734,17 +767,22 @@ namespace ClickyKeys
                 // a store build doesn't get prompted about a github-only
                 // release and vice versa.
                 Version? latest = null;
-                foreach (var entry in data)
+                if (BuildInfo.Distribution == DistributionType.github)
                 {
-                    if (entry.distribution != BuildInfo.Distribution)
-                        continue;
-
-                    if (Version.TryParse(entry.Version, out var parsed)
-                        && (latest == null || parsed > latest))
+                    foreach (var entry in data)
                     {
-                        latest = parsed;
+                        if (entry.distribution != BuildInfo.Distribution)
+                            continue;
+
+                        if (Version.TryParse(entry.Version, out var parsed)
+                            && (latest == null || parsed > latest))
+                        {
+                            latest = parsed;
+                        }
                     }
                 }
+                else
+                    return;
 
                 if (latest == null)
                     return;
@@ -806,12 +844,12 @@ namespace ClickyKeys
                 if (ToolStrip.Visibility == Visibility.Visible)
                 {
                     ToolStrip.Visibility = Visibility.Collapsed;
-                    this.Topmost = !this.Topmost;
+                    //this.Topmost = !this.Topmost;
                 }
                 else
                 {
                     ToolStrip.Visibility = Visibility.Visible;
-                    this.Topmost = !this.Topmost;
+                    //this.Topmost = !this.Topmost;
                 }
         }
 
@@ -926,6 +964,27 @@ namespace ClickyKeys
         }
 
         /// <summary>
+        /// Hides the window by cloaking.
+        /// </summary>
+        private void HideWindow()
+        {
+            SetCloaked(true);
+            SetForegroundWindow(GetShellWindow());
+
+            // Deley window focusm change - wait for all tasks to be finished 
+            var timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(50)
+            };
+            timer.Tick += (_, _) =>
+            {
+                timer.Stop();
+                SetForegroundWindow(GetShellWindow());
+            };
+            timer.Start();
+        }
+
+        /// <summary>
         /// Brings the window back from the tray. Restores both window
         /// state and taskbar presence, then forces it to the foreground —
         /// without the brief Topmost flip Windows often draws the
@@ -934,6 +993,7 @@ namespace ClickyKeys
         /// </summary>
         private void RestoreFromTray()
         {
+            RestoreWindow();
             Show();
             if (WindowState == WindowState.Minimized)
                 WindowState = WindowState.Normal;
@@ -945,6 +1005,25 @@ namespace ClickyKeys
         }
 
         /// <summary>
+        /// Brings the window back - uncloak and focus.
+        /// </summary>
+        private void RestoreWindow()
+        {
+            SetCloaked(false);
+            Activate();
+            Focus();
+        }
+
+        private void Window_Activated(object? sender, EventArgs e)
+        {
+            if (!_isCloaked) return;
+
+            if ((DateTime.UtcNow - _cloakedAt).TotalMilliseconds < 300) return;
+
+            SetCloaked(false);
+        }
+
+        /// <summary>
         /// Catches user-initiated minimize (title-bar button, Win+Down,
         /// taskbar click) and routes it through HideToTray instead of
         /// leaving the window as a Windows-taskbar minimized stub.
@@ -952,8 +1031,13 @@ namespace ClickyKeys
         private void Window_StateChanged(object? sender, EventArgs e)
         {
             if (_transparent) return;
-            //if (WindowState == WindowState.Minimized)
-            //    HideToTray();
+
+            if (WindowState == WindowState.Minimized)
+            {
+                HideWindow();
+                WindowState = WindowState.Normal;
+                
+            }
         }
 
         public void ShowInfo()
