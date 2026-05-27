@@ -25,6 +25,6 @@ namespace ClickyKeys
         /// config is bumped to match. Bump this every release alongside
         /// <c>FileVersion</c>/<c>AssemblyVersion</c> in the .csproj.
         /// </summary>
-        public const string Version = "2.3.1";
+        public const string Version = "2.3.2";
     }
 }
