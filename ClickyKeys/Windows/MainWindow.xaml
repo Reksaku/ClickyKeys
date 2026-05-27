@@ -11,6 +11,7 @@
     WindowStyle="SingleBorderWindow"
     Closing="Window_Closed"
     StateChanged="Window_StateChanged"
+    Activated="Window_Activated"
     Icon="/Resources/Icon.ico">
 
 
