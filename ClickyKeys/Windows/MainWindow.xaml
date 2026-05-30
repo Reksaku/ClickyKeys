@@ -14,49 +14,188 @@
     Activated="Window_Activated"
     Icon="/Resources/Icon.ico">
 
-
-
     <Window.Resources>
-        
+
         <!--
           Tray icon is created in code-behind (InitTrayIcon) so it can be
           shared across the window lifecycle without relying on lazy XAML
-          resource resolution. The previous keyed <tb:TaskbarIcon> here was
-          never instantiated because nothing looked it up by key.
+          resource resolution.
         -->
 
+        <!--
+          Converter: horizontal StackPanel (icon beside text) -> right margin;
+          vertical (icon above text) -> bottom margin.
+          Requires OrientationToMarginConverter class in code-behind.
+        -->
+        <local:OrientationToMarginConverter x:Key="OrientationToMarginConverter"/>
+
+        <!--
+          Converter: horizontal (icon beside text) -> size 30;
+          vertical (icon above text) -> size 20.
+          Requires OrientationToSizeConverter class in code-behind.
+        -->
+        <local:OrientationToSizeConverter x:Key="OrientationToSizeConverter"/>
+
+        <!-- Preserved original toolbar solution with UniformGrid -->
         <Style TargetType="ToolBar">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ToolBar">
                         <Border Padding="2">
-                            <ToolBarPanel IsItemsHost="True"/>
+                            <UniformGrid IsItemsHost="True" Rows="1"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Window.Resources>
-
-
 
     <Window.Style>
         <StaticResource ResourceKey="MaterialDesignWindow"/>
     </Window.Style>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="305*"/>
             <ColumnDefinition Width="177*"/>
         </Grid.ColumnDefinitions>
+
         <DockPanel LastChildFill="True" Background="{Binding Background}" Grid.ColumnSpan="2">
-            <ToolBar DockPanel.Dock="Top" Height="52" ScrollViewer.CanContentScroll="True" x:Name="ToolStrip">
-                <Button Click="Settings_Click" Content="Settings" x:Name="Settings_Button"/>
-                <Button Click="TransparentMode_Click" Content="Transparent mode"/>
-                <Button Click="ToggleToolbar_Click" Content="Hide toolbar (F11)"/>
-                <Button Click="Reset_Click" Content="Reset (F12)"/>
-                <Button Click="Stats_Click" Content="Stats"/>
-                <Button Click="Info_Click" Content="Info"/>
+
+            <!--
+                ToolBar – buttons with icon and label.
+                StackPanel orientation (vertical/horizontal) is controlled by
+                the ButtonOrientation property in code-behind,
+                updated whenever the myGrid row count changes.
+            -->
+            <ToolBar DockPanel.Dock="Top" Height="52"
+                     ScrollViewer.CanContentScroll="True"
+                     x:Name="ToolStrip">
+
+                <Button Click="Settings_Click" x:Name="Settings_Button"
+                        Padding="4,2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="{Binding ButtonOrientation,
+                                    RelativeSource={RelativeSource AncestorType=Window}}">
+                        <Image Source="/Resources/Buttons/settings_icon.png"
+                               Width="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Height="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Margin="{Binding ButtonOrientation,
+                                   RelativeSource={RelativeSource AncestorType=Window},
+                                   Converter={StaticResource OrientationToMarginConverter}}"/>
+                        <TextBlock Text="Settings" FontSize="10"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Click="TransparentMode_Click" x:Name="TransparentMode_Button"
+                        Padding="4,2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="{Binding ButtonOrientation,
+                                    RelativeSource={RelativeSource AncestorType=Window}}">
+                        <Image Source="/Resources/Buttons/transparent_icon.png"
+                               Width="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Height="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Margin="{Binding ButtonOrientation,
+                                   RelativeSource={RelativeSource AncestorType=Window},
+                                   Converter={StaticResource OrientationToMarginConverter}}"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Transparent" FontSize="10" HorizontalAlignment="Center"/>
+                            <TextBlock Text="mode" FontSize="10" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Button>
+
+                <Button Click="ToggleToolbar_Click" x:Name="ToggleToolbar_Button"
+                        Padding="4,2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="{Binding ButtonOrientation,
+                                    RelativeSource={RelativeSource AncestorType=Window}}">
+                        <Image Source="/Resources/Buttons/hide_toolbar_icon.png"
+                               Width="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Height="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Margin="{Binding ButtonOrientation,
+                                   RelativeSource={RelativeSource AncestorType=Window},
+                                   Converter={StaticResource OrientationToMarginConverter}}"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Hide toolbar" FontSize="10" HorizontalAlignment="Center"/>
+                            <TextBlock Text="(F11)" FontSize="10" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Button>
+
+                <Button Click="Reset_Click" x:Name="Reset_Button"
+                        Padding="4,2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="{Binding ButtonOrientation,
+                                    RelativeSource={RelativeSource AncestorType=Window}}">
+                        <Image Source="/Resources/Buttons/reset_icon.png"
+                               Width="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Height="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Margin="{Binding ButtonOrientation,
+                                   RelativeSource={RelativeSource AncestorType=Window},
+                                   Converter={StaticResource OrientationToMarginConverter}}"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Reset" FontSize="10" HorizontalAlignment="Center"/>
+                            <TextBlock Text="(F12)" FontSize="10" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Button>
+
+                <Button Click="Stats_Click" x:Name="Stats_Button"
+                        Padding="4,2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="{Binding ButtonOrientation,
+                                    RelativeSource={RelativeSource AncestorType=Window}}">
+                        <Image Source="/Resources/Buttons/stats_icon.png"
+                               Width="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Height="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Margin="{Binding ButtonOrientation,
+                                   RelativeSource={RelativeSource AncestorType=Window},
+                                   Converter={StaticResource OrientationToMarginConverter}}"/>
+                        <TextBlock Text="Stats" FontSize="10"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Click="Info_Click" x:Name="Info_Button"
+                        Padding="4,2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="{Binding ButtonOrientation,
+                                    RelativeSource={RelativeSource AncestorType=Window}}">
+                        <Image Source="/Resources/Buttons/info_icon.png"
+                               Width="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Height="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                               Margin="{Binding ButtonOrientation,
+                                   RelativeSource={RelativeSource AncestorType=Window},
+                                   Converter={StaticResource OrientationToMarginConverter}}"/>
+                        <TextBlock Text="Info" FontSize="10"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
             </ToolBar>
 
             <Grid x:Name="myGrid">
@@ -81,82 +220,78 @@
             </Grid>
 
             <Popup x:Name="MyPopup"
-               Placement="Center"
-               PlacementTarget="{Binding ElementName=myGrid}"
-               StaysOpen="False"
-               AllowsTransparency="True"
-               PopupAnimation="Fade">
+                   Placement="Center"
+                   PlacementTarget="{Binding ElementName=myGrid}"
+                   StaysOpen="False"
+                   AllowsTransparency="True"
+                   PopupAnimation="Fade">
                 <Border x:Name="PopupBorder" Background="White" Padding="20" CornerRadius="8">
                     <StackPanel Width="250">
                         <TextBlock Text="New version of ClickyKeys is available."
-                               FontSize="14"
-                               HorizontalAlignment="Center"
-                               Margin="0 0 0 10"/>
-
+                                   FontSize="14"
+                                   HorizontalAlignment="Center"
+                                   Margin="0 0 0 10"/>
                         <Button Content="Open download page"
-                            Padding="5"
-                            Click="OpenLink_Click"
-                            Margin="0 5 0 0"/>
-
+                                Padding="5"
+                                Click="OpenLink_Click"
+                                Margin="0 5 0 0"/>
                         <Button Content="Remind me next time"
-                            Padding="5"
-                            Click="ClosePopup_Click"
-                            Margin="0 5 0 0"/>
+                                Padding="5"
+                                Click="ClosePopup_Click"
+                                Margin="0 5 0 0"/>
                     </StackPanel>
                 </Border>
             </Popup>
+
         </DockPanel>
 
         <Grid x:Name="TutorialOverlay"
               Background="#80000000"
               Visibility="Collapsed"
-              Panel.ZIndex="100" Grid.ColumnSpan="2">
+              Panel.ZIndex="100"
+              Grid.ColumnSpan="2">
 
             <Border x:Name="PanelBox"
-                Width="10"
-                Height="10"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="3"
-                CornerRadius="5"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="0,0,0,0"
-                Visibility="Hidden"
-                IsHitTestVisible="False"    >
+                    Width="10" Height="10"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="3"
+                    CornerRadius="5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="0,0,0,0"
+                    Visibility="Hidden"
+                    IsHitTestVisible="False">
                 <Grid x:Name="PanelBoxGrid"/>
             </Border>
 
             <Border x:Name="PanelBoxGlow"
-                Width="10"
-                Height="10"
-                Background="Transparent"
-                BorderBrush="#00DCDCDC"  
-                BorderThickness="3"
-                CornerRadius="5"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="0,0,0,0"
-                Visibility="Hidden">
+                    Width="10" Height="10"
+                    Background="Transparent"
+                    BorderBrush="#00DCDCDC"
+                    BorderThickness="3"
+                    CornerRadius="5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="0,0,0,0"
+                    Visibility="Hidden">
                 <Border.Effect>
                     <BlurEffect Radius="6"/>
                 </Border.Effect>
-
                 <Border.Triggers>
                     <EventTrigger RoutedEvent="Loaded">
                         <BeginStoryboard>
                             <Storyboard RepeatBehavior="Forever" AutoReverse="True">
-                                <ColorAnimation Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)"
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)"
                                     From="#00ACACAC"
                                     To="#FAACACAC"
-                                    Duration="0:0:0.7" />
+                                    Duration="0:0:0.7"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger>
                 </Border.Triggers>
             </Border>
-
-
 
             <Border HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -167,17 +302,18 @@
                     <TextBlock x:Name="TutorialText"
                                Text="Placeholder text"
                                TextWrapping="Wrap"
-                               Margin="0 0 0 10"
-                               />
-
+                               Margin="0 0 0 10"/>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right">
-                        <Button Content="Skip" Margin="0 0 10 0"
+                        <Button Content="Skip"
+                                Margin="0 0 10 0"
                                 Click="SkipTutorial_Click"/>
-                        <Button Content="Next" Click="NextTutorial_Click"/>
+                        <Button Content="Next"
+                                Click="NextTutorial_Click"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
+
         </Grid>
 
     </Grid>
