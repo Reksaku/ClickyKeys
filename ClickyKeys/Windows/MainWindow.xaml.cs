@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime;
@@ -47,6 +48,37 @@ namespace ClickyKeys
         public void OnInfoClose();
         public void OnStatsClose();
         void SetBackgroundRainbow(bool? IsTrue);
+    }
+
+    /// <summary>
+    /// Converts a <see cref="Orientation"/> value to a <see cref="Thickness"/> margin for toolbar button icons.
+    /// Horizontal (icon beside text) → right margin (6px) to add space between icon and label.
+    /// Vertical (icon above text)    → bottom margin (2px) to add space between icon and label.
+    /// </summary>
+    public class OrientationToMarginConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            => (Orientation)value == Orientation.Horizontal
+                ? new Thickness(0, 0, 6, 0)
+                : new Thickness(0, 0, 0, 2);
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Converts a <see cref="Orientation"/> value to a <see cref="double"/> icon size for toolbar buttons.
+    /// Horizontal (icon beside text) → 30×30 px (larger icon, no text below to share vertical space).
+    /// Vertical (icon above text)    → 20×20 px (smaller icon, label sits directly beneath).
+    /// Triggered by <see cref="MainWindow.UpdateButtonLayout"/> whenever the myGrid column count changes.
+    /// </summary>
+    public class OrientationToSizeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            => (Orientation)value == Orientation.Horizontal ? 30.0 : 20.0;
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => throw new NotImplementedException();
     }
 
     public partial class MainWindow : Window, IOverlay
@@ -129,6 +161,27 @@ namespace ClickyKeys
         private bool _isCloaked = false;
 
 
+        /// <summary>
+        /// Changing button text-icon orientation depending of selected vertical panels grid.
+        /// </summary>
+        public static readonly DependencyProperty ButtonOrientationProperty =
+            DependencyProperty.Register(nameof(ButtonOrientation), typeof(Orientation),
+                typeof(MainWindow), new PropertyMetadata(Orientation.Vertical));
+
+        public Orientation ButtonOrientation
+        {
+            get => (Orientation)GetValue(ButtonOrientationProperty);
+            set => SetValue(ButtonOrientationProperty, value);
+        }
+
+        private void UpdateButtonLayout()
+        {
+            ButtonOrientation = myGrid.ColumnDefinitions.Count > 2
+                ? Orientation.Horizontal
+                : Orientation.Vertical;
+        }
+
+
         public MainWindow(bool transparent = false, InputCounter? counter = null)
         {
             _transparent = transparent;
@@ -193,6 +246,9 @@ namespace ClickyKeys
 
             // set panels grid
             SetGrid(_settingsConfiguration);
+
+            // set toolbar layout
+            UpdateButtonLayout();
 
             // Kick off rainbow animation if enabled (otherwise no-op).
             UpdateRainbowState();
@@ -517,6 +573,7 @@ namespace ClickyKeys
                             // counter, so we do NOT reload it here (the
                             // parent already did).
                             SetGrid(_settingsConfiguration);
+                            UpdateButtonLayout();
                         });
                 }
             };
@@ -835,6 +892,7 @@ namespace ClickyKeys
             LoadBackgroundFromSettings();
             UpdateRainbowState();
             SetGrid(_settingsConfiguration);
+            UpdateButtonLayout();
             OpenedSettings = false;
         }
 
@@ -1139,6 +1197,7 @@ namespace ClickyKeys
         public void OnGridChange(SettingsConfiguration settings)
         {
             SetGrid(settings);
+            UpdateButtonLayout();
         }
         //-------------------------
         // OnColorChanges section
@@ -1346,6 +1405,7 @@ namespace ClickyKeys
             // _panel_settings is already the source of truth here.
             _counter.LoadPanels(_panel_settings);
             SetGrid(_settingsConfiguration);
+            UpdateButtonLayout();
 
             // Broadcast the change so the transparent sub-window (which
             // shares _counter but has its own UI tree) rebuilds its grid
