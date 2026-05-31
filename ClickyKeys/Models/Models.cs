@@ -127,4 +127,42 @@ namespace ClickyKeys
         public Color keys;
         public Color values;
     }
+
+    // ── Changelog API ─────────────────────────────────────────────────────────
+
+    public class ChangelogResponse
+    {
+        [JsonPropertyName("since")]
+        public string Since { get; set; } = string.Empty;
+
+        [JsonPropertyName("count")]
+        public int Count { get; set; }
+
+        [JsonPropertyName("entries")]
+        public List<ChangelogEntry> Entries { get; set; } = [];
+    }
+
+    public class ChangelogEntry
+    {
+        [JsonPropertyName("version")]
+        public string Version { get; set; } = string.Empty;
+
+        [JsonPropertyName("release_date")]
+        public string ReleaseDate { get; set; } = string.Empty;
+
+        [JsonPropertyName("changes")]
+        public List<ChangelogItem> Changes { get; set; } = [];
+    }
+
+    public class ChangelogItem
+    {
+        [JsonPropertyName("type")]
+        public string Type { get; set; } = string.Empty;
+
+        [JsonPropertyName("summary")]
+        public string Summary { get; set; } = string.Empty;
+
+        [JsonPropertyName("detail")]
+        public string Detail { get; set; } = string.Empty;
+    }
 }

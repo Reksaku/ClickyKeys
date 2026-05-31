@@ -255,15 +255,15 @@ namespace ClickyKeys
 
             // Update detection. Compare the version baked into this build
             // (BuildInfo.Version) with the one persisted in config.json. If
-            // the build is newer, the user just installed an update — replay
-            // the tutorial from step 0 (the "your ClickyKeys was updated"
-            // intro) and bring the on-disk config up to the new version so
-            // the next launch won't re-trigger the update flow.
+            // the build is newer, the user just installed an update — open
+            // the changelog window and bring the on-disk config up to the
+            // new version so the next launch won't re-trigger the update flow.
+            string previousVersion = ConfigSettings.Version;
             bool justUpdated = !_transparent && HandleAppUpdate(ConfigSettings);
 
             if (justUpdated)
             {
-                ShowTutorial(0);
+                ShowChangelog(previousVersion);
             }
             else if (ConfigSettings.ShowTutorial == true)
             {
@@ -626,17 +626,14 @@ namespace ClickyKeys
                 // Idea for the next update: refactor tutorial - new dediacated window with changelog possibility
                 //-------------------------
 
+                // Step 0 was the old hardcoded changelog overlay. Changelog is
+                // now shown in a dedicated window (ShowChangelog). Skip to
+                // the first real tutorial step so NextTutorial_Click still
+                // works if someone calls ShowTutorial(0) unexpectedly.
                 case 0:
-                    TutorialText.TextAlignment = TextAlignment.Center;
-                    TutorialText.Text = "Your ClickyKeys has been updated\n" +
-                        "\nVersion 2.3.2 changes:" +
-                        "\n1. Minimized applications should still be visible " +
-                        "\nfor recording software" +
-                        "\n2. In cases where auto-update is unavailable," +
-                        "\nusers should now be informed correctly" +
-                        "\n" +
-                        "\nDo you want to see the tutorial again?";
-                    break;
+                    _tutorialStep = 1;
+                    UpdateTutorialText();
+                    return;
                 case 1:
                     TutorialText.TextAlignment = TextAlignment.Center;
                     TutorialText.Text = "Welcome to ClickyKeys!\n" +
@@ -1095,6 +1092,25 @@ namespace ClickyKeys
                 HideWindow();
                 WindowState = WindowState.Normal;
                 
+            }
+        }
+
+        /// <summary>
+        /// Opens the changelog window showing all changes since
+        /// <paramref name="sinceVersion"/>. Fetches the live API;
+        /// replaces the old hardcoded step-0 tutorial overlay.
+        /// </summary>
+        private void ShowChangelog(string sinceVersion)
+        {
+            // Owner cannot be set before the parent window has been shown.
+            // Defer to Loaded so the handle exists by the time we assign it.
+            Loaded += OnShowChangelogLoaded;
+
+            void OnShowChangelogLoaded(object s, RoutedEventArgs e)
+            {
+                Loaded -= OnShowChangelogLoaded;
+                var changelogWindow = new Changelog(sinceVersion) { Owner = this };
+                changelogWindow.Show();
             }
         }
 
