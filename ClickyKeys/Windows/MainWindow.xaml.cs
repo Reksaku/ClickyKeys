@@ -48,6 +48,7 @@ namespace ClickyKeys
         public void OnInfoClose();
         public void OnStatsClose();
         void SetBackgroundRainbow(bool? IsTrue);
+        void ShowTutorial();
     }
 
     /// <summary>
@@ -128,7 +129,6 @@ namespace ClickyKeys
 
         private string defaultSettingsPath;
 
-        private int _tutorialStep = 0;
 
         /// <summary>
         /// Hiding window by cloaking, Window will be rendered in background and 
@@ -264,10 +264,15 @@ namespace ClickyKeys
             if (justUpdated)
             {
                 ShowChangelog(previousVersion);
+                if (ConfigSettings.Version == "2.3.3")
+                    ConfigSettings.ShowTutorial = true; // Just for version 2.3.3
             }
-            else if (ConfigSettings.ShowTutorial == true)
+
+            if (ConfigSettings.ShowTutorial == true && !_transparent)
             {
-                ShowTutorial();
+                // Defer until the window is fully rendered so ActualWidth/Height
+                // and panel positions are available for spotlight calculations.
+                Loaded += OnShowTutorialLoaded;
             }
 
         }
@@ -594,151 +599,33 @@ namespace ClickyKeys
         // Tutorial section
         //-------------------------
 
-
-        private void ShowTutorial(int starting_step = 1)
+        private void OnShowTutorialLoaded(object sender, RoutedEventArgs e)
         {
-            _tutorialStep = starting_step;
-            TutorialOverlay.Visibility = Visibility.Visible;
-            UpdateTutorialText();
+            Loaded -= OnShowTutorialLoaded;
+            ShowTutorialWindow();
         }
 
-        private void UpdateTutorialText()
+        public void ShowTutorial() => ShowTutorialWindow();
+
+        private void ShowTutorialWindow()
         {
-            Color panelColor = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.PanelsColor);
-            Color keysColor = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.KeysTextColor);
-            Color valuesColor = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.ValuesTextColor);
-            FontSettings keysFont = _settingsConfiguration.KeysFontSettings;
-            FontSettings valuesFont = _settingsConfiguration.ValuesFontSettings;
-            GlassPanelWpf panel = new(this)
-            {
-                Value = 42,
-                Description = "Example",
-                PanelColor = panelColor,
-                KeyTextColor = keysColor,
-                ValueTextColor = valuesColor,
-                KeyFont = keysFont,
-                ValueFont = valuesFont,
-            };
+            var tutorial = new TutorialWindow(this);
 
-            switch (_tutorialStep)
-            {
-                //-------------------------
-                // Idea for the next update: refactor tutorial - new dediacated window with changelog possibility
-                //-------------------------
+            // Pass named elements the tutorial needs to spotlight.
+            // _panelsById[4] is a representative panel (centre of a 2×2 grid).
+            if (_panelsById.TryGetValue(4, out var samplePanel))
+                tutorial.SetTargets(
+                    panelGrid:         myGrid,
+                    singlePanel:       samplePanel,
+                    settingsButton:    Settings_Button,
+                    transparentButton: TransparentMode_Button,
+                    statsButton:       Stats_Button,
+                    infoButton:        Info_Button);
 
-                // Step 0 was the old hardcoded changelog overlay. Changelog is
-                // now shown in a dedicated window (ShowChangelog). Skip to
-                // the first real tutorial step so NextTutorial_Click still
-                // works if someone calls ShowTutorial(0) unexpectedly.
-                case 0:
-                    _tutorialStep = 1;
-                    UpdateTutorialText();
-                    return;
-                case 1:
-                    TutorialText.TextAlignment = TextAlignment.Center;
-                    TutorialText.Text = "Welcome to ClickyKeys!\n" +
-                        "\nLet me guide you through a quick tutorial." +
-                        "\nClick Next to continue.";
-                    break;
-                case 2:
-                    TutorialText.Text = "These are your display panels — the main feature of ClickyKeys.\n" +
-                        "\nLet’s take a look at an example.";
-                    PanelBoxGlow.Visibility = Visibility.Visible;
-                    SetBorder(_panelsById[4], PanelBoxGlow, 10, 8, 180, 84);
-                    break;
-                case 3:
-                    TutorialText.TextAlignment = TextAlignment.Left;
-                    TutorialText.Text = "Left-click a panel to edit its settings.";
-                    SetBorder(_panelsById[4], PanelBox, -4, -4, 200, 100);
-                    PanelBox.Visibility = Visibility.Visible;
-                    PanelBoxGrid.Children.Add(panel);
-                    break;
-                case 4:
-                    TutorialText.Text = "In the Description field, enter the name of the tile." +
-                        "\nThen press Input and choose the key you want to assign.";
-                    SetBorder(_panelsById[4], PanelBoxGlow, 50, 14, 96, 36);
+            // Mark tutorial as done when the overlay closes.
+            tutorial.Closed += (_, _) => SetTutorialAsMarked();
 
-                    PanelBoxGrid.Children.RemoveAt(0);
-                    PanelBoxGrid.Children.Add(panel);
-                    panel.OpenEditor();
-                    break;
-                case 5:
-                    TutorialText.Text = "Confirm your changes using the green button," +
-                        "\nor discard them using the red one.";
-                    SetBorder(_panelsById[4], PanelBoxGlow, 98, 46, 80, 38);
-                    PanelBoxGrid.Children.RemoveAt(0);
-                    PanelBoxGrid.Children.Add(panel);
-                    panel.OpenEditor();
-                    panel.DescriptionBox.Text = "Sprint";
-                    panel.InputBtn.Content = "Shift";
-                    break;
-                case 6:
-                    TutorialText.Text = "To customize the program’s appearance, open the Settings tab in the top-left corner.";
-                    PanelBoxGrid.Children.RemoveAt(0);
-                    SetBorder(Settings_Button, PanelBoxGlow, 5, 5, 70, 40);
-                    break;
-                case 7:
-                    TutorialText.Text = "To save your layout for later, click Save As at the bottom." +
-                        "\nEnter a name and press Save." +
-                        "\nSaved profiles can be loaded from the Load tab.";
-                    break;
-                case 8:
-                    SetBorder(Settings_Button, PanelBoxGlow, 85, 5, 130, 40);
-                    TutorialText.Text = "The Transparent mode button lets you hide" +
-                        "\nthe background and UI buttons.";
-                    break;
-                case 9:
-                    SetBorder(Settings_Button, PanelBoxGlow, 457, 5, 65, 40);
-                    TutorialText.Text = "Curious how many keys you've pressed in total?" +
-                        "\nCheck the Stats tab — your data is stored only on your local drive.";
-                    break;
-                case 10:
-                    SetBorder(Settings_Button, PanelBoxGlow, 520, 5, 55, 40);
-                    TutorialText.Text = "To learn more about the ClickyKeys project," +
-                        "\nvisit the Info tab.";
-                    break;
-                case 11:
-                    TutorialText.TextAlignment = TextAlignment.Center;
-                    TutorialText.Text = "That's all!" +
-                        "\nEnjoy using ClickyKeys!";
-                    break;
-
-                default:
-                    TutorialOverlay.Visibility = Visibility.Collapsed;
-                    SetTutorialAsMarked();
-                    break;
-            }
-        }
-
-        private void NextTutorial_Click(object sender, RoutedEventArgs e)
-        {
-            _tutorialStep++;
-            UpdateTutorialText();
-        }
-
-        private void SkipTutorial_Click(object sender, RoutedEventArgs e)
-        {
-            TutorialOverlay.Visibility = Visibility.Collapsed;
-            SetTutorialAsMarked();
-        }
-
-        private void SetBorder(FrameworkElement target, Border targetBox, double offsetX = 0, double offsetY = 0, double sizeX = 10, double sizeY = 10)
-        {
-            if (!TutorialOverlay.IsVisible)
-                return;
-
-            var point = target.TransformToAncestor(this).Transform(new Point(0, 0));
-
-            targetBox.HorizontalAlignment = HorizontalAlignment.Left;
-            targetBox.VerticalAlignment = VerticalAlignment.Top;
-            targetBox.Width = sizeX;
-            targetBox.Height = sizeY;
-
-            targetBox.Margin = new Thickness(
-                point.X + offsetX,
-                point.Y + offsetY,
-                0,
-                0);
+            tutorial.Show();
         }
 
         private void SetTutorialAsMarked()
