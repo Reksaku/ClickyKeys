@@ -1,38 +1,20 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
-using ControlzEx.Standard;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using Hardcodet.Wpf.TaskbarNotification;
-using MahApps.Metro.Controls;
-using MaterialDesignColors;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.Metrics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Runtime;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Threading;
-using static System.Windows.Forms.Design.AxImporter;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace ClickyKeys
 {
@@ -172,6 +154,42 @@ namespace ClickyKeys
         {
             get => (Orientation)GetValue(ButtonOrientationProperty);
             set => SetValue(ButtonOrientationProperty, value);
+        }
+
+        /// <summary>
+        /// Foreground color for toolbar text — Black on light backgrounds (or rainbow),
+        /// White on dark backgrounds.
+        /// </summary>
+        public static readonly DependencyProperty ToolbarTextColorProperty =
+            DependencyProperty.Register(nameof(ToolbarTextColor), typeof(Brush),
+                typeof(MainWindow), new PropertyMetadata(Brushes.Black));
+
+        public Brush ToolbarTextColor
+        {
+            get => (Brush)GetValue(ToolbarTextColorProperty);
+            set => SetValue(ToolbarTextColorProperty, value);
+        }
+
+        /// <summary>
+        /// Recalculates <see cref="ToolbarTextColor"/> from the current background.
+        /// Rainbow mode always yields Black. Otherwise luminance decides:
+        /// bright background → Black, dark background → White.
+        /// </summary>
+        private void UpdateToolbarTextColor()
+        {
+            if (_settingsConfiguration.IsBackgroundRainbow)
+            {
+                ToolbarTextColor = Brushes.Black;
+                return;
+            }
+
+            // Relative luminance (IEC 61966-2-1 / sRGB)
+            double r = allColors.background.R / 255.0;
+            double g = allColors.background.G / 255.0;
+            double b = allColors.background.B / 255.0;
+            double L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+            ToolbarTextColor = L > 0.179 ? Brushes.Black : Brushes.White;
         }
 
         private void UpdateButtonLayout()
@@ -329,8 +347,11 @@ namespace ClickyKeys
             if (!_settingsConfiguration.IsBackgroundRainbow)
             {
                 _backgroundBrush.Color = allColors.background;
+                UpdateToolbarTextColor();
                 return;
             }
+
+            UpdateToolbarTextColor();
 
             // Derive saturation/value from the user's chosen background color
             // so the rainbow respects their brightness preference.
@@ -361,6 +382,7 @@ namespace ClickyKeys
             _backgroundBrush.Color = allColors.background;
             if (!_transparent)
                 Background = _backgroundBrush;
+            UpdateToolbarTextColor();
         }
 
         Configuration LoadInitSettings()
@@ -544,6 +566,7 @@ namespace ClickyKeys
                                     UpdateRainbowState();
                                 else
                                     _backgroundBrush.Color = c;
+                                UpdateToolbarTextColor();
                                 break;
 
                             case ColorTarget.Panels:
@@ -978,7 +1001,7 @@ namespace ClickyKeys
             {
                 HideWindow();
                 WindowState = WindowState.Normal;
-                
+
             }
         }
 
