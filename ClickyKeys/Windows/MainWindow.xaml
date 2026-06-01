@@ -89,7 +89,8 @@
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
                         <TextBlock Text="Settings" FontSize="10"
                                    HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"
+                                   Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                     </StackPanel>
                 </Button>
 
@@ -108,8 +109,10 @@
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Transparent" FontSize="10" HorizontalAlignment="Center"/>
-                            <TextBlock Text="mode" FontSize="10" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Transparent" FontSize="10" HorizontalAlignment="Center"
+                                       Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                            <TextBlock Text="mode" FontSize="10" HorizontalAlignment="Center"
+                                       Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                         </StackPanel>
                     </StackPanel>
                 </Button>
@@ -129,8 +132,10 @@
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Hide toolbar" FontSize="10" HorizontalAlignment="Center"/>
-                            <TextBlock Text="(F11)" FontSize="10" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Hide toolbar" FontSize="10" HorizontalAlignment="Center"
+                                       Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                            <TextBlock Text="(F11)" FontSize="10" HorizontalAlignment="Center"
+                                       Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                         </StackPanel>
                     </StackPanel>
                 </Button>
@@ -150,8 +155,10 @@
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Reset" FontSize="10" HorizontalAlignment="Center"/>
-                            <TextBlock Text="(F12)" FontSize="10" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Reset" FontSize="10" HorizontalAlignment="Center"
+                                       Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                            <TextBlock Text="(F12)" FontSize="10" HorizontalAlignment="Center"
+                                       Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                         </StackPanel>
                     </StackPanel>
                 </Button>
@@ -172,7 +179,8 @@
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
                         <TextBlock Text="Stats" FontSize="10"
                                    HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"
+                                   Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                     </StackPanel>
                 </Button>
 
@@ -192,7 +200,8 @@
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
                         <TextBlock Text="Info" FontSize="10"
                                    HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"
+                                   Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                     </StackPanel>
                 </Button>
 

@@ -39,6 +39,10 @@ namespace ClickyKeys
                 using var http = new HttpClient();
                 http.DefaultRequestHeaders.UserAgent.Add(
                     new ProductInfoHeaderValue("ClickyKeysApp", BuildInfo.Version));
+                http.DefaultRequestHeaders.UserAgent.Add(
+                    new ProductInfoHeaderValue("Distro", BuildInfo.Distribution.ToString()));
+                http.DefaultRequestHeaders.UserAgent.Add(
+                    new ProductInfoHeaderValue("Type", "application"));
 
                 var json = await http.GetStringAsync(url);
 
