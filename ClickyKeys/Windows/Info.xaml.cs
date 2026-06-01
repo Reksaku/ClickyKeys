@@ -37,7 +37,15 @@ namespace ClickyKeys
 
         private void Click_Close(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        private void Click_ShowTutorial(object sender, RoutedEventArgs e)
+        {
+            // Close Info first (triggers OnInfoClose via Window_Closed),
+            // then launch the tutorial through the overlay interface.
+            Close();
+            _mainOverlay.ShowTutorial();
         }
 
         private void Window_Closed(object? sender, EventArgs e)
