@@ -15,6 +15,23 @@
         TextElement.FontFamily="Segoe UI"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
+    <Window.Resources>
+        <!--
+          Shared layout for a single setting row: a description on the left
+          that takes the remaining width, and the control (switch / combo)
+          pinned to the right. Applied to the Grid that wraps each row so all
+          rows line up consistently regardless of label length.
+        -->
+        <Style x:Key="SettingRowGrid" TargetType="Grid">
+            <Setter Property="Margin" Value="0,6,0,6"/>
+        </Style>
+        <Style x:Key="SettingLabel" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,0,12,0"/>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -39,17 +56,120 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="0,0,0,8">
 
-                <!-- Placeholder: settings options will be added here. -->
+                <!-- ============================================================
+                     Category: Data Collection
+                     All switches here are UI-only for now. They will later be
+                     bound to the data-collection services (uptime tracker and
+                     KeyStatsService). See Settings.xaml.cs for wiring notes.
+                     ============================================================ -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="General"
+                        <TextBlock Text="Data Collection"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
-                        <TextBlock TextWrapping="Wrap"
-                                   Foreground="{DynamicResource MaterialDesignBodyLight}">
-                            No settings available yet — options will appear here soon.
-                        </TextBlock>
+
+                        <!-- 1. Collect application uptime data -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       Text="Collect application uptime data"/>
+                            <ToggleButton Grid.Column="1"
+                                          x:Name="CollectUptimeToggle"
+                                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                          Checked="CollectUptimeToggle_Changed"
+                                          Unchecked="CollectUptimeToggle_Changed"/>
+                        </Grid>
+
+                        <!-- 2. Collect key-press statistics -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       Text="Collect key-press statistics"/>
+                            <ToggleButton Grid.Column="1"
+                                          x:Name="CollectKeyStatsToggle"
+                                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                          Checked="CollectKeyStatsToggle_Changed"
+                                          Unchecked="CollectKeyStatsToggle_Changed"/>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- ============================================================
+                     Category: Usage
+                     Autostart and start-minimized are OS-integration toggles;
+                     language switching requires reloading localized resources.
+                     All are UI-only placeholders for now — see code-behind.
+                     ============================================================ -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="Usage"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Margin="0,0,0,6"/>
+
+                        <!-- 1. Launch on system startup (autostart) -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       Text="Launch on system startup"/>
+                            <ToggleButton Grid.Column="1"
+                                          x:Name="AutostartToggle"
+                                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                          Checked="AutostartToggle_Changed"
+                                          Unchecked="AutostartToggle_Changed"/>
+                        </Grid>
+
+                        <!-- 2. Start minimized -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       Text="Start minimized"/>
+                            <ToggleButton Grid.Column="1"
+                                          x:Name="StartMinimizedToggle"
+                                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                          Checked="StartMinimizedToggle_Changed"
+                                          Unchecked="StartMinimizedToggle_Changed"/>
+                        </Grid>
+
+                        <!-- 3. Language selector -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       Text="Language"/>
+                            <ComboBox Grid.Column="1"
+                                      x:Name="LanguageComboBox"
+                                      MinWidth="140"
+                                      VerticalAlignment="Center"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                      SelectionChanged="LanguageComboBox_SelectionChanged">
+                                <!-- Tag holds the culture code the wiring layer
+                                     will eventually read; Content is the
+                                     user-facing label. -->
+                                <ComboBoxItem Content="English" Tag="en" IsSelected="True"/>
+                                <ComboBoxItem Content="Polski" Tag="pl"/>
+                            </ComboBox>
+                        </Grid>
                     </StackPanel>
                 </materialDesign:Card>
 
