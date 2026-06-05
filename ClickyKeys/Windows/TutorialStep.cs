@@ -12,7 +12,7 @@ namespace ClickyKeys
         SinglePanel,
         PanelEditor,
         PanelEditorConfirm,
-        SettingsButton,
+        AppearanceButton,
         TransparentButton,
         StatsButton,
         InfoButton,

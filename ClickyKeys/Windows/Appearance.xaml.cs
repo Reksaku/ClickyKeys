@@ -26,39 +26,39 @@ using MD = MaterialDesignThemes.Wpf;
 
 namespace ClickyKeys
 {
-    public interface SettingsOverlay
+    public interface AppearanceOverlay
     {
-        void LoadSettingsFile(string file);
-        void SelectSettingsFile(string file);
-        void RevertSettingsFile();
+        void LoadAppearanceFile(string file);
+        void SelectAppearanceFile(string file);
+        void RevertAppearanceFile();
     }
-    public partial class Settings : Window, SettingsOverlay
+    public partial class Appearance : Window, AppearanceOverlay
     {
         private DependencyPropertyDescriptor _colorDp;
 
-        private SettingsConfiguration _settings;
+        private AppearanceConfiguration _appearance;
 
-        private string _selectedSettingsProfile;
-        private string _temporarySettingsProfile = string.Empty;
+        private string _selectedAppearanceProfile;
+        private string _temporaryAppearanceProfile = string.Empty;
 
         private readonly IOverlay _mainOverlay;
-        public FontSettings KeysFontSettings { get; set; } = new FontSettings();
-        public FontSettings ValuesFontSettings { get; set; } = new FontSettings();
+        public FontAppearance KeysFontAppearance { get; set; } = new FontAppearance();
+        public FontAppearance ValuesFontAppearance { get; set; } = new FontAppearance();
 
         private Color backgroundColor;
         private Color panelsColor;
         private Color keysColor;
         private Color valuesColor;
 
-        public Settings(SettingsConfiguration settingsConfiguration, IOverlay mainOverlay, string selectedPrifile)
+        public Appearance(AppearanceConfiguration appearanceConfiguration, IOverlay mainOverlay, string selectedPrifile)
         {
-            _settings = settingsConfiguration;
+            _appearance = appearanceConfiguration;
             _mainOverlay = mainOverlay;
         
 
             InitializeComponent();
 
-            _selectedSettingsProfile = selectedPrifile;
+            _selectedAppearanceProfile = selectedPrifile;
 
             DataContext = this;
 
@@ -83,30 +83,30 @@ namespace ClickyKeys
 
         private void SetOnStart()
         {
-            RowsCount.Value = _settings.GridRows;
-            ColumnsCount.Value = _settings.GridColumns;
+            RowsCount.Value = _appearance.GridRows;
+            ColumnsCount.Value = _appearance.GridColumns;
 
-            BackgroundRainbowCheckBox.IsChecked = _settings.IsBackgroundRainbow;
-            if (_settings.IsBackgroundRainbow == true)
+            BackgroundRainbowCheckBox.IsChecked = _appearance.IsBackgroundRainbow;
+            if (_appearance.IsBackgroundRainbow == true)
                 _mainOverlay.SetBackgroundRainbow(true);
             else
                 _mainOverlay.SetBackgroundRainbow(false);
 
-            BackgroundColorPicker.Color = (Color)ColorConverter.ConvertFromString(_settings.BackgroundColor);
-            PanelsColorPicker.Color = (Color)ColorConverter.ConvertFromString(_settings.PanelsColor);
-            KeysColorPicker.Color = (Color)ColorConverter.ConvertFromString(_settings.KeysTextColor);
-            ValuesColorPicker.Color = (Color)ColorConverter.ConvertFromString(_settings.ValuesTextColor);
+            BackgroundColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.BackgroundColor);
+            PanelsColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.PanelsColor);
+            KeysColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.KeysTextColor);
+            ValuesColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.ValuesTextColor);
 
 
-            KeysFontPicker.SettingsParameter = _settings.KeysFontSettings;
-            ValuesFontPicker.SettingsParameter = _settings.ValuesFontSettings;
+            KeysFontPicker.AppearanceParameter = _appearance.KeysFontAppearance;
+            ValuesFontPicker.AppearanceParameter = _appearance.ValuesFontAppearance;
 
 
             string name = string.Empty;
-            if (_temporarySettingsProfile != string.Empty)
-                name = _temporarySettingsProfile;
+            if (_temporaryAppearanceProfile != string.Empty)
+                name = _temporaryAppearanceProfile;
             else 
-                name = _selectedSettingsProfile;
+                name = _selectedAppearanceProfile;
 
             try
             {
@@ -173,7 +173,7 @@ namespace ClickyKeys
         }
         private void Window_Closed(object? sender, EventArgs e)
         {
-            _mainOverlay.OnSettingsClose(_selectedSettingsProfile);
+            _mainOverlay.OnAppearanceClose(_selectedAppearanceProfile);
         }
 
         private void Click_BackgroundRainbowCheckBox(object? sender, EventArgs e)
@@ -182,51 +182,51 @@ namespace ClickyKeys
         }
         private void Click_GridRows(object? sender, EventArgs e)
         {
-            _settings.GridRows = (int)RowsCount.Value;
-            _mainOverlay.OnGridChange(_settings);
+            _appearance.GridRows = (int)RowsCount.Value;
+            _mainOverlay.OnGridChange(_appearance);
         }
         private void Click_GridColumns(object? sender, EventArgs e)
         {
-            _settings.GridColumns = (int)ColumnsCount.Value;
-            _mainOverlay.OnGridChange(_settings);
+            _appearance.GridColumns = (int)ColumnsCount.Value;
+            _mainOverlay.OnGridChange(_appearance);
         }
         private async void Click_SaveAndClose(object? sender, EventArgs e)
         {
-            _settings.GridColumns = (int)ColumnsCount.Value;
-            _mainOverlay.OnGridChange(_settings);
+            _appearance.GridColumns = (int)ColumnsCount.Value;
+            _mainOverlay.OnGridChange(_appearance);
             if (NewFileNameTextBox.Visibility == Visibility.Visible)
-                _selectedSettingsProfile = NewFileNameTextBox.Text+".json";
-            else if(_temporarySettingsProfile != string.Empty)
-                _selectedSettingsProfile = _temporarySettingsProfile;
+                _selectedAppearanceProfile = NewFileNameTextBox.Text+".json";
+            else if(_temporaryAppearanceProfile != string.Empty)
+                _selectedAppearanceProfile = _temporaryAppearanceProfile;
 
-            SettingsService _settingsService = new(_selectedSettingsProfile);
-            SettingsConfiguration _settingsConfiguration = _settingsService.Load();
+            AppearanceService _appearanceService = new(_selectedAppearanceProfile);
+            AppearanceConfiguration _appearanceConfiguration = _appearanceService.Load();
 
-            _settingsConfiguration.GridColumns = (int)ColumnsCount.Value;
-            _settingsConfiguration.GridRows = (int)RowsCount.Value;
+            _appearanceConfiguration.GridColumns = (int)ColumnsCount.Value;
+            _appearanceConfiguration.GridRows = (int)RowsCount.Value;
             var converter = new ColorConverter();
-            _settingsConfiguration.BackgroundColor = converter.ConvertToString(backgroundColor);
-            _settingsConfiguration.PanelsColor = converter.ConvertToString(panelsColor);
-            _settingsConfiguration.KeysTextColor = converter.ConvertToString(keysColor);
-            _settingsConfiguration.ValuesTextColor = converter.ConvertToString(valuesColor);
-            _settingsConfiguration.KeysFontSettings = KeysFontPicker.SettingsParameter;
-            _settingsConfiguration.ValuesFontSettings = ValuesFontPicker.SettingsParameter;
-            _settingsConfiguration.IsBackgroundRainbow = BackgroundRainbowCheckBox.IsChecked ?? false;
+            _appearanceConfiguration.BackgroundColor = converter.ConvertToString(backgroundColor);
+            _appearanceConfiguration.PanelsColor = converter.ConvertToString(panelsColor);
+            _appearanceConfiguration.KeysTextColor = converter.ConvertToString(keysColor);
+            _appearanceConfiguration.ValuesTextColor = converter.ConvertToString(valuesColor);
+            _appearanceConfiguration.KeysFontAppearance = KeysFontPicker.AppearanceParameter;
+            _appearanceConfiguration.ValuesFontAppearance = ValuesFontPicker.AppearanceParameter;
+            _appearanceConfiguration.IsBackgroundRainbow = BackgroundRainbowCheckBox.IsChecked ?? false;
 
             // Async atomic save: doesn't block the UI thread while the file
             // hits disk. If the async path fails for any reason we fall back
             // to the synchronous save so the user's changes still land.
             try
             {
-                await _settingsService.SaveAsync(_settingsConfiguration);
+                await _appearanceService.SaveAsync(_appearanceConfiguration);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Click_SaveAndClose: SaveAsync failed, falling back: {ex}");
-                _settingsService.Save(_settingsConfiguration);
+                _appearanceService.Save(_appearanceConfiguration);
             }
 
-            _mainOverlay.OnSettingsClose(_selectedSettingsProfile);
+            _mainOverlay.OnAppearanceClose(_selectedAppearanceProfile);
             this.Close();
         }
         private void Click_Load(object? sender, EventArgs e)
@@ -241,7 +241,7 @@ namespace ClickyKeys
         }
         private void Click_Close(object? sender, EventArgs e)
         {
-            _mainOverlay.OnSettingsClose(_selectedSettingsProfile);
+            _mainOverlay.OnAppearanceClose(_selectedAppearanceProfile);
             this.Close();
         }
 
@@ -272,38 +272,38 @@ namespace ClickyKeys
 
         }
 
-        public void LoadSettingsFile(string file)
+        public void LoadAppearanceFile(string file)
         {
-            SettingsService settingsService = new SettingsService(file);
-            var loaded = settingsService.Load();
+            AppearanceService appearanceService = new AppearanceService(file);
+            var loaded = appearanceService.Load();
 
-             CopySettings(_settings, loaded);
+             CopyAppearance(_appearance, loaded);
 
-            _mainOverlay.OnGridChange(_settings);
+            _mainOverlay.OnGridChange(_appearance);
 
             SetOnStart();
             ForceColorChange();
 
         }
-        public void SelectSettingsFile(string file)
+        public void SelectAppearanceFile(string file)
         {
-            _temporarySettingsProfile = file;
+            _temporaryAppearanceProfile = file;
 
             SetOnStart();
 
             this.Tag = "idle";
 
         }
-        public void RevertSettingsFile()
+        public void RevertAppearanceFile()
         {
-            SettingsService settingsService = new SettingsService(_selectedSettingsProfile);
-            _settings = settingsService.Load();
+            AppearanceService appearanceService = new AppearanceService(_selectedAppearanceProfile);
+            _appearance = appearanceService.Load();
             SetOnStart();
-            _mainOverlay.OnGridChange(_settings);
+            _mainOverlay.OnGridChange(_appearance);
             this.Tag = "idle";
         }
 
-        private static void CopySettings(SettingsConfiguration target, SettingsConfiguration source)
+        private static void CopyAppearance(AppearanceConfiguration target, AppearanceConfiguration source)
         {
             target.GridRows = source.GridRows;
             target.GridColumns = source.GridColumns;
@@ -313,11 +313,11 @@ namespace ClickyKeys
             target.ValuesTextColor = source.ValuesTextColor;
             target.IsBackgroundRainbow = source.IsBackgroundRainbow;
 
-            CopyFontSettings(target.KeysFontSettings, source.KeysFontSettings);
-            CopyFontSettings(target.ValuesFontSettings, source.ValuesFontSettings);
+            CopyFontAppearance(target.KeysFontAppearance, source.KeysFontAppearance);
+            CopyFontAppearance(target.ValuesFontAppearance, source.ValuesFontAppearance);
         }
 
-        private static void CopyFontSettings(FontSettings target, FontSettings source)
+        private static void CopyFontAppearance(FontAppearance target, FontAppearance source)
         {
             target.FontFamily = source.FontFamily;
             target.FontSize = source.FontSize;
@@ -326,12 +326,4 @@ namespace ClickyKeys
             target.IsUnderline = source.IsUnderline;
         }
     }
-
-    //public class FontPickerViewModel
-    //{
-    //    public FontSettings _fontSettings { get; } = new FontSettings();
-
-    //    public System.Collections.Generic.List<FontFamily> FontFamilies { get; } =
-    //        Fonts.SystemFontFamilies.OrderBy(f => f.Source).ToList();
-    //}
 }

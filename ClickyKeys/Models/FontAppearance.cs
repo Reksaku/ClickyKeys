@@ -13,7 +13,7 @@ using ClickyKeys.Converters;
 namespace ClickyKeys
 {
 
-    public class FontSettings : INotifyPropertyChanged
+    public class FontAppearance : INotifyPropertyChanged
     {
         private FontFamily _fontFamily = new FontFamily("Arial Rounded MT");
         private double _fontSize = 36.0;

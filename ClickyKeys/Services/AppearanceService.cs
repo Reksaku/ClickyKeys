@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ClickyKeys
 {
-    public class SettingsService
+    public class AppearanceService
     {
 
         private readonly string _filePath;
@@ -38,7 +38,7 @@ namespace ClickyKeys
         private CancellationTokenSource? _debounceCts;
         private Task _pendingSave = Task.CompletedTask;
 
-        public SettingsService(string file)
+        public AppearanceService(string file)
         {
             var appDataDir = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
@@ -52,24 +52,24 @@ namespace ClickyKeys
 
             if (!File.Exists(_filePath))
             {
-                Save(new SettingsConfiguration());
+                Save(new AppearanceConfiguration());
             }
         }
 
-        public SettingsConfiguration Load() // Load data from settings.json
+        public AppearanceConfiguration Load() // Load data from settings.json
         {
             lock (_lock)
             {
                 try
                 {
                     var json = File.ReadAllText(_filePath);
-                    return JsonSerializer.Deserialize<SettingsConfiguration>(json, ReadOptions)
-                           ?? new SettingsConfiguration();
+                    return JsonSerializer.Deserialize<AppearanceConfiguration>(json, ReadOptions)
+                           ?? new AppearanceConfiguration();
                 }
                 catch
                 {
                     // Return to defaults
-                    var defaults = new SettingsConfiguration();
+                    var defaults = new AppearanceConfiguration();
                     defaults.Version = new Configuration().Version;
                     Save(defaults);
                     return defaults;
@@ -83,9 +83,9 @@ namespace ClickyKeys
         /// it over the target, so a crash mid-write can't leave an invalid
         /// JSON blob behind.
         /// </summary>
-        public void Save(SettingsConfiguration settings)
+        public void Save(AppearanceConfiguration appearance)
         {
-            var json = JsonSerializer.Serialize(settings, WriteOptions);
+            var json = JsonSerializer.Serialize(appearance, WriteOptions);
             lock (_lock)
             {
                 AtomicFile.WriteAllText(_filePath, json);
@@ -97,9 +97,9 @@ namespace ClickyKeys
         /// the actual disk write happens off the UI thread. Safe to call from
         /// UI event handlers with <c>await</c>.
         /// </summary>
-        public async Task SaveAsync(SettingsConfiguration settings, CancellationToken ct = default)
+        public async Task SaveAsync(AppearanceConfiguration appearance, CancellationToken ct = default)
         {
-            var json = JsonSerializer.Serialize(settings, WriteOptions);
+            var json = JsonSerializer.Serialize(appearance, WriteOptions);
             await AtomicFile.WriteAllTextAsync(_filePath, json, ct).ConfigureAwait(false);
         }
 
@@ -108,7 +108,7 @@ namespace ClickyKeys
         /// single trailing write. Each call cancels the previous pending
         /// write and schedules a new one after <paramref name="delay"/>.
         /// </summary>
-        public void SaveDebounced(SettingsConfiguration settings, TimeSpan? delay = null)
+        public void SaveDebounced(AppearanceConfiguration appearance, TimeSpan? delay = null)
         {
             var wait = delay ?? TimeSpan.FromMilliseconds(500);
 
@@ -123,7 +123,7 @@ namespace ClickyKeys
                     try
                     {
                         await Task.Delay(wait, token).ConfigureAwait(false);
-                        await SaveAsync(settings, token).ConfigureAwait(false);
+                        await SaveAsync(appearance, token).ConfigureAwait(false);
                     }
                     catch (OperationCanceledException)
                     {
@@ -131,7 +131,7 @@ namespace ClickyKeys
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine($"SettingsService.SaveDebounced failed: {ex}");
+                        Debug.WriteLine($"AppearanceService.SaveDebounced failed: {ex}");
                     }
                 }, token);
             }
@@ -152,7 +152,7 @@ namespace ClickyKeys
 
 
 
-    public class SettingsConfiguration // Default configuration
+    public class AppearanceConfiguration // Default configuration
     {
         [JsonPropertyName("localization")]
         public string Localization { get; set; } = "English";
@@ -208,10 +208,10 @@ namespace ClickyKeys
         // Font
 
         [JsonPropertyName("keys_font")]
-        public FontSettings KeysFontSettings { get; set; } = new();
+        public FontAppearance KeysFontAppearance { get; set; } = new();
 
         [JsonPropertyName("values_font")]
-        public FontSettings ValuesFontSettings { get; set; } = new();
+        public FontAppearance ValuesFontAppearance { get; set; } = new();
 
     }
 }

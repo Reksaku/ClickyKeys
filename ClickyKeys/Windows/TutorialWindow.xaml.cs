@@ -21,7 +21,7 @@ namespace ClickyKeys
 
         private FrameworkElement? _panelGrid;
         private FrameworkElement? _singlePanel;
-        private FrameworkElement? _settingsButton;
+        private FrameworkElement? _appearanceButton;
         private FrameworkElement? _transparentButton;
         private FrameworkElement? _statsButton;
         private FrameworkElement? _infoButton;
@@ -67,22 +67,22 @@ namespace ClickyKeys
             },
             new()
             {
-                Title  = "Settings",
-                Body   = "Open the Settings tab to customise colours, grid size, fonts, and more.",
-                Target = TutorialTarget.SettingsButton,
-                Hint   = "👆 Settings button",
+                Title  = "Appearance",
+                Body   = "Open the Appearance tab to customise colours, grid size, fonts, and more.",
+                Target = TutorialTarget.AppearanceButton,
+                Hint   = "👆 Appearance button",
             },
             new()
             {
                 Title  = "Applying changes",
-                Body   = "Click Save at the bottom of Settings to save your current layout and override current profile.\nUnsaved changes will be discarded after closing Settings tab.",
-                Target = TutorialTarget.SettingsButton,
+                Body   = "Click Save at the bottom of Appearance to save your current layout and override current profile.\nUnsaved changes will be discarded after closing Appearance tab.",
+                Target = TutorialTarget.AppearanceButton,
             },
             new()
             {
                 Title  = "Creating a new layout",
-                Body   = "Click Save As at the bottom of Settings to save your layout under a new name. Enter a new profile name and click Save.\nSaved profiles can be loaded from the Load tab.",
-                Target = TutorialTarget.SettingsButton,
+                Body   = "Click Save As at the bottom of Appearance to save your layout under a new name. Enter a new profile name and click Save.\nSaved profiles can be loaded from the Load tab.",
+                Target = TutorialTarget.AppearanceButton,
             },
             new()
             {
@@ -143,14 +143,14 @@ namespace ClickyKeys
         public void SetTargets(
             FrameworkElement panelGrid,
             FrameworkElement singlePanel,
-            FrameworkElement settingsButton,
+            FrameworkElement appearanceButton,
             FrameworkElement transparentButton,
             FrameworkElement statsButton,
             FrameworkElement infoButton)
         {
             _panelGrid         = panelGrid;
             _singlePanel       = singlePanel;
-            _settingsButton    = settingsButton;
+            _appearanceButton    = appearanceButton;
             _transparentButton = transparentButton;
             _statsButton       = statsButton;
             _infoButton        = infoButton;
@@ -286,7 +286,7 @@ namespace ClickyKeys
             TutorialTarget.SinglePanel        => _singlePanel,
             TutorialTarget.PanelEditor        => _singlePanel,
             TutorialTarget.PanelEditorConfirm => _singlePanel,
-            TutorialTarget.SettingsButton     => _settingsButton,
+            TutorialTarget.AppearanceButton     => _appearanceButton,
             TutorialTarget.TransparentButton  => _transparentButton,
             TutorialTarget.StatsButton        => _statsButton,
             TutorialTarget.InfoButton         => _infoButton,

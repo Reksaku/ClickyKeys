@@ -18,17 +18,17 @@ namespace ClickyKeys.Controls
     public partial class FontPicker : UserControl
     {
         // Public DP
-        public static readonly DependencyProperty SettingsProperty =
+        public static readonly DependencyProperty AppearanceProperty =
             DependencyProperty.Register(
-                nameof(SettingsParameter),
-                typeof(FontSettings),
+                nameof(AppearanceParameter),
+                typeof(FontAppearance),
                 typeof(FontPicker),
                 new PropertyMetadata(null));
 
-        public FontSettings SettingsParameter
+        public FontAppearance AppearanceParameter
         {
-            get => (FontSettings)GetValue(SettingsProperty);
-            set => SetValue(SettingsProperty, value);
+            get => (FontAppearance)GetValue(AppearanceProperty);
+            set => SetValue(AppearanceProperty, value);
         }
 
         // Sorted fonts source
