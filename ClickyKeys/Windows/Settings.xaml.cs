@@ -58,17 +58,19 @@ namespace ClickyKeys
                 // read it live rather than trusting a cached flag.
                 AutostartToggle.IsChecked = AutostartService.IsEnabled();
 
-                // Start-minimized lives in config.json.
-                StartMinimizedToggle.IsChecked = ConfigStore.Load().StartMinimized;
+                // Start-minimized and key-stats collection live in config.json.
+                var cfg = ConfigStore.Load();
+                StartMinimizedToggle.IsChecked = cfg.StartMinimized;
+                CollectKeyStatsToggle.IsChecked = cfg.CollectKeyStats;
             }
             finally
             {
                 _initialising = false;
             }
 
-            // TODO (wiring): the two Data Collection toggles and the language
-            // selector are still UI-only — restore their saved values here once
-            // those mechanisms exist.
+            // TODO (wiring): the uptime toggle and the language selector are
+            // still UI-only — restore their saved values here once those
+            // mechanisms exist.
         }
 
         // ----------------------------------------------------------------
@@ -89,12 +91,16 @@ namespace ClickyKeys
         {
             if (_initialising) return;
 
-            // TODO (wiring): toggle KeyStatsService collection and persist.
-            // NOTE: decide what "off" means for existing data — pause counting
-            // only, or also stop flushing keystats.json? The Stats window reads
-            // that file directly, so a paused-but-retained model keeps old
-            // numbers visible while no new ones accrue. Recommend pause-only.
-            // bool enabled = CollectKeyStatsToggle.IsChecked == true;
+            bool wanted = CollectKeyStatsToggle.IsChecked == true;
+
+            // Persist the preference so it survives restarts...
+            ConfigStore.Update(cfg => cfg.CollectKeyStats = wanted);
+
+            // ...and apply it to the live collector immediately so the change
+            // takes effect without needing a restart. The service may be null
+            // if accessed before startup finished or after shutdown — the
+            // persisted value above covers that case on next launch.
+            App.KeyStats?.SetCollecting(wanted);
         }
 
         // ----------------------------------------------------------------

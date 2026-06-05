@@ -76,6 +76,9 @@ namespace ClickyKeys
             // thread. Fire-and-forget; the service is self-contained.
             splash.SetStatus("Starting key stats service…");
             _keyStats = new KeyStatsService();
+            // Seed the collection switch from config BEFORE Start() so the very
+            // first input event is handled per the user's saved preference.
+            _keyStats.ConfigureCollecting(ConfigStore.Load().CollectKeyStats);
             _keyStats.Start();
 
             var main = new MainWindow();

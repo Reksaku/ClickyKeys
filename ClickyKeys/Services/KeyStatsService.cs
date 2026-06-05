@@ -104,6 +104,15 @@ namespace ClickyKeys
         private bool _disposed;
         private bool _started;
 
+        // Master collection switch (the "Collect key-press statistics" setting).
+        // volatile so the hook-callback thread sees toggles made on the UI
+        // thread without a lock on the hot path. When false, the event handlers
+        // early-return, so nothing is counted and — because _dirtyTicks never
+        // advances — the save timer also stops writing the file. In-memory
+        // (and on-disk) cumulative totals are preserved untouched, so flipping
+        // the switch back on resumes from where it left off.
+        private volatile bool _collecting = true;
+
         // ---- Construction -------------------------------------------------
 
         public KeyStatsService()
@@ -149,6 +158,46 @@ namespace ClickyKeys
         }
 
         /// <summary>
+        /// Whether input statistics are currently being collected.
+        /// </summary>
+        public bool IsCollecting => _collecting;
+
+        /// <summary>
+        /// Sets the initial collection state from persisted config. Intended to
+        /// be called once, before <see cref="Start"/>, and has no side effects
+        /// (no flush, no cleanup) — it just seeds the switch so the first event
+        /// after Start is handled correctly.
+        /// </summary>
+        public void ConfigureCollecting(bool enabled) => _collecting = enabled;
+
+        /// <summary>
+        /// Runtime toggle for the "Collect key-press statistics" setting. Safe
+        /// to call from the UI thread while the hook is live.
+        ///
+        /// Turning collection OFF: drops any in-flight auto-repeat state (so a
+        /// key still physically held when the user disables won't be mis-deduped
+        /// later) and flushes once, so the file reflects everything counted up
+        /// to this moment. After that, no further writes happen while off
+        /// because no new events advance the dirty counter.
+        ///
+        /// Turning collection ON: simply resumes counting; cumulative totals
+        /// loaded at startup (and anything counted earlier this session) are
+        /// preserved, so the numbers continue rather than restart.
+        /// </summary>
+        public void SetCollecting(bool enabled)
+        {
+            if (_collecting == enabled) return;
+            _collecting = enabled;
+
+            if (!enabled)
+            {
+                lock (_pressedLock) { _pressed.Clear(); }
+                try { SaveIfDirty(); }
+                catch (Exception ex) { Debug.WriteLine($"KeyStatsService flush on disable failed: {ex}"); }
+            }
+        }
+
+        /// <summary>
         /// Force a flush to disk. Call on app shutdown so the most recent
         /// up-to-30-seconds of activity is preserved.
         /// </summary>
@@ -182,6 +231,7 @@ namespace ClickyKeys
 
         private void OnKeyDown(Key key)
         {
+            if (!_collecting) return;
             if (key == Key.None) return;
 
             // Auto-repeat dedupe. Hardware repeats fire WM_KEYDOWN at the
@@ -199,12 +249,16 @@ namespace ClickyKeys
 
         private void OnKeyUp(Key key)
         {
+            // Released-key bookkeeping only; harmless to run while paused, but
+            // skip it too so a disabled collector touches no shared state.
+            if (!_collecting) return;
             if (key == Key.None) return;
             lock (_pressedLock) { _pressed.Remove(key); }
         }
 
         private void OnMouseDown(MouseButton btn)
         {
+            if (!_collecting) return;
             _mouseCounts.AddOrUpdate(btn, 1, (_, v) => v + 1);
             Interlocked.Increment(ref _totalMouseClicks);
             Interlocked.Increment(ref _dirtyTicks);
@@ -212,6 +266,7 @@ namespace ClickyKeys
 
         private void OnWheel(InputType direction)
         {
+            if (!_collecting) return;
             _wheelCounts.AddOrUpdate(direction, 1, (_, v) => v + 1);
             Interlocked.Increment(ref _totalWheelTicks);
             Interlocked.Increment(ref _dirtyTicks);

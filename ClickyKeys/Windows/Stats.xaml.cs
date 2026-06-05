@@ -46,6 +46,18 @@ namespace ClickyKeys
             _mainOverlay = mainOverlay;
             InitializeComponent();
 
+            // Respect the "Collect key-press statistics" setting. Prefer the
+            // live collector's state (the source of truth while running); fall
+            // back to the persisted flag if the service isn't available. When
+            // collection is off we show a notice instead of the counters and
+            // skip the flush/read entirely.
+            bool collecting = App.KeyStats?.IsCollecting ?? ConfigStore.Load().CollectKeyStats;
+            if (!collecting)
+            {
+                ShowDisabledState();
+                return;
+            }
+
             // Force the live in-memory counters to disk so the snapshot we
             // read below isn't stale. Failure here is non-fatal — we'll just
             // show whatever the last successful save contained.
@@ -53,6 +65,18 @@ namespace ClickyKeys
             catch (Exception ex) { Debug.WriteLine($"Stats: pre-read flush failed: {ex}"); }
 
             LoadAndRender();
+        }
+
+        /// <summary>
+        /// Swaps the window into its "collection turned off" presentation:
+        /// hides every counter card and reveals the notice that points the
+        /// user at Settings. No file is read in this state.
+        /// </summary>
+        private void ShowDisabledState()
+        {
+            DisabledPanel.Visibility = Visibility.Visible;
+            StatsContentPanel.Visibility = Visibility.Collapsed;
+            LastUpdatedText.Text = "Statistics collection is disabled.";
         }
 
         private void LoadAndRender()
