@@ -47,14 +47,28 @@ namespace ClickyKeys
             _mainOverlay = mainOverlay;
             InitializeComponent();
 
-            // TODO (wiring): load saved values here, e.g.
-            //   _initialising = true;
-            //   CollectUptimeToggle.IsChecked   = config.CollectUptime;
-            //   CollectKeyStatsToggle.IsChecked = config.CollectKeyStats;
-            //   AutostartToggle.IsChecked       = AutostartService.IsEnabled();
-            //   StartMinimizedToggle.IsChecked  = config.StartMinimized;
-            //   SelectLanguage(config.LanguageCode);
-            //   _initialising = false;
+            // Restore persisted/current state into the controls. The
+            // _initialising guard keeps the Checked/Unchecked handlers from
+            // treating this programmatic restore as a user action (which would
+            // pointlessly re-write the registry / config).
+            _initialising = true;
+            try
+            {
+                // Launch-on-startup: the registry is the source of truth, so
+                // read it live rather than trusting a cached flag.
+                AutostartToggle.IsChecked = AutostartService.IsEnabled();
+
+                // Start-minimized lives in config.json.
+                StartMinimizedToggle.IsChecked = ConfigStore.Load().StartMinimized;
+            }
+            finally
+            {
+                _initialising = false;
+            }
+
+            // TODO (wiring): the two Data Collection toggles and the language
+            // selector are still UI-only — restore their saved values here once
+            // those mechanisms exist.
         }
 
         // ----------------------------------------------------------------
@@ -91,28 +105,42 @@ namespace ClickyKeys
         {
             if (_initialising) return;
 
-            // TODO (wiring): COMPLEX — OS integration.
-            // Autostart on Windows is typically registered by writing the
-            // executable path under:
-            //   HKCU\Software\Microsoft\Windows\CurrentVersion\Run
-            //     value name: "ClickyKeys", value data: "\"<full exe path>\""
-            // Use the *current* process path (Environment.ProcessPath) rather
-            // than a cached/installed path so it survives the app being moved.
-            // Writing HKCU needs no elevation. Remember to DELETE the value on
-            // untoggle, and treat a missing key as "disabled" when reading the
-            // initial state. If start-minimized is on, you may want to append a
-            // "--minimized" arg here so autostart launches quietly.
-            // bool enabled = AutostartToggle.IsChecked == true;
+            // OS integration via the per-user "Run" registry key — see
+            // AutostartService for the full rationale (HKCU vs HKLM, why the
+            // registry is the source of truth, exe-path handling).
+            bool wanted = AutostartToggle.IsChecked == true;
+            bool ok = AutostartService.Set(wanted);
+
+            // If the registry write failed (e.g. locked-down machine), the OS
+            // state didn't change — snap the toggle back so the UI never claims
+            // a state that isn't real. Re-guard so this correction doesn't
+            // recurse back into this handler.
+            if (!ok)
+            {
+                _initialising = true;
+                try { AutostartToggle.IsChecked = AutostartService.IsEnabled(); }
+                finally { _initialising = false; }
+
+                MessageBox.Show(
+                    this,
+                    "Couldn't update the Windows startup setting. " +
+                    "Your security software or account policy may be blocking it.",
+                    "ClickyKeys",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
         }
 
         private void StartMinimizedToggle_Changed(object sender, RoutedEventArgs e)
         {
             if (_initialising) return;
 
-            // TODO (wiring): persist the flag and have App startup honour it
-            // (WindowState = Minimized, or hide to the tray NotifyIcon instead
-            // of the taskbar). Coordinate with the autostart arg note above.
-            // bool enabled = StartMinimizedToggle.IsChecked == true;
+            // Persist the flag; App.OnStartup reads it on the next launch and
+            // routes the window through MainWindow.MinimizeToTaskbarAtStartup.
+            // Update() does a load-mutate-save so we don't clobber other config
+            // fields a different writer may have changed.
+            bool wanted = StartMinimizedToggle.IsChecked == true;
+            ConfigStore.Update(cfg => cfg.StartMinimized = wanted);
         }
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
