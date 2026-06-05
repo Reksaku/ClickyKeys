@@ -69,7 +69,8 @@
                 the ButtonOrientation property in code-behind,
                 updated whenever the myGrid row count changes.
             -->
-            <ToolBar DockPanel.Dock="Top" Height="52"
+            <ToolBar DockPanel.Dock="Top" Height="68"
+                     FontSize="13"
                      ScrollViewer.CanContentScroll="True"
                      x:Name="ToolStrip">
 
@@ -87,7 +88,7 @@
                                Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
-                        <TextBlock Text="Settings" FontSize="10"
+                        <TextBlock Text="Settings" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -110,7 +111,7 @@
                                Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
-                        <TextBlock Text="Visuals" FontSize="10"
+                        <TextBlock Text="Visuals" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -132,9 +133,9 @@
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Reset" FontSize="10" HorizontalAlignment="Center"
+                            <TextBlock Text="Reset" FontSize="13" HorizontalAlignment="Center"
                                        Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                            <TextBlock Text="(F12)" FontSize="10" HorizontalAlignment="Center"
+                            <TextBlock Text="(F12)" FontSize="13" HorizontalAlignment="Center"
                                        Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                         </StackPanel>
                     </StackPanel>
@@ -154,7 +155,7 @@
                                Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
-                        <TextBlock Text="Stats" FontSize="10"
+                        <TextBlock Text="Stats" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -175,7 +176,7 @@
                                Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
-                        <TextBlock Text="Info" FontSize="10"
+                        <TextBlock Text="Info" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -196,35 +197,39 @@
                    PopupAnimation="Slide">
                 <Border x:Name="VisualsPopupBorder"
                         Padding="2"
+                        MinWidth="{Binding ActualWidth, ElementName=Visuals_Button}"
+                        CornerRadius="0,0,8,8"
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
-                        BorderThickness="1,0,1,1"
+                        BorderThickness="2,0,2,2"
                         MouseEnter="VisualsPopup_MouseEnter"
                         MouseLeave="VisualsPopup_MouseLeave"
                         Background="{Binding Background}">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
                         <Button Click="TransparentMode_Click" x:Name="TransparentMode_Button"
                                 Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
-                                Padding="4,2" Height="52">
+                                HorizontalAlignment="Stretch"
+                                Padding="4,2" Height="68">
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
                                         Orientation="Vertical">
                                 <Image Source="/Resources/Buttons/transparent_icon.png"
-                                       Width="20" Height="20" Margin="0,0,0,2"/>
-                                <TextBlock Text="Transparent" FontSize="10" HorizontalAlignment="Center"
+                                       Width="28" Height="28" Margin="0,0,0,2"/>
+                                <TextBlock Text="Transparent" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
-                                <TextBlock Text="mode" FontSize="10" HorizontalAlignment="Center"
+                                <TextBlock Text="mode" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
                             </StackPanel>
                         </Button>
                         <Button Click="ToggleToolbar_Click" x:Name="ToggleToolbar_Button"
                                 Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
-                                Padding="4,2" Height="52">
+                                HorizontalAlignment="Stretch"
+                                Padding="4,2" Height="68">
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
                                         Orientation="Vertical">
                                 <Image Source="/Resources/Buttons/hide_toolbar_icon.png"
-                                       Width="20" Height="20" Margin="0,0,0,2"/>
-                                <TextBlock Text="Hide toolbar" FontSize="10" HorizontalAlignment="Center"
+                                       Width="28" Height="28" Margin="0,0,0,2"/>
+                                <TextBlock Text="Hide toolbar" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
-                                <TextBlock Text="(F11)" FontSize="10" HorizontalAlignment="Center"
+                                <TextBlock Text="(F11)" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
                             </StackPanel>
                         </Button>

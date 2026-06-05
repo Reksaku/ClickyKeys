@@ -59,7 +59,7 @@ namespace ClickyKeys
     public class OrientationToSizeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => (Orientation)value == Orientation.Horizontal ? 30.0 : 20.0;
+            => (Orientation)value == Orientation.Horizontal ? 40.0 : 28.0;
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();
