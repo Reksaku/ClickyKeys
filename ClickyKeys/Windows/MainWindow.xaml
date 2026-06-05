@@ -266,7 +266,7 @@
                                            Foreground="{Binding ToolbarTextColor}"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="Settings_Button"
+                        <Button Click="Settings_Click" x:Name="Settings_Button"
                                 Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                                 HorizontalAlignment="Stretch"
                                 Padding="4,2" Height="68">
