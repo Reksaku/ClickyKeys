@@ -30,6 +30,7 @@ namespace ClickyKeys
         void OnGridChange(AppearanceConfiguration settings);
         public void OnInfoClose();
         public void OnStatsClose();
+        public void OnSettingsClose();
         void SetBackgroundRainbow(bool? IsTrue);
         void ShowTutorial();
     }
@@ -105,6 +106,7 @@ namespace ClickyKeys
         private bool OpenedInfo = false;
         private bool OpenedAppearance = false;
         private bool OpenedStats = false;
+        private bool OpenedSettings = false;
 
         private readonly object _lock = new();
 
@@ -321,6 +323,7 @@ namespace ClickyKeys
         private void TransparentMode_Click(object sender, RoutedEventArgs e) => TransparentMode();
         private void Info_Click(object sender, RoutedEventArgs e) => ShowInfo();
         private void Stats_Click(object sender, RoutedEventArgs e) => ShowStats();
+        private void Settings_Click(object sender, RoutedEventArgs e) => ShowSettings();
 
         // --- Display dropdown hover logic ---
 
@@ -1129,6 +1132,24 @@ namespace ClickyKeys
         public void OnStatsClose()
         {
             OpenedStats = false;
+        }
+
+        // Settings window — exact mirror of the Info/Stats pattern:
+        // single-instance guarded by OpenedSettings, shown non-modally,
+        // signal back via OnSettingsClose so the guard resets when the user
+        // closes it.
+        public void ShowSettings()
+        {
+            if (OpenedSettings == false)
+            {
+                Settings _settingsPage = new(this);
+                _settingsPage.Show();
+                OpenedSettings = true;
+            }
+        }
+        public void OnSettingsClose()
+        {
+            OpenedSettings = false;
         }
         private void SaveProfileToConfig(string profile)
         {
