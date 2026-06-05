@@ -112,9 +112,12 @@ namespace ClickyKeys
 
         private string defaultSettingsPath;
 
-        // Timer odwlekający zamknięcie VisualsPopup, aby mysz mogła
-        // płynnie przejść z przycisku Visuals na otwarty popup.
-        private DispatcherTimer? _visualsCloseTimer;
+        // Timer odwlekający zamknięcie DisplayPopup, aby mysz mogła
+        // płynnie przejść z przycisku Display na otwarty popup.
+        private DispatcherTimer? _displayCloseTimer;
+
+        // Analogiczny timer dla MorePopup.
+        private DispatcherTimer? _moreCloseTimer;
 
 
         /// <summary>
@@ -226,12 +229,13 @@ namespace ClickyKeys
 
             InitializeComponent();
 
-            // VisualsPopup żyje w osobnym drzewie wizualnym, więc nie dziedziczy
+            // DisplayPopup żyje w osobnym drzewie wizualnym, więc nie dziedziczy
             // DataContext z okna ani nie dosięga go przez RelativeSource
             // FindAncestor=Window (zwraca null). Ustawiamy DataContext wprost na
             // okno — dzięki temu {Binding Background} oraz {Binding ToolbarTextColor}
             // wewnątrz popupu działają i reagują na zmiany koloru tła.
-            VisualsPopup.DataContext = this;
+            DisplayPopup.DataContext = this;
+            MorePopup.DataContext = this;
 
             // configuration for transparent mode
             if (counter != null && transparent == true)
@@ -311,41 +315,71 @@ namespace ClickyKeys
         // Lambda section
         //-------------------------
 
-        private void Settings_Click(object sender, RoutedEventArgs e) => ShowSettings();
+        private void Appearance_Click(object sender, RoutedEventArgs e) => ShowAppearance();
         private void ToggleToolbar_Click(object sender, RoutedEventArgs e) => ToggleToolStrip();
         private void Reset_Click(object sender, RoutedEventArgs e) => ResetCounter();
         private void TransparentMode_Click(object sender, RoutedEventArgs e) => TransparentMode();
         private void Info_Click(object sender, RoutedEventArgs e) => ShowInfo();
         private void Stats_Click(object sender, RoutedEventArgs e) => ShowStats();
 
-        // --- Visuals dropdown hover logic ---
+        // --- Display dropdown hover logic ---
 
-        private void Visuals_Button_MouseEnter(object sender, MouseEventArgs e)
+        private void Display_Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            _visualsCloseTimer?.Stop();
-            VisualsPopup.IsOpen = true;
+            _displayCloseTimer?.Stop();
+            DisplayPopup.IsOpen = true;
         }
 
-        private void Visuals_Button_MouseLeave(object sender, MouseEventArgs e)
+        private void Display_Button_MouseLeave(object sender, MouseEventArgs e)
         {
             // Krótkie opóźnienie pozwala myszy przejść na popup bez jego zamknięcia.
-            _visualsCloseTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(150) };
-            _visualsCloseTimer.Tick += (s, args) =>
+            _displayCloseTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(150) };
+            _displayCloseTimer.Tick += (s, args) =>
             {
-                _visualsCloseTimer!.Stop();
-                VisualsPopup.IsOpen = false;
+                _displayCloseTimer!.Stop();
+                DisplayPopup.IsOpen = false;
             };
-            _visualsCloseTimer.Start();
+            _displayCloseTimer.Start();
         }
 
-        private void VisualsPopup_MouseEnter(object sender, MouseEventArgs e)
+        private void DisplayPopup_MouseEnter(object sender, MouseEventArgs e)
         {
-            _visualsCloseTimer?.Stop();
+            _displayCloseTimer?.Stop();
         }
 
-        private void VisualsPopup_MouseLeave(object sender, MouseEventArgs e)
+        private void DisplayPopup_MouseLeave(object sender, MouseEventArgs e)
         {
-            VisualsPopup.IsOpen = false;
+            DisplayPopup.IsOpen = false;
+        }
+
+        // --- More dropdown hover logic ---
+
+        private void More_Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            _moreCloseTimer?.Stop();
+            MorePopup.IsOpen = true;
+        }
+
+        private void More_Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            // Krótkie opóźnienie pozwala myszy przejść na popup bez jego zamknięcia.
+            _moreCloseTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(150) };
+            _moreCloseTimer.Tick += (s, args) =>
+            {
+                _moreCloseTimer!.Stop();
+                MorePopup.IsOpen = false;
+            };
+            _moreCloseTimer.Start();
+        }
+
+        private void MorePopup_MouseEnter(object sender, MouseEventArgs e)
+        {
+            _moreCloseTimer?.Stop();
+        }
+
+        private void MorePopup_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MorePopup.IsOpen = false;
         }
 
 
@@ -682,7 +716,7 @@ namespace ClickyKeys
                 tutorial.SetTargets(
                     panelGrid:         myGrid,
                     singlePanel:       samplePanel,
-                    settingsButton:    Settings_Button,
+                    settingsButton:    Appearance_Button,
                     transparentButton: TransparentMode_Button,
                     statsButton:       Stats_Button,
                     infoButton:        Info_Button);
@@ -823,7 +857,7 @@ namespace ClickyKeys
         }
 
 
-        public void ShowSettings()
+        public void ShowAppearance()
         {
             if (OpenedSettings == false)
             {
@@ -869,13 +903,13 @@ namespace ClickyKeys
             if (_transparentWindow == null)
             {
                 myGrid.Visibility = Visibility.Collapsed;
-                Settings_Button.Visibility = Visibility.Collapsed;
+                Appearance_Button.Visibility = Visibility.Collapsed;
                 InitTransparentMode();
             }
             else
             {
                 myGrid.Visibility = Visibility.Visible;
-                Settings_Button.Visibility = Visibility.Visible;
+                Appearance_Button.Visibility = Visibility.Visible;
                 _transparentWindow?.Close();
                 _transparentWindow = null;
             }
@@ -918,13 +952,13 @@ namespace ClickyKeys
                 showItem.Click += (_, __) => RestoreFromTray();
                 menu.Items.Add(showItem);
 
-                var settingsItem = new MenuItem { Header = "Settings" };
-                settingsItem.Click += (_, __) =>
+                var appearanceItem = new MenuItem { Header = "Appearance" };
+                appearanceItem.Click += (_, __) =>
                 {
                     RestoreFromTray();
-                    ShowSettings();
+                    ShowAppearance();
                 };
-                menu.Items.Add(settingsItem);
+                menu.Items.Add(appearanceItem);
 
                 var statsItem = new MenuItem { Header = "Stats" };
                 statsItem.Click += (_, __) =>

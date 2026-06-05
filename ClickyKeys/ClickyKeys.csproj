@@ -14,6 +14,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Buttons\appearance_icon.png" />
+    <None Remove="Resources\Buttons\display_icon.png" />
+    <None Remove="Resources\Buttons\more_icon.png" />
     <None Remove="Resources\Buttons\hide_toolbar_icon.png" />
     <None Remove="Resources\Buttons\info_icon.png" />
     <None Remove="Resources\Buttons\reset_icon.png" />
@@ -34,6 +37,9 @@
 
   <ItemGroup>
     <Resource Include="Resources\Buttons\settings_icon.png" />
+	<Resource Include="Resources\Buttons\appearance_icon.png" />
+	<Resource Include="Resources\Buttons\display_icon.png" />
+	<Resource Include="Resources\Buttons\more_icon.png" />
 	<Resource Include="Resources\Buttons\hide_toolbar_icon.png" />
 	<Resource Include="Resources\Buttons\info_icon.png" />
 	<Resource Include="Resources\Buttons\reset_icon.png" />
