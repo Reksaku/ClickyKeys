@@ -74,7 +74,7 @@
                      ScrollViewer.CanContentScroll="True"
                      x:Name="ToolStrip">
 
-                <Button Click="Settings_Click" x:Name="Settings_Button"
+                <Button Click="Appearance_Click" x:Name="Appearance_Button"
                         Padding="4,2"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch">
@@ -82,36 +82,36 @@
                                 VerticalAlignment="Center"
                                 Orientation="{Binding ButtonOrientation,
                                     RelativeSource={RelativeSource AncestorType=Window}}">
-                        <Image Source="/Resources/Buttons/settings_icon.png"
+                        <Image Source="/Resources/Buttons/appearance_icon.png"
                                Width="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
                                Height="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
                                Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
-                        <TextBlock Text="Settings" FontSize="13"
+                        <TextBlock Text="Appearance" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                     </StackPanel>
                 </Button>
 
-                <Button x:Name="Visuals_Button"
+                <Button x:Name="Display_Button"
                         Padding="4,2"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
-                        MouseEnter="Visuals_Button_MouseEnter"
-                        MouseLeave="Visuals_Button_MouseLeave">
+                        MouseEnter="Display_Button_MouseEnter"
+                        MouseLeave="Display_Button_MouseLeave">
                     <StackPanel HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Orientation="{Binding ButtonOrientation,
                                     RelativeSource={RelativeSource AncestorType=Window}}">
-                        <Image Source="/Resources/Buttons/info_icon.png"
+                        <Image Source="/Resources/Buttons/display_icon.png"
                                Width="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
                                Height="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
                                Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
-                        <TextBlock Text="Visuals" FontSize="13"
+                        <TextBlock Text="Display" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -162,21 +162,23 @@
                     </StackPanel>
                 </Button>
 
-                <Button Click="Info_Click" x:Name="Info_Button"
+                <Button x:Name="More_Button"
                         Padding="4,2"
                         HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch">
+                        VerticalAlignment="Stretch"
+                        MouseEnter="More_Button_MouseEnter"
+                        MouseLeave="More_Button_MouseLeave">
                     <StackPanel HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Orientation="{Binding ButtonOrientation,
                                     RelativeSource={RelativeSource AncestorType=Window}}">
-                        <Image Source="/Resources/Buttons/info_icon.png"
+                        <Image Source="/Resources/Buttons/more_icon.png"
                                Width="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
                                Height="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
                                Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
-                        <TextBlock Text="Info" FontSize="13"
+                        <TextBlock Text="More" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -186,23 +188,21 @@
             </ToolBar>
 
 
-            <!-- DataContext popupu ustawiony w code-behind na okno, więc
-                 {Binding Background} = tło okna, a {Binding ToolbarTextColor}
-                 = kolor tekstu toolbaru. -->
-            <Popup x:Name="VisualsPopup"
-                   PlacementTarget="{Binding ElementName=Visuals_Button}"
+
+            <Popup x:Name="DisplayPopup"
+                   PlacementTarget="{Binding ElementName=Display_Button}"
                    Placement="Bottom"
                    StaysOpen="True"
                    AllowsTransparency="True"
                    PopupAnimation="Slide">
-                <Border x:Name="VisualsPopupBorder"
+                <Border x:Name="DisplayPopupBorder"
                         Padding="2"
-                        MinWidth="{Binding ActualWidth, ElementName=Visuals_Button}"
+                        MinWidth="{Binding ActualWidth, ElementName=Display_Button}"
                         CornerRadius="0,0,8,8"
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         BorderThickness="2,0,2,2"
-                        MouseEnter="VisualsPopup_MouseEnter"
-                        MouseLeave="VisualsPopup_MouseLeave"
+                        MouseEnter="DisplayPopup_MouseEnter"
+                        MouseLeave="DisplayPopup_MouseLeave"
                         Background="{Binding Background}">
                     <StackPanel Orientation="Vertical">
                         <Button Click="TransparentMode_Click" x:Name="TransparentMode_Button"
@@ -230,6 +230,51 @@
                                 <TextBlock Text="Hide toolbar" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
                                 <TextBlock Text="(F11)" FontSize="13" HorizontalAlignment="Center"
+                                           Foreground="{Binding ToolbarTextColor}"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
+
+            <Popup x:Name="MorePopup"
+                   PlacementTarget="{Binding ElementName=More_Button}"
+                   Placement="Bottom"
+                   StaysOpen="True"
+                   AllowsTransparency="True"
+                   PopupAnimation="Slide">
+                <Border x:Name="MorePopupBorder"
+                        Padding="2"
+                        MinWidth="{Binding ActualWidth, ElementName=More_Button}"
+                        CornerRadius="0,0,8,8"
+                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                        BorderThickness="2,0,2,2"
+                        MouseEnter="MorePopup_MouseEnter"
+                        MouseLeave="MorePopup_MouseLeave"
+                        Background="{Binding Background}">
+                    <StackPanel Orientation="Vertical">
+                        <Button Click="Info_Click" x:Name="Info_Button"
+                                Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
+                                HorizontalAlignment="Stretch"
+                                Padding="4,2" Height="68">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Orientation="Vertical">
+                                <Image Source="/Resources/Buttons/info_icon.png"
+                                       Width="28" Height="28" Margin="0,0,0,2"/>
+                                <TextBlock Text="Info" FontSize="13" HorizontalAlignment="Center"
+                                           Foreground="{Binding ToolbarTextColor}"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="Settings_Button"
+                                Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
+                                HorizontalAlignment="Stretch"
+                                Padding="4,2" Height="68">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Orientation="Vertical">
+                                <Image Source="/Resources/Buttons/settings_icon.png"
+                                       Width="28" Height="28" Margin="0,0,0,2"/>
+                                <TextBlock Text="Settings" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
                             </StackPanel>
                         </Button>
