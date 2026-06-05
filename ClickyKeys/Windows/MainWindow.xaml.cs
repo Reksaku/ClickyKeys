@@ -88,6 +88,12 @@ namespace ClickyKeys
         // never end up with two icons in the tray for one app instance.
         private TaskbarIcon? _trayIcon;
 
+        // One-shot guard for the "Start minimized" setting. When set,
+        // Window_StateChanged lets the next minimize stand as a normal taskbar
+        // button instead of cloaking it to the tray. Consumed (reset to false)
+        // the first time it's honored. See MinimizeToTaskbarAtStartup.
+        private bool _startupTaskbarMinimize = false;
+
         // Set to true by Exit_Click before Application.Shutdown so the
         // Closing handler knows the user explicitly asked to quit, instead
         // of merely clicking the title-bar X (which we hijack into a
@@ -1008,6 +1014,48 @@ namespace ClickyKeys
         }
 
         /// <summary>
+        /// Entry point for the "Start minimized" setting. Called by
+        /// <see cref="App.OnStartup"/> right after the master window is shown.
+        ///
+        /// Unlike a manual minimize (which this app hijacks into a hide-to-tray
+        /// cloak via <see cref="Window_StateChanged"/>), launching minimized
+        /// leaves the window as an ordinary MINIMIZED TASKBAR BUTTON. The user
+        /// asked for it to be visible on the Windows taskbar, so it can be
+        /// restored with a normal taskbar click without needing the tray.
+        ///
+        /// This is a one-shot: <see cref="_startupTaskbarMinimize"/> tells the
+        /// state-changed handler to let this single minimize stand on the
+        /// taskbar. The flag is cleared as soon as it's consumed, so every
+        /// subsequent (manual) minimize falls back to the usual hide-to-tray
+        /// behavior.
+        ///
+        /// We defer to the <see cref="System.Windows.Window.Loaded"/> event when
+        /// the window isn't fully realized yet, so the state change happens
+        /// after WPF has finished bringing the window up.
+        /// </summary>
+        public void MinimizeToTaskbarAtStartup()
+        {
+            // Transparent sub-windows aren't the surface this setting targets.
+            if (_transparent)
+                return;
+
+            void DoMinimize()
+            {
+                // Keep the taskbar button (a prior hide-to-tray may have set
+                // this false) and arm the one-shot so Window_StateChanged
+                // doesn't cloak this minimize away.
+                ShowInTaskbar = true;
+                _startupTaskbarMinimize = true;
+                WindowState = WindowState.Minimized;
+            }
+
+            if (IsLoaded)
+                DoMinimize();
+            else
+                Loaded += (_, __) => DoMinimize();
+        }
+
+        /// <summary>
         /// Hides the window by cloaking.
         /// </summary>
         private void HideWindow()
@@ -1078,6 +1126,17 @@ namespace ClickyKeys
 
             if (WindowState == WindowState.Minimized)
             {
+                // Startup "start minimized" path: let this one minimize stand as
+                // a normal taskbar button instead of cloaking it to the tray.
+                // One-shot — cleared here so later manual minimizes resume the
+                // usual hide-to-tray behavior below.
+                if (_startupTaskbarMinimize)
+                {
+                    _startupTaskbarMinimize = false;
+                    ShowInTaskbar = true;
+                    return;
+                }
+
                 HideWindow();
                 WindowState = WindowState.Normal;
 

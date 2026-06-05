@@ -59,6 +59,18 @@ namespace ClickyKeys
 
         [JsonPropertyName("show_tutorial")]
         public bool ShowTutorial { get; set; } = true;
+
+        // When true the app realizes its window and then immediately tucks it
+        // away to the system tray on launch (see App.OnStartup +
+        // MainWindow.MinimizeToTaskbarAtStartup). Persisted here so the choice is
+        // honoured on EVERY launch, not just autostart launches.
+        //
+        // NOTE: launch-on-startup is deliberately NOT stored here — the
+        // Windows "Run" registry value is its single source of truth, so the
+        // config can never drift out of sync with what the OS will actually
+        // do. See AutostartService.
+        [JsonPropertyName("start_minimized")]
+        public bool StartMinimized { get; set; } = false;
     }
 
     public enum InputType

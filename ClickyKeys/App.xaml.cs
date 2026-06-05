@@ -81,6 +81,15 @@ namespace ClickyKeys
             var main = new MainWindow();
             MainWindow = main;
             main.Show();
+
+            // "Start minimized" setting. MainWindow's constructor has already
+            // created (or migrated) config.json by this point, so the value we
+            // read here is current. We minimize only after Show() so the window
+            // is fully realized first; it lands as an ordinary minimized button
+            // on the Windows taskbar (see MainWindow.MinimizeToTaskbarAtStartup).
+            if (ConfigStore.Load().StartMinimized)
+                main.MinimizeToTaskbarAtStartup();
+
             splash.Close();
         }
 
