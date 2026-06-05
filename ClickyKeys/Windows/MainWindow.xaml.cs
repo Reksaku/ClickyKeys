@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -110,6 +111,10 @@ namespace ClickyKeys
         private readonly RequestReleasesAPI _releasesApiClient = new RequestReleasesAPI();
 
         private string defaultSettingsPath;
+
+        // Timer odwlekający zamknięcie VisualsPopup, aby mysz mogła
+        // płynnie przejść z przycisku Visuals na otwarty popup.
+        private DispatcherTimer? _visualsCloseTimer;
 
 
         /// <summary>
@@ -221,6 +226,13 @@ namespace ClickyKeys
 
             InitializeComponent();
 
+            // VisualsPopup żyje w osobnym drzewie wizualnym, więc nie dziedziczy
+            // DataContext z okna ani nie dosięga go przez RelativeSource
+            // FindAncestor=Window (zwraca null). Ustawiamy DataContext wprost na
+            // okno — dzięki temu {Binding Background} oraz {Binding ToolbarTextColor}
+            // wewnątrz popupu działają i reagują na zmiany koloru tła.
+            VisualsPopup.DataContext = this;
+
             // configuration for transparent mode
             if (counter != null && transparent == true)
             {
@@ -305,6 +317,36 @@ namespace ClickyKeys
         private void TransparentMode_Click(object sender, RoutedEventArgs e) => TransparentMode();
         private void Info_Click(object sender, RoutedEventArgs e) => ShowInfo();
         private void Stats_Click(object sender, RoutedEventArgs e) => ShowStats();
+
+        // --- Visuals dropdown hover logic ---
+
+        private void Visuals_Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            _visualsCloseTimer?.Stop();
+            VisualsPopup.IsOpen = true;
+        }
+
+        private void Visuals_Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            // Krótkie opóźnienie pozwala myszy przejść na popup bez jego zamknięcia.
+            _visualsCloseTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(150) };
+            _visualsCloseTimer.Tick += (s, args) =>
+            {
+                _visualsCloseTimer!.Stop();
+                VisualsPopup.IsOpen = false;
+            };
+            _visualsCloseTimer.Start();
+        }
+
+        private void VisualsPopup_MouseEnter(object sender, MouseEventArgs e)
+        {
+            _visualsCloseTimer?.Stop();
+        }
+
+        private void VisualsPopup_MouseLeave(object sender, MouseEventArgs e)
+        {
+            VisualsPopup.IsOpen = false;
+        }
 
 
 
