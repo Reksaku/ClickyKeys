@@ -52,7 +52,7 @@ namespace ClickyKeys
         // are ignored on load (System.Text.Json skips unknown properties).
 
         [JsonPropertyName("settings_profile")]
-        public string SettingsProfile { get; set; } = "default settings.json";
+        public string AppearanceProfile { get; set; } = "default settings.json";
 
         [JsonPropertyName("panels_profile")]
         public string PanelsProfile { get; set; } = "default panels.json";

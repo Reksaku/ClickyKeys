@@ -238,22 +238,22 @@ namespace ClickyKeys
         }
 
         public static readonly DependencyProperty KeyFontProperty =
-            DependencyProperty.Register(nameof(KeyFont), typeof(FontSettings), typeof(GlassPanelWpf),
+            DependencyProperty.Register(nameof(KeyFont), typeof(FontAppearance), typeof(GlassPanelWpf),
             new PropertyMetadata());
 
-        public FontSettings KeyFont
+        public FontAppearance KeyFont
         {
-            get => (FontSettings)GetValue(KeyFontProperty);
+            get => (FontAppearance)GetValue(KeyFontProperty);
             set => SetValue(KeyFontProperty, value);
         }
 
         public static readonly DependencyProperty ValueFontProperty =
-            DependencyProperty.Register(nameof(ValueFont), typeof(FontSettings), typeof(GlassPanelWpf),
+            DependencyProperty.Register(nameof(ValueFont), typeof(FontAppearance), typeof(GlassPanelWpf),
                 new PropertyMetadata());
             
-        public FontSettings ValueFont
+        public FontAppearance ValueFont
         {
-            get => (FontSettings)GetValue(ValueFontProperty);
+            get => (FontAppearance)GetValue(ValueFontProperty);
             set => SetValue(ValueFontProperty, value);
         }
 

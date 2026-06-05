@@ -11,7 +11,7 @@
         <!-- Font family -->
         <ComboBox Width="165" Margin="20,0,8,0"
                   ItemsSource="{Binding FontFamilies, ElementName=root}"
-                  SelectedItem="{Binding SettingsParameter.FontFamily, ElementName=root, Mode=TwoWay}"
+                  SelectedItem="{Binding AppearanceParameter.FontFamily, ElementName=root, Mode=TwoWay}"
                   IsEditable="True" StaysOpenOnEdit="True">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -23,7 +23,7 @@
         <!-- Size -->
         <ComboBox Width="80" Margin="0,0,8,0"
                   IsEditable="True"
-                  Text="{Binding SettingsParameter.FontSize, ElementName=root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                  Text="{Binding AppearanceParameter.FontSize, ElementName=root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ComboBoxItem>8</ComboBoxItem>
             <ComboBoxItem>9</ComboBoxItem>
             <ComboBoxItem>10</ComboBoxItem>
@@ -41,15 +41,15 @@
 
         <!-- Styles: B / I / U -->
         <ToggleButton Width="34" Height="28" Margin="0,0,6,0"
-                      IsChecked="{Binding SettingsParameter.IsBold, ElementName=root, Mode=TwoWay}">
+                      IsChecked="{Binding AppearanceParameter.IsBold, ElementName=root, Mode=TwoWay}">
             <TextBlock FontWeight="Bold">B</TextBlock>
         </ToggleButton>
         <ToggleButton Width="34" Height="28" Margin="0,0,6,0"
-                      IsChecked="{Binding SettingsParameter.IsItalic, ElementName=root, Mode=TwoWay}">
+                      IsChecked="{Binding AppearanceParameter.IsItalic, ElementName=root, Mode=TwoWay}">
             <TextBlock FontStyle="Italic">I</TextBlock>
         </ToggleButton>
         <ToggleButton Width="34" Height="28"
-                      IsChecked="{Binding SettingsParameter.IsUnderline, ElementName=root, Mode=TwoWay}">
+                      IsChecked="{Binding AppearanceParameter.IsUnderline, ElementName=root, Mode=TwoWay}">
             <TextBlock TextDecorations="Underline">U</TextBlock>
         </ToggleButton>
     </StackPanel>

@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="ClickyKeys.Settings"
+    x:Class="ClickyKeys.Appearance"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +10,7 @@
     xmlns:controls="clr-namespace:ClickyKeys.Controls"
     mc:Ignorable="d"
     Closing="Window_Closed"
-    Title="Settings" 
+    Title="Appearance"
     Height="885" MinHeight="240" MaxHeight="1045"
     Width="440" MinWidth="440" MaxWidth="440"
     Icon="/Resources/Icon.ico">
@@ -64,7 +64,7 @@
         </Grid.RowDefinitions>
 
 
-        <Label x:Name="SettingsLabel" Content="Settings" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="28" Grid.Row="0"/>
+        <Label x:Name="AppearanceLabel" Content="Appearance" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="28" Grid.Row="0"/>
         <Label x:Name="ProfilesLabel" Content="Profile:" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="20" Grid.Row="1"/>
         <ScrollViewer Grid.Row="2">
             <Grid>

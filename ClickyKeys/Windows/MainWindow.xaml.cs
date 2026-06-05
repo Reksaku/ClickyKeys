@@ -26,8 +26,8 @@ namespace ClickyKeys
     {
         void ToggleToolStrip();
         void SavePanelConfiguration(PanelsSettings state);
-        void OnSettingsClose(string settingsPath);
-        void OnGridChange(SettingsConfiguration settings);
+        void OnAppearanceClose(string appearancePath);
+        void OnGridChange(AppearanceConfiguration settings);
         public void OnInfoClose();
         public void OnStatsClose();
         void SetBackgroundRainbow(bool? IsTrue);
@@ -69,9 +69,9 @@ namespace ClickyKeys
     {
         private readonly InputCounter _counter;
 
-        private string settingsFileName;
-        private SettingsService _settingsService;
-        private SettingsConfiguration _settingsConfiguration;
+        private string appearanceFileName;
+        private AppearanceService _appearanceService;
+        private AppearanceConfiguration _appearanceConfiguration;
 
         private readonly Dictionary<int, GlassPanelWpf> _panelsById = [];
 
@@ -103,14 +103,14 @@ namespace ClickyKeys
         private int cols;
 
         private bool OpenedInfo = false;
-        private bool OpenedSettings = false;
+        private bool OpenedAppearance = false;
         private bool OpenedStats = false;
 
         private readonly object _lock = new();
 
         private readonly RequestReleasesAPI _releasesApiClient = new RequestReleasesAPI();
 
-        private string defaultSettingsPath;
+        private string defaultAppearancePath;
 
         // Timer odwlekający zamknięcie DisplayPopup, aby mysz mogła
         // płynnie przejść z przycisku Display na otwarty popup.
@@ -185,7 +185,7 @@ namespace ClickyKeys
         /// </summary>
         private void UpdateToolbarTextColor()
         {
-            if (_settingsConfiguration.IsBackgroundRainbow)
+            if (_appearanceConfiguration.IsBackgroundRainbow)
             {
                 ToolbarTextColor = Brushes.Black;
                 return;
@@ -213,13 +213,13 @@ namespace ClickyKeys
             _transparent = transparent;
 
             Configuration ConfigSettings = LoadInitSettings();
-            settingsFileName = ConfigSettings.SettingsProfile;
-            _settingsService = new(settingsFileName);
+            appearanceFileName = ConfigSettings.AppearanceProfile;
+            _appearanceService = new(appearanceFileName);
 
-            defaultSettingsPath = Path.Combine(
+            defaultAppearancePath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                @"ClickyKeys", "settings", settingsFileName);
-            _settingsConfiguration = _settingsService.Load();
+                @"ClickyKeys", "settings", appearanceFileName);
+            _appearanceConfiguration = _appearanceService.Load();
 
 
 
@@ -279,7 +279,7 @@ namespace ClickyKeys
             WrmSubscriberStart();
 
             // set panels grid
-            SetGrid(_settingsConfiguration);
+            SetGrid(_appearanceConfiguration);
 
             // set toolbar layout
             UpdateButtonLayout();
@@ -420,7 +420,7 @@ namespace ClickyKeys
             if (!_transparent && !ReferenceEquals(Background, _backgroundBrush))
                 Background = _backgroundBrush;
 
-            if (!_settingsConfiguration.IsBackgroundRainbow)
+            if (!_appearanceConfiguration.IsBackgroundRainbow)
             {
                 _backgroundBrush.Color = allColors.background;
                 UpdateToolbarTextColor();
@@ -454,7 +454,7 @@ namespace ClickyKeys
 
         public void LoadBackgroundFromSettings()
         {
-            allColors.background = (Color)ColorConverter.ConvertFromString(_settingsConfiguration.BackgroundColor);
+            allColors.background = (Color)ColorConverter.ConvertFromString(_appearanceConfiguration.BackgroundColor);
             _backgroundBrush.Color = allColors.background;
             if (!_transparent)
                 Background = _backgroundBrush;
@@ -596,7 +596,7 @@ namespace ClickyKeys
                 try
                 {
                     _panelsService.FlushAsync().Wait(TimeSpan.FromSeconds(2));
-                    _settingsService.FlushAsync().Wait(TimeSpan.FromSeconds(2));
+                    _appearanceService.FlushAsync().Wait(TimeSpan.FromSeconds(2));
                 }
                 catch (Exception ex)
                 {
@@ -638,7 +638,7 @@ namespace ClickyKeys
                                 // animation stays attached; in rainbow mode
                                 // rebuild the animation with new sat/val.
                                 allColors.background = c;
-                                if (_settingsConfiguration.IsBackgroundRainbow)
+                                if (_appearanceConfiguration.IsBackgroundRainbow)
                                     UpdateRainbowState();
                                 else
                                     _backgroundBrush.Color = c;
@@ -676,7 +676,7 @@ namespace ClickyKeys
                             // The transparent window shares the parent's
                             // counter, so we do NOT reload it here (the
                             // parent already did).
-                            SetGrid(_settingsConfiguration);
+                            SetGrid(_appearanceConfiguration);
                             UpdateButtonLayout();
                         });
                 }
@@ -716,7 +716,7 @@ namespace ClickyKeys
                 tutorial.SetTargets(
                     panelGrid:         myGrid,
                     singlePanel:       samplePanel,
-                    settingsButton:    Appearance_Button,
+                    appearanceButton:  Appearance_Button,
                     transparentButton: TransparentMode_Button,
                     statsButton:       Stats_Button,
                     infoButton:        Info_Button);
@@ -843,10 +843,10 @@ namespace ClickyKeys
 
         private void VerifySettings()
         {
-            if (_settingsConfiguration.Version != new Configuration().Version)
+            if (_appearanceConfiguration.Version != new Configuration().Version)
             {
-                _settingsConfiguration.Version = new Configuration().Version;
-                _settingsService.Save(_settingsConfiguration);
+                _appearanceConfiguration.Version = new Configuration().Version;
+                _appearanceService.Save(_appearanceConfiguration);
             }
 
             if (_panel_settings.Version != new Configuration().Version)
@@ -859,24 +859,24 @@ namespace ClickyKeys
 
         public void ShowAppearance()
         {
-            if (OpenedSettings == false)
+            if (OpenedAppearance == false)
             {
-                Settings _settings = new(_settingsConfiguration, this, settingsFileName);
-                _settings.Show();
-                OpenedSettings = true;
+                Appearance _appearance = new(_appearanceConfiguration, this, appearanceFileName);
+                _appearance.Show();
+                OpenedAppearance = true;
             }
         }
-        public void OnSettingsClose(string settingsPath)
+        public void OnAppearanceClose(string appearancePath)
         {
-            _settingsService = new(settingsPath);
-            settingsFileName = settingsPath;
-            SaveProfileToConfig(settingsFileName);
-            _settingsConfiguration = _settingsService.Load();
+            _appearanceService = new(appearancePath);
+            appearanceFileName = appearancePath;
+            SaveProfileToConfig(appearanceFileName);
+            _appearanceConfiguration = _appearanceService.Load();
             LoadBackgroundFromSettings();
             UpdateRainbowState();
-            SetGrid(_settingsConfiguration);
+            SetGrid(_appearanceConfiguration);
             UpdateButtonLayout();
-            OpenedSettings = false;
+            OpenedAppearance = false;
         }
 
         public void ToggleToolStrip()
@@ -1150,7 +1150,7 @@ namespace ClickyKeys
                             ?? new Configuration();
 
                     string[] names = Regex.Split(profile, @"ClickyKeys\\settings\\");
-                    config.SettingsProfile = names[1];
+                    config.AppearanceProfile = names[1];
 
                     var options = new JsonSerializerOptions { WriteIndented = true };
                     json = JsonSerializer.Serialize(config, options);
@@ -1192,11 +1192,11 @@ namespace ClickyKeys
 
         public void SetBackgroundRainbow(bool? IsTrue)
         {
-            _settingsConfiguration.IsBackgroundRainbow = IsTrue ?? false;
+            _appearanceConfiguration.IsBackgroundRainbow = IsTrue ?? false;
             UpdateRainbowState();
         }
 
-        public void OnGridChange(SettingsConfiguration settings)
+        public void OnGridChange(AppearanceConfiguration settings)
         {
             SetGrid(settings);
             UpdateButtonLayout();
@@ -1279,14 +1279,14 @@ namespace ClickyKeys
         /// have their state updated in place, which preserves their
         /// <c>Value</c>/flash state and avoids WPF control construction costs.
         /// </summary>
-        private void SetGrid(SettingsConfiguration settings)
+        private void SetGrid(AppearanceConfiguration settings)
         {
             // Parse shared state once rather than in every iteration.
             Color panelColor = (Color)ColorConverter.ConvertFromString(settings.PanelsColor);
             Color keysColor = (Color)ColorConverter.ConvertFromString(settings.KeysTextColor);
             Color valuesColor = (Color)ColorConverter.ConvertFromString(settings.ValuesTextColor);
-            FontSettings keysFont = settings.KeysFontSettings;
-            FontSettings valuesFont = settings.ValuesFontSettings;
+            FontAppearance keysFont = settings.KeysFontAppearance;
+            FontAppearance valuesFont = settings.ValuesFontAppearance;
 
             bool dimensionsChanged =
                 settings.GridRows != rows ||
@@ -1344,8 +1344,8 @@ namespace ClickyKeys
             Color panelColor,
             Color keysColor,
             Color valuesColor,
-            FontSettings keysFont,
-            FontSettings valuesFont,
+            FontAppearance keysFont,
+            FontAppearance valuesFont,
             bool resetValue)
         {
             var cfg = _panel_settings.Panels[id];
@@ -1406,7 +1406,7 @@ namespace ClickyKeys
             // before the disk write finishes. No need to reload from disk —
             // _panel_settings is already the source of truth here.
             _counter.LoadPanels(_panel_settings);
-            SetGrid(_settingsConfiguration);
+            SetGrid(_appearanceConfiguration);
             UpdateButtonLayout();
 
             // Broadcast the change so the transparent sub-window (which

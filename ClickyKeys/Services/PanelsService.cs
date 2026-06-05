@@ -26,7 +26,7 @@ namespace ClickyKeys
             Converters = { new JsonStringEnumConverter() }
         };
 
-        // Debounce plumbing — same shape as SettingsService.
+        // Debounce plumbing — same shape as AppearanceService.
         private readonly object _debounceLock = new();
         private CancellationTokenSource? _debounceCts;
         private Task _pendingSave = Task.CompletedTask;

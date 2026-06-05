@@ -20,12 +20,12 @@ namespace ClickyKeys
 
     public partial class SetLoader : Window
     {
-        private readonly SettingsOverlay _settingsOverlay;
+        private readonly AppearanceOverlay _appearanceOverlay;
         private string loadedFile = string.Empty;
         private bool loaded = false;
-        public SetLoader(SettingsOverlay settingsOverlay)
+        public SetLoader(AppearanceOverlay appearanceOverlay)
         {
-            _settingsOverlay = settingsOverlay;
+            _appearanceOverlay = appearanceOverlay;
 
             InitializeComponent();
 
@@ -83,7 +83,7 @@ namespace ClickyKeys
         private void FileButtonClicked(string filePath)
         {
             loadedFile = filePath;
-            _settingsOverlay.LoadSettingsFile(filePath);
+            _appearanceOverlay.LoadAppearanceFile(filePath);
         }
         private void AddDeleteButton(Grid grid, Button fileButton ,int row, int col, string fileName)
         {
@@ -149,11 +149,11 @@ namespace ClickyKeys
         void Window_Closed(object sender, EventArgs e)
         {
             if(loaded == false)
-                _settingsOverlay.RevertSettingsFile();
+                _appearanceOverlay.RevertAppearanceFile();
         }
         private void Click_Load(object sender, EventArgs e)
         {
-            _settingsOverlay.SelectSettingsFile(loadedFile);
+            _appearanceOverlay.SelectAppearanceFile(loadedFile);
             loaded = true;
             this.Close();
         }
