@@ -71,6 +71,14 @@ namespace ClickyKeys
         // do. See AutostartService.
         [JsonPropertyName("start_minimized")]
         public bool StartMinimized { get; set; } = false;
+
+        // Master switch for input-statistics collection (KeyStatsService).
+        // When false, no new key/mouse/wheel events are counted or written to
+        // keystats.json, and the Statistics window shows a "collection disabled"
+        // notice instead of the counters. Defaults to true so existing users
+        // keep the behaviour they had before this setting existed.
+        [JsonPropertyName("collect_key_stats")]
+        public bool CollectKeyStats { get; set; } = true;
     }
 
     public enum InputType

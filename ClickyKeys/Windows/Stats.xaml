@@ -63,6 +63,31 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="0,0,0,8">
 
+                <!-- Shown instead of the counters when input-statistics
+                     collection is turned off in Settings. Visibility is driven
+                     from code-behind based on the persisted CollectKeyStats
+                     flag. -->
+                <materialDesign:Card x:Name="DisabledPanel"
+                                     Margin="0,0,0,12"
+                                     Padding="16"
+                                     Visibility="Collapsed">
+                    <StackPanel>
+                        <TextBlock Text="Statistics collection is turned off"
+                                   FontWeight="Bold"
+                                   FontSize="15"
+                                   Margin="0,0,0,6"/>
+                        <TextBlock TextWrapping="Wrap"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}">
+                            Key-press statistics are not being recorded right now.
+                            You can turn collection back on in Settings → Data Collection.
+                        </TextBlock>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- All the counter cards. Hidden as a group when collection
+                     is disabled so only the notice above remains. -->
+                <StackPanel x:Name="StatsContentPanel">
+
                 <!-- Totals -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
@@ -186,6 +211,9 @@
                                       ItemTemplate="{StaticResource StatRowTemplate}"/>
                     </StackPanel>
                 </materialDesign:Card>
+
+                </StackPanel>
+                <!-- /StatsContentPanel -->
 
             </StackPanel>
         </ScrollViewer>
