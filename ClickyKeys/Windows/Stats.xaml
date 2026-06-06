@@ -63,6 +63,27 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="0,0,0,8">
 
+                <!-- Application uptime. Sits at the very top, above the key
+                     statistics, and stays visible regardless of the key-stats
+                     toggle (it has its own enabled/disabled state). -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="Uptime"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Margin="0,0,0,6"/>
+                        <TextBlock x:Name="UptimeText"
+                                   FontWeight="Bold"
+                                   FontSize="20"/>
+                        <TextBlock x:Name="UptimeDisabledText"
+                                   Text="Uptime tracking is turned off. You can turn it back on in Settings → Data Collection."
+                                   TextWrapping="Wrap"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                   FontStyle="Italic"
+                                   Visibility="Collapsed"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
                 <!-- Shown instead of the counters when input-statistics
                      collection is turned off in Settings. Visibility is driven
                      from code-behind based on the persisted CollectKeyStats

@@ -18,6 +18,11 @@ namespace ClickyKeys
         // torn down so the final flush still has live event state to capture.
         private KeyStatsService? _keyStats;
 
+        // Cumulative application-uptime tracker. Same lifecycle as _keyStats:
+        // started after the main services come up, disposed (with a final
+        // flush) on exit.
+        private UptimeStatsService? _uptime;
+
 
         // Mutex that guarantees only one instance of ClickyKeys runs at a time.
         private static Mutex? _singleInstanceMutex;
@@ -32,6 +37,14 @@ namespace ClickyKeys
         /// Null before <see cref="OnStartup"/> and after <see cref="OnExit"/>.
         /// </summary>
         public static KeyStatsService? KeyStats => (Current as App)?._keyStats;
+
+        /// <summary>
+        /// Process-wide accessor for the live <see cref="UptimeStatsService"/>.
+        /// Used by the Stats view to read/flush current uptime and by Settings
+        /// to toggle collection. Null before <see cref="OnStartup"/> and after
+        /// <see cref="OnExit"/>.
+        /// </summary>
+        public static UptimeStatsService? Uptime => (Current as App)?._uptime;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -81,6 +94,12 @@ namespace ClickyKeys
             _keyStats.ConfigureCollecting(ConfigStore.Load().CollectKeyStats);
             _keyStats.Start();
 
+            // Application-uptime tracker — independent of the input hook, same
+            // seed-then-start pattern as key stats.
+            _uptime = new UptimeStatsService();
+            _uptime.ConfigureCollecting(ConfigStore.Load().CollectUptime);
+            _uptime.Start();
+
             var main = new MainWindow();
             MainWindow = main;
             main.Show();
@@ -102,6 +121,11 @@ namespace ClickyKeys
             // final write captures everything up to the moment of exit.
             _keyStats?.Dispose();
             _keyStats = null;
+
+            // Fold + persist the final uptime segment. Independent of the input
+            // hook, so ordering relative to it doesn't matter.
+            _uptime?.Dispose();
+            _uptime = null;
 
             GlobalInputHook.Instance.Stop();
 
