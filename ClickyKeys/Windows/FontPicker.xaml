@@ -9,7 +9,7 @@
              MinHeight="40">
     <StackPanel Orientation="Horizontal" Margin="0" VerticalAlignment="Center" >
         <!-- Font family -->
-        <ComboBox Width="165" Margin="20,0,8,0"
+        <ComboBox Width="170" Margin="20,0,12,0"
                   ItemsSource="{Binding FontFamilies, ElementName=root}"
                   SelectedItem="{Binding AppearanceParameter.FontFamily, ElementName=root, Mode=TwoWay}"
                   IsEditable="True" StaysOpenOnEdit="True">
@@ -21,7 +21,7 @@
         </ComboBox>
 
         <!-- Size -->
-        <ComboBox Width="80" Margin="0,0,8,0"
+        <ComboBox Width="90" Margin="0,0,12,0"
                   IsEditable="True"
                   Text="{Binding AppearanceParameter.FontSize, ElementName=root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ComboBoxItem>8</ComboBoxItem>

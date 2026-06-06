@@ -12,7 +12,7 @@
     Closing="Window_Closed"
     Title="{DynamicResource Appearance_Title}"
     Height="885" MinHeight="240" MaxHeight="1045"
-    Width="440" MinWidth="440" MaxWidth="440"
+    Width="460" MinWidth="460" MaxWidth="460"
     Icon="/Resources/Icon.ico">
 
     <Window.Resources>
@@ -122,8 +122,8 @@
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
 
-                        <Label Content="{DynamicResource Appearance_BackgroundColor}" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
-                        <CheckBox x:Name="BackgroundPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="0" Grid.Column="1"/>
+                        <Label Content="{DynamicResource Appearance_BackgroundColor}" HorizontalAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18" Width="Auto"/>
+                        <CheckBox x:Name="BackgroundPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="Auto" Grid.Row="0" Grid.Column="1"/>
                         <materialDesign:ColorPicker x:Name="BackgroundColorPicker"
      HorizontalAlignment="Center" VerticalAlignment="Center"
      Width="200" Grid.Row="1" Grid.Column="1">
@@ -187,8 +187,8 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
-                        <Label Content="{DynamicResource Appearance_PanelsColor}" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
-                        <CheckBox x:Name="PanelsPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="0" Grid.Column="1"/>
+                        <Label Content="{DynamicResource Appearance_PanelsColor}" HorizontalAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18" Width="Auto"/>
+                        <CheckBox x:Name="PanelsPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="Auto" Grid.Row="0" Grid.Column="1"/>
                         <materialDesign:ColorPicker x:Name="PanelsColorPicker"
     HorizontalAlignment="Center" VerticalAlignment="Center"
     Width="200" Grid.Row="1" Grid.Column="1">
@@ -253,8 +253,8 @@
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
 
-                        <Label Content="{DynamicResource Appearance_KeysTextColor}" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
-                        <CheckBox x:Name="KeyssPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="0" Grid.Column="1"/>
+                        <Label Content="{DynamicResource Appearance_KeysTextColor}" HorizontalAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18" Width="Auto"/>
+                        <CheckBox x:Name="KeyssPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="Auto" Grid.Row="0" Grid.Column="1"/>
                         <materialDesign:ColorPicker x:Name="KeysColorPicker"
     HorizontalAlignment="Center" VerticalAlignment="Center"
     Width="200" Grid.Row="1" Grid.Column="1">
@@ -318,8 +318,8 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
-                        <Label Content="{DynamicResource Appearance_ValuesTextColor}" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18"/>
-                        <CheckBox x:Name="ValuessPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="100" Grid.Row="0" Grid.Column="1"/>
+                        <Label Content="{DynamicResource Appearance_ValuesTextColor}" HorizontalAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18" Width="Auto"/>
+                        <CheckBox x:Name="ValuessPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="Auto" Grid.Row="0" Grid.Column="1"/>
                         <materialDesign:ColorPicker x:Name="ValuesColorPicker"
 HorizontalAlignment="Center" VerticalAlignment="Center"
 Width="200" Grid.Row="1" Grid.Column="1">
@@ -414,19 +414,51 @@ Width="200" Grid.Row="1" Grid.Column="1">
         <Grid VerticalAlignment="Bottom" Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Button Content="{DynamicResource Common_Load}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10,10,10" Grid.Column="0" Click="Click_Load"/>
-            <TextBox x:Name="NewFileNameTextBox" Style="{StaticResource PlaceholderTextBox}" Width="200" TextWrapping="NoWrap" MaxLength="30" Tag="New settings" Text="" Margin="0,10,5,10" Visibility="Hidden" Grid.Column="1" Grid.ColumnSpan="2"/>
             <Button x:Name="SaveAsButton" Content="{DynamicResource Common_SaveAs}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,10,10" Grid.Column="2" Click="Click_SaveAs"/>
             <Button Content="{DynamicResource Common_Save}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,10,10" Grid.Column="3" Click="Click_SaveAndClose"/>
             <Button Content="{DynamicResource Common_Exit}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Grid.Column="4" Click="Click_Close"/>
 
         </Grid>
 
+        <!-- "Save As" popup: a modal in-window overlay where the user types the
+             new profile name and explicitly confirms or cancels. Spans every
+             row so it dims the whole window; collapsed until SaveAs is clicked.
+             Replaces the previous inline textbox-in-the-footer flow. -->
+        <Grid x:Name="SaveAsOverlay" Grid.Row="0" Grid.RowSpan="4"
+              Panel.ZIndex="10" Visibility="Collapsed" Background="#80000000">
+            <materialDesign:Card Width="320" Padding="16"
+                                 HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource Appearance_SaveAsTitle}"
+                               FontWeight="Bold" FontSize="16" Margin="0,0,0,12"/>
+                    <Border BorderBrush="#BDBDBD" BorderThickness="1" CornerRadius="3" Padding="4,2,4,2">
+                        <TextBox x:Name="SaveAsNameTextBox"
+                                 Style="{StaticResource PlaceholderTextBox}"
+                                 Tag="{DynamicResource Appearance_SaveAsPlaceholder}"
+                                 MaxLength="30" TextWrapping="NoWrap"
+                                 KeyDown="SaveAsNameTextBox_KeyDown"/>
+                    </Border>
+                    <TextBlock x:Name="SaveAsErrorText"
+                               Text="{DynamicResource Appearance_SaveAsEmptyError}"
+                               Foreground="#D32F2F" FontSize="11"
+                               Margin="2,4,0,0" Visibility="Collapsed"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+                        <Button Content="{DynamicResource Common_Cancel}"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Margin="0,0,8,0" Click="Click_SaveAsCancel"/>
+                        <Button Content="{DynamicResource Common_Save}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Click="Click_SaveAsConfirm"/>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
 
     </Grid>
 

@@ -17,6 +17,7 @@
     <sys:String x:Key="Common_SaveAs">Save As</sys:String>
     <sys:String x:Key="Common_Exit">Exit</sys:String>
     <sys:String x:Key="Common_Input">Input</sys:String>
+    <sys:String x:Key="Common_Cancel">Cancel</sys:String>
 
     <!-- Already-running toast -->
     <sys:String x:Key="Toast_AlreadyRunning">Application is already running.</sys:String>
@@ -37,6 +38,9 @@
     <sys:String x:Key="Appearance_ValuesFont">Values font</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Rainbow background</sys:String>
     <sys:String x:Key="Appearance_RainbowBackgroundMode">Rainbow background mode</sys:String>
+    <sys:String x:Key="Appearance_SaveAsTitle">Save as new profile</sys:String>
+    <sys:String x:Key="Appearance_SaveAsPlaceholder">Profile name</sys:String>
+    <sys:String x:Key="Appearance_SaveAsEmptyError">Please enter a profile name.</sys:String>
 
     <!-- Changelog window -->
     <sys:String x:Key="Changelog_Title">What's new in ClickyKeys</sys:String>

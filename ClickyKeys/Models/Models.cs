@@ -88,13 +88,19 @@ namespace ClickyKeys
         [JsonPropertyName("collect_uptime")]
         public bool CollectUptime { get; set; } = true;
 
-        // UI language as a primary culture code ("en", "pl", ...). Applied at
+        // UI language as a culture code ("en", "pl", "pt-BR", ...). Applied at
         // startup by App.OnStartup and switched live from the Settings window.
-        // Empty/unknown values fall back to English via
-        // LocalizationManager.Normalize, so an absent field (older config.json)
-        // is treated as English.
+        //
+        // EMPTY = "not chosen yet": on first launch (or for an older config.json
+        // with no "language" field) this stays empty, which signals
+        // App.OnStartup to AUTO-DETECT the system language
+        // (LocalizationManager.ResolveStartupLanguage). The field is only
+        // written with a concrete code once the user explicitly picks a
+        // language in Settings, after which that choice always wins over the
+        // system language. Unknown values fall back to English via
+        // LocalizationManager.Normalize.
         [JsonPropertyName("language")]
-        public string Language { get; set; } = "en";
+        public string Language { get; set; } = "";
     }
 
     public enum InputType

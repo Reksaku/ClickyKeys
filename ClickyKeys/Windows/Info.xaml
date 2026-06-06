@@ -130,7 +130,7 @@
                 ClickyKeys · hobby project · v2.2.0
             </TextBlock>
             <Button DockPanel.Dock="Right"
-                    Width="80"
+                    Width="Auto"
                     Margin="0,0,10,0"
                     Content="{DynamicResource Common_Close}"
                     Style="{StaticResource MaterialDesignFlatButton}"
@@ -138,7 +138,7 @@
                     Click="Click_Close"/>
             <Button DockPanel.Dock="Right"
                     Margin="50,0,8,0"
-                    Width="120"
+                    Width="Auto"
                     Padding="10,0"
                     Content="{DynamicResource Info_ShowTutorial}"
                     Style="{StaticResource MaterialDesignFlatButton}"

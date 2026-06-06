@@ -14,9 +14,10 @@
     <sys:String x:Key="Common_Set">Ορισμός</sys:String>
     <sys:String x:Key="Common_Load">Φόρτωση</sys:String>
     <sys:String x:Key="Common_Save">Αποθήκευση</sys:String>
-    <sys:String x:Key="Common_SaveAs">Αποθήκευση ως</sys:String>
+    <sys:String x:Key="Common_SaveAs">Αποθ. ως</sys:String>
     <sys:String x:Key="Common_Exit">Έξοδος</sys:String>
     <sys:String x:Key="Common_Input">Είσοδος</sys:String>
+    <sys:String x:Key="Common_Cancel">Άκυρο</sys:String>
 
     <!-- Already-running toast -->
     <sys:String x:Key="Toast_AlreadyRunning">Η εφαρμογή εκτελείται ήδη.</sys:String>
@@ -37,6 +38,9 @@
     <sys:String x:Key="Appearance_ValuesFont">Γραμματοσειρά τιμών</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Φόντο ουράνιου τόξου</sys:String>
     <sys:String x:Key="Appearance_RainbowBackgroundMode">Λειτουργία φόντου ουράνιου τόξου</sys:String>
+    <sys:String x:Key="Appearance_SaveAsTitle">Αποθήκευση ως νέο προφίλ</sys:String>
+    <sys:String x:Key="Appearance_SaveAsPlaceholder">Όνομα προφίλ</sys:String>
+    <sys:String x:Key="Appearance_SaveAsEmptyError">Εισαγάγετε ένα όνομα προφίλ.</sys:String>
 
     <!-- Changelog window -->
     <sys:String x:Key="Changelog_Title">Τι νέο υπάρχει στο ClickyKeys</sys:String>

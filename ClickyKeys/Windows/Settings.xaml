@@ -195,8 +195,8 @@
         <!-- Footer -->
         <DockPanel Grid.Row="2" Margin="0,8,0,0">
             <Button DockPanel.Dock="Right"
-                    Width="80"
-                    Margin="0,0,10,0"
+                    Width="Auto"
+                    Margin="100,0,100,0"
                     Content="{DynamicResource Common_Close}"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     IsCancel="True"

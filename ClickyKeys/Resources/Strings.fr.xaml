@@ -17,6 +17,7 @@
     <sys:String x:Key="Common_SaveAs">Enregistrer sous</sys:String>
     <sys:String x:Key="Common_Exit">Quitter</sys:String>
     <sys:String x:Key="Common_Input">Entrée</sys:String>
+    <sys:String x:Key="Common_Cancel">Annuler</sys:String>
 
     <!-- Already-running toast -->
     <sys:String x:Key="Toast_AlreadyRunning">L'application est déjà en cours d'exécution.</sys:String>
@@ -37,6 +38,9 @@
     <sys:String x:Key="Appearance_ValuesFont">Police des valeurs</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Arrière-plan arc-en-ciel</sys:String>
     <sys:String x:Key="Appearance_RainbowBackgroundMode">Mode arrière-plan arc-en-ciel</sys:String>
+    <sys:String x:Key="Appearance_SaveAsTitle">Enregistrer comme nouveau profil</sys:String>
+    <sys:String x:Key="Appearance_SaveAsPlaceholder">Nom du profil</sys:String>
+    <sys:String x:Key="Appearance_SaveAsEmptyError">Veuillez saisir un nom de profil.</sys:String>
 
     <!-- Changelog window -->
     <sys:String x:Key="Changelog_Title">Nouveautés de ClickyKeys</sys:String>
