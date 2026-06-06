@@ -46,6 +46,10 @@ namespace ClickyKeys
             _mainOverlay = mainOverlay;
             InitializeComponent();
 
+            // Uptime sits at the top and is independent of the key-stats
+            // toggle, so render it first and always.
+            RenderUptime();
+
             // Respect the "Collect key-press statistics" setting. Prefer the
             // live collector's state (the source of truth while running); fall
             // back to the persisted flag if the service isn't available. When
@@ -54,7 +58,7 @@ namespace ClickyKeys
             bool collecting = App.KeyStats?.IsCollecting ?? ConfigStore.Load().CollectKeyStats;
             if (!collecting)
             {
-                ShowDisabledState();
+                ShowKeyStatsDisabledState();
                 return;
             }
 
@@ -68,15 +72,96 @@ namespace ClickyKeys
         }
 
         /// <summary>
-        /// Swaps the window into its "collection turned off" presentation:
-        /// hides every counter card and reveals the notice that points the
-        /// user at Settings. No file is read in this state.
+        /// Fills in the uptime card. When tracking is on we flush the live
+        /// service and show the current cumulative running time; when off we
+        /// show a notice pointing at Settings. Prefers the live service's value
+        /// (most accurate); falls back to the persisted uptime.json file when
+        /// the service isn't available.
         /// </summary>
-        private void ShowDisabledState()
+        private void RenderUptime()
+        {
+            bool collecting = App.Uptime?.IsCollecting ?? ConfigStore.Load().CollectUptime;
+            if (!collecting)
+            {
+                UptimeText.Visibility = Visibility.Collapsed;
+                UptimeDisabledText.Visibility = Visibility.Visible;
+                return;
+            }
+
+            TimeSpan total;
+            if (App.Uptime is { } svc)
+            {
+                try { svc.Flush(); }
+                catch (Exception ex) { Debug.WriteLine($"Stats: uptime flush failed: {ex}"); }
+                total = svc.TotalUptime;
+            }
+            else
+            {
+                total = TryLoadUptimeFromFile();
+            }
+
+            UptimeDisabledText.Visibility = Visibility.Collapsed;
+            UptimeText.Visibility = Visibility.Visible;
+            UptimeText.Text = FormatUptime(total);
+        }
+
+        /// <summary>
+        /// Formats a duration as a compact "Dd Hh Mm Ss" string, dropping the
+        /// larger units when they're zero (e.g. "5m 03s", "2h 00m 41s").
+        /// </summary>
+        private static string FormatUptime(TimeSpan t)
+        {
+            if (t < TimeSpan.Zero) t = TimeSpan.Zero;
+
+            int days = (int)t.TotalDays;
+            if (days > 0)
+                return $"{days}d {t.Hours}h {t.Minutes:00}m {t.Seconds:00}s";
+            if (t.Hours > 0)
+                return $"{t.Hours}h {t.Minutes:00}m {t.Seconds:00}s";
+            if (t.Minutes > 0)
+                return $"{t.Minutes}m {t.Seconds:00}s";
+            return $"{t.Seconds}s";
+        }
+
+        /// <summary>
+        /// Reads cumulative uptime straight from uptime.json. Only used as a
+        /// fallback when the live service isn't reachable; returns zero on any
+        /// failure so the card still renders.
+        /// </summary>
+        private static TimeSpan TryLoadUptimeFromFile()
+        {
+            var path = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "ClickyKeys",
+                "uptime.json");
+
+            if (!File.Exists(path))
+                return TimeSpan.Zero;
+
+            try
+            {
+                var json = File.ReadAllText(path);
+                var snap = JsonSerializer.Deserialize<UptimeSnapshot>(json, JsonReadOpts);
+                return snap == null ? TimeSpan.Zero : TimeSpan.FromSeconds(snap.TotalSeconds);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Stats: uptime file read failed: {ex}");
+                return TimeSpan.Zero;
+            }
+        }
+
+        /// <summary>
+        /// Swaps the key-statistics portion of the window into its "collection
+        /// turned off" presentation: hides the counter cards and reveals the
+        /// notice that points the user at Settings. The uptime card above is
+        /// unaffected. No keystats file is read in this state.
+        /// </summary>
+        private void ShowKeyStatsDisabledState()
         {
             DisabledPanel.Visibility = Visibility.Visible;
             StatsContentPanel.Visibility = Visibility.Collapsed;
-            LastUpdatedText.Text = "Statistics collection is disabled.";
+            LastUpdatedText.Text = "Key statistics collection is disabled.";
         }
 
         private void LoadAndRender()

@@ -58,19 +58,20 @@ namespace ClickyKeys
                 // read it live rather than trusting a cached flag.
                 AutostartToggle.IsChecked = AutostartService.IsEnabled();
 
-                // Start-minimized and key-stats collection live in config.json.
+                // Start-minimized and the two collection switches live in
+                // config.json.
                 var cfg = ConfigStore.Load();
                 StartMinimizedToggle.IsChecked = cfg.StartMinimized;
                 CollectKeyStatsToggle.IsChecked = cfg.CollectKeyStats;
+                CollectUptimeToggle.IsChecked = cfg.CollectUptime;
             }
             finally
             {
                 _initialising = false;
             }
 
-            // TODO (wiring): the uptime toggle and the language selector are
-            // still UI-only — restore their saved values here once those
-            // mechanisms exist.
+            // TODO (wiring): the language selector is still UI-only — restore
+            // its saved value here once that mechanism exists.
         }
 
         // ----------------------------------------------------------------
@@ -81,10 +82,12 @@ namespace ClickyKeys
         {
             if (_initialising) return;
 
-            // TODO (wiring): enable/disable the uptime tracker and persist the
-            // choice. Straightforward boolean — likely just a flag the uptime
-            // service checks before accumulating time.
-            // bool enabled = CollectUptimeToggle.IsChecked == true;
+            bool wanted = CollectUptimeToggle.IsChecked == true;
+
+            // Persist for next launch, then apply to the live tracker so the
+            // change takes effect immediately (no restart needed).
+            ConfigStore.Update(cfg => cfg.CollectUptime = wanted);
+            App.Uptime?.SetCollecting(wanted);
         }
 
         private void CollectKeyStatsToggle_Changed(object sender, RoutedEventArgs e)

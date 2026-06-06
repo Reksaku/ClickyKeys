@@ -79,6 +79,14 @@ namespace ClickyKeys
         // keep the behaviour they had before this setting existed.
         [JsonPropertyName("collect_key_stats")]
         public bool CollectKeyStats { get; set; } = true;
+
+        // Master switch for application-uptime collection (UptimeStatsService).
+        // When false, running time stops accumulating and uptime.json is no
+        // longer written; the Statistics window shows an "uptime disabled"
+        // notice in place of the value. Defaults to true to match prior
+        // behaviour for existing users.
+        [JsonPropertyName("collect_uptime")]
+        public bool CollectUptime { get; set; } = true;
     }
 
     public enum InputType
