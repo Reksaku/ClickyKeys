@@ -95,6 +95,7 @@
     <!-- SetLoader window -->
     <sys:String x:Key="SetLoader_Title">Load profile</sys:String>
     <sys:String x:Key="SetLoader_SelectProfile">Select settings profile</sys:String>
+    <sys:String x:Key="SetLoader_ConfirmDelete">Confirm profile deletion</sys:String>
 
     <!-- Settings window -->
     <sys:String x:Key="Settings_Title">ClickyKeys Settings</sys:String>
@@ -120,6 +121,7 @@
     <sys:String x:Key="Stats_Uptime">Uptime</sys:String>
     <sys:String x:Key="Stats_UptimeOff">Uptime tracking is turned off. You can turn it back on in Settings → Data Collection.</sys:String>
     <sys:String x:Key="Stats_CollectionOff">Statistics collection is turned off</sys:String>
+    <sys:String x:Key="Stats_CollectionOffBody">Key-press statistics are not being recorded right now. You can turn collection back on in Settings → Data Collection.</sys:String>
     <sys:String x:Key="Stats_Totals">Totals</sys:String>
     <sys:String x:Key="Stats_TotalMouseClicks">Total mouse clicks</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Total key presses</sys:String>

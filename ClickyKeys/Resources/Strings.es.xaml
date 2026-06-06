@@ -95,6 +95,7 @@
     <!-- SetLoader window -->
     <sys:String x:Key="SetLoader_Title">Cargar perfil</sys:String>
     <sys:String x:Key="SetLoader_SelectProfile">Seleccionar perfil de ajustes</sys:String>
+    <sys:String x:Key="SetLoader_ConfirmDelete">Confirmar eliminación del perfil</sys:String>
 
     <!-- Settings window -->
     <sys:String x:Key="Settings_Title">Ajustes de ClickyKeys</sys:String>
@@ -120,6 +121,7 @@
     <sys:String x:Key="Stats_Uptime">Tiempo de actividad</sys:String>
     <sys:String x:Key="Stats_UptimeOff">El seguimiento del tiempo de actividad está desactivado. Puedes volver a activarlo en Ajustes → Recopilación de datos.</sys:String>
     <sys:String x:Key="Stats_CollectionOff">La recopilación de estadísticas está desactivada</sys:String>
+    <sys:String x:Key="Stats_CollectionOffBody">Las estadísticas de pulsaciones de teclas no se están registrando ahora mismo. Puedes volver a activar la recopilación en Ajustes → Recopilación de datos.</sys:String>
     <sys:String x:Key="Stats_Totals">Totales</sys:String>
     <sys:String x:Key="Stats_TotalMouseClicks">Total de clics del ratón</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Total de pulsaciones de teclas</sys:String>

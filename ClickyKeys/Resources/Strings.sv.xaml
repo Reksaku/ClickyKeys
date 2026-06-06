@@ -95,6 +95,7 @@
     <!-- SetLoader window -->
     <sys:String x:Key="SetLoader_Title">Läs in profil</sys:String>
     <sys:String x:Key="SetLoader_SelectProfile">Välj inställningsprofil</sys:String>
+    <sys:String x:Key="SetLoader_ConfirmDelete">Bekräfta borttagning av profil</sys:String>
 
     <!-- Settings window -->
     <sys:String x:Key="Settings_Title">ClickyKeys-inställningar</sys:String>
@@ -120,6 +121,7 @@
     <sys:String x:Key="Stats_Uptime">Drifttid</sys:String>
     <sys:String x:Key="Stats_UptimeOff">Spårning av drifttid är avstängd. Du kan slå på den igen under Inställningar → Datainsamling.</sys:String>
     <sys:String x:Key="Stats_CollectionOff">Insamling av statistik är avstängd</sys:String>
+    <sys:String x:Key="Stats_CollectionOffBody">Statistik för tangenttryckningar registreras inte just nu. Du kan slå på insamlingen igen under Inställningar → Datainsamling.</sys:String>
     <sys:String x:Key="Stats_Totals">Totalt</sys:String>
     <sys:String x:Key="Stats_TotalMouseClicks">Totalt antal musklick</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Totalt antal tangenttryckningar</sys:String>

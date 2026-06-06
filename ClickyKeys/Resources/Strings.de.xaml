@@ -95,6 +95,7 @@
     <!-- SetLoader window -->
     <sys:String x:Key="SetLoader_Title">Profil laden</sys:String>
     <sys:String x:Key="SetLoader_SelectProfile">Einstellungsprofil auswählen</sys:String>
+    <sys:String x:Key="SetLoader_ConfirmDelete">Löschen des Profils bestätigen</sys:String>
 
     <!-- Settings window -->
     <sys:String x:Key="Settings_Title">ClickyKeys-Einstellungen</sys:String>
@@ -120,6 +121,7 @@
     <sys:String x:Key="Stats_Uptime">Laufzeit</sys:String>
     <sys:String x:Key="Stats_UptimeOff">Die Laufzeiterfassung ist ausgeschaltet. Du kannst sie unter Einstellungen → Datenerfassung wieder einschalten.</sys:String>
     <sys:String x:Key="Stats_CollectionOff">Die Statistikerfassung ist ausgeschaltet</sys:String>
+    <sys:String x:Key="Stats_CollectionOffBody">Tastendruck-Statistiken werden derzeit nicht aufgezeichnet. Du kannst die Erfassung unter Einstellungen → Datenerfassung wieder einschalten.</sys:String>
     <sys:String x:Key="Stats_Totals">Gesamt</sys:String>
     <sys:String x:Key="Stats_TotalMouseClicks">Mausklicks gesamt</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Tastendrücke gesamt</sys:String>

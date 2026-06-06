@@ -95,6 +95,7 @@
     <!-- SetLoader window -->
     <sys:String x:Key="SetLoader_Title">Φόρτωση προφίλ</sys:String>
     <sys:String x:Key="SetLoader_SelectProfile">Επιλογή προφίλ ρυθμίσεων</sys:String>
+    <sys:String x:Key="SetLoader_ConfirmDelete">Επιβεβαιώστε τη διαγραφή προφίλ</sys:String>
 
     <!-- Settings window -->
     <sys:String x:Key="Settings_Title">Ρυθμίσεις του ClickyKeys</sys:String>
@@ -120,6 +121,7 @@
     <sys:String x:Key="Stats_Uptime">Χρόνος λειτουργίας</sys:String>
     <sys:String x:Key="Stats_UptimeOff">Η παρακολούθηση του χρόνου λειτουργίας είναι απενεργοποιημένη. Μπορείτε να την ενεργοποιήσετε ξανά στις Ρυθμίσεις → Συλλογή δεδομένων.</sys:String>
     <sys:String x:Key="Stats_CollectionOff">Η συλλογή στατιστικών είναι απενεργοποιημένη</sys:String>
+    <sys:String x:Key="Stats_CollectionOffBody">Τα στατιστικά πατημάτων πλήκτρων δεν καταγράφονται αυτή τη στιγμή. Μπορείτε να ενεργοποιήσετε ξανά τη συλλογή στις Ρυθμίσεις → Συλλογή δεδομένων.</sys:String>
     <sys:String x:Key="Stats_Totals">Σύνολα</sys:String>
     <sys:String x:Key="Stats_TotalMouseClicks">Συνολικά κλικ ποντικιού</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Συνολικά πατήματα πλήκτρων</sys:String>
