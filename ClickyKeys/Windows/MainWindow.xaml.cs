@@ -1339,7 +1339,7 @@ namespace ClickyKeys
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show(LocalizationManager.Format("Main_ErrorPrefix", ex.Message));
             }
 
             MyPopup.IsOpen = false;

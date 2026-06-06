@@ -88,7 +88,7 @@
                                Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
-                        <TextBlock Text="Appearance" FontSize="13"
+                        <TextBlock Text="{DynamicResource Main_Appearance}" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -111,7 +111,7 @@
                                Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
-                        <TextBlock Text="Display" FontSize="13"
+                        <TextBlock Text="{DynamicResource Main_Display}" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -133,7 +133,7 @@
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Reset" FontSize="13" HorizontalAlignment="Center"
+                            <TextBlock Text="{DynamicResource Main_Reset}" FontSize="13" HorizontalAlignment="Center"
                                        Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                             <TextBlock Text="(F12)" FontSize="13" HorizontalAlignment="Center"
                                        Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -155,7 +155,7 @@
                                Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
-                        <TextBlock Text="Stats" FontSize="13"
+                        <TextBlock Text="{DynamicResource Main_Stats}" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -178,7 +178,7 @@
                                Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
                                    Converter={StaticResource OrientationToMarginConverter}}"/>
-                        <TextBlock Text="More" FontSize="13"
+                        <TextBlock Text="{DynamicResource Main_More}" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -213,9 +213,9 @@
                                         Orientation="Vertical">
                                 <Image Source="/Resources/Buttons/transparent_icon.png"
                                        Width="28" Height="28" Margin="0,0,0,2"/>
-                                <TextBlock Text="Transparent" FontSize="13" HorizontalAlignment="Center"
+                                <TextBlock Text="{DynamicResource Main_Transparent}" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
-                                <TextBlock Text="mode" FontSize="13" HorizontalAlignment="Center"
+                                <TextBlock Text="{DynamicResource Main_Mode}" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
                             </StackPanel>
                         </Button>
@@ -227,7 +227,7 @@
                                         Orientation="Vertical">
                                 <Image Source="/Resources/Buttons/hide_toolbar_icon.png"
                                        Width="28" Height="28" Margin="0,0,0,2"/>
-                                <TextBlock Text="Hide toolbar" FontSize="13" HorizontalAlignment="Center"
+                                <TextBlock Text="{DynamicResource Main_HideToolbar}" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
                                 <TextBlock Text="(F11)" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
@@ -262,7 +262,7 @@
                                         Orientation="Vertical">
                                 <Image Source="/Resources/Buttons/info_icon.png"
                                        Width="28" Height="28" Margin="0,0,0,2"/>
-                                <TextBlock Text="Info" FontSize="13" HorizontalAlignment="Center"
+                                <TextBlock Text="{DynamicResource Main_Info}" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
                             </StackPanel>
                         </Button>
@@ -274,7 +274,7 @@
                                         Orientation="Vertical">
                                 <Image Source="/Resources/Buttons/settings_icon.png"
                                        Width="28" Height="28" Margin="0,0,0,2"/>
-                                <TextBlock Text="Settings" FontSize="13" HorizontalAlignment="Center"
+                                <TextBlock Text="{DynamicResource Main_Settings}" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
                             </StackPanel>
                         </Button>
@@ -311,15 +311,15 @@
                    PopupAnimation="Fade">
                 <Border x:Name="PopupBorder" Background="White" Padding="20" CornerRadius="8">
                     <StackPanel Width="250">
-                        <TextBlock Text="New version of ClickyKeys is available."
+                        <TextBlock Text="{DynamicResource Main_UpdateAvailable}"
                                    FontSize="14"
                                    HorizontalAlignment="Center"
                                    Margin="0 0 0 10"/>
-                        <Button Content="Open download page"
+                        <Button Content="{DynamicResource Main_OpenDownload}"
                                 Padding="5"
                                 Click="OpenLink_Click"
                                 Margin="0 5 0 0"/>
-                        <Button Content="Remind me next time"
+                        <Button Content="{DynamicResource Main_RemindNextTime}"
                                 Padding="5"
                                 Click="ClosePopup_Click"
                                 Margin="0 5 0 0"/>

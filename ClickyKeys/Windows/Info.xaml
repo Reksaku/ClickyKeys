@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClickyKeys"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="About ClickyKeys"
+        Title="{DynamicResource Info_Title}"
         Width="490" Height="780"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
@@ -29,7 +29,7 @@
                 <TextBlock Text="ClickyKeys"
                            FontSize="24"
                            FontWeight="Bold"/>
-                <TextBlock Text="Key &amp; click counter for gamers and geeks"
+                <TextBlock Text="{DynamicResource Info_Tagline}"
                            FontSize="13"
                            Foreground="{DynamicResource MaterialDesignBodyLight}"/>
             </StackPanel>
@@ -42,37 +42,25 @@
                 <!-- Features -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Features"
+                        <TextBlock Text="{DynamicResource Info_Features}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
-                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
-                            • Counts key presses and mouse clicks you care about.
-                        </TextBlock>
-                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
-                            • Lets you assign custom labels to keys (e.g. Jump, Reload, Ability 1).
-                        </TextBlock>
-                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
-                            • Fully customizable overlay: layout, button size, colors, font.
-                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4" Text="{DynamicResource Info_Feature1}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4" Text="{DynamicResource Info_Feature2}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4" Text="{DynamicResource Info_Feature3}"/>
                     </StackPanel>
                 </materialDesign:Card>
 
                 <!-- Privacy & Open Source -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Privacy &amp; Open Source"
+                        <TextBlock Text="{DynamicResource Info_Privacy}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
-                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
-                            ClickyKeys processes your key presses and mouse clicks locally.
-                            No user data is sent to any server.
-                        </TextBlock>
-                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
-                            The project is open source, so you can review the code, learn from it,
-                            or contribute improvements.
-                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4" Text="{DynamicResource Info_PrivacyText1}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4" Text="{DynamicResource Info_PrivacyText2}"/>
                     </StackPanel>
                 </materialDesign:Card>
 
@@ -82,38 +70,32 @@
                 <!-- Credits & Thanks -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Credits &amp; Thanks"
+                        <TextBlock Text="{DynamicResource Info_Credits}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
-                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
-                            ClickyKeys is a hobby project that grows thanks to people simply enjoy clicking with it.
-                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4" Text="{DynamicResource Info_CreditsText1}"/>
                         <TextBlock TextWrapping="Wrap"
                                    Margin="0,8,0,0"
-                                   FontStyle="Italic">
-                            Thanks for using ClickyKeys!
-                        </TextBlock>
+                                   FontStyle="Italic" Text="{DynamicResource Info_CreditsText2}"/>
                     </StackPanel>
                 </materialDesign:Card>
 
                 <!-- Links -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Links"
+                        <TextBlock Text="{DynamicResource Info_Links}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
 
-                        <TextBlock Margin="0,0,0,4">
-                            Website:
+                        <TextBlock Margin="0,0,0,4"><Run Text="{DynamicResource Info_WebsiteLabel}"/>
                             <Hyperlink NavigateUri="https://clickykeys.fun/about"
                                        RequestNavigate="Hyperlink_RequestNavigate">
                                 https://clickykeys.fun
                             </Hyperlink>
                         </TextBlock>
-                        <TextBlock Margin="0,0,0,4">
-                            GitHub:
+                        <TextBlock Margin="0,0,0,4"><Run Text="{DynamicResource Info_GitHubLabel}"/>
                             <Hyperlink NavigateUri="https://github.com/Reksaku/ClickyKeys"
                                        RequestNavigate="Hyperlink_RequestNavigate">
                                 github.com/Reksaku/ClickyKeys
@@ -126,17 +108,12 @@
                 <!-- Contact -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Contact"
+                        <TextBlock Text="{DynamicResource Info_Contact}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
-                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
-                            General contact: contact@clickykeys.fun
-                        </TextBlock>
-                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
-                            Bug reports &amp; feature requests: please use GitHub Issues
-                            or write to contact@clickykeys.fun
-                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4" Text="{DynamicResource Info_ContactText1}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4" Text="{DynamicResource Info_ContactText2}"/>
                     </StackPanel>
                 </materialDesign:Card>
 
@@ -155,7 +132,7 @@
             <Button DockPanel.Dock="Right"
                     Width="80"
                     Margin="0,0,10,0"
-                    Content="Close"
+                    Content="{DynamicResource Common_Close}"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     IsCancel="True"
                     Click="Click_Close"/>
@@ -163,7 +140,7 @@
                     Margin="50,0,8,0"
                     Width="120"
                     Padding="10,0"
-                    Content="Show tutorial"
+                    Content="{DynamicResource Info_ShowTutorial}"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     Click="Click_ShowTutorial"/>
         </DockPanel>

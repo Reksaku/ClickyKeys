@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClickyKeys"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="What's new in ClickyKeys"
+        Title="{DynamicResource Changelog_Title}"
         Width="520"
         MinWidth="400"
         SizeToContent="Height"
@@ -28,11 +28,11 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12" VerticalAlignment="Center">
             <Image Width="48" Height="48" Source="/Resources/Icon.ico" Margin="0,0,12,0"/>
             <StackPanel VerticalAlignment="Center">
-                <TextBlock Text="What's new"
+                <TextBlock Text="{DynamicResource Changelog_Header}"
                            FontSize="22"
                            FontWeight="Bold"/>
                 <TextBlock x:Name="SubtitleText"
-                           Text="Loading changelog…"
+                           Text="{DynamicResource Changelog_Loading}"
                            FontSize="12"
                            Foreground="{DynamicResource MaterialDesignBodyLight}"/>
             </StackPanel>
@@ -50,7 +50,7 @@
                              Width="200"
                              Margin="0,0,0,12"
                              Style="{StaticResource MaterialDesignLinearProgressBar}"/>
-                <TextBlock Text="Fetching changelog…"
+                <TextBlock Text="{DynamicResource Changelog_Fetching}"
                            HorizontalAlignment="Center"
                            Foreground="{DynamicResource MaterialDesignBodyLight}"/>
             </StackPanel>
@@ -61,7 +61,7 @@
                         HorizontalAlignment="Center"
                         Visibility="Collapsed">
                 <TextBlock x:Name="ErrorText"
-                           Text="Could not load changelog."
+                           Text="{DynamicResource Changelog_LoadError}"
                            TextWrapping="Wrap"
                            TextAlignment="Center"
                            Foreground="{DynamicResource MaterialDesignBodyLight}"
@@ -81,7 +81,7 @@
         <DockPanel Grid.Row="2" Margin="0,10,0,0">
             <Button DockPanel.Dock="Right"
                     Width="80"
-                    Content="Close"
+                    Content="{DynamicResource Common_Close}"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     IsCancel="True"
                     Click="Click_Close"/>

@@ -161,7 +161,7 @@ namespace ClickyKeys
         {
             DisabledPanel.Visibility = Visibility.Visible;
             StatsContentPanel.Visibility = Visibility.Collapsed;
-            LastUpdatedText.Text = "Key statistics collection is disabled.";
+            LastUpdatedText.Text = LocalizationManager.T("Stats_KeyStatsDisabled");
         }
 
         private void LoadAndRender()
@@ -218,8 +218,8 @@ namespace ClickyKeys
             WheelEmptyText.Visibility = wheelRows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
 
             LastUpdatedText.Text = snapshot.LastUpdatedUtc == default
-                ? "No data recorded yet."
-                : $"Last updated: {snapshot.LastUpdatedUtc.ToLocalTime():g}";
+                ? LocalizationManager.T("Stats_NoData")
+                : LocalizationManager.Format("Stats_LastUpdated", snapshot.LastUpdatedUtc.ToLocalTime().ToString("g"));
         }
 
         private static KeyStatsSnapshot TryLoadSnapshot()

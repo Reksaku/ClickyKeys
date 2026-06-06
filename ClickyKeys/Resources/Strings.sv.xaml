@@ -1,0 +1,171 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- ============================================================
+         Swedish (sv) UI strings for ClickyKeys.
+         Keys mirror Strings.en.xaml exactly.
+         "ClickyKeys" is a product name and is left untranslated.
+         ============================================================ -->
+
+    <!-- Common -->
+    <sys:String x:Key="Common_Close">Stäng</sys:String>
+    <sys:String x:Key="Common_Set">Ange</sys:String>
+    <sys:String x:Key="Common_Load">Läs in</sys:String>
+    <sys:String x:Key="Common_Save">Spara</sys:String>
+    <sys:String x:Key="Common_SaveAs">Spara som</sys:String>
+    <sys:String x:Key="Common_Exit">Avsluta</sys:String>
+    <sys:String x:Key="Common_Input">Inmatning</sys:String>
+
+    <!-- Already-running toast -->
+    <sys:String x:Key="Toast_AlreadyRunning">Applikationen körs redan.</sys:String>
+
+    <!-- Appearance window -->
+    <sys:String x:Key="Appearance_Title">Utseende</sys:String>
+    <sys:String x:Key="Appearance_Profile">Profil:</sys:String>
+    <sys:String x:Key="Appearance_GridRows">Rutnätsrader</sys:String>
+    <sys:String x:Key="Appearance_GridColumns">Rutnätskolumner</sys:String>
+    <sys:String x:Key="Appearance_Colors">Färger</sys:String>
+    <sys:String x:Key="Appearance_BackgroundColor">Bakgrundsfärg</sys:String>
+    <sys:String x:Key="Appearance_PanelsColor">Panelfärg</sys:String>
+    <sys:String x:Key="Appearance_KeysTextColor">Textfärg för tangenter</sys:String>
+    <sys:String x:Key="Appearance_ValuesTextColor">Textfärg för värden</sys:String>
+    <sys:String x:Key="Appearance_ExpandPallet">Expandera palett</sys:String>
+    <sys:String x:Key="Appearance_SaturationNote">Du kan ändra mättnaden via bakgrundsfärgpaletten</sys:String>
+    <sys:String x:Key="Appearance_KeysFont">Teckensnitt för tangenter</sys:String>
+    <sys:String x:Key="Appearance_ValuesFont">Teckensnitt för värden</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackground">Regnbågsbakgrund</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundMode">Regnbågsbakgrundsläge</sys:String>
+
+    <!-- Changelog window -->
+    <sys:String x:Key="Changelog_Title">Nyheter i ClickyKeys</sys:String>
+    <sys:String x:Key="Changelog_Header">Nyheter</sys:String>
+    <sys:String x:Key="Changelog_Loading">Läser in ändringslogg…</sys:String>
+    <sys:String x:Key="Changelog_Fetching">Hämtar ändringslogg…</sys:String>
+    <sys:String x:Key="Changelog_LoadError">Det gick inte att läsa in ändringsloggen.</sys:String>
+    <sys:String x:Key="Changelog_LoadErrorSubtitle">Det gick inte att läsa in ändringsloggen</sys:String>
+    <sys:String x:Key="Changelog_NoEntries">Inga poster hittades i ändringsloggen.</sys:String>
+    <sys:String x:Key="Changelog_LoadErrorConn">Det gick inte att läsa in ändringsloggen. Kontrollera din internetanslutning.</sys:String>
+    <sys:String x:Key="Changelog_ChangesSinceOne">{0} ändring sedan v{1}</sys:String>
+    <sys:String x:Key="Changelog_ChangesSinceMany">{0} ändringar sedan v{1}</sys:String>
+
+    <!-- Info window -->
+    <sys:String x:Key="Info_Title">Om ClickyKeys</sys:String>
+    <sys:String x:Key="Info_Tagline">Tangent- &amp; klickräknare för gamers och nördar</sys:String>
+    <sys:String x:Key="Info_Features">Funktioner</sys:String>
+    <sys:String x:Key="Info_Feature1">• Räknar de tangenttryckningar och musklick du bryr dig om.</sys:String>
+    <sys:String x:Key="Info_Feature2">• Låter dig tilldela egna etiketter till tangenter (t.ex. Hoppa, Ladda om, Förmåga 1).</sys:String>
+    <sys:String x:Key="Info_Feature3">• Helt anpassningsbart överlägg: layout, knappstorlek, färger, teckensnitt.</sys:String>
+    <sys:String x:Key="Info_Privacy">Integritet &amp; öppen källkod</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">ClickyKeys behandlar dina tangenttryckningar och musklick lokalt. Inga användardata skickas till någon server.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Projektet är öppen källkod, så du kan granska koden, lära dig av den eller bidra med förbättringar.</sys:String>
+    <sys:String x:Key="Info_Credits">Tack till</sys:String>
+    <sys:String x:Key="Info_CreditsText1">ClickyKeys är ett hobbyprojekt som växer tack vare människor som helt enkelt gillar att klicka med det.</sys:String>
+    <sys:String x:Key="Info_CreditsText2">Tack för att du använder ClickyKeys!</sys:String>
+    <sys:String x:Key="Info_Links">Länkar</sys:String>
+    <sys:String x:Key="Info_WebsiteLabel">Webbplats: </sys:String>
+    <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
+    <sys:String x:Key="Info_Contact">Kontakt</sys:String>
+    <sys:String x:Key="Info_ContactText1">Allmän kontakt: contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText2">Felrapporter &amp; funktionsförslag: använd GitHub Issues eller skriv till contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ShowTutorial">Visa handledning</sys:String>
+
+    <!-- Main window toolbar -->
+    <sys:String x:Key="Main_Appearance">Utseende</sys:String>
+    <sys:String x:Key="Main_Display">Visning</sys:String>
+    <sys:String x:Key="Main_Reset">Återställ</sys:String>
+    <sys:String x:Key="Main_Stats">Statistik</sys:String>
+    <sys:String x:Key="Main_More">Mer</sys:String>
+    <sys:String x:Key="Main_Transparent">Transparent</sys:String>
+    <sys:String x:Key="Main_Mode">läge</sys:String>
+    <sys:String x:Key="Main_HideToolbar">Dölj verktygsfält</sys:String>
+    <sys:String x:Key="Main_Info">Info</sys:String>
+    <sys:String x:Key="Main_Settings">Inställningar</sys:String>
+    <sys:String x:Key="Main_UpdateAvailable">En ny version av ClickyKeys är tillgänglig.</sys:String>
+    <sys:String x:Key="Main_OpenDownload">Öppna nedladdningssidan</sys:String>
+    <sys:String x:Key="Main_RemindNextTime">Påminn mig nästa gång</sys:String>
+    <sys:String x:Key="Main_ErrorPrefix">Fel: {0}</sys:String>
+
+    <!-- SetLoader window -->
+    <sys:String x:Key="SetLoader_Title">Läs in profil</sys:String>
+    <sys:String x:Key="SetLoader_SelectProfile">Välj inställningsprofil</sys:String>
+
+    <!-- Settings window -->
+    <sys:String x:Key="Settings_Title">ClickyKeys-inställningar</sys:String>
+    <sys:String x:Key="Settings_Header">Inställningar</sys:String>
+    <sys:String x:Key="Settings_Subtitle">Konfigurera ClickyKeys</sys:String>
+    <sys:String x:Key="Settings_DataCollection">Datainsamling</sys:String>
+    <sys:String x:Key="Settings_CollectUptime">Samla in data om applikationens drifttid</sys:String>
+    <sys:String x:Key="Settings_CollectKeyStats">Samla in statistik om tangenttryckningar</sys:String>
+    <sys:String x:Key="Settings_Usage">Användning</sys:String>
+    <sys:String x:Key="Settings_LaunchOnStartup">Starta vid systemstart</sys:String>
+    <sys:String x:Key="Settings_StartMinimized">Starta minimerad</sys:String>
+    <sys:String x:Key="Settings_Language">Språk</sys:String>
+    <sys:String x:Key="Settings_AutostartError">Det gick inte att uppdatera Windows startinställning. Din säkerhetsprogramvara eller kontopolicy kan blockera den.</sys:String>
+
+    <!-- Splash window -->
+    <sys:String x:Key="Splash_Starting">Startar…</sys:String>
+    <sys:String x:Key="Splash_StartingKeyStats">Startar statistiktjänsten…</sys:String>
+
+    <!-- Stats window -->
+    <sys:String x:Key="Stats_Title">ClickyKeys-statistik</sys:String>
+    <sys:String x:Key="Stats_Header">Statistik</sys:String>
+    <sys:String x:Key="Stats_Subtitle">Sammanlagda räknare sedan första start</sys:String>
+    <sys:String x:Key="Stats_Uptime">Drifttid</sys:String>
+    <sys:String x:Key="Stats_UptimeOff">Spårning av drifttid är avstängd. Du kan slå på den igen under Inställningar → Datainsamling.</sys:String>
+    <sys:String x:Key="Stats_CollectionOff">Insamling av statistik är avstängd</sys:String>
+    <sys:String x:Key="Stats_Totals">Totalt</sys:String>
+    <sys:String x:Key="Stats_TotalMouseClicks">Totalt antal musklick</sys:String>
+    <sys:String x:Key="Stats_TotalKeyPresses">Totalt antal tangenttryckningar</sys:String>
+    <sys:String x:Key="Stats_TotalWheelTicks">Totalt antal hjulsteg</sys:String>
+    <sys:String x:Key="Stats_Combined">Kombinerat</sys:String>
+    <sys:String x:Key="Stats_Keys">Tangenter</sys:String>
+    <sys:String x:Key="Stats_NoKeys">Inga tangenttryckningar registrerade ännu.</sys:String>
+    <sys:String x:Key="Stats_MouseButtons">Musknappar</sys:String>
+    <sys:String x:Key="Stats_NoMouse">Inga musklick registrerade ännu.</sys:String>
+    <sys:String x:Key="Stats_MouseWheel">Mushjul</sys:String>
+    <sys:String x:Key="Stats_NoWheel">Ingen hjulaktivitet registrerad ännu.</sys:String>
+    <sys:String x:Key="Stats_KeyStatsDisabled">Insamling av tangentstatistik är inaktiverad.</sys:String>
+    <sys:String x:Key="Stats_NoData">Inga data registrerade ännu.</sys:String>
+    <sys:String x:Key="Stats_LastUpdated">Senast uppdaterad: {0}</sys:String>
+
+    <!-- Tutorial window -->
+    <sys:String x:Key="Tutorial_Title">ClickyKeys-handledning</sys:String>
+    <sys:String x:Key="Tutorial_Skip">Hoppa över</sys:String>
+    <sys:String x:Key="Tutorial_Back">◀ Tillbaka</sys:String>
+    <sys:String x:Key="Tutorial_Next">Nästa ▶</sys:String>
+    <sys:String x:Key="Tutorial_Finish">Slutför</sys:String>
+    <sys:String x:Key="Tutorial_StepFormat">{0} / {1}</sys:String>
+
+    <sys:String x:Key="Tutorial_S1_Title">Välkommen till ClickyKeys!</sys:String>
+    <sys:String x:Key="Tutorial_S1_Body">Låt mig guida dig genom en snabb handledning.&#10;Du kan använda appen när som helst — klicka på Nästa för att fortsätta.</sys:String>
+    <sys:String x:Key="Tutorial_S2_Title">Paneler</sys:String>
+    <sys:String x:Key="Tutorial_S2_Body">Det här är dina visningspaneler — huvudfunktionen i ClickyKeys.&#10;Varje panel räknar tryckningarna på sin tilldelade tangent.</sys:String>
+    <sys:String x:Key="Tutorial_S3_Title">Redigera en panel</sys:String>
+    <sys:String x:Key="Tutorial_S3_Body">Vänsterklicka på valfri panel för att öppna redigeraren och tilldela den en tangent.</sys:String>
+    <sys:String x:Key="Tutorial_S3_Hint">👆 Klicka på panelen för att prova</sys:String>
+    <sys:String x:Key="Tutorial_S4_Title">Beskrivning och tangent</sys:String>
+    <sys:String x:Key="Tutorial_S4_Body">Skriv ett namn i fältet Beskrivning.&#10;Klicka sedan på Inmatning och tryck på tangenten du vill spåra.</sys:String>
+    <sys:String x:Key="Tutorial_S5_Title">Spara ändringar</sys:String>
+    <sys:String x:Key="Tutorial_S5_Body">Bekräfta dina ändringar med den gröna knappen ✔, eller kassera dem med den röda ✖.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Title">Utseende</sys:String>
+    <sys:String x:Key="Tutorial_S6_Body">Öppna fliken Utseende för att anpassa färger, rutnätsstorlek, teckensnitt och mer.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Hint">👆 Knappen Utseende</sys:String>
+    <sys:String x:Key="Tutorial_S7_Title">Tillämpa ändringar</sys:String>
+    <sys:String x:Key="Tutorial_S7_Body">Klicka på Spara längst ner i Utseende för att spara din nuvarande layout och skriva över den aktuella profilen.&#10;Osparade ändringar kasseras när fliken Utseende stängs.</sys:String>
+    <sys:String x:Key="Tutorial_S8_Title">Skapa en ny layout</sys:String>
+    <sys:String x:Key="Tutorial_S8_Body">Klicka på Spara som längst ner i Utseende för att spara din layout under ett nytt namn. Ange ett nytt profilnamn och klicka på Spara.&#10;Sparade profiler kan läsas in från fliken Läs in.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Transparent läge</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Knappen Transparent läge döljer bakgrunden och verktygsfältet — användbart för streaming-överlägg.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Knappen Transparent läge</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Fliken Statistik visar hur många tangenter du har tryckt på totalt.&#10;Dina data lagras endast på din lokala disk.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Knappen Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Besök fliken Info för att läsa mer om ClickyKeys-projektet eller se den här handledningen igen.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Knappen Info</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Det var allt!</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Ha det så kul med ClickyKeys! 🎉</sys:String>
+
+</ResourceDictionary>

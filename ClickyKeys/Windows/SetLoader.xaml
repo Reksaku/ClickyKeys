@@ -9,7 +9,7 @@
         xmlns:controls="clr-namespace:ClickyKeys.Controls"
         mc:Ignorable="d"
         Closing="Window_Closed"
-        Title="SetLoader" Height="380" Width="295" MaxWidth="295">
+        Title="{DynamicResource SetLoader_Title}" Height="380" Width="295" MaxWidth="295">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -17,7 +17,7 @@
             <RowDefinition Height="52"/>
         </Grid.RowDefinitions>
 
-        <Label x:Name="fileList" Content="Select settings profile" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="28" Grid.Row="0"/>
+        <Label x:Name="fileList" Content="{DynamicResource SetLoader_SelectProfile}" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="28" Grid.Row="0"/>
 
         <ScrollViewer Grid.Row="1" >
             <Grid x:Name="filesList" >
@@ -33,8 +33,8 @@
                 <ColumnDefinition Width="Auto"/>
 
             </Grid.ColumnDefinitions>
-            <Button Content="Exit" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10,10,10" Click="Click_Exit" Grid.Column="0" />
-            <Button Content="Load" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,0,10" Click="Click_Load" Grid.Column="2" />
+            <Button Content="{DynamicResource Common_Exit}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10,10,10" Click="Click_Exit" Grid.Column="0" />
+            <Button Content="{DynamicResource Common_Load}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,0,10" Click="Click_Load" Grid.Column="2" />
 
         </Grid>
     </Grid>

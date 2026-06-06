@@ -32,83 +32,88 @@ namespace ClickyKeys
         // Default step sequence (English)
         // ---------------------------------------------------------------
 
+        // Step copy is pulled from the active localized string dictionary via
+        // LocalizationManager so the tutorial appears in the user's chosen
+        // language. Only the per-step keys differ; the spotlight targets are
+        // structural and stay in code. T() falls back to the key name (and the
+        // English baseline merged in App.xaml) if a translation is missing.
         public static IReadOnlyList<TutorialStep> DefaultSteps() => new List<TutorialStep>
         {
             new()
             {
-                Title  = "Welcome to ClickyKeys!",
-                Body   = "Let me walk you through a quick tutorial.\nFeel free to interact with the app at any time — click Next to continue.",
+                Title  = LocalizationManager.T("Tutorial_S1_Title"),
+                Body   = LocalizationManager.T("Tutorial_S1_Body"),
                 Target = TutorialTarget.PanelGrid,
             },
             new()
             {
-                Title  = "Panels",
-                Body   = "These are your display panels — the main feature of ClickyKeys.\nEach panel counts presses of its assigned key.",
+                Title  = LocalizationManager.T("Tutorial_S2_Title"),
+                Body   = LocalizationManager.T("Tutorial_S2_Body"),
                 Target = TutorialTarget.PanelGrid,
             },
             new()
             {
-                Title  = "Editing a panel",
-                Body   = "Left-click any panel to open the editor and assign a key to it.",
+                Title  = LocalizationManager.T("Tutorial_S3_Title"),
+                Body   = LocalizationManager.T("Tutorial_S3_Body"),
                 Target = TutorialTarget.SinglePanel,
-                Hint   = "👆 Click the panel to try it",
+                Hint   = LocalizationManager.T("Tutorial_S3_Hint"),
             },
             new()
             {
-                Title  = "Description and key",
-                Body   = "Type a name in the Description field.\nThen click Input and press the key you want to track.",
+                Title  = LocalizationManager.T("Tutorial_S4_Title"),
+                Body   = LocalizationManager.T("Tutorial_S4_Body"),
                 Target = TutorialTarget.PanelEditor,
             },
             new()
             {
-                Title  = "Saving changes",
-                Body   = "Confirm your changes with the green ✔ button, or discard them with the red ✖.",
+                Title  = LocalizationManager.T("Tutorial_S5_Title"),
+                Body   = LocalizationManager.T("Tutorial_S5_Body"),
                 Target = TutorialTarget.PanelEditorConfirm,
             },
             new()
             {
-                Title  = "Appearance",
-                Body   = "Open the Appearance tab to customise colours, grid size, fonts, and more.",
+                Title  = LocalizationManager.T("Tutorial_S6_Title"),
+                Body   = LocalizationManager.T("Tutorial_S6_Body"),
                 Target = TutorialTarget.AppearanceButton,
-                Hint   = "👆 Appearance button",
+                Hint   = LocalizationManager.T("Tutorial_S6_Hint"),
             },
             new()
             {
-                Title  = "Applying changes",
-                Body   = "Click Save at the bottom of Appearance to save your current layout and override current profile.\nUnsaved changes will be discarded after closing Appearance tab.",
-                Target = TutorialTarget.AppearanceButton,
-            },
-            new()
-            {
-                Title  = "Creating a new layout",
-                Body   = "Click Save As at the bottom of Appearance to save your layout under a new name. Enter a new profile name and click Save.\nSaved profiles can be loaded from the Load tab.",
+                Title  = LocalizationManager.T("Tutorial_S7_Title"),
+                Body   = LocalizationManager.T("Tutorial_S7_Body"),
                 Target = TutorialTarget.AppearanceButton,
             },
             new()
             {
-                Title  = "Transparent mode",
-                Body   = "The Transparent mode button hides the background and toolbar — useful for streaming overlays.",
+                Title  = LocalizationManager.T("Tutorial_S8_Title"),
+                Body   = LocalizationManager.T("Tutorial_S8_Body"),
+                Target = TutorialTarget.AppearanceButton,
+            },
+            new()
+            {
+                Title  = LocalizationManager.T("Tutorial_S9_Title"),
+                Body   = LocalizationManager.T("Tutorial_S9_Body"),
                 Target = TutorialTarget.TransparentButton,
-                Hint   = "👆 Transparent mode button",
+                Hint   = LocalizationManager.T("Tutorial_S9_Hint"),
             },
             new()
             {
-                Title  = "Stats",
-                Body   = "The Stats tab shows how many keys you've pressed in total.\nYour data is stored only on your local drive.",
+                Title  = LocalizationManager.T("Tutorial_S10_Title"),
+                Body   = LocalizationManager.T("Tutorial_S10_Body"),
                 Target = TutorialTarget.StatsButton,
-                Hint   = "👆 Stats button",
+                Hint   = LocalizationManager.T("Tutorial_S10_Hint"),
             },
             new()
             {
-                Title  = "Info",
-                Body   = "Visit the Info tab to learn more about the ClickyKeys project or watch this tutorial again.",
+                Title  = LocalizationManager.T("Tutorial_S11_Title"),
+                Body   = LocalizationManager.T("Tutorial_S11_Body"),
                 Target = TutorialTarget.InfoButton,
-                Hint   = "👆 Info button",
+                Hint   = LocalizationManager.T("Tutorial_S11_Hint"),
             },
             new()
             {
-                Title  = "That's it!",
-                Body   = "Enjoy using ClickyKeys! 🎉",
+                Title  = LocalizationManager.T("Tutorial_S12_Title"),
+                Body   = LocalizationManager.T("Tutorial_S12_Body"),
                 Target = TutorialTarget.PanelGrid,
             },
         };
@@ -202,7 +207,7 @@ namespace ClickyKeys
             var step  = _steps[_currentIndex];
             bool last = _currentIndex == _steps.Count - 1;
 
-            StepIndicator.Text = $"{_currentIndex + 1} / {_steps.Count}";
+            StepIndicator.Text = LocalizationManager.Format("Tutorial_StepFormat", _currentIndex + 1, _steps.Count);
 
             if (string.IsNullOrEmpty(step.Title))
             {
@@ -230,7 +235,7 @@ namespace ClickyKeys
             ProgressBar.Value   = _currentIndex;
 
             BackBtn.Visibility = _currentIndex > 0 ? Visibility.Visible : Visibility.Collapsed;
-            NextBtn.Content    = last ? "Finish" : "Next ▶";
+            NextBtn.Content    = last ? LocalizationManager.T("Tutorial_Finish") : LocalizationManager.T("Tutorial_Next");
         }
 
         private void PositionCard()

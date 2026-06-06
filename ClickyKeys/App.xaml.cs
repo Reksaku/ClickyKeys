@@ -48,6 +48,12 @@ namespace ClickyKeys
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Apply the saved UI language before any window is created so every
+            // window resolves its {DynamicResource ...} strings in the right
+            // language from the very first render. Falls back to English when
+            // unset/unknown (see LocalizationManager.Normalize).
+            LocalizationManager.Apply(ConfigStore.Load().Language);
+
             /// <summary>
             /// --- Single-instance guard ---
             /// Try to create the named mutex. If another instance already owns it,
@@ -87,7 +93,7 @@ namespace ClickyKeys
 
             // KeyStatsService only does JSON I/O — safe to start on a thread pool
             // thread. Fire-and-forget; the service is self-contained.
-            splash.SetStatus("Starting key stats service…");
+            splash.SetStatus(LocalizationManager.T("Splash_StartingKeyStats"));
             _keyStats = new KeyStatsService();
             // Seed the collection switch from config BEFORE Start() so the very
             // first input event is handled per the user's saved preference.

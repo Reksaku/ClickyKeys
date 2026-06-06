@@ -1,0 +1,171 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- ============================================================
+         Greek (el) UI strings for ClickyKeys.
+         Keys mirror Strings.en.xaml exactly.
+         "ClickyKeys" is a product name and is left untranslated.
+         ============================================================ -->
+
+    <!-- Common -->
+    <sys:String x:Key="Common_Close">Κλείσιμο</sys:String>
+    <sys:String x:Key="Common_Set">Ορισμός</sys:String>
+    <sys:String x:Key="Common_Load">Φόρτωση</sys:String>
+    <sys:String x:Key="Common_Save">Αποθήκευση</sys:String>
+    <sys:String x:Key="Common_SaveAs">Αποθήκευση ως</sys:String>
+    <sys:String x:Key="Common_Exit">Έξοδος</sys:String>
+    <sys:String x:Key="Common_Input">Είσοδος</sys:String>
+
+    <!-- Already-running toast -->
+    <sys:String x:Key="Toast_AlreadyRunning">Η εφαρμογή εκτελείται ήδη.</sys:String>
+
+    <!-- Appearance window -->
+    <sys:String x:Key="Appearance_Title">Εμφάνιση</sys:String>
+    <sys:String x:Key="Appearance_Profile">Προφίλ:</sys:String>
+    <sys:String x:Key="Appearance_GridRows">Γραμμές πλέγματος</sys:String>
+    <sys:String x:Key="Appearance_GridColumns">Στήλες πλέγματος</sys:String>
+    <sys:String x:Key="Appearance_Colors">Χρώματα</sys:String>
+    <sys:String x:Key="Appearance_BackgroundColor">Χρώμα φόντου</sys:String>
+    <sys:String x:Key="Appearance_PanelsColor">Χρώμα πάνελ</sys:String>
+    <sys:String x:Key="Appearance_KeysTextColor">Χρώμα κειμένου πλήκτρων</sys:String>
+    <sys:String x:Key="Appearance_ValuesTextColor">Χρώμα κειμένου τιμών</sys:String>
+    <sys:String x:Key="Appearance_ExpandPallet">Ανάπτυξη παλέτας</sys:String>
+    <sys:String x:Key="Appearance_SaturationNote">Μπορείτε να αλλάξετε τον κορεσμό μέσω της παλέτας χρώματος φόντου</sys:String>
+    <sys:String x:Key="Appearance_KeysFont">Γραμματοσειρά πλήκτρων</sys:String>
+    <sys:String x:Key="Appearance_ValuesFont">Γραμματοσειρά τιμών</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackground">Φόντο ουράνιου τόξου</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundMode">Λειτουργία φόντου ουράνιου τόξου</sys:String>
+
+    <!-- Changelog window -->
+    <sys:String x:Key="Changelog_Title">Τι νέο υπάρχει στο ClickyKeys</sys:String>
+    <sys:String x:Key="Changelog_Header">Τι νέο υπάρχει</sys:String>
+    <sys:String x:Key="Changelog_Loading">Φόρτωση αρχείου καταγραφής αλλαγών…</sys:String>
+    <sys:String x:Key="Changelog_Fetching">Λήψη αρχείου καταγραφής αλλαγών…</sys:String>
+    <sys:String x:Key="Changelog_LoadError">Δεν ήταν δυνατή η φόρτωση του αρχείου καταγραφής αλλαγών.</sys:String>
+    <sys:String x:Key="Changelog_LoadErrorSubtitle">Δεν ήταν δυνατή η φόρτωση του αρχείου καταγραφής αλλαγών</sys:String>
+    <sys:String x:Key="Changelog_NoEntries">Δεν βρέθηκαν καταχωρίσεις στο αρχείο καταγραφής αλλαγών.</sys:String>
+    <sys:String x:Key="Changelog_LoadErrorConn">Δεν ήταν δυνατή η φόρτωση του αρχείου καταγραφής αλλαγών. Ελέγξτε τη σύνδεσή σας στο διαδίκτυο.</sys:String>
+    <sys:String x:Key="Changelog_ChangesSinceOne">{0} αλλαγή από την έκδοση v{1}</sys:String>
+    <sys:String x:Key="Changelog_ChangesSinceMany">{0} αλλαγές από την έκδοση v{1}</sys:String>
+
+    <!-- Info window -->
+    <sys:String x:Key="Info_Title">Σχετικά με το ClickyKeys</sys:String>
+    <sys:String x:Key="Info_Tagline">Μετρητής πλήκτρων και κλικ για gamers και geeks</sys:String>
+    <sys:String x:Key="Info_Features">Δυνατότητες</sys:String>
+    <sys:String x:Key="Info_Feature1">• Μετρά τα πατήματα πλήκτρων και τα κλικ του ποντικιού που σας ενδιαφέρουν.</sys:String>
+    <sys:String x:Key="Info_Feature2">• Σας επιτρέπει να αντιστοιχίσετε προσαρμοσμένες ετικέτες σε πλήκτρα (π.χ. Άλμα, Επαναγέμιση, Ικανότητα 1).</sys:String>
+    <sys:String x:Key="Info_Feature3">• Πλήρως προσαρμόσιμη επικάλυψη: διάταξη, μέγεθος κουμπιών, χρώματα, γραμματοσειρά.</sys:String>
+    <sys:String x:Key="Info_Privacy">Απόρρητο και ανοιχτός κώδικας</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">Το ClickyKeys επεξεργάζεται τα πατήματα πλήκτρων και τα κλικ του ποντικιού σας τοπικά. Δεν αποστέλλονται δεδομένα χρήστη σε κανέναν διακομιστή.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Το έργο είναι ανοιχτού κώδικα, ώστε να μπορείτε να εξετάσετε τον κώδικα, να μάθετε από αυτόν ή να συνεισφέρετε βελτιώσεις.</sys:String>
+    <sys:String x:Key="Info_Credits">Συντελεστές και ευχαριστίες</sys:String>
+    <sys:String x:Key="Info_CreditsText1">Το ClickyKeys είναι ένα ερασιτεχνικό έργο που μεγαλώνει χάρη σε ανθρώπους που απλώς απολαμβάνουν να κάνουν κλικ με αυτό.</sys:String>
+    <sys:String x:Key="Info_CreditsText2">Ευχαριστούμε που χρησιμοποιείτε το ClickyKeys!</sys:String>
+    <sys:String x:Key="Info_Links">Σύνδεσμοι</sys:String>
+    <sys:String x:Key="Info_WebsiteLabel">Ιστότοπος: </sys:String>
+    <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
+    <sys:String x:Key="Info_Contact">Επικοινωνία</sys:String>
+    <sys:String x:Key="Info_ContactText1">Γενική επικοινωνία: contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText2">Αναφορές σφαλμάτων και αιτήματα δυνατοτήτων: χρησιμοποιήστε το GitHub Issues ή γράψτε στο contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ShowTutorial">Εμφάνιση οδηγού</sys:String>
+
+    <!-- Main window toolbar -->
+    <sys:String x:Key="Main_Appearance">Εμφάνιση</sys:String>
+    <sys:String x:Key="Main_Display">Προβολή</sys:String>
+    <sys:String x:Key="Main_Reset">Επαναφορά</sys:String>
+    <sys:String x:Key="Main_Stats">Στατιστικά</sys:String>
+    <sys:String x:Key="Main_More">Περισσότερα</sys:String>
+    <sys:String x:Key="Main_Transparent">Διαφανής</sys:String>
+    <sys:String x:Key="Main_Mode">λειτουργία</sys:String>
+    <sys:String x:Key="Main_HideToolbar">Απόκρυψη γραμμής</sys:String>
+    <sys:String x:Key="Main_Info">Πληροφορίες</sys:String>
+    <sys:String x:Key="Main_Settings">Ρυθμίσεις</sys:String>
+    <sys:String x:Key="Main_UpdateAvailable">Είναι διαθέσιμη μια νέα έκδοση του ClickyKeys.</sys:String>
+    <sys:String x:Key="Main_OpenDownload">Άνοιγμα σελίδας λήψης</sys:String>
+    <sys:String x:Key="Main_RemindNextTime">Υπενθύμιση την επόμενη φορά</sys:String>
+    <sys:String x:Key="Main_ErrorPrefix">Σφάλμα: {0}</sys:String>
+
+    <!-- SetLoader window -->
+    <sys:String x:Key="SetLoader_Title">Φόρτωση προφίλ</sys:String>
+    <sys:String x:Key="SetLoader_SelectProfile">Επιλογή προφίλ ρυθμίσεων</sys:String>
+
+    <!-- Settings window -->
+    <sys:String x:Key="Settings_Title">Ρυθμίσεις του ClickyKeys</sys:String>
+    <sys:String x:Key="Settings_Header">Ρυθμίσεις</sys:String>
+    <sys:String x:Key="Settings_Subtitle">Διαμόρφωση του ClickyKeys</sys:String>
+    <sys:String x:Key="Settings_DataCollection">Συλλογή δεδομένων</sys:String>
+    <sys:String x:Key="Settings_CollectUptime">Συλλογή δεδομένων χρόνου λειτουργίας της εφαρμογής</sys:String>
+    <sys:String x:Key="Settings_CollectKeyStats">Συλλογή στατιστικών πατημάτων πλήκτρων</sys:String>
+    <sys:String x:Key="Settings_Usage">Χρήση</sys:String>
+    <sys:String x:Key="Settings_LaunchOnStartup">Εκκίνηση κατά την έναρξη του συστήματος</sys:String>
+    <sys:String x:Key="Settings_StartMinimized">Εκκίνηση ελαχιστοποιημένη</sys:String>
+    <sys:String x:Key="Settings_Language">Γλώσσα</sys:String>
+    <sys:String x:Key="Settings_AutostartError">Δεν ήταν δυνατή η ενημέρωση της ρύθμισης εκκίνησης των Windows. Το λογισμικό ασφαλείας ή η πολιτική του λογαριασμού σας ενδέχεται να την αποκλείει.</sys:String>
+
+    <!-- Splash window -->
+    <sys:String x:Key="Splash_Starting">Εκκίνηση…</sys:String>
+    <sys:String x:Key="Splash_StartingKeyStats">Εκκίνηση της υπηρεσίας στατιστικών…</sys:String>
+
+    <!-- Stats window -->
+    <sys:String x:Key="Stats_Title">Στατιστικά του ClickyKeys</sys:String>
+    <sys:String x:Key="Stats_Header">Στατιστικά</sys:String>
+    <sys:String x:Key="Stats_Subtitle">Συνολικοί μετρητές από την πρώτη εκκίνηση</sys:String>
+    <sys:String x:Key="Stats_Uptime">Χρόνος λειτουργίας</sys:String>
+    <sys:String x:Key="Stats_UptimeOff">Η παρακολούθηση του χρόνου λειτουργίας είναι απενεργοποιημένη. Μπορείτε να την ενεργοποιήσετε ξανά στις Ρυθμίσεις → Συλλογή δεδομένων.</sys:String>
+    <sys:String x:Key="Stats_CollectionOff">Η συλλογή στατιστικών είναι απενεργοποιημένη</sys:String>
+    <sys:String x:Key="Stats_Totals">Σύνολα</sys:String>
+    <sys:String x:Key="Stats_TotalMouseClicks">Συνολικά κλικ ποντικιού</sys:String>
+    <sys:String x:Key="Stats_TotalKeyPresses">Συνολικά πατήματα πλήκτρων</sys:String>
+    <sys:String x:Key="Stats_TotalWheelTicks">Συνολικά βήματα τροχού</sys:String>
+    <sys:String x:Key="Stats_Combined">Συνδυασμένα</sys:String>
+    <sys:String x:Key="Stats_Keys">Πλήκτρα</sys:String>
+    <sys:String x:Key="Stats_NoKeys">Δεν έχουν καταγραφεί ακόμη πατήματα πλήκτρων.</sys:String>
+    <sys:String x:Key="Stats_MouseButtons">Κουμπιά ποντικιού</sys:String>
+    <sys:String x:Key="Stats_NoMouse">Δεν έχουν καταγραφεί ακόμη κλικ ποντικιού.</sys:String>
+    <sys:String x:Key="Stats_MouseWheel">Τροχός ποντικιού</sys:String>
+    <sys:String x:Key="Stats_NoWheel">Δεν έχει καταγραφεί ακόμη δραστηριότητα τροχού.</sys:String>
+    <sys:String x:Key="Stats_KeyStatsDisabled">Η συλλογή στατιστικών πλήκτρων είναι απενεργοποιημένη.</sys:String>
+    <sys:String x:Key="Stats_NoData">Δεν έχουν καταγραφεί ακόμη δεδομένα.</sys:String>
+    <sys:String x:Key="Stats_LastUpdated">Τελευταία ενημέρωση: {0}</sys:String>
+
+    <!-- Tutorial window -->
+    <sys:String x:Key="Tutorial_Title">Οδηγός του ClickyKeys</sys:String>
+    <sys:String x:Key="Tutorial_Skip">Παράλειψη</sys:String>
+    <sys:String x:Key="Tutorial_Back">◀ Πίσω</sys:String>
+    <sys:String x:Key="Tutorial_Next">Επόμενο ▶</sys:String>
+    <sys:String x:Key="Tutorial_Finish">Τέλος</sys:String>
+    <sys:String x:Key="Tutorial_StepFormat">{0} / {1}</sys:String>
+
+    <sys:String x:Key="Tutorial_S1_Title">Καλώς ήρθατε στο ClickyKeys!</sys:String>
+    <sys:String x:Key="Tutorial_S1_Body">Θα σας καθοδηγήσω σε έναν γρήγορο οδηγό.&#10;Μπορείτε να αλληλεπιδράσετε με την εφαρμογή ανά πάσα στιγμή — κάντε κλικ στο Επόμενο για να συνεχίσετε.</sys:String>
+    <sys:String x:Key="Tutorial_S2_Title">Πάνελ</sys:String>
+    <sys:String x:Key="Tutorial_S2_Body">Αυτά είναι τα πάνελ προβολής σας — η κύρια δυνατότητα του ClickyKeys.&#10;Κάθε πάνελ μετρά τα πατήματα του πλήκτρου που του έχει αντιστοιχιστεί.</sys:String>
+    <sys:String x:Key="Tutorial_S3_Title">Επεξεργασία πάνελ</sys:String>
+    <sys:String x:Key="Tutorial_S3_Body">Κάντε αριστερό κλικ σε οποιοδήποτε πάνελ για να ανοίξετε τον επεξεργαστή και να του αντιστοιχίσετε ένα πλήκτρο.</sys:String>
+    <sys:String x:Key="Tutorial_S3_Hint">👆 Κάντε κλικ στο πάνελ για να το δοκιμάσετε</sys:String>
+    <sys:String x:Key="Tutorial_S4_Title">Περιγραφή και πλήκτρο</sys:String>
+    <sys:String x:Key="Tutorial_S4_Body">Πληκτρολογήστε ένα όνομα στο πεδίο Περιγραφή.&#10;Στη συνέχεια κάντε κλικ στο Είσοδος και πατήστε το πλήκτρο που θέλετε να παρακολουθείτε.</sys:String>
+    <sys:String x:Key="Tutorial_S5_Title">Αποθήκευση αλλαγών</sys:String>
+    <sys:String x:Key="Tutorial_S5_Body">Επιβεβαιώστε τις αλλαγές σας με το πράσινο κουμπί ✔ ή απορρίψτε τις με το κόκκινο ✖.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Title">Εμφάνιση</sys:String>
+    <sys:String x:Key="Tutorial_S6_Body">Ανοίξτε την καρτέλα Εμφάνιση για να προσαρμόσετε χρώματα, μέγεθος πλέγματος, γραμματοσειρές και άλλα.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Hint">👆 Κουμπί Εμφάνιση</sys:String>
+    <sys:String x:Key="Tutorial_S7_Title">Εφαρμογή αλλαγών</sys:String>
+    <sys:String x:Key="Tutorial_S7_Body">Κάντε κλικ στο Αποθήκευση στο κάτω μέρος της Εμφάνισης για να αποθηκεύσετε την τρέχουσα διάταξη και να αντικαταστήσετε το τρέχον προφίλ.&#10;Οι μη αποθηκευμένες αλλαγές θα απορριφθούν μετά το κλείσιμο της καρτέλας Εμφάνιση.</sys:String>
+    <sys:String x:Key="Tutorial_S8_Title">Δημιουργία νέας διάταξης</sys:String>
+    <sys:String x:Key="Tutorial_S8_Body">Κάντε κλικ στο Αποθήκευση ως στο κάτω μέρος της Εμφάνισης για να αποθηκεύσετε τη διάταξή σας με νέο όνομα. Εισαγάγετε ένα νέο όνομα προφίλ και κάντε κλικ στο Αποθήκευση.&#10;Τα αποθηκευμένα προφίλ μπορούν να φορτωθούν από την καρτέλα Φόρτωση.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Διαφανής λειτουργία</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Το κουμπί διαφανούς λειτουργίας αποκρύπτει το φόντο και τη γραμμή εργαλείων — χρήσιμο για επικαλύψεις σε ζωντανές μεταδόσεις.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Κουμπί διαφανούς λειτουργίας</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Στατιστικά</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Η καρτέλα Στατιστικά δείχνει πόσα πλήκτρα έχετε πατήσει συνολικά.&#10;Τα δεδομένα σας αποθηκεύονται μόνο στον τοπικό σας δίσκο.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Κουμπί Στατιστικά</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Πληροφορίες</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Επισκεφθείτε την καρτέλα Πληροφορίες για να μάθετε περισσότερα για το έργο ClickyKeys ή για να δείτε ξανά αυτόν τον οδηγό.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Κουμπί Πληροφορίες</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Αυτό ήταν!</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Απολαύστε το ClickyKeys! 🎉</sys:String>
+
+</ResourceDictionary>
