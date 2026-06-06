@@ -70,10 +70,16 @@ namespace ClickyKeys
                 CollectKeyStatsToggle.IsChecked = cfg.CollectKeyStats;
                 CollectUptimeToggle.IsChecked = cfg.CollectUptime;
 
-                // Language: select the ComboBoxItem whose Tag matches the saved
-                // culture code (normalized so an unknown/blank value maps to a
-                // shipped language rather than leaving nothing selected).
-                var savedLang = LocalizationManager.Normalize(cfg.Language);
+                // Language: select the ComboBoxItem whose Tag matches the active
+                // language. When the user has saved an explicit choice we match
+                // that; when they haven't (blank = auto-detect), we reflect the
+                // language that's actually applied right now
+                // (LocalizationManager.CurrentLanguage, set at startup from the
+                // detected system language) so the combo never disagrees with
+                // what's on screen.
+                var savedLang = string.IsNullOrWhiteSpace(cfg.Language)
+                    ? LocalizationManager.CurrentLanguage
+                    : LocalizationManager.Normalize(cfg.Language);
                 foreach (var obj in LanguageComboBox.Items)
                 {
                     if (obj is ComboBoxItem item &&

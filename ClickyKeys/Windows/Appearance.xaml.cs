@@ -190,14 +190,28 @@ namespace ClickyKeys
             _appearance.GridColumns = (int)ColumnsCount.Value;
             _mainOverlay.OnGridChange(_appearance);
         }
+        // Plain "Save": persists the current edits to the active profile
+        // (the temporary one if a different profile was selected this session,
+        // otherwise the one we opened with) and closes. "Save As" no longer
+        // routes through here — it has its own popup (see Click_SaveAsConfirm).
         private async void Click_SaveAndClose(object? sender, EventArgs e)
         {
             _appearance.GridColumns = (int)ColumnsCount.Value;
             _mainOverlay.OnGridChange(_appearance);
-            if (NewFileNameTextBox.Visibility == Visibility.Visible)
-                _selectedAppearanceProfile = NewFileNameTextBox.Text+".json";
-            else if(_temporaryAppearanceProfile != string.Empty)
+
+            if (_temporaryAppearanceProfile != string.Empty)
                 _selectedAppearanceProfile = _temporaryAppearanceProfile;
+
+            await SaveProfileAsync(_selectedAppearanceProfile);
+        }
+
+        // Writes the current appearance state to <paramref name="profileFile"/>
+        // (a "*.json" file name), notifies the main window, and closes. Shared
+        // by the plain "Save" and the "Save As" popup so both paths persist an
+        // identical snapshot of the UI.
+        private async Task SaveProfileAsync(string profileFile)
+        {
+            _selectedAppearanceProfile = profileFile;
 
             AppearanceService _appearanceService = new(_selectedAppearanceProfile);
             AppearanceConfiguration _appearanceConfiguration = _appearanceService.Load();
@@ -222,7 +236,7 @@ namespace ClickyKeys
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Click_SaveAndClose: SaveAsync failed, falling back: {ex}");
+                Debug.WriteLine($"SaveProfileAsync: SaveAsync failed, falling back: {ex}");
                 _appearanceService.Save(_appearanceConfiguration);
             }
 
@@ -245,10 +259,54 @@ namespace ClickyKeys
             this.Close();
         }
 
+        // "Save As" now opens a small modal popup (SaveAsOverlay) instead of
+        // revealing an inline textbox in the footer. Clear any previous input
+        // and validation state, show the popup, and focus the name field.
         private void Click_SaveAs(object? sender, EventArgs e)
         {
-            NewFileNameTextBox.Visibility = Visibility.Visible;
-            SaveAsButton.Visibility = Visibility.Hidden;
+            SaveAsNameTextBox.Text = string.Empty;
+            SaveAsErrorText.Visibility = Visibility.Collapsed;
+            SaveAsOverlay.Visibility = Visibility.Visible;
+            SaveAsNameTextBox.Focus();
+        }
+
+        // Confirm: validate the typed name, then save the current appearance to
+        // a brand-new "<name>.json" profile and close. An empty/whitespace name
+        // is rejected inline (no save, no close) so the user can correct it.
+        private async void Click_SaveAsConfirm(object? sender, RoutedEventArgs e)
+        {
+            string name = (SaveAsNameTextBox.Text ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                SaveAsErrorText.Visibility = Visibility.Visible;
+                SaveAsNameTextBox.Focus();
+                return;
+            }
+
+            SaveAsOverlay.Visibility = Visibility.Collapsed;
+            await SaveProfileAsync(name + ".json");
+        }
+
+        // Cancel: dismiss the popup and discard the typed name; nothing is
+        // saved and the Appearance window stays open.
+        private void Click_SaveAsCancel(object? sender, RoutedEventArgs e)
+        {
+            SaveAsOverlay.Visibility = Visibility.Collapsed;
+        }
+
+        // Keyboard shortcuts inside the name field: Enter confirms, Esc cancels.
+        private void SaveAsNameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                Click_SaveAsConfirm(sender, e);
+            }
+            else if (e.Key == Key.Escape)
+            {
+                e.Handled = true;
+                Click_SaveAsCancel(sender, e);
+            }
         }
 
         private void Click_KeysSize(object? sender, EventArgs e)

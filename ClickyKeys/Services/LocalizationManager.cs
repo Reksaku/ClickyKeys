@@ -93,6 +93,37 @@ namespace ClickyKeys
         }
 
         /// <summary>
+        /// Detects the operating system's display language and maps it to the
+        /// best-matching shipped translation, or <see cref="DefaultLanguage"/>
+        /// (English) when the OS language isn't one we translate.
+        ///
+        /// Used on first launch — when the user hasn't explicitly picked a
+        /// language yet — so the app comes up in the user's own language out of
+        /// the box. <see cref="CultureInfo.CurrentUICulture"/> is the per-user
+        /// Windows display language; passing its full name through
+        /// <see cref="Normalize"/> means a Brazilian system ("pt-BR") gets the
+        /// Brazilian dictionary while a Portugal system ("pt-PT") degrades to
+        /// European Portuguese, and anything unsupported (e.g. "ja-JP") becomes
+        /// English.
+        /// </summary>
+        public static string DetectSystemLanguage()
+        {
+            try { return Normalize(CultureInfo.CurrentUICulture.Name); }
+            catch { return DefaultLanguage; }
+        }
+
+        /// <summary>
+        /// Resolves the language to apply at startup: the user's explicitly
+        /// saved choice when present, otherwise the auto-detected system
+        /// language. A blank/whitespace <paramref name="savedCode"/> means the
+        /// user has never chosen, so we follow the OS.
+        /// </summary>
+        public static string ResolveStartupLanguage(string? savedCode)
+            => string.IsNullOrWhiteSpace(savedCode)
+                ? DetectSystemLanguage()
+                : Normalize(savedCode);
+
+        /// <summary>
         /// Swaps the active string dictionary and updates the thread cultures.
         /// Safe to call repeatedly; a no-op if the requested language is already
         /// active. Must run on the UI thread (touches Application.Resources).

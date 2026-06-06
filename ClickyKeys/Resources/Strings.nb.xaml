@@ -17,6 +17,7 @@
     <sys:String x:Key="Common_SaveAs">Lagre som</sys:String>
     <sys:String x:Key="Common_Exit">Avslutt</sys:String>
     <sys:String x:Key="Common_Input">Inndata</sys:String>
+    <sys:String x:Key="Common_Cancel">Avbryt</sys:String>
 
     <!-- Already-running toast -->
     <sys:String x:Key="Toast_AlreadyRunning">Applikasjonen kjører allerede.</sys:String>
@@ -37,6 +38,9 @@
     <sys:String x:Key="Appearance_ValuesFont">Skrifttype for verdier</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Regnbuebakgrunn</sys:String>
     <sys:String x:Key="Appearance_RainbowBackgroundMode">Regnbuebakgrunnsmodus</sys:String>
+    <sys:String x:Key="Appearance_SaveAsTitle">Lagre som ny profil</sys:String>
+    <sys:String x:Key="Appearance_SaveAsPlaceholder">Profilnavn</sys:String>
+    <sys:String x:Key="Appearance_SaveAsEmptyError">Skriv inn et profilnavn.</sys:String>
 
     <!-- Changelog window -->
     <sys:String x:Key="Changelog_Title">Nyheter i ClickyKeys</sys:String>

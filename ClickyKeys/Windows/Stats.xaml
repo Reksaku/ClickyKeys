@@ -247,7 +247,7 @@
                        FontSize="11"
                        Foreground="{DynamicResource MaterialDesignBodyLight}"/>
             <Button DockPanel.Dock="Right"
-                    Width="80"
+                    Width="Auto"
                     Margin="150,0,0,0"
                     Content="{DynamicResource Common_Close}"
                     Style="{StaticResource MaterialDesignFlatButton}"

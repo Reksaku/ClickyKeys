@@ -48,11 +48,14 @@ namespace ClickyKeys
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            // Apply the saved UI language before any window is created so every
-            // window resolves its {DynamicResource ...} strings in the right
-            // language from the very first render. Falls back to English when
-            // unset/unknown (see LocalizationManager.Normalize).
-            LocalizationManager.Apply(ConfigStore.Load().Language);
+            // Apply the UI language before any window is created so every window
+            // resolves its {DynamicResource ...} strings in the right language
+            // from the very first render. If the user has saved an explicit
+            // choice we honour it; otherwise (first launch) we auto-detect the
+            // system display language and use the matching translation, falling
+            // back to English when the OS language isn't one we ship.
+            LocalizationManager.Apply(
+                LocalizationManager.ResolveStartupLanguage(ConfigStore.Load().Language));
 
             /// <summary>
             /// --- Single-instance guard ---
