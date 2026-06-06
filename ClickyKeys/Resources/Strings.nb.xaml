@@ -95,6 +95,7 @@
     <!-- SetLoader window -->
     <sys:String x:Key="SetLoader_Title">Last inn profil</sys:String>
     <sys:String x:Key="SetLoader_SelectProfile">Velg innstillingsprofil</sys:String>
+    <sys:String x:Key="SetLoader_ConfirmDelete">Bekreft sletting av profil</sys:String>
 
     <!-- Settings window -->
     <sys:String x:Key="Settings_Title">ClickyKeys-innstillinger</sys:String>
@@ -120,6 +121,7 @@
     <sys:String x:Key="Stats_Uptime">Oppetid</sys:String>
     <sys:String x:Key="Stats_UptimeOff">Sporing av oppetid er slått av. Du kan slå det på igjen under Innstillinger → Datainnsamling.</sys:String>
     <sys:String x:Key="Stats_CollectionOff">Innsamling av statistikk er slått av</sys:String>
+    <sys:String x:Key="Stats_CollectionOffBody">Statistikk for tastetrykk registreres ikke akkurat nå. Du kan slå på innsamlingen igjen under Innstillinger → Datainnsamling.</sys:String>
     <sys:String x:Key="Stats_Totals">Totalt</sys:String>
     <sys:String x:Key="Stats_TotalMouseClicks">Totalt antall museklikk</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Totalt antall tastetrykk</sys:String>

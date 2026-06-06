@@ -95,6 +95,7 @@
     <!-- SetLoader window -->
     <sys:String x:Key="SetLoader_Title">Profiel laden</sys:String>
     <sys:String x:Key="SetLoader_SelectProfile">Instellingenprofiel selecteren</sys:String>
+    <sys:String x:Key="SetLoader_ConfirmDelete">Profielverwijdering bevestigen</sys:String>
 
     <!-- Settings window -->
     <sys:String x:Key="Settings_Title">ClickyKeys-instellingen</sys:String>
@@ -120,6 +121,7 @@
     <sys:String x:Key="Stats_Uptime">Actieve tijd</sys:String>
     <sys:String x:Key="Stats_UptimeOff">Het bijhouden van de actieve tijd is uitgeschakeld. Je kunt het weer inschakelen via Instellingen → Gegevensverzameling.</sys:String>
     <sys:String x:Key="Stats_CollectionOff">Het verzamelen van statistieken is uitgeschakeld</sys:String>
+    <sys:String x:Key="Stats_CollectionOffBody">Statistieken over toetsaanslagen worden momenteel niet vastgelegd. Je kunt het verzamelen weer inschakelen via Instellingen → Gegevensverzameling.</sys:String>
     <sys:String x:Key="Stats_Totals">Totalen</sys:String>
     <sys:String x:Key="Stats_TotalMouseClicks">Totaal aantal muisklikken</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Totaal aantal toetsaanslagen</sys:String>

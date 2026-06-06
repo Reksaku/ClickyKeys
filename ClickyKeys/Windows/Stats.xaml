@@ -97,11 +97,9 @@
                                    FontWeight="Bold"
                                    FontSize="15"
                                    Margin="0,0,0,6"/>
-                        <TextBlock TextWrapping="Wrap"
-                                   Foreground="{DynamicResource MaterialDesignBodyLight}">
-                            Key-press statistics are not being recorded right now.
-                            You can turn collection back on in Settings → Data Collection.
-                        </TextBlock>
+                        <TextBlock Text="{DynamicResource Stats_CollectionOffBody}"
+                                   TextWrapping="Wrap"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
                     </StackPanel>
                 </materialDesign:Card>
 
