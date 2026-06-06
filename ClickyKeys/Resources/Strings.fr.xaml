@@ -17,6 +17,7 @@
     <sys:String x:Key="Common_SaveAs">Enregistrer sous</sys:String>
     <sys:String x:Key="Common_Exit">Quitter</sys:String>
     <sys:String x:Key="Common_Input">Entrée</sys:String>
+    <sys:String x:Key="Common_Description">Description</sys:String>
     <sys:String x:Key="Common_Cancel">Annuler</sys:String>
 
     <!-- Already-running toast -->
@@ -160,16 +161,25 @@
     <sys:String x:Key="Tutorial_S7_Body">Cliquez sur Enregistrer en bas d'Apparence pour enregistrer votre disposition actuelle et remplacer le profil actuel.&#10;Les modifications non enregistrées seront annulées après la fermeture de l'onglet Apparence.</sys:String>
     <sys:String x:Key="Tutorial_S8_Title">Créer une nouvelle disposition</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Cliquez sur Enregistrer sous en bas d'Apparence pour enregistrer votre disposition sous un nouveau nom. Saisissez un nouveau nom de profil et cliquez sur Enregistrer.&#10;Les profils enregistrés peuvent être chargés depuis l'onglet Charger.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Title">Mode transparent</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Le bouton du mode transparent masque l'arrière-plan et la barre d'outils — utile pour les superpositions de streaming.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Hint">👆 Bouton du mode transparent</sys:String>
-    <sys:String x:Key="Tutorial_S10_Title">Stats</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">L'onglet Stats indique combien de touches vous avez appuyées au total.&#10;Vos données sont stockées uniquement sur votre disque local.</sys:String>
-    <sys:String x:Key="Tutorial_S10_Hint">👆 Bouton Stats</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Consultez l'onglet Info pour en savoir plus sur le projet ClickyKeys ou revoir ce tutoriel.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Bouton Info</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">C'est tout !</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Profitez bien de ClickyKeys ! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Réinitialiser</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Le bouton Réinitialiser (F12) remet à zéro tous les compteurs des panneaux sans modifier leur configuration ni leur disposition.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Bouton Réinitialiser</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Affichage</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Survolez l'onglet Affichage pour afficher des options supplémentaires :&#10;• Mode transparent — masque l'arrière-plan et la barre d'outils, utile pour les superpositions de streaming.&#10;• Masquer la barre (F11) — masque la barre d'outils.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Survolez l'onglet Affichage</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Stats</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">L'onglet Stats indique combien de touches vous avez appuyées au total.&#10;Vos données sont stockées uniquement sur votre disque local.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Bouton Stats</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Plus</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Survolez l'onglet Plus pour afficher l'onglet Info et la fenêtre Paramètres.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Survolez l'onglet Plus</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Paramètres</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">La fenêtre Paramètres vous permet de configurer l'application : collecte des données de temps d'activité et d'appuis de touches, lancement au démarrage du système, démarrage réduit et langue de l'interface.</sys:String>
+    <sys:String x:Key="Tutorial_S13_Hint">👆 Onglet Plus ▸ Paramètres</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Consultez l'onglet Info pour en savoir plus sur le projet ClickyKeys ou revoir ce tutoriel.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Onglet Plus ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">C'est tout !</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Profitez bien de ClickyKeys ! 🎉</sys:String>
 
 </ResourceDictionary>

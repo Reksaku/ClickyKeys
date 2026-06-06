@@ -723,12 +723,13 @@ namespace ClickyKeys
             // _panelsById[4] is a representative panel (centre of a 2×2 grid).
             if (_panelsById.TryGetValue(4, out var samplePanel))
                 tutorial.SetTargets(
-                    panelGrid:         myGrid,
-                    singlePanel:       samplePanel,
-                    appearanceButton:  Appearance_Button,
-                    transparentButton: TransparentMode_Button,
-                    statsButton:       Stats_Button,
-                    infoButton:        Info_Button);
+                    panelGrid:        myGrid,
+                    singlePanel:      samplePanel,
+                    appearanceButton: Appearance_Button,
+                    resetButton:      Reset_Button,
+                    displayButton:    Display_Button,
+                    statsButton:      Stats_Button,
+                    moreButton:       More_Button);
 
             // Mark tutorial as done when the overlay closes.
             tutorial.Closed += (_, _) => SetTutorialAsMarked();

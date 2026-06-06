@@ -17,6 +17,7 @@
     <sys:String x:Key="Common_SaveAs">Speichern unter</sys:String>
     <sys:String x:Key="Common_Exit">Beenden</sys:String>
     <sys:String x:Key="Common_Input">Eingabe</sys:String>
+    <sys:String x:Key="Common_Description">Beschreibung</sys:String>
     <sys:String x:Key="Common_Cancel">Abbrechen</sys:String>
 
     <!-- Already-running toast -->
@@ -160,16 +161,25 @@
     <sys:String x:Key="Tutorial_S7_Body">Klicke unten in Darstellung auf Speichern, um dein aktuelles Layout zu speichern und das aktuelle Profil zu überschreiben.&#10;Nicht gespeicherte Änderungen werden nach dem Schließen des Tabs Darstellung verworfen.</sys:String>
     <sys:String x:Key="Tutorial_S8_Title">Ein neues Layout erstellen</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Klicke unten in Darstellung auf Speichern unter, um dein Layout unter einem neuen Namen zu speichern. Gib einen neuen Profilnamen ein und klicke auf Speichern.&#10;Gespeicherte Profile können über den Tab Laden geladen werden.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Title">Transparenter Modus</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Die Schaltfläche Transparenter Modus blendet Hintergrund und Symbolleiste aus — nützlich für Streaming-Overlays.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Hint">👆 Schaltfläche Transparenter Modus</sys:String>
-    <sys:String x:Key="Tutorial_S10_Title">Statistik</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Der Tab Statistik zeigt, wie viele Tasten du insgesamt gedrückt hast.&#10;Deine Daten werden nur auf deiner lokalen Festplatte gespeichert.</sys:String>
-    <sys:String x:Key="Tutorial_S10_Hint">👆 Schaltfläche Statistik</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Besuche den Tab Info, um mehr über das ClickyKeys-Projekt zu erfahren oder dieses Tutorial erneut anzusehen.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Schaltfläche Info</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Das war's!</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Viel Spaß mit ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Zurücksetzen</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Die Schaltfläche Zurücksetzen (F12) setzt alle Panel-Zähler zurück, ohne deren Konfiguration oder Layout zu ändern.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Schaltfläche Zurücksetzen</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Anzeige</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Bewege den Mauszeiger über den Tab Anzeige, um weitere Optionen einzublenden:&#10;• Transparenter Modus — blendet Hintergrund und Symbolleiste aus, nützlich für Streaming-Overlays.&#10;• Symbolleiste ausblenden (F11) — verbirgt die Symbolleiste.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Zeige auf den Tab Anzeige</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Der Tab Statistik zeigt, wie viele Tasten du insgesamt gedrückt hast.&#10;Deine Daten werden nur auf deiner lokalen Festplatte gespeichert.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Schaltfläche Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Mehr</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Bewege den Mauszeiger über den Tab Mehr, um den Tab Info und das Fenster Einstellungen einzublenden.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Zeige auf den Tab Mehr</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Einstellungen</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">Im Fenster Einstellungen kannst du die App konfigurieren: Erfassung von Laufzeit- und Tastendruckdaten, Start beim Systemstart, minimierter Start und die Sprache der Oberfläche.</sys:String>
+    <sys:String x:Key="Tutorial_S13_Hint">👆 Tab Mehr ▸ Einstellungen</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Besuche den Tab Info, um mehr über das ClickyKeys-Projekt zu erfahren oder dieses Tutorial erneut anzusehen.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Tab Mehr ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Das war's!</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Viel Spaß mit ClickyKeys! 🎉</sys:String>
 
 </ResourceDictionary>

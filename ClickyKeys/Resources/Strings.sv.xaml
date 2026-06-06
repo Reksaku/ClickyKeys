@@ -17,6 +17,7 @@
     <sys:String x:Key="Common_SaveAs">Spara som</sys:String>
     <sys:String x:Key="Common_Exit">Avsluta</sys:String>
     <sys:String x:Key="Common_Input">Inmatning</sys:String>
+    <sys:String x:Key="Common_Description">Beskrivning</sys:String>
     <sys:String x:Key="Common_Cancel">Avbryt</sys:String>
 
     <!-- Already-running toast -->
@@ -160,16 +161,25 @@
     <sys:String x:Key="Tutorial_S7_Body">Klicka på Spara längst ner i Utseende för att spara din nuvarande layout och skriva över den aktuella profilen.&#10;Osparade ändringar kasseras när fliken Utseende stängs.</sys:String>
     <sys:String x:Key="Tutorial_S8_Title">Skapa en ny layout</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Klicka på Spara som längst ner i Utseende för att spara din layout under ett nytt namn. Ange ett nytt profilnamn och klicka på Spara.&#10;Sparade profiler kan läsas in från fliken Läs in.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Title">Transparent läge</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Knappen Transparent läge döljer bakgrunden och verktygsfältet — användbart för streaming-överlägg.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Hint">👆 Knappen Transparent läge</sys:String>
-    <sys:String x:Key="Tutorial_S10_Title">Statistik</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Fliken Statistik visar hur många tangenter du har tryckt på totalt.&#10;Dina data lagras endast på din lokala disk.</sys:String>
-    <sys:String x:Key="Tutorial_S10_Hint">👆 Knappen Statistik</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Besök fliken Info för att läsa mer om ClickyKeys-projektet eller se den här handledningen igen.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Knappen Info</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Det var allt!</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Ha det så kul med ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Återställ</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Knappen Återställ (F12) nollställer alla panelräknare utan att ändra deras konfiguration eller layout.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Knappen Återställ</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Visning</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Håll muspekaren över fliken Visning för att visa fler alternativ:&#10;• Transparent läge — döljer bakgrunden och verktygsfältet, användbart för streaming-överlägg.&#10;• Dölj verktygsfält (F11) — döljer verktygsfältet.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Håll pekaren över fliken Visning</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Fliken Statistik visar hur många tangenter du har tryckt på totalt.&#10;Dina data lagras endast på din lokala disk.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Knappen Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Mer</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Håll muspekaren över fliken Mer för att visa fliken Info och fönstret Inställningar.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Håll pekaren över fliken Mer</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Inställningar</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">I fönstret Inställningar kan du konfigurera appen: insamling av drifttids- och tangenttryckningsdata, start vid systemstart, minimerad start och gränssnittets språk.</sys:String>
+    <sys:String x:Key="Tutorial_S13_Hint">👆 Fliken Mer ▸ Inställningar</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Besök fliken Info för att läsa mer om ClickyKeys-projektet eller se den här handledningen igen.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Fliken Mer ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Det var allt!</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Ha det så kul med ClickyKeys! 🎉</sys:String>
 
 </ResourceDictionary>

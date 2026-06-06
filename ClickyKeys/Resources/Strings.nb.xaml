@@ -17,6 +17,7 @@
     <sys:String x:Key="Common_SaveAs">Lagre som</sys:String>
     <sys:String x:Key="Common_Exit">Avslutt</sys:String>
     <sys:String x:Key="Common_Input">Inndata</sys:String>
+    <sys:String x:Key="Common_Description">Beskrivelse</sys:String>
     <sys:String x:Key="Common_Cancel">Avbryt</sys:String>
 
     <!-- Already-running toast -->
@@ -160,16 +161,25 @@
     <sys:String x:Key="Tutorial_S7_Body">Klikk Lagre nederst i Utseende for å lagre det gjeldende oppsettet og overskrive gjeldende profil.&#10;Ulagrede endringer forkastes etter at Utseende-fanen lukkes.</sys:String>
     <sys:String x:Key="Tutorial_S8_Title">Opprette et nytt oppsett</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Klikk Lagre som nederst i Utseende for å lagre oppsettet under et nytt navn. Skriv inn et nytt profilnavn og klikk Lagre.&#10;Lagrede profiler kan lastes inn fra Last inn-fanen.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Title">Gjennomsiktig modus</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Knappen Gjennomsiktig modus skjuler bakgrunnen og verktøylinjen — nyttig for strømmeoverlegg.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Hint">👆 Knappen Gjennomsiktig modus</sys:String>
-    <sys:String x:Key="Tutorial_S10_Title">Statistikk</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Statistikk-fanen viser hvor mange taster du har trykket totalt.&#10;Dataene dine lagres kun på din lokale disk.</sys:String>
-    <sys:String x:Key="Tutorial_S10_Hint">👆 Statistikk-knappen</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Besøk Info-fanen for å lære mer om ClickyKeys-prosjektet eller se denne veiledningen på nytt.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Info-knappen</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Det var alt!</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Kos deg med ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Tilbakestill</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Knappen Tilbakestill (F12) nullstiller alle panel-tellere uten å endre konfigurasjonen eller oppsettet deres.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Knappen Tilbakestill</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Visning</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Hold musepekeren over fanen Visning for å vise flere alternativer:&#10;• Gjennomsiktig modus — skjuler bakgrunnen og verktøylinjen, nyttig for strømmeoverlegg.&#10;• Skjul verktøylinje (F11) — skjuler verktøylinjen.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Hold pekeren over fanen Visning</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Statistikk</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Statistikk-fanen viser hvor mange taster du har trykket totalt.&#10;Dataene dine lagres kun på din lokale disk.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Statistikk-knappen</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Mer</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Hold musepekeren over fanen Mer for å vise Info-fanen og vinduet Innstillinger.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Hold pekeren over fanen Mer</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Innstillinger</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">I vinduet Innstillinger kan du konfigurere appen: innsamling av oppetids- og tastetrykkdata, oppstart ved systemstart, minimert oppstart og språket i grensesnittet.</sys:String>
+    <sys:String x:Key="Tutorial_S13_Hint">👆 Fanen Mer ▸ Innstillinger</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Besøk Info-fanen for å lære mer om ClickyKeys-prosjektet eller se denne veiledningen på nytt.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Fanen Mer ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Det var alt!</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Kos deg med ClickyKeys! 🎉</sys:String>
 
 </ResourceDictionary>

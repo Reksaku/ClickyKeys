@@ -22,9 +22,10 @@ namespace ClickyKeys
         private FrameworkElement? _panelGrid;
         private FrameworkElement? _singlePanel;
         private FrameworkElement? _appearanceButton;
-        private FrameworkElement? _transparentButton;
+        private FrameworkElement? _resetButton;
+        private FrameworkElement? _displayButton;
         private FrameworkElement? _statsButton;
-        private FrameworkElement? _infoButton;
+        private FrameworkElement? _moreButton;
 
         private readonly Window _ownerWindow;
 
@@ -93,27 +94,48 @@ namespace ClickyKeys
             {
                 Title  = LocalizationManager.T("Tutorial_S9_Title"),
                 Body   = LocalizationManager.T("Tutorial_S9_Body"),
-                Target = TutorialTarget.TransparentButton,
+                Target = TutorialTarget.ResetButton,
                 Hint   = LocalizationManager.T("Tutorial_S9_Hint"),
             },
             new()
             {
                 Title  = LocalizationManager.T("Tutorial_S10_Title"),
                 Body   = LocalizationManager.T("Tutorial_S10_Body"),
-                Target = TutorialTarget.StatsButton,
+                Target = TutorialTarget.DisplayButton,
                 Hint   = LocalizationManager.T("Tutorial_S10_Hint"),
             },
             new()
             {
                 Title  = LocalizationManager.T("Tutorial_S11_Title"),
                 Body   = LocalizationManager.T("Tutorial_S11_Body"),
-                Target = TutorialTarget.InfoButton,
+                Target = TutorialTarget.StatsButton,
                 Hint   = LocalizationManager.T("Tutorial_S11_Hint"),
             },
             new()
             {
                 Title  = LocalizationManager.T("Tutorial_S12_Title"),
                 Body   = LocalizationManager.T("Tutorial_S12_Body"),
+                Target = TutorialTarget.MoreButton,
+                Hint   = LocalizationManager.T("Tutorial_S12_Hint"),
+            },
+            new()
+            {
+                Title  = LocalizationManager.T("Tutorial_S13_Title"),
+                Body   = LocalizationManager.T("Tutorial_S13_Body"),
+                Target = TutorialTarget.SettingsButton,
+                Hint   = LocalizationManager.T("Tutorial_S13_Hint"),
+            },
+            new()
+            {
+                Title  = LocalizationManager.T("Tutorial_S14_Title"),
+                Body   = LocalizationManager.T("Tutorial_S14_Body"),
+                Target = TutorialTarget.MoreButton,
+                Hint   = LocalizationManager.T("Tutorial_S14_Hint"),
+            },
+            new()
+            {
+                Title  = LocalizationManager.T("Tutorial_S15_Title"),
+                Body   = LocalizationManager.T("Tutorial_S15_Body"),
                 Target = TutorialTarget.PanelGrid,
             },
         };
@@ -149,16 +171,18 @@ namespace ClickyKeys
             FrameworkElement panelGrid,
             FrameworkElement singlePanel,
             FrameworkElement appearanceButton,
-            FrameworkElement transparentButton,
+            FrameworkElement resetButton,
+            FrameworkElement displayButton,
             FrameworkElement statsButton,
-            FrameworkElement infoButton)
+            FrameworkElement moreButton)
         {
-            _panelGrid         = panelGrid;
-            _singlePanel       = singlePanel;
-            _appearanceButton    = appearanceButton;
-            _transparentButton = transparentButton;
-            _statsButton       = statsButton;
-            _infoButton        = infoButton;
+            _panelGrid        = panelGrid;
+            _singlePanel      = singlePanel;
+            _appearanceButton = appearanceButton;
+            _resetButton      = resetButton;
+            _displayButton    = displayButton;
+            _statsButton      = statsButton;
+            _moreButton       = moreButton;
         }
 
         // ---------------------------------------------------------------
@@ -291,10 +315,15 @@ namespace ClickyKeys
             TutorialTarget.SinglePanel        => _singlePanel,
             TutorialTarget.PanelEditor        => _singlePanel,
             TutorialTarget.PanelEditorConfirm => _singlePanel,
-            TutorialTarget.AppearanceButton     => _appearanceButton,
-            TutorialTarget.TransparentButton  => _transparentButton,
+            TutorialTarget.AppearanceButton   => _appearanceButton,
+            TutorialTarget.ResetButton        => _resetButton,
+            TutorialTarget.DisplayButton      => _displayButton,
             TutorialTarget.StatsButton        => _statsButton,
-            TutorialTarget.InfoButton         => _infoButton,
+            // Info and Settings live inside the "More" hover popup, so the
+            // spotlight points at the More tab — the user hovers it to reveal
+            // the items the step describes.
+            TutorialTarget.MoreButton         => _moreButton,
+            TutorialTarget.SettingsButton     => _moreButton,
             _                                 => null,
         };
 

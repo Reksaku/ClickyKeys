@@ -17,6 +17,7 @@
     <sys:String x:Key="Common_SaveAs">Save As</sys:String>
     <sys:String x:Key="Common_Exit">Exit</sys:String>
     <sys:String x:Key="Common_Input">Input</sys:String>
+    <sys:String x:Key="Common_Description">Description</sys:String>
     <sys:String x:Key="Common_Cancel">Cancel</sys:String>
 
     <!-- Already-running toast -->
@@ -160,16 +161,25 @@
     <sys:String x:Key="Tutorial_S7_Body">Click Save at the bottom of Appearance to save your current layout and override current profile.&#10;Unsaved changes will be discarded after closing Appearance tab.</sys:String>
     <sys:String x:Key="Tutorial_S8_Title">Creating a new layout</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Click Save As at the bottom of Appearance to save your layout under a new name. Enter a new profile name and click Save.&#10;Saved profiles can be loaded from the Load tab.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Title">Transparent mode</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">The Transparent mode button hides the background and toolbar — useful for streaming overlays.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Hint">👆 Transparent mode button</sys:String>
-    <sys:String x:Key="Tutorial_S10_Title">Stats</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">The Stats tab shows how many keys you've pressed in total.&#10;Your data is stored only on your local drive.</sys:String>
-    <sys:String x:Key="Tutorial_S10_Hint">👆 Stats button</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Visit the Info tab to learn more about the ClickyKeys project or watch this tutorial again.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Info button</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">That's it!</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Enjoy using ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Reset</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">The Reset button (F12) clears all panel counters without changing their configuration or layout.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Reset button</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Display</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Hover the Display tab to reveal extra options:&#10;• Transparent mode — hides the background and toolbar, useful for streaming overlays.&#10;• Hide toolbar (F11) — collapses the toolbar.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Hover the Display tab</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Stats</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">The Stats tab shows how many keys you've pressed in total.&#10;Your data is stored only on your local drive.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Stats button</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">More</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Hover the More tab to reveal the Info tab and the Settings window.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Hover the More tab</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Settings</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">The Settings window lets you configure the app: collecting uptime and key-press data, launching on system startup, starting minimized, and the interface language.</sys:String>
+    <sys:String x:Key="Tutorial_S13_Hint">👆 More tab ▸ Settings</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Visit the Info tab to learn more about the ClickyKeys project or watch this tutorial again.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 More tab ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">That's it!</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Enjoy using ClickyKeys! 🎉</sys:String>
 
 </ResourceDictionary>

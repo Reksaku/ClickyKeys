@@ -13,9 +13,11 @@ namespace ClickyKeys
         PanelEditor,
         PanelEditorConfirm,
         AppearanceButton,
-        TransparentButton,
+        ResetButton,
+        DisplayButton,
         StatsButton,
-        InfoButton,
+        MoreButton,
+        SettingsButton,
     }
 
     /// <summary>
