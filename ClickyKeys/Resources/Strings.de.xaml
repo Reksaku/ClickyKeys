@@ -1,0 +1,171 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- ============================================================
+         German (de) UI strings for ClickyKeys.
+         Keys mirror Strings.en.xaml exactly.
+         "ClickyKeys" is a product name and is left untranslated.
+         ============================================================ -->
+
+    <!-- Common -->
+    <sys:String x:Key="Common_Close">Schließen</sys:String>
+    <sys:String x:Key="Common_Set">Setzen</sys:String>
+    <sys:String x:Key="Common_Load">Laden</sys:String>
+    <sys:String x:Key="Common_Save">Speichern</sys:String>
+    <sys:String x:Key="Common_SaveAs">Speichern unter</sys:String>
+    <sys:String x:Key="Common_Exit">Beenden</sys:String>
+    <sys:String x:Key="Common_Input">Eingabe</sys:String>
+
+    <!-- Already-running toast -->
+    <sys:String x:Key="Toast_AlreadyRunning">Die Anwendung läuft bereits.</sys:String>
+
+    <!-- Appearance window -->
+    <sys:String x:Key="Appearance_Title">Darstellung</sys:String>
+    <sys:String x:Key="Appearance_Profile">Profil:</sys:String>
+    <sys:String x:Key="Appearance_GridRows">Rasterzeilen</sys:String>
+    <sys:String x:Key="Appearance_GridColumns">Rasterspalten</sys:String>
+    <sys:String x:Key="Appearance_Colors">Farben</sys:String>
+    <sys:String x:Key="Appearance_BackgroundColor">Hintergrundfarbe</sys:String>
+    <sys:String x:Key="Appearance_PanelsColor">Panelfarbe</sys:String>
+    <sys:String x:Key="Appearance_KeysTextColor">Textfarbe der Tasten</sys:String>
+    <sys:String x:Key="Appearance_ValuesTextColor">Textfarbe der Werte</sys:String>
+    <sys:String x:Key="Appearance_ExpandPallet">Palette erweitern</sys:String>
+    <sys:String x:Key="Appearance_SaturationNote">Die Sättigung kannst du über die Hintergrundfarbpalette ändern</sys:String>
+    <sys:String x:Key="Appearance_KeysFont">Schriftart der Tasten</sys:String>
+    <sys:String x:Key="Appearance_ValuesFont">Schriftart der Werte</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackground">Regenbogen-Hintergrund</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundMode">Regenbogen-Hintergrundmodus</sys:String>
+
+    <!-- Changelog window -->
+    <sys:String x:Key="Changelog_Title">Was ist neu in ClickyKeys</sys:String>
+    <sys:String x:Key="Changelog_Header">Was ist neu</sys:String>
+    <sys:String x:Key="Changelog_Loading">Änderungsprotokoll wird geladen…</sys:String>
+    <sys:String x:Key="Changelog_Fetching">Änderungsprotokoll wird abgerufen…</sys:String>
+    <sys:String x:Key="Changelog_LoadError">Änderungsprotokoll konnte nicht geladen werden.</sys:String>
+    <sys:String x:Key="Changelog_LoadErrorSubtitle">Änderungsprotokoll konnte nicht geladen werden</sys:String>
+    <sys:String x:Key="Changelog_NoEntries">Keine Einträge im Änderungsprotokoll gefunden.</sys:String>
+    <sys:String x:Key="Changelog_LoadErrorConn">Änderungsprotokoll konnte nicht geladen werden. Überprüfe deine Internetverbindung.</sys:String>
+    <sys:String x:Key="Changelog_ChangesSinceOne">{0} Änderung seit v{1}</sys:String>
+    <sys:String x:Key="Changelog_ChangesSinceMany">{0} Änderungen seit v{1}</sys:String>
+
+    <!-- Info window -->
+    <sys:String x:Key="Info_Title">Über ClickyKeys</sys:String>
+    <sys:String x:Key="Info_Tagline">Tasten- &amp; Klickzähler für Gamer und Geeks</sys:String>
+    <sys:String x:Key="Info_Features">Funktionen</sys:String>
+    <sys:String x:Key="Info_Feature1">• Zählt die Tastendrücke und Mausklicks, die dich interessieren.</sys:String>
+    <sys:String x:Key="Info_Feature2">• Ermöglicht eigene Bezeichnungen für Tasten (z. B. Springen, Nachladen, Fähigkeit 1).</sys:String>
+    <sys:String x:Key="Info_Feature3">• Vollständig anpassbares Overlay: Layout, Tastengröße, Farben, Schriftart.</sys:String>
+    <sys:String x:Key="Info_Privacy">Datenschutz &amp; Open Source</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">ClickyKeys verarbeitet deine Tastendrücke und Mausklicks lokal. Es werden keine Nutzerdaten an einen Server gesendet.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Das Projekt ist Open Source – du kannst den Code einsehen, daraus lernen oder Verbesserungen beitragen.</sys:String>
+    <sys:String x:Key="Info_Credits">Mitwirkende &amp; Dank</sys:String>
+    <sys:String x:Key="Info_CreditsText1">ClickyKeys ist ein Hobbyprojekt, das dank Menschen wächst, die einfach Spaß am Klicken damit haben.</sys:String>
+    <sys:String x:Key="Info_CreditsText2">Danke, dass du ClickyKeys nutzt!</sys:String>
+    <sys:String x:Key="Info_Links">Links</sys:String>
+    <sys:String x:Key="Info_WebsiteLabel">Website: </sys:String>
+    <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
+    <sys:String x:Key="Info_Contact">Kontakt</sys:String>
+    <sys:String x:Key="Info_ContactText1">Allgemeiner Kontakt: contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText2">Fehlerberichte &amp; Funktionswünsche: bitte GitHub Issues nutzen oder an contact@clickykeys.fun schreiben</sys:String>
+    <sys:String x:Key="Info_ShowTutorial">Tutorial anzeigen</sys:String>
+
+    <!-- Main window toolbar -->
+    <sys:String x:Key="Main_Appearance">Darstellung</sys:String>
+    <sys:String x:Key="Main_Display">Anzeige</sys:String>
+    <sys:String x:Key="Main_Reset">Zurücksetzen</sys:String>
+    <sys:String x:Key="Main_Stats">Statistik</sys:String>
+    <sys:String x:Key="Main_More">Mehr</sys:String>
+    <sys:String x:Key="Main_Transparent">Transparenter</sys:String>
+    <sys:String x:Key="Main_Mode">Modus</sys:String>
+    <sys:String x:Key="Main_HideToolbar">Symbolleiste ausblenden</sys:String>
+    <sys:String x:Key="Main_Info">Info</sys:String>
+    <sys:String x:Key="Main_Settings">Einstellungen</sys:String>
+    <sys:String x:Key="Main_UpdateAvailable">Eine neue Version von ClickyKeys ist verfügbar.</sys:String>
+    <sys:String x:Key="Main_OpenDownload">Download-Seite öffnen</sys:String>
+    <sys:String x:Key="Main_RemindNextTime">Beim nächsten Mal erinnern</sys:String>
+    <sys:String x:Key="Main_ErrorPrefix">Fehler: {0}</sys:String>
+
+    <!-- SetLoader window -->
+    <sys:String x:Key="SetLoader_Title">Profil laden</sys:String>
+    <sys:String x:Key="SetLoader_SelectProfile">Einstellungsprofil auswählen</sys:String>
+
+    <!-- Settings window -->
+    <sys:String x:Key="Settings_Title">ClickyKeys-Einstellungen</sys:String>
+    <sys:String x:Key="Settings_Header">Einstellungen</sys:String>
+    <sys:String x:Key="Settings_Subtitle">ClickyKeys konfigurieren</sys:String>
+    <sys:String x:Key="Settings_DataCollection">Datenerfassung</sys:String>
+    <sys:String x:Key="Settings_CollectUptime">Laufzeitdaten der Anwendung erfassen</sys:String>
+    <sys:String x:Key="Settings_CollectKeyStats">Tastendruck-Statistiken erfassen</sys:String>
+    <sys:String x:Key="Settings_Usage">Nutzung</sys:String>
+    <sys:String x:Key="Settings_LaunchOnStartup">Beim Systemstart starten</sys:String>
+    <sys:String x:Key="Settings_StartMinimized">Minimiert starten</sys:String>
+    <sys:String x:Key="Settings_Language">Sprache</sys:String>
+    <sys:String x:Key="Settings_AutostartError">Die Windows-Autostart-Einstellung konnte nicht aktualisiert werden. Möglicherweise blockiert deine Sicherheitssoftware oder Kontorichtlinie dies.</sys:String>
+
+    <!-- Splash window -->
+    <sys:String x:Key="Splash_Starting">Wird gestartet…</sys:String>
+    <sys:String x:Key="Splash_StartingKeyStats">Statistikdienst wird gestartet…</sys:String>
+
+    <!-- Stats window -->
+    <sys:String x:Key="Stats_Title">ClickyKeys-Statistik</sys:String>
+    <sys:String x:Key="Stats_Header">Statistik</sys:String>
+    <sys:String x:Key="Stats_Subtitle">Gesamtzähler seit dem ersten Start</sys:String>
+    <sys:String x:Key="Stats_Uptime">Laufzeit</sys:String>
+    <sys:String x:Key="Stats_UptimeOff">Die Laufzeiterfassung ist ausgeschaltet. Du kannst sie unter Einstellungen → Datenerfassung wieder einschalten.</sys:String>
+    <sys:String x:Key="Stats_CollectionOff">Die Statistikerfassung ist ausgeschaltet</sys:String>
+    <sys:String x:Key="Stats_Totals">Gesamt</sys:String>
+    <sys:String x:Key="Stats_TotalMouseClicks">Mausklicks gesamt</sys:String>
+    <sys:String x:Key="Stats_TotalKeyPresses">Tastendrücke gesamt</sys:String>
+    <sys:String x:Key="Stats_TotalWheelTicks">Radschritte gesamt</sys:String>
+    <sys:String x:Key="Stats_Combined">Kombiniert</sys:String>
+    <sys:String x:Key="Stats_Keys">Tasten</sys:String>
+    <sys:String x:Key="Stats_NoKeys">Noch keine Tastendrücke erfasst.</sys:String>
+    <sys:String x:Key="Stats_MouseButtons">Maustasten</sys:String>
+    <sys:String x:Key="Stats_NoMouse">Noch keine Mausklicks erfasst.</sys:String>
+    <sys:String x:Key="Stats_MouseWheel">Mausrad</sys:String>
+    <sys:String x:Key="Stats_NoWheel">Noch keine Radaktivität erfasst.</sys:String>
+    <sys:String x:Key="Stats_KeyStatsDisabled">Die Erfassung der Tastenstatistik ist deaktiviert.</sys:String>
+    <sys:String x:Key="Stats_NoData">Noch keine Daten erfasst.</sys:String>
+    <sys:String x:Key="Stats_LastUpdated">Zuletzt aktualisiert: {0}</sys:String>
+
+    <!-- Tutorial window -->
+    <sys:String x:Key="Tutorial_Title">ClickyKeys-Tutorial</sys:String>
+    <sys:String x:Key="Tutorial_Skip">Überspringen</sys:String>
+    <sys:String x:Key="Tutorial_Back">◀ Zurück</sys:String>
+    <sys:String x:Key="Tutorial_Next">Weiter ▶</sys:String>
+    <sys:String x:Key="Tutorial_Finish">Fertig</sys:String>
+    <sys:String x:Key="Tutorial_StepFormat">{0} / {1}</sys:String>
+
+    <sys:String x:Key="Tutorial_S1_Title">Willkommen bei ClickyKeys!</sys:String>
+    <sys:String x:Key="Tutorial_S1_Body">Ich führe dich durch ein kurzes Tutorial.&#10;Du kannst die App jederzeit bedienen — klicke auf Weiter, um fortzufahren.</sys:String>
+    <sys:String x:Key="Tutorial_S2_Title">Panels</sys:String>
+    <sys:String x:Key="Tutorial_S2_Body">Das sind deine Anzeige-Panels — die Hauptfunktion von ClickyKeys.&#10;Jedes Panel zählt die Drücke der zugewiesenen Taste.</sys:String>
+    <sys:String x:Key="Tutorial_S3_Title">Ein Panel bearbeiten</sys:String>
+    <sys:String x:Key="Tutorial_S3_Body">Klicke mit der linken Maustaste auf ein beliebiges Panel, um den Editor zu öffnen und ihm eine Taste zuzuweisen.</sys:String>
+    <sys:String x:Key="Tutorial_S3_Hint">👆 Klicke auf das Panel, um es auszuprobieren</sys:String>
+    <sys:String x:Key="Tutorial_S4_Title">Beschreibung und Taste</sys:String>
+    <sys:String x:Key="Tutorial_S4_Body">Gib einen Namen im Feld Beschreibung ein.&#10;Klicke dann auf Eingabe und drücke die Taste, die du verfolgen möchtest.</sys:String>
+    <sys:String x:Key="Tutorial_S5_Title">Änderungen speichern</sys:String>
+    <sys:String x:Key="Tutorial_S5_Body">Bestätige deine Änderungen mit der grünen Schaltfläche ✔ oder verwirf sie mit der roten ✖.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Title">Darstellung</sys:String>
+    <sys:String x:Key="Tutorial_S6_Body">Öffne den Tab Darstellung, um Farben, Rastergröße, Schriftarten und mehr anzupassen.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Hint">👆 Schaltfläche Darstellung</sys:String>
+    <sys:String x:Key="Tutorial_S7_Title">Änderungen anwenden</sys:String>
+    <sys:String x:Key="Tutorial_S7_Body">Klicke unten in Darstellung auf Speichern, um dein aktuelles Layout zu speichern und das aktuelle Profil zu überschreiben.&#10;Nicht gespeicherte Änderungen werden nach dem Schließen des Tabs Darstellung verworfen.</sys:String>
+    <sys:String x:Key="Tutorial_S8_Title">Ein neues Layout erstellen</sys:String>
+    <sys:String x:Key="Tutorial_S8_Body">Klicke unten in Darstellung auf Speichern unter, um dein Layout unter einem neuen Namen zu speichern. Gib einen neuen Profilnamen ein und klicke auf Speichern.&#10;Gespeicherte Profile können über den Tab Laden geladen werden.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Transparenter Modus</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Die Schaltfläche Transparenter Modus blendet Hintergrund und Symbolleiste aus — nützlich für Streaming-Overlays.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Schaltfläche Transparenter Modus</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Der Tab Statistik zeigt, wie viele Tasten du insgesamt gedrückt hast.&#10;Deine Daten werden nur auf deiner lokalen Festplatte gespeichert.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Schaltfläche Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Besuche den Tab Info, um mehr über das ClickyKeys-Projekt zu erfahren oder dieses Tutorial erneut anzusehen.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Schaltfläche Info</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Das war's!</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Viel Spaß mit ClickyKeys! 🎉</sys:String>
+
+</ResourceDictionary>

@@ -1,0 +1,171 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- ============================================================
+         Norwegian Bokmål (nb) UI strings for ClickyKeys.
+         Keys mirror Strings.en.xaml exactly.
+         "ClickyKeys" is a product name and is left untranslated.
+         ============================================================ -->
+
+    <!-- Common -->
+    <sys:String x:Key="Common_Close">Lukk</sys:String>
+    <sys:String x:Key="Common_Set">Angi</sys:String>
+    <sys:String x:Key="Common_Load">Last inn</sys:String>
+    <sys:String x:Key="Common_Save">Lagre</sys:String>
+    <sys:String x:Key="Common_SaveAs">Lagre som</sys:String>
+    <sys:String x:Key="Common_Exit">Avslutt</sys:String>
+    <sys:String x:Key="Common_Input">Inndata</sys:String>
+
+    <!-- Already-running toast -->
+    <sys:String x:Key="Toast_AlreadyRunning">Applikasjonen kjører allerede.</sys:String>
+
+    <!-- Appearance window -->
+    <sys:String x:Key="Appearance_Title">Utseende</sys:String>
+    <sys:String x:Key="Appearance_Profile">Profil:</sys:String>
+    <sys:String x:Key="Appearance_GridRows">Rutenettrader</sys:String>
+    <sys:String x:Key="Appearance_GridColumns">Rutenettkolonner</sys:String>
+    <sys:String x:Key="Appearance_Colors">Farger</sys:String>
+    <sys:String x:Key="Appearance_BackgroundColor">Bakgrunnsfarge</sys:String>
+    <sys:String x:Key="Appearance_PanelsColor">Panelfarge</sys:String>
+    <sys:String x:Key="Appearance_KeysTextColor">Tekstfarge for taster</sys:String>
+    <sys:String x:Key="Appearance_ValuesTextColor">Tekstfarge for verdier</sys:String>
+    <sys:String x:Key="Appearance_ExpandPallet">Utvid palett</sys:String>
+    <sys:String x:Key="Appearance_SaturationNote">Du kan endre metningen via bakgrunnsfargepaletten</sys:String>
+    <sys:String x:Key="Appearance_KeysFont">Skrifttype for taster</sys:String>
+    <sys:String x:Key="Appearance_ValuesFont">Skrifttype for verdier</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackground">Regnbuebakgrunn</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundMode">Regnbuebakgrunnsmodus</sys:String>
+
+    <!-- Changelog window -->
+    <sys:String x:Key="Changelog_Title">Nyheter i ClickyKeys</sys:String>
+    <sys:String x:Key="Changelog_Header">Nyheter</sys:String>
+    <sys:String x:Key="Changelog_Loading">Laster inn endringslogg…</sys:String>
+    <sys:String x:Key="Changelog_Fetching">Henter endringslogg…</sys:String>
+    <sys:String x:Key="Changelog_LoadError">Kunne ikke laste inn endringsloggen.</sys:String>
+    <sys:String x:Key="Changelog_LoadErrorSubtitle">Kunne ikke laste inn endringsloggen</sys:String>
+    <sys:String x:Key="Changelog_NoEntries">Ingen oppføringer funnet i endringsloggen.</sys:String>
+    <sys:String x:Key="Changelog_LoadErrorConn">Kunne ikke laste inn endringsloggen. Sjekk internettforbindelsen din.</sys:String>
+    <sys:String x:Key="Changelog_ChangesSinceOne">{0} endring siden v{1}</sys:String>
+    <sys:String x:Key="Changelog_ChangesSinceMany">{0} endringer siden v{1}</sys:String>
+
+    <!-- Info window -->
+    <sys:String x:Key="Info_Title">Om ClickyKeys</sys:String>
+    <sys:String x:Key="Info_Tagline">Tast- &amp; klikkteller for gamere og nerder</sys:String>
+    <sys:String x:Key="Info_Features">Funksjoner</sys:String>
+    <sys:String x:Key="Info_Feature1">• Teller tastetrykkene og museklikkene du bryr deg om.</sys:String>
+    <sys:String x:Key="Info_Feature2">• Lar deg tildele egendefinerte etiketter til taster (f.eks. Hopp, Lad om, Ferdighet 1).</sys:String>
+    <sys:String x:Key="Info_Feature3">• Fullstendig tilpassbart overlegg: oppsett, knappestørrelse, farger, skrifttype.</sys:String>
+    <sys:String x:Key="Info_Privacy">Personvern og åpen kildekode</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">ClickyKeys behandler tastetrykkene og museklikkene dine lokalt. Ingen brukerdata sendes til noen server.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Prosjektet er åpen kildekode, så du kan gjennomgå koden, lære av den eller bidra med forbedringer.</sys:String>
+    <sys:String x:Key="Info_Credits">Bidragsytere og takk</sys:String>
+    <sys:String x:Key="Info_CreditsText1">ClickyKeys er et hobbyprosjekt som vokser takket være folk som rett og slett liker å klikke med det.</sys:String>
+    <sys:String x:Key="Info_CreditsText2">Takk for at du bruker ClickyKeys!</sys:String>
+    <sys:String x:Key="Info_Links">Lenker</sys:String>
+    <sys:String x:Key="Info_WebsiteLabel">Nettsted: </sys:String>
+    <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
+    <sys:String x:Key="Info_Contact">Kontakt</sys:String>
+    <sys:String x:Key="Info_ContactText1">Generell kontakt: contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText2">Feilrapporter og funksjonsforespørsler: bruk GitHub Issues eller skriv til contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ShowTutorial">Vis veiledning</sys:String>
+
+    <!-- Main window toolbar -->
+    <sys:String x:Key="Main_Appearance">Utseende</sys:String>
+    <sys:String x:Key="Main_Display">Visning</sys:String>
+    <sys:String x:Key="Main_Reset">Tilbakestill</sys:String>
+    <sys:String x:Key="Main_Stats">Statistikk</sys:String>
+    <sys:String x:Key="Main_More">Mer</sys:String>
+    <sys:String x:Key="Main_Transparent">Gjennomsiktig</sys:String>
+    <sys:String x:Key="Main_Mode">modus</sys:String>
+    <sys:String x:Key="Main_HideToolbar">Skjul verktøylinje</sys:String>
+    <sys:String x:Key="Main_Info">Info</sys:String>
+    <sys:String x:Key="Main_Settings">Innstillinger</sys:String>
+    <sys:String x:Key="Main_UpdateAvailable">En ny versjon av ClickyKeys er tilgjengelig.</sys:String>
+    <sys:String x:Key="Main_OpenDownload">Åpne nedlastingssiden</sys:String>
+    <sys:String x:Key="Main_RemindNextTime">Minn meg på det neste gang</sys:String>
+    <sys:String x:Key="Main_ErrorPrefix">Feil: {0}</sys:String>
+
+    <!-- SetLoader window -->
+    <sys:String x:Key="SetLoader_Title">Last inn profil</sys:String>
+    <sys:String x:Key="SetLoader_SelectProfile">Velg innstillingsprofil</sys:String>
+
+    <!-- Settings window -->
+    <sys:String x:Key="Settings_Title">ClickyKeys-innstillinger</sys:String>
+    <sys:String x:Key="Settings_Header">Innstillinger</sys:String>
+    <sys:String x:Key="Settings_Subtitle">Konfigurer ClickyKeys</sys:String>
+    <sys:String x:Key="Settings_DataCollection">Datainnsamling</sys:String>
+    <sys:String x:Key="Settings_CollectUptime">Samle inn data om applikasjonens oppetid</sys:String>
+    <sys:String x:Key="Settings_CollectKeyStats">Samle inn statistikk om tastetrykk</sys:String>
+    <sys:String x:Key="Settings_Usage">Bruk</sys:String>
+    <sys:String x:Key="Settings_LaunchOnStartup">Start ved systemoppstart</sys:String>
+    <sys:String x:Key="Settings_StartMinimized">Start minimert</sys:String>
+    <sys:String x:Key="Settings_Language">Språk</sys:String>
+    <sys:String x:Key="Settings_AutostartError">Kunne ikke oppdatere Windows-oppstartsinnstillingen. Sikkerhetsprogramvaren eller kontoretningslinjene dine kan blokkere den.</sys:String>
+
+    <!-- Splash window -->
+    <sys:String x:Key="Splash_Starting">Starter opp…</sys:String>
+    <sys:String x:Key="Splash_StartingKeyStats">Starter statistikktjenesten…</sys:String>
+
+    <!-- Stats window -->
+    <sys:String x:Key="Stats_Title">ClickyKeys-statistikk</sys:String>
+    <sys:String x:Key="Stats_Header">Statistikk</sys:String>
+    <sys:String x:Key="Stats_Subtitle">Samlede tellere siden første oppstart</sys:String>
+    <sys:String x:Key="Stats_Uptime">Oppetid</sys:String>
+    <sys:String x:Key="Stats_UptimeOff">Sporing av oppetid er slått av. Du kan slå det på igjen under Innstillinger → Datainnsamling.</sys:String>
+    <sys:String x:Key="Stats_CollectionOff">Innsamling av statistikk er slått av</sys:String>
+    <sys:String x:Key="Stats_Totals">Totalt</sys:String>
+    <sys:String x:Key="Stats_TotalMouseClicks">Totalt antall museklikk</sys:String>
+    <sys:String x:Key="Stats_TotalKeyPresses">Totalt antall tastetrykk</sys:String>
+    <sys:String x:Key="Stats_TotalWheelTicks">Totalt antall hjulhakk</sys:String>
+    <sys:String x:Key="Stats_Combined">Kombinert</sys:String>
+    <sys:String x:Key="Stats_Keys">Taster</sys:String>
+    <sys:String x:Key="Stats_NoKeys">Ingen tastetrykk registrert ennå.</sys:String>
+    <sys:String x:Key="Stats_MouseButtons">Museknapper</sys:String>
+    <sys:String x:Key="Stats_NoMouse">Ingen museklikk registrert ennå.</sys:String>
+    <sys:String x:Key="Stats_MouseWheel">Musehjul</sys:String>
+    <sys:String x:Key="Stats_NoWheel">Ingen hjulaktivitet registrert ennå.</sys:String>
+    <sys:String x:Key="Stats_KeyStatsDisabled">Innsamling av taststatistikk er deaktivert.</sys:String>
+    <sys:String x:Key="Stats_NoData">Ingen data registrert ennå.</sys:String>
+    <sys:String x:Key="Stats_LastUpdated">Sist oppdatert: {0}</sys:String>
+
+    <!-- Tutorial window -->
+    <sys:String x:Key="Tutorial_Title">ClickyKeys-veiledning</sys:String>
+    <sys:String x:Key="Tutorial_Skip">Hopp over</sys:String>
+    <sys:String x:Key="Tutorial_Back">◀ Tilbake</sys:String>
+    <sys:String x:Key="Tutorial_Next">Neste ▶</sys:String>
+    <sys:String x:Key="Tutorial_Finish">Fullfør</sys:String>
+    <sys:String x:Key="Tutorial_StepFormat">{0} / {1}</sys:String>
+
+    <sys:String x:Key="Tutorial_S1_Title">Velkommen til ClickyKeys!</sys:String>
+    <sys:String x:Key="Tutorial_S1_Body">La meg ta deg gjennom en rask veiledning.&#10;Du kan bruke appen når som helst — klikk Neste for å fortsette.</sys:String>
+    <sys:String x:Key="Tutorial_S2_Title">Paneler</sys:String>
+    <sys:String x:Key="Tutorial_S2_Body">Dette er visningspanelene dine — hovedfunksjonen i ClickyKeys.&#10;Hvert panel teller trykkene på den tildelte tasten.</sys:String>
+    <sys:String x:Key="Tutorial_S3_Title">Redigere et panel</sys:String>
+    <sys:String x:Key="Tutorial_S3_Body">Venstreklikk på et hvilket som helst panel for å åpne redigeringsverktøyet og tildele en tast til det.</sys:String>
+    <sys:String x:Key="Tutorial_S3_Hint">👆 Klikk på panelet for å prøve det</sys:String>
+    <sys:String x:Key="Tutorial_S4_Title">Beskrivelse og tast</sys:String>
+    <sys:String x:Key="Tutorial_S4_Body">Skriv inn et navn i Beskrivelse-feltet.&#10;Klikk deretter Inndata og trykk på tasten du vil spore.</sys:String>
+    <sys:String x:Key="Tutorial_S5_Title">Lagre endringer</sys:String>
+    <sys:String x:Key="Tutorial_S5_Body">Bekreft endringene med den grønne ✔-knappen, eller forkast dem med den røde ✖.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Title">Utseende</sys:String>
+    <sys:String x:Key="Tutorial_S6_Body">Åpne Utseende-fanen for å tilpasse farger, rutenettstørrelse, skrifttyper og mer.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Hint">👆 Utseende-knappen</sys:String>
+    <sys:String x:Key="Tutorial_S7_Title">Bruke endringer</sys:String>
+    <sys:String x:Key="Tutorial_S7_Body">Klikk Lagre nederst i Utseende for å lagre det gjeldende oppsettet og overskrive gjeldende profil.&#10;Ulagrede endringer forkastes etter at Utseende-fanen lukkes.</sys:String>
+    <sys:String x:Key="Tutorial_S8_Title">Opprette et nytt oppsett</sys:String>
+    <sys:String x:Key="Tutorial_S8_Body">Klikk Lagre som nederst i Utseende for å lagre oppsettet under et nytt navn. Skriv inn et nytt profilnavn og klikk Lagre.&#10;Lagrede profiler kan lastes inn fra Last inn-fanen.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Gjennomsiktig modus</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Knappen Gjennomsiktig modus skjuler bakgrunnen og verktøylinjen — nyttig for strømmeoverlegg.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Knappen Gjennomsiktig modus</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Statistikk</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Statistikk-fanen viser hvor mange taster du har trykket totalt.&#10;Dataene dine lagres kun på din lokale disk.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Statistikk-knappen</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Besøk Info-fanen for å lære mer om ClickyKeys-prosjektet eller se denne veiledningen på nytt.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Info-knappen</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Det var alt!</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Kos deg med ClickyKeys! 🎉</sys:String>
+
+</ResourceDictionary>

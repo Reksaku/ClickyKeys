@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClickyKeys"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="ClickyKeys Settings"
+        Title="{DynamicResource Settings_Title}"
         Width="490" Height="780"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
@@ -43,10 +43,10 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12" VerticalAlignment="Center">
             <Image Width="60" Height="60" Source="/Resources/Buttons/settings_icon.png" Margin="0,0,12,0"/>
             <StackPanel>
-                <TextBlock Text="Settings"
+                <TextBlock Text="{DynamicResource Settings_Header}"
                            FontSize="24"
                            FontWeight="Bold"/>
-                <TextBlock Text="Configure ClickyKeys"
+                <TextBlock Text="{DynamicResource Settings_Subtitle}"
                            FontSize="13"
                            Foreground="{DynamicResource MaterialDesignBodyLight}"/>
             </StackPanel>
@@ -64,7 +64,7 @@
                      ============================================================ -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Data Collection"
+                        <TextBlock Text="{DynamicResource Settings_DataCollection}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
@@ -77,7 +77,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
                                        Style="{StaticResource SettingLabel}"
-                                       Text="Collect application uptime data"/>
+                                       Text="{DynamicResource Settings_CollectUptime}"/>
                             <ToggleButton Grid.Column="1"
                                           x:Name="CollectUptimeToggle"
                                           Style="{StaticResource MaterialDesignSwitchToggleButton}"
@@ -93,7 +93,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
                                        Style="{StaticResource SettingLabel}"
-                                       Text="Collect key-press statistics"/>
+                                       Text="{DynamicResource Settings_CollectKeyStats}"/>
                             <ToggleButton Grid.Column="1"
                                           x:Name="CollectKeyStatsToggle"
                                           Style="{StaticResource MaterialDesignSwitchToggleButton}"
@@ -111,7 +111,7 @@
                      ============================================================ -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Usage"
+                        <TextBlock Text="{DynamicResource Settings_Usage}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
@@ -124,7 +124,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
                                        Style="{StaticResource SettingLabel}"
-                                       Text="Launch on system startup"/>
+                                       Text="{DynamicResource Settings_LaunchOnStartup}"/>
                             <ToggleButton Grid.Column="1"
                                           x:Name="AutostartToggle"
                                           Style="{StaticResource MaterialDesignSwitchToggleButton}"
@@ -140,7 +140,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
                                        Style="{StaticResource SettingLabel}"
-                                       Text="Start minimized"/>
+                                       Text="{DynamicResource Settings_StartMinimized}"/>
                             <ToggleButton Grid.Column="1"
                                           x:Name="StartMinimizedToggle"
                                           Style="{StaticResource MaterialDesignSwitchToggleButton}"
@@ -156,7 +156,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
                                        Style="{StaticResource SettingLabel}"
-                                       Text="Language"/>
+                                       Text="{DynamicResource Settings_Language}"/>
                             <ComboBox Grid.Column="1"
                                       x:Name="LanguageComboBox"
                                       MinWidth="140"
@@ -166,8 +166,24 @@
                                 <!-- Tag holds the culture code the wiring layer
                                      will eventually read; Content is the
                                      user-facing label. -->
+                                <!-- Languages are listed alphabetically by their
+                                     native name. Ελληνικά (Greek) is placed in
+                                     the "E" group (Ε ≈ E / "Elliniká"). The Tag
+                                     is the culture code read by the wiring layer;
+                                     Content is the user-facing native label. -->
+                                <ComboBoxItem Content="Deutsch" Tag="de"/>
+                                <ComboBoxItem Content="Ελληνικά" Tag="el"/>
                                 <ComboBoxItem Content="English" Tag="en" IsSelected="True"/>
+                                <ComboBoxItem Content="Español" Tag="es"/>
+                                <ComboBoxItem Content="Español (México)" Tag="es-MX"/>
+                                <ComboBoxItem Content="Français" Tag="fr"/>
+                                <ComboBoxItem Content="Italiano" Tag="it"/>
+                                <ComboBoxItem Content="Nederlands" Tag="nl"/>
+                                <ComboBoxItem Content="Norsk" Tag="nb"/>
                                 <ComboBoxItem Content="Polski" Tag="pl"/>
+                                <ComboBoxItem Content="Português" Tag="pt"/>
+                                <ComboBoxItem Content="Português (Brasil)" Tag="pt-BR"/>
+                                <ComboBoxItem Content="Svenska" Tag="sv"/>
                             </ComboBox>
                         </Grid>
                     </StackPanel>
@@ -181,7 +197,7 @@
             <Button DockPanel.Dock="Right"
                     Width="80"
                     Margin="0,0,10,0"
-                    Content="Close"
+                    Content="{DynamicResource Common_Close}"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     IsCancel="True"
                     Click="Click_Close"/>

@@ -149,7 +149,7 @@
                                  Grid.Row="0"
                                  Grid.Column="0" Grid.ColumnSpan="4"
                                  HorizontalAlignment="Center"/>
-                        <Button Content="Input" x:Name="InputBtn"
+                        <Button Content="{DynamicResource Common_Input}" x:Name="InputBtn"
                                 Click="OnInputKey" 
                                 FontSize="12" 
                                 Grid.Row="1" 

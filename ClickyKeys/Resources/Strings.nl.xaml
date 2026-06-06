@@ -1,0 +1,171 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- ============================================================
+         Dutch (nl) UI strings for ClickyKeys.
+         Keys mirror Strings.en.xaml exactly.
+         "ClickyKeys" is a product name and is left untranslated.
+         ============================================================ -->
+
+    <!-- Common -->
+    <sys:String x:Key="Common_Close">Sluiten</sys:String>
+    <sys:String x:Key="Common_Set">Instellen</sys:String>
+    <sys:String x:Key="Common_Load">Laden</sys:String>
+    <sys:String x:Key="Common_Save">Opslaan</sys:String>
+    <sys:String x:Key="Common_SaveAs">Opslaan als</sys:String>
+    <sys:String x:Key="Common_Exit">Afsluiten</sys:String>
+    <sys:String x:Key="Common_Input">Invoer</sys:String>
+
+    <!-- Already-running toast -->
+    <sys:String x:Key="Toast_AlreadyRunning">De applicatie is al actief.</sys:String>
+
+    <!-- Appearance window -->
+    <sys:String x:Key="Appearance_Title">Weergave</sys:String>
+    <sys:String x:Key="Appearance_Profile">Profiel:</sys:String>
+    <sys:String x:Key="Appearance_GridRows">Rasterrijen</sys:String>
+    <sys:String x:Key="Appearance_GridColumns">Rasterkolommen</sys:String>
+    <sys:String x:Key="Appearance_Colors">Kleuren</sys:String>
+    <sys:String x:Key="Appearance_BackgroundColor">Achtergrondkleur</sys:String>
+    <sys:String x:Key="Appearance_PanelsColor">Paneelkleur</sys:String>
+    <sys:String x:Key="Appearance_KeysTextColor">Tekstkleur van toetsen</sys:String>
+    <sys:String x:Key="Appearance_ValuesTextColor">Tekstkleur van waarden</sys:String>
+    <sys:String x:Key="Appearance_ExpandPallet">Palet uitvouwen</sys:String>
+    <sys:String x:Key="Appearance_SaturationNote">Je kunt de verzadiging wijzigen via het achtergrondkleurpalet</sys:String>
+    <sys:String x:Key="Appearance_KeysFont">Lettertype van toetsen</sys:String>
+    <sys:String x:Key="Appearance_ValuesFont">Lettertype van waarden</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackground">Regenboogachtergrond</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundMode">Regenboogachtergrondmodus</sys:String>
+
+    <!-- Changelog window -->
+    <sys:String x:Key="Changelog_Title">Wat is er nieuw in ClickyKeys</sys:String>
+    <sys:String x:Key="Changelog_Header">Wat is er nieuw</sys:String>
+    <sys:String x:Key="Changelog_Loading">Wijzigingslogboek laden…</sys:String>
+    <sys:String x:Key="Changelog_Fetching">Wijzigingslogboek ophalen…</sys:String>
+    <sys:String x:Key="Changelog_LoadError">Kan het wijzigingslogboek niet laden.</sys:String>
+    <sys:String x:Key="Changelog_LoadErrorSubtitle">Kan het wijzigingslogboek niet laden</sys:String>
+    <sys:String x:Key="Changelog_NoEntries">Geen vermeldingen gevonden in het wijzigingslogboek.</sys:String>
+    <sys:String x:Key="Changelog_LoadErrorConn">Kan het wijzigingslogboek niet laden. Controleer je internetverbinding.</sys:String>
+    <sys:String x:Key="Changelog_ChangesSinceOne">{0} wijziging sinds v{1}</sys:String>
+    <sys:String x:Key="Changelog_ChangesSinceMany">{0} wijzigingen sinds v{1}</sys:String>
+
+    <!-- Info window -->
+    <sys:String x:Key="Info_Title">Over ClickyKeys</sys:String>
+    <sys:String x:Key="Info_Tagline">Toets- &amp; klikteller voor gamers en geeks</sys:String>
+    <sys:String x:Key="Info_Features">Functies</sys:String>
+    <sys:String x:Key="Info_Feature1">• Telt de toetsaanslagen en muisklikken die voor jou belangrijk zijn.</sys:String>
+    <sys:String x:Key="Info_Feature2">• Laat je aangepaste labels aan toetsen toewijzen (bijv. Springen, Herladen, Vaardigheid 1).</sys:String>
+    <sys:String x:Key="Info_Feature3">• Volledig aanpasbare overlay: indeling, knopgrootte, kleuren, lettertype.</sys:String>
+    <sys:String x:Key="Info_Privacy">Privacy &amp; open source</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">ClickyKeys verwerkt je toetsaanslagen en muisklikken lokaal. Er worden geen gebruikersgegevens naar een server verzonden.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Het project is open source, dus je kunt de code bekijken, ervan leren of verbeteringen bijdragen.</sys:String>
+    <sys:String x:Key="Info_Credits">Met dank aan</sys:String>
+    <sys:String x:Key="Info_CreditsText1">ClickyKeys is een hobbyproject dat groeit dankzij mensen die er gewoon graag mee klikken.</sys:String>
+    <sys:String x:Key="Info_CreditsText2">Bedankt voor het gebruik van ClickyKeys!</sys:String>
+    <sys:String x:Key="Info_Links">Links</sys:String>
+    <sys:String x:Key="Info_WebsiteLabel">Website: </sys:String>
+    <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
+    <sys:String x:Key="Info_Contact">Contact</sys:String>
+    <sys:String x:Key="Info_ContactText1">Algemeen contact: contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText2">Bugrapporten &amp; functieverzoeken: gebruik GitHub Issues of schrijf naar contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ShowTutorial">Tutorial tonen</sys:String>
+
+    <!-- Main window toolbar -->
+    <sys:String x:Key="Main_Appearance">Weergave</sys:String>
+    <sys:String x:Key="Main_Display">Weergeven</sys:String>
+    <sys:String x:Key="Main_Reset">Opnieuw instellen</sys:String>
+    <sys:String x:Key="Main_Stats">Statistieken</sys:String>
+    <sys:String x:Key="Main_More">Meer</sys:String>
+    <sys:String x:Key="Main_Transparent">Transparante</sys:String>
+    <sys:String x:Key="Main_Mode">modus</sys:String>
+    <sys:String x:Key="Main_HideToolbar">Werkbalk verbergen</sys:String>
+    <sys:String x:Key="Main_Info">Info</sys:String>
+    <sys:String x:Key="Main_Settings">Instellingen</sys:String>
+    <sys:String x:Key="Main_UpdateAvailable">Er is een nieuwe versie van ClickyKeys beschikbaar.</sys:String>
+    <sys:String x:Key="Main_OpenDownload">Downloadpagina openen</sys:String>
+    <sys:String x:Key="Main_RemindNextTime">Herinner me de volgende keer</sys:String>
+    <sys:String x:Key="Main_ErrorPrefix">Fout: {0}</sys:String>
+
+    <!-- SetLoader window -->
+    <sys:String x:Key="SetLoader_Title">Profiel laden</sys:String>
+    <sys:String x:Key="SetLoader_SelectProfile">Instellingenprofiel selecteren</sys:String>
+
+    <!-- Settings window -->
+    <sys:String x:Key="Settings_Title">ClickyKeys-instellingen</sys:String>
+    <sys:String x:Key="Settings_Header">Instellingen</sys:String>
+    <sys:String x:Key="Settings_Subtitle">ClickyKeys configureren</sys:String>
+    <sys:String x:Key="Settings_DataCollection">Gegevensverzameling</sys:String>
+    <sys:String x:Key="Settings_CollectUptime">Gegevens over de actieve tijd van de applicatie verzamelen</sys:String>
+    <sys:String x:Key="Settings_CollectKeyStats">Statistieken over toetsaanslagen verzamelen</sys:String>
+    <sys:String x:Key="Settings_Usage">Gebruik</sys:String>
+    <sys:String x:Key="Settings_LaunchOnStartup">Starten bij het opstarten van het systeem</sys:String>
+    <sys:String x:Key="Settings_StartMinimized">Geminimaliseerd starten</sys:String>
+    <sys:String x:Key="Settings_Language">Taal</sys:String>
+    <sys:String x:Key="Settings_AutostartError">Kan de Windows-opstartinstelling niet bijwerken. Je beveiligingssoftware of accountbeleid blokkeert dit mogelijk.</sys:String>
+
+    <!-- Splash window -->
+    <sys:String x:Key="Splash_Starting">Bezig met opstarten…</sys:String>
+    <sys:String x:Key="Splash_StartingKeyStats">Statistiekenservice starten…</sys:String>
+
+    <!-- Stats window -->
+    <sys:String x:Key="Stats_Title">ClickyKeys-statistieken</sys:String>
+    <sys:String x:Key="Stats_Header">Statistieken</sys:String>
+    <sys:String x:Key="Stats_Subtitle">Totaaltellers sinds de eerste start</sys:String>
+    <sys:String x:Key="Stats_Uptime">Actieve tijd</sys:String>
+    <sys:String x:Key="Stats_UptimeOff">Het bijhouden van de actieve tijd is uitgeschakeld. Je kunt het weer inschakelen via Instellingen → Gegevensverzameling.</sys:String>
+    <sys:String x:Key="Stats_CollectionOff">Het verzamelen van statistieken is uitgeschakeld</sys:String>
+    <sys:String x:Key="Stats_Totals">Totalen</sys:String>
+    <sys:String x:Key="Stats_TotalMouseClicks">Totaal aantal muisklikken</sys:String>
+    <sys:String x:Key="Stats_TotalKeyPresses">Totaal aantal toetsaanslagen</sys:String>
+    <sys:String x:Key="Stats_TotalWheelTicks">Totaal aantal wielstappen</sys:String>
+    <sys:String x:Key="Stats_Combined">Gecombineerd</sys:String>
+    <sys:String x:Key="Stats_Keys">Toetsen</sys:String>
+    <sys:String x:Key="Stats_NoKeys">Nog geen toetsaanslagen geregistreerd.</sys:String>
+    <sys:String x:Key="Stats_MouseButtons">Muisknoppen</sys:String>
+    <sys:String x:Key="Stats_NoMouse">Nog geen muisklikken geregistreerd.</sys:String>
+    <sys:String x:Key="Stats_MouseWheel">Muiswiel</sys:String>
+    <sys:String x:Key="Stats_NoWheel">Nog geen wielactiviteit geregistreerd.</sys:String>
+    <sys:String x:Key="Stats_KeyStatsDisabled">Het verzamelen van toetsstatistieken is uitgeschakeld.</sys:String>
+    <sys:String x:Key="Stats_NoData">Nog geen gegevens geregistreerd.</sys:String>
+    <sys:String x:Key="Stats_LastUpdated">Laatst bijgewerkt: {0}</sys:String>
+
+    <!-- Tutorial window -->
+    <sys:String x:Key="Tutorial_Title">ClickyKeys-tutorial</sys:String>
+    <sys:String x:Key="Tutorial_Skip">Overslaan</sys:String>
+    <sys:String x:Key="Tutorial_Back">◀ Terug</sys:String>
+    <sys:String x:Key="Tutorial_Next">Volgende ▶</sys:String>
+    <sys:String x:Key="Tutorial_Finish">Voltooien</sys:String>
+    <sys:String x:Key="Tutorial_StepFormat">{0} / {1}</sys:String>
+
+    <sys:String x:Key="Tutorial_S1_Title">Welkom bij ClickyKeys!</sys:String>
+    <sys:String x:Key="Tutorial_S1_Body">Ik loop met je door een korte tutorial.&#10;Je kunt op elk moment met de app werken — klik op Volgende om door te gaan.</sys:String>
+    <sys:String x:Key="Tutorial_S2_Title">Panelen</sys:String>
+    <sys:String x:Key="Tutorial_S2_Body">Dit zijn je weergavepanelen — de hoofdfunctie van ClickyKeys.&#10;Elk paneel telt de aanslagen van de toegewezen toets.</sys:String>
+    <sys:String x:Key="Tutorial_S3_Title">Een paneel bewerken</sys:String>
+    <sys:String x:Key="Tutorial_S3_Body">Klik met de linkermuisknop op een willekeurig paneel om de editor te openen en er een toets aan toe te wijzen.</sys:String>
+    <sys:String x:Key="Tutorial_S3_Hint">👆 Klik op het paneel om het te proberen</sys:String>
+    <sys:String x:Key="Tutorial_S4_Title">Beschrijving en toets</sys:String>
+    <sys:String x:Key="Tutorial_S4_Body">Typ een naam in het veld Beschrijving.&#10;Klik vervolgens op Invoer en druk op de toets die je wilt bijhouden.</sys:String>
+    <sys:String x:Key="Tutorial_S5_Title">Wijzigingen opslaan</sys:String>
+    <sys:String x:Key="Tutorial_S5_Body">Bevestig je wijzigingen met de groene knop ✔ of verwerp ze met de rode ✖.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Title">Weergave</sys:String>
+    <sys:String x:Key="Tutorial_S6_Body">Open het tabblad Weergave om kleuren, rastergrootte, lettertypen en meer aan te passen.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Hint">👆 Knop Weergave</sys:String>
+    <sys:String x:Key="Tutorial_S7_Title">Wijzigingen toepassen</sys:String>
+    <sys:String x:Key="Tutorial_S7_Body">Klik op Opslaan onderaan Weergave om je huidige indeling op te slaan en het huidige profiel te overschrijven.&#10;Niet-opgeslagen wijzigingen worden verwijderd nadat het tabblad Weergave is gesloten.</sys:String>
+    <sys:String x:Key="Tutorial_S8_Title">Een nieuwe indeling maken</sys:String>
+    <sys:String x:Key="Tutorial_S8_Body">Klik op Opslaan als onderaan Weergave om je indeling onder een nieuwe naam op te slaan. Voer een nieuwe profielnaam in en klik op Opslaan.&#10;Opgeslagen profielen kunnen worden geladen via het tabblad Laden.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Transparante modus</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">De knop Transparante modus verbergt de achtergrond en werkbalk — handig voor stream-overlays.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Knop Transparante modus</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Statistieken</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Het tabblad Statistieken toont hoeveel toetsen je in totaal hebt ingedrukt.&#10;Je gegevens worden alleen op je lokale schijf opgeslagen.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Knop Statistieken</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Bezoek het tabblad Info voor meer informatie over het ClickyKeys-project of om deze tutorial opnieuw te bekijken.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Knop Info</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Dat is alles!</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Veel plezier met ClickyKeys! 🎉</sys:String>
+
+</ResourceDictionary>

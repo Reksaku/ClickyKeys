@@ -51,7 +51,7 @@ namespace ClickyKeys
 
                 if (response == null || response.Entries.Count == 0)
                 {
-                    ShowError("No changelog entries found.");
+                    ShowError(LocalizationManager.T("Changelog_NoEntries"));
                     return;
                 }
 
@@ -60,13 +60,15 @@ namespace ClickyKeys
             catch (Exception ex)
             {
                 Debug.WriteLine($"Changelog fetch failed: {ex}");
-                ShowError("Could not load changelog. Check your internet connection.");
+                ShowError(LocalizationManager.T("Changelog_LoadErrorConn"));
             }
         }
 
         private void BuildEntries(ChangelogResponse response)
         {
-            SubtitleText.Text = $"{response.Count} change{(response.Count == 1 ? "" : "s")} since v{response.Since}";
+            SubtitleText.Text = LocalizationManager.Format(
+                response.Count == 1 ? "Changelog_ChangesSinceOne" : "Changelog_ChangesSinceMany",
+                response.Count, response.Since);
 
             // Show at most 2 newest entries; the window auto-sizes to fit them.
             foreach (var entry in response.Entries.Take(2))
@@ -156,7 +158,7 @@ namespace ClickyKeys
             ErrorText.Text = message;
             LoadingPanel.Visibility = Visibility.Collapsed;
             ErrorPanel.Visibility = Visibility.Visible;
-            SubtitleText.Text = "Could not load changelog";
+            SubtitleText.Text = LocalizationManager.T("Changelog_LoadErrorSubtitle");
         }
 
         private static SolidColorBrush BadgeColor(string type) => type.ToLowerInvariant() switch

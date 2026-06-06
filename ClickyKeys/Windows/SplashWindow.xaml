@@ -43,7 +43,7 @@
                          Foreground="#5C6BC0"/>
 
             <TextBlock x:Name="StatusText"
-                       Text="Starting up…"
+                       Text="{DynamicResource Splash_Starting}"
                        FontSize="11"
                        HorizontalAlignment="Center"
                        Foreground="#9E9E9E"

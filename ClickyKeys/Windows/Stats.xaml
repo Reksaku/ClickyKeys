@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClickyKeys"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="ClickyKeys Statistics"
+        Title="{DynamicResource Stats_Title}"
         Width="490" Height="780"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
@@ -50,10 +50,10 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12" VerticalAlignment="Center">
             <Image Width="60" Height="60" Source="/Resources/Icon.ico" Margin="0,0,12,0"/>
             <StackPanel>
-                <TextBlock Text="Statistics"
+                <TextBlock Text="{DynamicResource Stats_Header}"
                            FontSize="24"
                            FontWeight="Bold"/>
-                <TextBlock Text="Aggregate counters since first launch"
+                <TextBlock Text="{DynamicResource Stats_Subtitle}"
                            FontSize="13"
                            Foreground="{DynamicResource MaterialDesignBodyLight}"/>
             </StackPanel>
@@ -68,7 +68,7 @@
                      toggle (it has its own enabled/disabled state). -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Uptime"
+                        <TextBlock Text="{DynamicResource Stats_Uptime}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
@@ -76,7 +76,7 @@
                                    FontWeight="Bold"
                                    FontSize="20"/>
                         <TextBlock x:Name="UptimeDisabledText"
-                                   Text="Uptime tracking is turned off. You can turn it back on in Settings → Data Collection."
+                                   Text="{DynamicResource Stats_UptimeOff}"
                                    TextWrapping="Wrap"
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    FontStyle="Italic"
@@ -93,7 +93,7 @@
                                      Padding="16"
                                      Visibility="Collapsed">
                     <StackPanel>
-                        <TextBlock Text="Statistics collection is turned off"
+                        <TextBlock Text="{DynamicResource Stats_CollectionOff}"
                                    FontWeight="Bold"
                                    FontSize="15"
                                    Margin="0,0,0,6"/>
@@ -112,7 +112,7 @@
                 <!-- Totals -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Totals"
+                        <TextBlock Text="{DynamicResource Stats_Totals}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
@@ -123,7 +123,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
-                                       Text="Total mouse clicks"
+                                       Text="{DynamicResource Stats_TotalMouseClicks}"
                                        VerticalAlignment="Center"/>
                             <TextBlock Grid.Column="1"
                                        x:Name="TotalMouseClicksText"
@@ -138,7 +138,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
-                                       Text="Total key presses"
+                                       Text="{DynamicResource Stats_TotalKeyPresses}"
                                        VerticalAlignment="Center"/>
                             <TextBlock Grid.Column="1"
                                        x:Name="TotalKeyPressesText"
@@ -153,7 +153,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
-                                       Text="Total wheel ticks"
+                                       Text="{DynamicResource Stats_TotalWheelTicks}"
                                        VerticalAlignment="Center"/>
                             <TextBlock Grid.Column="1"
                                        x:Name="TotalWheelTicksText"
@@ -170,7 +170,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
-                                       Text="Combined"
+                                       Text="{DynamicResource Stats_Combined}"
                                        FontWeight="Bold"
                                        VerticalAlignment="Center"/>
                             <TextBlock Grid.Column="1"
@@ -185,12 +185,12 @@
                 <!-- Per-key counts -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Keys"
+                        <TextBlock Text="{DynamicResource Stats_Keys}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
                         <TextBlock x:Name="KeysEmptyText"
-                                   Text="No key presses recorded yet."
+                                   Text="{DynamicResource Stats_NoKeys}"
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    FontStyle="Italic"
                                    Visibility="Collapsed"/>
@@ -202,12 +202,12 @@
                 <!-- Per-mouse-button counts -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Mouse buttons"
+                        <TextBlock Text="{DynamicResource Stats_MouseButtons}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
                         <TextBlock x:Name="MouseEmptyText"
-                                   Text="No mouse clicks recorded yet."
+                                   Text="{DynamicResource Stats_NoMouse}"
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    FontStyle="Italic"
                                    Visibility="Collapsed"/>
@@ -219,12 +219,12 @@
                 <!-- Per-wheel-direction counts -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Mouse wheel"
+                        <TextBlock Text="{DynamicResource Stats_MouseWheel}"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,6"/>
                         <TextBlock x:Name="WheelEmptyText"
-                                   Text="No wheel activity recorded yet."
+                                   Text="{DynamicResource Stats_NoWheel}"
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    FontStyle="Italic"
                                    Visibility="Collapsed"/>
@@ -249,7 +249,7 @@
             <Button DockPanel.Dock="Right"
                     Width="80"
                     Margin="150,0,0,0"
-                    Content="Close"
+                    Content="{DynamicResource Common_Close}"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     IsCancel="True"
                     Click="Click_Close"/>

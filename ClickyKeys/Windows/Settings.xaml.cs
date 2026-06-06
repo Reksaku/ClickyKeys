@@ -45,13 +45,18 @@ namespace ClickyKeys
         public Settings(IOverlay mainOverlay)
         {
             _mainOverlay = mainOverlay;
+
+            // Guard BEFORE InitializeComponent: the ComboBox's initial
+            // selection raises SelectionChanged during XAML init, and without
+            // this flag that spurious event would apply/persist the default
+            // language and clobber a saved choice before we get to restore it.
+            _initialising = true;
             InitializeComponent();
 
             // Restore persisted/current state into the controls. The
             // _initialising guard keeps the Checked/Unchecked handlers from
             // treating this programmatic restore as a user action (which would
             // pointlessly re-write the registry / config).
-            _initialising = true;
             try
             {
                 // Launch-on-startup: the registry is the source of truth, so
@@ -64,14 +69,25 @@ namespace ClickyKeys
                 StartMinimizedToggle.IsChecked = cfg.StartMinimized;
                 CollectKeyStatsToggle.IsChecked = cfg.CollectKeyStats;
                 CollectUptimeToggle.IsChecked = cfg.CollectUptime;
+
+                // Language: select the ComboBoxItem whose Tag matches the saved
+                // culture code (normalized so an unknown/blank value maps to a
+                // shipped language rather than leaving nothing selected).
+                var savedLang = LocalizationManager.Normalize(cfg.Language);
+                foreach (var obj in LanguageComboBox.Items)
+                {
+                    if (obj is ComboBoxItem item &&
+                        (item.Tag as string) == savedLang)
+                    {
+                        LanguageComboBox.SelectedItem = item;
+                        break;
+                    }
+                }
             }
             finally
             {
                 _initialising = false;
             }
-
-            // TODO (wiring): the language selector is still UI-only — restore
-            // its saved value here once that mechanism exists.
         }
 
         // ----------------------------------------------------------------
@@ -132,8 +148,7 @@ namespace ClickyKeys
 
                 MessageBox.Show(
                     this,
-                    "Couldn't update the Windows startup setting. " +
-                    "Your security software or account policy may be blocking it.",
+                    LocalizationManager.T("Settings_AutostartError"),
                     "ClickyKeys",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
@@ -156,15 +171,17 @@ namespace ClickyKeys
         {
             if (_initialising) return;
 
-            // TODO (wiring): COMPLEX — localization.
-            // Read the chosen culture from the selected item's Tag ("en"/"pl"),
-            // persist it, then apply it. Applying mid-session means swapping the
-            // merged localized ResourceDictionary and setting
-            // Thread.CurrentThread.CurrentUICulture; already-rendered windows
-            // won't re-localize automatically, so either rebuild open windows
-            // or tell the user a restart is needed. Simplest first pass: save
-            // the choice and apply on next launch.
-            // string? code = (LanguageComboBox.SelectedItem as ComboBoxItem)?.Tag as string;
+            // Read the chosen culture from the selected item's Tag ("en"/"pl").
+            string code = LocalizationManager.Normalize(
+                (LanguageComboBox.SelectedItem as ComboBoxItem)?.Tag as string);
+
+            // Apply live: LocalizationManager swaps the merged string
+            // dictionary, so every open window re-resolves its
+            // {DynamicResource ...} text immediately — no restart needed.
+            LocalizationManager.Apply(code);
+
+            // Persist so the choice is restored on the next launch.
+            ConfigStore.Update(cfg => cfg.Language = code);
         }
 
         // ----------------------------------------------------------------

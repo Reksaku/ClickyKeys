@@ -37,7 +37,7 @@
                            FontSize="14"
                            FontWeight="SemiBold"
                            Foreground="White"/>
-                <TextBlock Text="Application is already running."
+                <TextBlock Text="{DynamicResource Toast_AlreadyRunning}"
                            FontSize="12"
                            Foreground="#BBBBBB"/>
             </StackPanel>
