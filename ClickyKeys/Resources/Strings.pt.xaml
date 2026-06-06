@@ -19,6 +19,7 @@
     <sys:String x:Key="Common_SaveAs">Guardar como</sys:String>
     <sys:String x:Key="Common_Exit">Sair</sys:String>
     <sys:String x:Key="Common_Input">Entrada</sys:String>
+    <sys:String x:Key="Common_Description">Descrição</sys:String>
     <sys:String x:Key="Common_Cancel">Cancelar</sys:String>
 
     <!-- Already-running toast -->
@@ -162,16 +163,25 @@
     <sys:String x:Key="Tutorial_S7_Body">Clique em Guardar na parte inferior de Aspeto para guardar o esquema atual e substituir o perfil atual.&#10;As alterações não guardadas serão descartadas após fechar o separador Aspeto.</sys:String>
     <sys:String x:Key="Tutorial_S8_Title">Criar um novo esquema</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Clique em Guardar como na parte inferior de Aspeto para guardar o esquema com um novo nome. Introduza um novo nome de perfil e clique em Guardar.&#10;Os perfis guardados podem ser carregados no separador Carregar.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Title">Modo transparente</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">O botão de modo transparente oculta o fundo e a barra de ferramentas — útil para sobreposições de transmissão.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Hint">👆 Botão de modo transparente</sys:String>
-    <sys:String x:Key="Tutorial_S10_Title">Estatísticas</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">O separador Estatísticas mostra quantas teclas premiu no total.&#10;Os seus dados são armazenados apenas no seu disco local.</sys:String>
-    <sys:String x:Key="Tutorial_S10_Hint">👆 Botão Estatísticas</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Visite o separador Info para saber mais sobre o projeto ClickyKeys ou ver este tutorial novamente.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Botão Info</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">É tudo!</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Aproveite o ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Repor</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">O botão Repor (F12) coloca a zero todos os contadores dos painéis sem alterar a sua configuração ou disposição.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Botão Repor</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Apresentação</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Passe o rato sobre o separador Apresentação para mostrar opções adicionais:&#10;• Modo transparente — oculta o fundo e a barra de ferramentas, útil para sobreposições de transmissão.&#10;• Ocultar barra (F11) — oculta a barra de ferramentas.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Passe o rato sobre o separador Apresentação</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Estatísticas</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">O separador Estatísticas mostra quantas teclas premiu no total.&#10;Os seus dados são armazenados apenas no seu disco local.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Botão Estatísticas</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Mais</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Passe o rato sobre o separador Mais para mostrar o separador Info e a janela Definições.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Passe o rato sobre o separador Mais</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Definições</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">A janela Definições permite-lhe configurar a aplicação: recolha de dados de tempo de atividade e de teclas premidas, arranque no início do sistema, arranque minimizado e o idioma da interface.</sys:String>
+    <sys:String x:Key="Tutorial_S13_Hint">👆 Separador Mais ▸ Definições</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Visite o separador Info para saber mais sobre o projeto ClickyKeys ou ver este tutorial novamente.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Separador Mais ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">É tudo!</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Aproveite o ClickyKeys! 🎉</sys:String>
 
 </ResourceDictionary>

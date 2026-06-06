@@ -17,6 +17,7 @@
     <sys:String x:Key="Common_SaveAs">Αποθ. ως</sys:String>
     <sys:String x:Key="Common_Exit">Έξοδος</sys:String>
     <sys:String x:Key="Common_Input">Είσοδος</sys:String>
+    <sys:String x:Key="Common_Description">Περιγραφή</sys:String>
     <sys:String x:Key="Common_Cancel">Άκυρο</sys:String>
 
     <!-- Already-running toast -->
@@ -160,16 +161,25 @@
     <sys:String x:Key="Tutorial_S7_Body">Κάντε κλικ στο Αποθήκευση στο κάτω μέρος της Εμφάνισης για να αποθηκεύσετε την τρέχουσα διάταξη και να αντικαταστήσετε το τρέχον προφίλ.&#10;Οι μη αποθηκευμένες αλλαγές θα απορριφθούν μετά το κλείσιμο της καρτέλας Εμφάνιση.</sys:String>
     <sys:String x:Key="Tutorial_S8_Title">Δημιουργία νέας διάταξης</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Κάντε κλικ στο Αποθήκευση ως στο κάτω μέρος της Εμφάνισης για να αποθηκεύσετε τη διάταξή σας με νέο όνομα. Εισαγάγετε ένα νέο όνομα προφίλ και κάντε κλικ στο Αποθήκευση.&#10;Τα αποθηκευμένα προφίλ μπορούν να φορτωθούν από την καρτέλα Φόρτωση.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Title">Διαφανής λειτουργία</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Το κουμπί διαφανούς λειτουργίας αποκρύπτει το φόντο και τη γραμμή εργαλείων — χρήσιμο για επικαλύψεις σε ζωντανές μεταδόσεις.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Hint">👆 Κουμπί διαφανούς λειτουργίας</sys:String>
-    <sys:String x:Key="Tutorial_S10_Title">Στατιστικά</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Η καρτέλα Στατιστικά δείχνει πόσα πλήκτρα έχετε πατήσει συνολικά.&#10;Τα δεδομένα σας αποθηκεύονται μόνο στον τοπικό σας δίσκο.</sys:String>
-    <sys:String x:Key="Tutorial_S10_Hint">👆 Κουμπί Στατιστικά</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Πληροφορίες</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Επισκεφθείτε την καρτέλα Πληροφορίες για να μάθετε περισσότερα για το έργο ClickyKeys ή για να δείτε ξανά αυτόν τον οδηγό.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Κουμπί Πληροφορίες</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Αυτό ήταν!</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Απολαύστε το ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Επαναφορά</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Το κουμπί Επαναφορά (F12) μηδενίζει όλους τους μετρητές των πλαισίων, χωρίς να αλλάζει τη διαμόρφωση ή τη διάταξή τους.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Κουμπί Επαναφορά</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Προβολή</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Τοποθετήστε τον δείκτη πάνω στην καρτέλα Προβολή για να εμφανιστούν επιπλέον επιλογές:&#10;• Διαφανής λειτουργία — αποκρύπτει το φόντο και τη γραμμή εργαλείων, χρήσιμο για επικαλύψεις σε ζωντανές μεταδόσεις.&#10;• Απόκρυψη γραμμής (F11) — κρύβει τη γραμμή εργαλείων.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Δείξτε την καρτέλα Προβολή</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Στατιστικά</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Η καρτέλα Στατιστικά δείχνει πόσα πλήκτρα έχετε πατήσει συνολικά.&#10;Τα δεδομένα σας αποθηκεύονται μόνο στον τοπικό σας δίσκο.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Κουμπί Στατιστικά</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Περισσότερα</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Τοποθετήστε τον δείκτη πάνω στην καρτέλα Περισσότερα για να εμφανιστούν η καρτέλα Πληροφορίες και το παράθυρο Ρυθμίσεις.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Δείξτε την καρτέλα Περισσότερα</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Ρυθμίσεις</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">Στο παράθυρο Ρυθμίσεις μπορείτε να διαμορφώσετε την εφαρμογή: συλλογή δεδομένων χρόνου λειτουργίας και στατιστικών πατημάτων πλήκτρων, εκκίνηση κατά την έναρξη του συστήματος, εκκίνηση ελαχιστοποιημένη και τη γλώσσα της διεπαφής.</sys:String>
+    <sys:String x:Key="Tutorial_S13_Hint">👆 Καρτέλα Περισσότερα ▸ Ρυθμίσεις</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Πληροφορίες</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Επισκεφθείτε την καρτέλα Πληροφορίες για να μάθετε περισσότερα για το έργο ClickyKeys ή για να δείτε ξανά αυτόν τον οδηγό.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Καρτέλα Περισσότερα ▸ Πληροφορίες</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Αυτό ήταν!</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Απολαύστε το ClickyKeys! 🎉</sys:String>
 
 </ResourceDictionary>

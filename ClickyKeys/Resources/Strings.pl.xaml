@@ -17,6 +17,7 @@
     <sys:String x:Key="Common_SaveAs">Zapisz jako</sys:String>
     <sys:String x:Key="Common_Exit">Wyjdź</sys:String>
     <sys:String x:Key="Common_Input">Klawisz</sys:String>
+    <sys:String x:Key="Common_Description">Opis</sys:String>
     <sys:String x:Key="Common_Cancel">Anuluj</sys:String>
 
     <!-- Already-running toast -->
@@ -160,16 +161,25 @@
     <sys:String x:Key="Tutorial_S7_Body">Kliknij Zapisz na dole karty Wygląd, aby zapisać bieżący układ i nadpisać aktualny profil.&#10;Niezapisane zmiany zostaną odrzucone po zamknięciu karty Wygląd.</sys:String>
     <sys:String x:Key="Tutorial_S8_Title">Tworzenie nowego układu</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Kliknij Zapisz jako na dole karty Wygląd, aby zapisać układ pod nową nazwą. Wpisz nazwę nowego profilu i kliknij Zapisz.&#10;Zapisane profile można wczytać z karty Wczytaj.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Title">Tryb przezroczysty</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Przycisk trybu przezroczystego ukrywa tło i pasek narzędzi — przydatne do nakładek na transmisjach.</sys:String>
-    <sys:String x:Key="Tutorial_S9_Hint">👆 Przycisk trybu przezroczystego</sys:String>
-    <sys:String x:Key="Tutorial_S10_Title">Statystyki</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Karta Statystyki pokazuje, ile klawiszy nacisnąłeś łącznie.&#10;Twoje dane są przechowywane wyłącznie na lokalnym dysku.</sys:String>
-    <sys:String x:Key="Tutorial_S10_Hint">👆 Przycisk Statystyki</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Odwiedź kartę Info, aby dowiedzieć się więcej o projekcie ClickyKeys lub ponownie obejrzeć samouczek.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Przycisk Info</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">To wszystko!</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Miłego korzystania z ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S9_Title">Reset</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Przycisk Reset (klawisz F12) zeruje wszystkie liczniki paneli, nie zmieniając ich konfiguracji ani układu.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Hint">👆 Przycisk Reset</sys:String>
+    <sys:String x:Key="Tutorial_S10_Title">Wyświetlanie</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Najedź na kartę Wyświetlanie, aby rozwinąć dodatkowe opcje:&#10;• Tryb przezroczysty — ukrywa tło i pasek narzędzi, przydatne do nakładek na transmisjach.&#10;• Ukryj pasek (F11) — chowa pasek narzędzi.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Hint">👆 Najedź na kartę Wyświetlanie</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Statystyki</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Karta Statystyki pokazuje, ile klawiszy nacisnąłeś łącznie.&#10;Twoje dane są przechowywane wyłącznie na lokalnym dysku.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Przycisk Statystyki</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Więcej</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Najedź na kartę Więcej, aby rozwinąć kartę Info oraz okno Ustawienia.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Najedź na kartę Więcej</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Ustawienia</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">W oknie Ustawienia skonfigurujesz aplikację: zbieranie danych o czasie działania i statystyk klawiszy, uruchamianie przy starcie systemu, uruchamianie zminimalizowane oraz język interfejsu.</sys:String>
+    <sys:String x:Key="Tutorial_S13_Hint">👆 Karta Więcej ▸ Ustawienia</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Odwiedź kartę Info, aby dowiedzieć się więcej o projekcie ClickyKeys lub ponownie obejrzeć samouczek.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Karta Więcej ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">To wszystko!</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Miłego korzystania z ClickyKeys! 🎉</sys:String>
 
 </ResourceDictionary>
