@@ -32,6 +32,7 @@ namespace ClickyKeys
         public void OnStatsClose();
         public void OnSettingsClose();
         void SetBackgroundRainbow(bool? IsTrue);
+        void SetRainbowSpeed(int seconds);
         void ShowTutorial();
     }
 
@@ -442,9 +443,12 @@ namespace ClickyKeys
             // so the rainbow respects their brightness preference.
             RgbToHsv(allColors.background, out _, out double sat, out double val);
 
+            // Full-cycle length is user-configurable (1–10 s); clamp defensively.
+            int cycleSeconds = Math.Clamp(_appearanceConfiguration.RainbowSpeedSeconds, 1, 10);
+
             var anim = new ColorAnimationUsingKeyFrames
             {
-                Duration = new Duration(TimeSpan.FromSeconds(6)),
+                Duration = new Duration(TimeSpan.FromSeconds(cycleSeconds)),
                 RepeatBehavior = RepeatBehavior.Forever
             };
 
@@ -1275,6 +1279,15 @@ namespace ClickyKeys
         {
             _appearanceConfiguration.IsBackgroundRainbow = IsTrue ?? false;
             UpdateRainbowState();
+        }
+
+        // Live preview of the rainbow cycle length. Restarts the animation with
+        // the new duration only while rainbow mode is actually on.
+        public void SetRainbowSpeed(int seconds)
+        {
+            _appearanceConfiguration.RainbowSpeedSeconds = Math.Clamp(seconds, 1, 10);
+            if (_appearanceConfiguration.IsBackgroundRainbow)
+                UpdateRainbowState();
         }
 
         public void OnGridChange(AppearanceConfiguration settings)

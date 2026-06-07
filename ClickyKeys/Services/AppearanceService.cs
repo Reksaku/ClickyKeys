@@ -191,6 +191,10 @@ namespace ClickyKeys
         [JsonPropertyName("background_rainbow")]
         public bool IsBackgroundRainbow { get; set; } = false;
 
+        // Duration of one full rainbow colour cycle, in seconds (1–10).
+        [JsonPropertyName("rainbow_speed_seconds")]
+        public int RainbowSpeedSeconds { get; set; } = 6;
+
         //[JsonPropertyName("line_color")]
         //public string LineColor { get; set; } = "#000000";
 
