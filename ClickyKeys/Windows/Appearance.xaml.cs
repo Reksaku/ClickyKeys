@@ -92,6 +92,8 @@ namespace ClickyKeys
             else
                 _mainOverlay.SetBackgroundRainbow(false);
 
+            RainbowSpeedSlider.Value = Math.Clamp(_appearance.RainbowSpeedSeconds, 1, 10);
+
             BackgroundColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.BackgroundColor);
             PanelsColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.PanelsColor);
             KeysColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.KeysTextColor);
@@ -124,7 +126,8 @@ namespace ClickyKeys
         private void OnBackgroundColorChanged(object sender, EventArgs e)
         {
             var picker = (MD.ColorPicker)sender;
-            backgroundColor = picker.Color;                  
+            backgroundColor = picker.Color;
+            UpdateHexBox(BackgroundColorHex, backgroundColor);
             WeakReferenceMessenger.Default.Send(
                 new ColorChangedMessage(backgroundColor, ColorTarget.Background));
         }
@@ -133,6 +136,7 @@ namespace ClickyKeys
         {
             var picker = (MD.ColorPicker)sender;
             panelsColor = picker.Color;
+            UpdateHexBox(PanelsColorHex, panelsColor);
             WeakReferenceMessenger.Default.Send(
                 new ColorChangedMessage(panelsColor, ColorTarget.Panels));
         }
@@ -141,6 +145,7 @@ namespace ClickyKeys
         {
             var picker = (MD.ColorPicker)sender;
             keysColor = picker.Color;
+            UpdateHexBox(KeysColorHex, keysColor);
             WeakReferenceMessenger.Default.Send(
                 new ColorChangedMessage(keysColor, ColorTarget.Keys));
         }
@@ -149,8 +154,105 @@ namespace ClickyKeys
         {
             var picker = (MD.ColorPicker)sender;
             valuesColor = picker.Color;
+            UpdateHexBox(ValuesColorHex, valuesColor);
             WeakReferenceMessenger.Default.Send(
                 new ColorChangedMessage(valuesColor, ColorTarget.Values));
+        }
+
+        // --------------------------------------------------------------
+        // Hex colour text fields
+        // --------------------------------------------------------------
+        // Each colour has a small text box that mirrors the picker's value as a
+        // "#RRGGBB" string and lets the user type a colour code directly. The
+        // picker is the single source of truth: editing a box only sets the
+        // picker (on Enter / focus loss), and the picker's change handler writes
+        // the normalised hex back into the box.
+
+        private bool _suppressPickerFromHex;
+
+        private static string ColorToHex(Color c) => $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+
+        /// <summary>Refreshes a hex box from a colour without re-triggering a parse.</summary>
+        private void UpdateHexBox(TextBox? box, Color color)
+        {
+            if (box is null) return;
+            _suppressPickerFromHex = true;
+            box.Text = ColorToHex(color);
+            _suppressPickerFromHex = false;
+        }
+
+        /// <summary>
+        /// Parses "#RGB", "#RRGGBB", "#AARRGGBB" (with or without the leading
+        /// '#') or a known colour name. Returns false on anything invalid.
+        /// </summary>
+        private static bool TryParseHexColor(string? input, out Color color)
+        {
+            color = Colors.Black;
+            if (string.IsNullOrWhiteSpace(input)) return false;
+
+            string s = input.Trim();
+            if (!s.StartsWith("#") && System.Text.RegularExpressions.Regex.IsMatch(s, "^[0-9a-fA-F]+$"))
+                s = "#" + s;
+
+            try
+            {
+                if (ColorConverter.ConvertFromString(s) is Color c)
+                {
+                    color = c;
+                    return true;
+                }
+            }
+            catch
+            {
+                // Fall through to the invalid result.
+            }
+            return false;
+        }
+
+        /// <summary>Maps a hex text box back to the picker it controls.</summary>
+        private MD.ColorPicker? PickerForHexBox(TextBox box) =>
+            box == BackgroundColorHex ? BackgroundColorPicker :
+            box == PanelsColorHex     ? PanelsColorPicker :
+            box == KeysColorHex       ? KeysColorPicker :
+            box == ValuesColorHex     ? ValuesColorPicker : null;
+
+        /// <summary>
+        /// Applies the typed hex to its picker. Invalid input is reverted to the
+        /// picker's current colour so the box never shows a bogus value.
+        /// </summary>
+        private void CommitHexBox(TextBox box)
+        {
+            if (_suppressPickerFromHex) return;
+
+            var picker = PickerForHexBox(box);
+            if (picker is null) return;
+
+            if (TryParseHexColor(box.Text, out Color parsed))
+            {
+                if (picker.Color != parsed)
+                    picker.Color = parsed; // raises the picker change handler, which re-writes the box
+                else
+                    UpdateHexBox(box, picker.Color);
+            }
+            else
+            {
+                UpdateHexBox(box, picker.Color);
+            }
+        }
+
+        private void ColorHex_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && sender is TextBox box)
+            {
+                e.Handled = true;
+                CommitHexBox(box);
+            }
+        }
+
+        private void ColorHex_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox box)
+                CommitHexBox(box);
         }
 
         void ForceColorChange()
@@ -179,6 +281,14 @@ namespace ClickyKeys
         private void Click_BackgroundRainbowCheckBox(object? sender, EventArgs e)
         {
             _mainOverlay.SetBackgroundRainbow(BackgroundRainbowCheckBox.IsChecked);
+        }
+
+        // Live-updates the rainbow cycle length as the user drags the slider.
+        private void RainbowSpeedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            // _mainOverlay is assigned before InitializeComponent, so this is
+            // safe even if the event fires while the XAML value is first set.
+            _mainOverlay?.SetRainbowSpeed((int)RainbowSpeedSlider.Value);
         }
         private void Click_GridRows(object? sender, EventArgs e)
         {
@@ -226,6 +336,7 @@ namespace ClickyKeys
             _appearanceConfiguration.KeysFontAppearance = KeysFontPicker.AppearanceParameter;
             _appearanceConfiguration.ValuesFontAppearance = ValuesFontPicker.AppearanceParameter;
             _appearanceConfiguration.IsBackgroundRainbow = BackgroundRainbowCheckBox.IsChecked ?? false;
+            _appearanceConfiguration.RainbowSpeedSeconds = (int)RainbowSpeedSlider.Value;
 
             // Async atomic save: doesn't block the UI thread while the file
             // hits disk. If the async path fails for any reason we fall back
@@ -370,6 +481,7 @@ namespace ClickyKeys
             target.KeysTextColor = source.KeysTextColor;
             target.ValuesTextColor = source.ValuesTextColor;
             target.IsBackgroundRainbow = source.IsBackgroundRainbow;
+            target.RainbowSpeedSeconds = source.RainbowSpeedSeconds;
 
             CopyFontAppearance(target.KeysFontAppearance, source.KeysFontAppearance);
             CopyFontAppearance(target.ValuesFontAppearance, source.ValuesFontAppearance);

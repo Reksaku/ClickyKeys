@@ -1,4 +1,4 @@
-﻿<Window
+<Window
     x:Class="ClickyKeys.Appearance"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -11,24 +11,24 @@
     mc:Ignorable="d"
     Closing="Window_Closed"
     Title="{DynamicResource Appearance_Title}"
-    Height="885" MinHeight="240" MaxHeight="1045"
-    Width="460" MinWidth="460" MaxWidth="460"
+    Width="510" Height="1035"
+    WindowStartupLocation="CenterOwner"
+    Background="{DynamicResource MaterialDesignPaper}"
+    TextElement.FontFamily="Segoe UI"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Icon="/Resources/Icon.ico">
 
     <Window.Resources>
+        <!-- Placeholder text box used by the "Save as" popup. -->
         <Style x:Key="PlaceholderTextBox" TargetType="TextBox">
             <Setter Property="Padding" Value="4,2,4,2"/>
-
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Grid>
-                            <!-- Text -->
                             <ScrollViewer x:Name="PART_ContentHost"
                                   Margin="{TemplateBinding Padding}"
                                   VerticalAlignment="Center"/>
-
-                            <!-- Placeholder -->
                             <TextBlock x:Name="Placeholder"
                                Text="{TemplateBinding Tag}"
                                Margin="{TemplateBinding Padding}"
@@ -37,9 +37,7 @@
                                IsHitTestVisible="False"
                                Visibility="Collapsed"/>
                         </Grid>
-
                         <ControlTemplate.Triggers>
-                            <!-- Placeholder visibility -->
                             <Trigger Property="Text" Value="">
                                 <Setter TargetName="Placeholder"
                                 Property="Visibility"
@@ -51,387 +49,522 @@
             </Setter>
         </Style>
 
+        <!-- Shared row + label layout, matching the Settings window. -->
+        <Style x:Key="SettingRowGrid" TargetType="Grid">
+            <Setter Property="Margin" Value="0,6,0,6"/>
+        </Style>
+        <Style x:Key="SettingLabel" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,0,12,0"/>
+        </Style>
+        <Style x:Key="CardHeader" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
+        </Style>
     </Window.Resources>
 
-
-
-    <Grid>
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="344*"/>
+            <ColumnDefinition Width="109*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="42"/>
-            <RowDefinition Height="33"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="52"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <Image Width="60" Height="60" Source="/Resources/Buttons/appearance_icon.png" Margin="0,-5,12,0"/>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="{DynamicResource Appearance_Title}"
+                           FontSize="24"
+                           FontWeight="Bold"/>
+                <!-- ProfilesLabel still receives its text from code-behind
+                     (it sets .Content). Styled to look like the subtitle used
+                     in the Settings / Info windows. -->
+                <Label x:Name="ProfilesLabel"
+                       Content="{DynamicResource Appearance_Profile}"
+                       Padding="0"
+                       FontSize="13"
+                       Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+            </StackPanel>
+        </StackPanel>
 
-        <Label x:Name="AppearanceLabel" Content="{DynamicResource Appearance_Title}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="28" Grid.Row="0"/>
-        <Label x:Name="ProfilesLabel" Content="{DynamicResource Appearance_Profile}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="20" Grid.Row="1"/>
-        <ScrollViewer Grid.Row="2">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <!-- Main content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+            <StackPanel Margin="0,10,0,8">
 
-                <StackPanel x:Name="GridSizeScetion" Grid.Row="0">
+                <!-- ===================== Grid size ===================== -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardHeader}"
+                                   Text="{DynamicResource Appearance_GridSize}"/>
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="20"/>
-                        </Grid.RowDefinitions>
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       Text="{DynamicResource Appearance_GridRows}"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <materialDesign:DecimalUpDown x:Name="RowsCount"
+                                                              Width="90" Minimum="1" Maximum="10"
+                                                              FontSize="15" VerticalAlignment="Center"/>
+                                <Button Content="{DynamicResource Common_Set}"
+                                        Margin="8,0,0,0" VerticalAlignment="Center"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Click="Click_GridRows"/>
+                            </StackPanel>
+                        </Grid>
 
-                        <Label Content="{DynamicResource Appearance_GridRows}" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Futura Bk BT" FontSize="18" x:Name="RowsLabel"/>
-                        <materialDesign:DecimalUpDown HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Width="100" Grid.Row="0" Grid.Column="1" Minimum="1" Maximum="10" FontSize="16" x:Name="RowsCount"/>
-                        <Button Content="{DynamicResource Common_Set}" HorizontalAlignment="Left" Margin="140,0,0,0"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Click="Click_GridRows"/>
-                    </Grid>
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       Text="{DynamicResource Appearance_GridColumns}"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <materialDesign:DecimalUpDown x:Name="ColumnsCount"
+                                                              Width="90" Minimum="1" Maximum="10"
+                                                              FontSize="15" VerticalAlignment="Center"/>
+                                <Button Content="{DynamicResource Common_Set}"
+                                        Margin="8,0,0,0" VerticalAlignment="Center"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Click="Click_GridColumns"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="20"/>
-                        </Grid.RowDefinitions>
-                        <Label Content="{DynamicResource Appearance_GridColumns}" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Futura Bk BT" FontSize="18" x:Name="ColumnsLabel"/>
-                        <materialDesign:DecimalUpDown HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Width="100" Grid.Row="0" Grid.Column="1" Minimum="1" Maximum="10" FontSize="16" x:Name="ColumnsCount"/>
-                        <Button Content="{DynamicResource Common_Set}" HorizontalAlignment="Left" Margin="140,0,0,0"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Click="Click_GridColumns"/>
-                    </Grid>
-                </StackPanel>
+                <!-- ===================== Colors ===================== -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardHeader}"
+                                   Text="{DynamicResource Appearance_Colors}"/>
 
-                <StackPanel x:Name="ColorsSection" Grid.Row="1">
+                        <!-- Background color -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           Style="{StaticResource SettingLabel}"
+                                           Text="{DynamicResource Appearance_BackgroundColor}"
+                                           FontSize="16"/>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                           Grid.Column="0"
+                                           Style="{StaticResource SettingLabel}"
+                                           Text="{DynamicResource Appearance_SelectedColor}"
+                                           Width="Auto"/>
+                                    <TextBox x:Name="BackgroundColorHex"
+                                           Grid.Column="1"
+                                           Style="{StaticResource PlaceholderTextBox}"
+                                           Tag="#RRGGBB"
+                                           Width="90" MaxLength="9" TextWrapping="NoWrap"
+                                           VerticalAlignment="Center"
+                                           KeyDown="ColorHex_KeyDown"
+                                           LostFocus="ColorHex_LostFocus"
+                                           Margin="0,0,20,0"/>
+                                </Grid>
 
-                    <Label Content="{DynamicResource Appearance_Colors}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="16" Grid.Row="0"/>
+                            </Grid>
+                            
+                            <StackPanel Grid.Column="1" Width="210">
+                                <CheckBox x:Name="BackgroundPalletCheckBox"
+                                          Content="{DynamicResource Appearance_ExpandPallet}"
+                                          HorizontalAlignment="Right" Margin="0,0,0,2"/>
+                                <materialDesign:ColorPicker x:Name="BackgroundColorPicker"
+                                                            Width="200" HorizontalAlignment="Right">
+                                    <materialDesign:ColorPicker.Style>
+                                        <Style TargetType="materialDesign:ColorPicker">
+                                            <Setter Property="Height" Value="36" />
+                                            <Style.Triggers>
+                                                <DataTrigger Value="True">
+                                                    <DataTrigger.Binding>
+                                                        <Binding Path="IsChecked" Source="{x:Reference BackgroundPalletCheckBox}" />
+                                                    </DataTrigger.Binding>
+                                                    <DataTrigger.EnterActions>
+                                                        <BeginStoryboard HandoffBehavior="SnapshotAndReplace">
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Height" To="110" Duration="0:0:0.20">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <QuadraticEase EasingMode="EaseOut"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+                                                    <DataTrigger.ExitActions>
+                                                        <BeginStoryboard HandoffBehavior="SnapshotAndReplace">
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Height" To="36" Duration="0:0:0.20">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <QuadraticEase EasingMode="EaseIn"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.ExitActions>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </materialDesign:ColorPicker.Style>
+                                </materialDesign:ColorPicker>
+                            </StackPanel>
+                        </Grid>
 
-                    <Grid x:Name="BackgroundGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="20"/>
-                        </Grid.RowDefinitions>
+                        <!-- Panels color -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           Style="{StaticResource SettingLabel}"
+                                           Text="{DynamicResource Appearance_PanelsColor}"
+                                           FontSize="16"/>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
+                                               Style="{StaticResource SettingLabel}"
+                                               Text="{DynamicResource Appearance_SelectedColor}"
+                                               Width="Auto"/>
+                                    <TextBox x:Name="PanelsColorHex"
+                                             Grid.Column="1"
+                                             Style="{StaticResource PlaceholderTextBox}"
+                                             Tag="#RRGGBB"
+                                             Width="90" MaxLength="9" TextWrapping="NoWrap"
+                                             VerticalAlignment="Center"
+                                             KeyDown="ColorHex_KeyDown"
+                                             LostFocus="ColorHex_LostFocus"
+                                             Margin="0,0,20,0"/>
+                                </Grid>
+                            </Grid>
+                            <StackPanel Grid.Column="1" Width="210">
+                                <CheckBox x:Name="PanelsPalletCheckBox"
+                                          Content="{DynamicResource Appearance_ExpandPallet}"
+                                          HorizontalAlignment="Right" Margin="0,0,0,2"/>
+                                <materialDesign:ColorPicker x:Name="PanelsColorPicker"
+                                                            Width="200" HorizontalAlignment="Right">
+                                    <materialDesign:ColorPicker.Style>
+                                        <Style TargetType="materialDesign:ColorPicker">
+                                            <Setter Property="Height" Value="36" />
+                                            <Style.Triggers>
+                                                <DataTrigger Value="True">
+                                                    <DataTrigger.Binding>
+                                                        <Binding Path="IsChecked" Source="{x:Reference PanelsPalletCheckBox}" />
+                                                    </DataTrigger.Binding>
+                                                    <DataTrigger.EnterActions>
+                                                        <BeginStoryboard HandoffBehavior="SnapshotAndReplace">
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Height" To="110" Duration="0:0:0.20">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <QuadraticEase EasingMode="EaseOut"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+                                                    <DataTrigger.ExitActions>
+                                                        <BeginStoryboard HandoffBehavior="SnapshotAndReplace">
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Height" To="36" Duration="0:0:0.20">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <QuadraticEase EasingMode="EaseIn"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.ExitActions>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </materialDesign:ColorPicker.Style>
+                                </materialDesign:ColorPicker>
+                            </StackPanel>
+                        </Grid>
 
-                        <Label Content="{DynamicResource Appearance_BackgroundColor}" HorizontalAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18" Width="Auto"/>
-                        <CheckBox x:Name="BackgroundPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="Auto" Grid.Row="0" Grid.Column="1"/>
-                        <materialDesign:ColorPicker x:Name="BackgroundColorPicker"
-     HorizontalAlignment="Center" VerticalAlignment="Center"
-     Width="200" Grid.Row="1" Grid.Column="1">
-                            <materialDesign:ColorPicker.Style>
-                                <Style TargetType="materialDesign:ColorPicker">
+                        <!-- Keys text color -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           Style="{StaticResource SettingLabel}"
+                                           Text="{DynamicResource Appearance_KeysTextColor}"
+                                           FontSize="16"/>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
+                                               Style="{StaticResource SettingLabel}"
+                                               Text="{DynamicResource Appearance_SelectedColor}"
+                                               Width="Auto"/>
+                                    <TextBox x:Name="KeysColorHex"
+                                             Grid.Column="1"
+                                             Style="{StaticResource PlaceholderTextBox}"
+                                             Tag="#RRGGBB"
+                                             Width="90" MaxLength="9" TextWrapping="NoWrap"
+                                             VerticalAlignment="Center"
+                                             KeyDown="ColorHex_KeyDown"
+                                             LostFocus="ColorHex_LostFocus"
+                                             Margin="0,0,20,0"/>
+                                </Grid>
+                            </Grid>
+                            <StackPanel Grid.Column="1" Width="210">
+                                <CheckBox x:Name="KeyssPalletCheckBox"
+                                          Content="{DynamicResource Appearance_ExpandPallet}"
+                                          HorizontalAlignment="Right" Margin="0,0,0,2"/>
+                                <materialDesign:ColorPicker x:Name="KeysColorPicker"
+                                                            Width="200" HorizontalAlignment="Right">
+                                    <materialDesign:ColorPicker.Style>
+                                        <Style TargetType="materialDesign:ColorPicker">
+                                            <Setter Property="Height" Value="36" />
+                                            <Style.Triggers>
+                                                <DataTrigger Value="True">
+                                                    <DataTrigger.Binding>
+                                                        <Binding Path="IsChecked" Source="{x:Reference KeyssPalletCheckBox}" />
+                                                    </DataTrigger.Binding>
+                                                    <DataTrigger.EnterActions>
+                                                        <BeginStoryboard HandoffBehavior="SnapshotAndReplace">
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Height" To="110" Duration="0:0:0.20">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <QuadraticEase EasingMode="EaseOut"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+                                                    <DataTrigger.ExitActions>
+                                                        <BeginStoryboard HandoffBehavior="SnapshotAndReplace">
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Height" To="36" Duration="0:0:0.20">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <QuadraticEase EasingMode="EaseIn"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.ExitActions>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </materialDesign:ColorPicker.Style>
+                                </materialDesign:ColorPicker>
+                            </StackPanel>
+                        </Grid>
 
-                                    <Setter Property="Height" Value="36" />
+                        <!-- Values text color -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           Style="{StaticResource SettingLabel}"
+                                           Text="{DynamicResource Appearance_ValuesTextColor}"
+                                           FontSize="16"/>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
+                                               Style="{StaticResource SettingLabel}"
+                                               Text="{DynamicResource Appearance_SelectedColor}"
+                                               Width="Auto"/>
+                                    <TextBox x:Name="ValuesColorHex"
+                                             Grid.Column="1"
+                                             Style="{StaticResource PlaceholderTextBox}"
+                                             Tag="#RRGGBB"
+                                             Width="90" MaxLength="9" TextWrapping="NoWrap"
+                                             VerticalAlignment="Center"
+                                             KeyDown="ColorHex_KeyDown"
+                                             LostFocus="ColorHex_LostFocus"
+                                             Margin="0,0,20,0"/>
+                                </Grid>
+                            </Grid>
+                            <StackPanel Grid.Column="1" Width="210">
+                                <CheckBox x:Name="ValuessPalletCheckBox"
+                                          Content="{DynamicResource Appearance_ExpandPallet}"
+                                          HorizontalAlignment="Right" Margin="0,0,0,2"/>
+                                <materialDesign:ColorPicker x:Name="ValuesColorPicker"
+                                                            Width="200" HorizontalAlignment="Right">
+                                    <materialDesign:ColorPicker.Style>
+                                        <Style TargetType="materialDesign:ColorPicker">
+                                            <Setter Property="Height" Value="36" />
+                                            <Style.Triggers>
+                                                <DataTrigger Value="True">
+                                                    <DataTrigger.Binding>
+                                                        <Binding Path="IsChecked" Source="{x:Reference ValuessPalletCheckBox}" />
+                                                    </DataTrigger.Binding>
+                                                    <DataTrigger.EnterActions>
+                                                        <BeginStoryboard HandoffBehavior="SnapshotAndReplace">
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Height" To="110" Duration="0:0:0.20">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <QuadraticEase EasingMode="EaseOut"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+                                                    <DataTrigger.ExitActions>
+                                                        <BeginStoryboard HandoffBehavior="SnapshotAndReplace">
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Height" To="36" Duration="0:0:0.20">
+                                                                    <DoubleAnimation.EasingFunction>
+                                                                        <QuadraticEase EasingMode="EaseIn"/>
+                                                                    </DoubleAnimation.EasingFunction>
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.ExitActions>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </materialDesign:ColorPicker.Style>
+                                </materialDesign:ColorPicker>
+                            </StackPanel>
+                        </Grid>
+                        <!--
+                        <TextBlock Text="{DynamicResource Appearance_SaturationNote}"
+                                   TextWrapping="Wrap"
+                                   FontSize="11"
+                                   Margin="0,4,0,0"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                        -->
+                    </StackPanel>
+                </materialDesign:Card>
 
-                                    <Style.Triggers>
-                                        <DataTrigger Value="True">
-                                            <DataTrigger.Binding>
-                                                <Binding Path="IsChecked"
-             Source="{x:Reference BackgroundPalletCheckBox}" />
-                                            </DataTrigger.Binding>
+                <!-- ===================== Keys font ===================== -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardHeader}"
+                                   Text="{DynamicResource Appearance_KeysFont}"/>
+                        <controls:FontPicker x:Name="KeysFontPicker"/>
+                    </StackPanel>
+                </materialDesign:Card>
 
+                <!-- ===================== Values font ===================== -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardHeader}"
+                                   Text="{DynamicResource Appearance_ValuesFont}"/>
+                        <controls:FontPicker x:Name="ValuesFontPicker"/>
+                    </StackPanel>
+                </materialDesign:Card>
 
-                                            <DataTrigger.EnterActions>
-                                                <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                         Storyboard.TargetProperty="Height"
-                         To="80"
-                         Duration="0:0:0.20">
-                                                            <DoubleAnimation.EasingFunction>
-                                                                <QuadraticEase EasingMode="EaseOut"/>
-                                                            </DoubleAnimation.EasingFunction>
-                                                        </DoubleAnimation>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.EnterActions>
+                <!-- ===================== Rainbow background ===================== -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardHeader}"
+                                   Text="{DynamicResource Appearance_RainbowBackground}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox x:Name="BackgroundRainbowCheckBox"
+                                      Grid.Column="0"
+                                      VerticalAlignment="Center"
+                                      Click="Click_BackgroundRainbowCheckBox"
+                                      Content="{DynamicResource Appearance_RainbowBackgroundMode}"/>
 
+                            <!-- Full-cycle duration (1–10 s), to the right of the toggle. -->
+                            <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Center">
+                                <TextBlock FontSize="11"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}">
+                                    <Run Text="{DynamicResource Appearance_RainbowSpeed}"/>
+                                    <Run Text="{Binding ElementName=RainbowSpeedSlider, Path=Value, StringFormat={}{0:0}}"/><Run Text=" s"/>
+                                </TextBlock>
+                                <Slider x:Name="RainbowSpeedSlider"
+                                        Minimum="1" Maximum="10"
+                                        TickFrequency="1" IsSnapToTickEnabled="True"
+                                        TickPlacement="BottomRight"
+                                        Value="6"
+                                        ValueChanged="RainbowSpeedSlider_ValueChanged"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
 
-                                            <DataTrigger.ExitActions>
-                                                <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                         Storyboard.TargetProperty="Height"
-                         To="36"
-                         Duration="0:0:0.20">
-                                                            <DoubleAnimation.EasingFunction>
-                                                                <QuadraticEase EasingMode="EaseIn"/>
-                                                            </DoubleAnimation.EasingFunction>
-                                                        </DoubleAnimation>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.ExitActions>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </materialDesign:ColorPicker.Style>
-                        </materialDesign:ColorPicker>
-                    </Grid>
-
-                    <Grid x:Name="PanelsdGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="20"/>
-                        </Grid.RowDefinitions>
-                        <Label Content="{DynamicResource Appearance_PanelsColor}" HorizontalAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18" Width="Auto"/>
-                        <CheckBox x:Name="PanelsPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="Auto" Grid.Row="0" Grid.Column="1"/>
-                        <materialDesign:ColorPicker x:Name="PanelsColorPicker"
-    HorizontalAlignment="Center" VerticalAlignment="Center"
-    Width="200" Grid.Row="1" Grid.Column="1">
-                            <materialDesign:ColorPicker.Style>
-                                <Style TargetType="materialDesign:ColorPicker">
-
-                                    <Setter Property="Height" Value="36" />
-
-                                    <Style.Triggers>
-                                        <DataTrigger Value="True">
-                                            <DataTrigger.Binding>
-                                                <Binding Path="IsChecked"
-            Source="{x:Reference PanelsPalletCheckBox}" />
-                                            </DataTrigger.Binding>
-
-
-                                            <DataTrigger.EnterActions>
-                                                <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                        Storyboard.TargetProperty="Height"
-                        To="80"
-                        Duration="0:0:0.20">
-                                                            <DoubleAnimation.EasingFunction>
-                                                                <QuadraticEase EasingMode="EaseOut"/>
-                                                            </DoubleAnimation.EasingFunction>
-                                                        </DoubleAnimation>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.EnterActions>
-
-
-                                            <DataTrigger.ExitActions>
-                                                <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                        Storyboard.TargetProperty="Height"
-                        To="36"
-                        Duration="0:0:0.20">
-                                                            <DoubleAnimation.EasingFunction>
-                                                                <QuadraticEase EasingMode="EaseIn"/>
-                                                            </DoubleAnimation.EasingFunction>
-                                                        </DoubleAnimation>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.ExitActions>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </materialDesign:ColorPicker.Style>
-                        </materialDesign:ColorPicker>
-                    </Grid>
-
-                    <Grid x:Name="KeysdGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="20"/>
-                        </Grid.RowDefinitions>
-
-                        <Label Content="{DynamicResource Appearance_KeysTextColor}" HorizontalAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18" Width="Auto"/>
-                        <CheckBox x:Name="KeyssPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="Auto" Grid.Row="0" Grid.Column="1"/>
-                        <materialDesign:ColorPicker x:Name="KeysColorPicker"
-    HorizontalAlignment="Center" VerticalAlignment="Center"
-    Width="200" Grid.Row="1" Grid.Column="1">
-                            <materialDesign:ColorPicker.Style>
-                                <Style TargetType="materialDesign:ColorPicker">
-
-                                    <Setter Property="Height" Value="36" />
-
-                                    <Style.Triggers>
-                                        <DataTrigger Value="True">
-                                            <DataTrigger.Binding>
-                                                <Binding Path="IsChecked"
-                                    Source="{x:Reference KeyssPalletCheckBox}" />
-                                            </DataTrigger.Binding>
-
-
-                                            <DataTrigger.EnterActions>
-                                                <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                                            Storyboard.TargetProperty="Height"
-                                            To="80"
-                                            Duration="0:0:0.20">
-                                                            <DoubleAnimation.EasingFunction>
-                                                                <QuadraticEase EasingMode="EaseOut"/>
-                                                            </DoubleAnimation.EasingFunction>
-                                                        </DoubleAnimation>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.EnterActions>
-
-
-                                            <DataTrigger.ExitActions>
-                                                <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                                            Storyboard.TargetProperty="Height"
-                                            To="36"
-                                            Duration="0:0:0.20">
-                                                            <DoubleAnimation.EasingFunction>
-                                                                <QuadraticEase EasingMode="EaseIn"/>
-                                                            </DoubleAnimation.EasingFunction>
-                                                        </DoubleAnimation>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.ExitActions>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </materialDesign:ColorPicker.Style>
-                        </materialDesign:ColorPicker>
-                    </Grid>
-
-                    <Grid x:Name="ValuesdGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="20"/>
-                        </Grid.RowDefinitions>
-                        <Label Content="{DynamicResource Appearance_ValuesTextColor}" HorizontalAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" FontFamily="Futura Bk BT" FontSize="18" Width="Auto"/>
-                        <CheckBox x:Name="ValuessPalletCheckBox" Content="{DynamicResource Appearance_ExpandPallet}" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Width="Auto" Grid.Row="0" Grid.Column="1"/>
-                        <materialDesign:ColorPicker x:Name="ValuesColorPicker"
-HorizontalAlignment="Center" VerticalAlignment="Center"
-Width="200" Grid.Row="1" Grid.Column="1">
-                            <materialDesign:ColorPicker.Style>
-                                <Style TargetType="materialDesign:ColorPicker">
-
-                                    <Setter Property="Height" Value="36" />
-
-                                    <Style.Triggers>
-                                        <DataTrigger Value="True">
-                                            <DataTrigger.Binding>
-                                                <Binding Path="IsChecked"
-                                Source="{x:Reference ValuessPalletCheckBox}" />
-                                            </DataTrigger.Binding>
-
-
-                                            <DataTrigger.EnterActions>
-                                                <BeginStoryboard x:Name="ExpandHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                                        Storyboard.TargetProperty="Height"
-                                        To="80"
-                                        Duration="0:0:0.20">
-                                                            <DoubleAnimation.EasingFunction>
-                                                                <QuadraticEase EasingMode="EaseOut"/>
-                                                            </DoubleAnimation.EasingFunction>
-                                                        </DoubleAnimation>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.EnterActions>
-
-
-                                            <DataTrigger.ExitActions>
-                                                <BeginStoryboard x:Name="CollapseHeightStoryboard" HandoffBehavior="SnapshotAndReplace">
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                                        Storyboard.TargetProperty="Height"
-                                        To="36"
-                                        Duration="0:0:0.20">
-                                                            <DoubleAnimation.EasingFunction>
-                                                                <QuadraticEase EasingMode="EaseIn"/>
-                                                            </DoubleAnimation.EasingFunction>
-                                                        </DoubleAnimation>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.ExitActions>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </materialDesign:ColorPicker.Style>
-                        </materialDesign:ColorPicker>
-                    </Grid>
-                    <Label Content="{DynamicResource Appearance_SaturationNote}" Margin="0,-10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="10"/>
-                </StackPanel>
-
-                <StackPanel x:Name="FontsSection" Grid.Row="2">
-
-                    <Grid x:Name="KeysFontGrid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="20"/>
-                        </Grid.RowDefinitions>
-                        <Label Content="{DynamicResource Appearance_KeysFont}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0" FontFamily="Futura Bk BT" FontSize="16" Grid.Row="0"/>
-                        <controls:FontPicker Grid.Row="1" x:Name="KeysFontPicker"/>
-                    </Grid>
-
-                    <Grid x:Name="ValuesFontGrid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="20"/>
-                        </Grid.RowDefinitions>
-
-                        <Label Content="{DynamicResource Appearance_ValuesFont}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="16" Grid.Row="0"/>
-                        <controls:FontPicker Grid.Row="1" x:Name="ValuesFontPicker"/>
-                    </Grid>
-
-                </StackPanel>
-
-                <StackPanel x:Name="RainbowSection" Grid.Row="3">
-                    <Label Content="{DynamicResource Appearance_RainbowBackground}" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Futura Bk BT" FontSize="16" Grid.Row="0"/>
-
-
-                    <CheckBox x:Name="BackgroundRainbowCheckBox" Click="Click_BackgroundRainbowCheckBox" Content="{DynamicResource Appearance_RainbowBackgroundMode}" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"/>
-
-                </StackPanel>
-
-            </Grid>
+            </StackPanel>
         </ScrollViewer>
 
-        <Grid VerticalAlignment="Bottom" Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Button Content="{DynamicResource Common_Load}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10,10,10" Grid.Column="0" Click="Click_Load"/>
-            <Button x:Name="SaveAsButton" Content="{DynamicResource Common_SaveAs}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,10,10" Grid.Column="2" Click="Click_SaveAs"/>
-            <Button Content="{DynamicResource Common_Save}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,10,10,10" Grid.Column="3" Click="Click_SaveAndClose"/>
-            <Button Content="{DynamicResource Common_Exit}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Grid.Column="4" Click="Click_Close"/>
-
-        </Grid>
+        <!-- Footer -->
+        <DockPanel Grid.Row="2" Margin="0,8,0,0" LastChildFill="False" Grid.ColumnSpan="2">
+            <Button DockPanel.Dock="Right"
+                    Margin="8,0,0,0"
+                    Content="{DynamicResource Common_Exit}"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    IsCancel="True"
+                    Click="Click_Close"/>
+            <Button DockPanel.Dock="Right"
+                    Margin="8,0,0,0"
+                    Content="{DynamicResource Common_Save}"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Click="Click_SaveAndClose"/>
+            <Button x:Name="SaveAsButton"
+                    DockPanel.Dock="Right"
+                    Margin="8,0,0,0"
+                    Content="{DynamicResource Common_SaveAs}"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="Click_SaveAs"/>
+            <Button DockPanel.Dock="Right"
+                    Margin="8,0,0,0"
+                    Content="{DynamicResource Common_Load}"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="Click_Load"/>
+        </DockPanel>
 
         <!-- "Save As" popup: a modal in-window overlay where the user types the
              new profile name and explicitly confirms or cancels. Spans every
-             row so it dims the whole window; collapsed until SaveAs is clicked.
-             Replaces the previous inline textbox-in-the-footer flow. -->
-        <Grid x:Name="SaveAsOverlay" Grid.Row="0" Grid.RowSpan="4"
-              Panel.ZIndex="10" Visibility="Collapsed" Background="#80000000">
+             row so it dims the whole window; collapsed until SaveAs is clicked. -->
+        <Grid x:Name="SaveAsOverlay" Grid.Row="0" Grid.RowSpan="3"
+              Panel.ZIndex="10" Visibility="Collapsed" Background="#80000000"
+              Margin="-16" Grid.ColumnSpan="2">
             <materialDesign:Card Width="320" Padding="16"
                                  HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel>

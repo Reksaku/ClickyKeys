@@ -226,6 +226,15 @@ namespace ClickyKeys
             PositionCard();
         }
 
+        /// <summary>
+        /// Resource strings encode hard line breaks as the literal two-character
+        /// token "\n", because XAML collapses real newlines and &#10; inside
+        /// &lt;sys:String&gt; content into a single space. Convert that token
+        /// into an actual newline so the tutorial card renders multi-line copy.
+        /// </summary>
+        private static string WithLineBreaks(string text) =>
+            string.IsNullOrEmpty(text) ? text : text.Replace("\\n", "\n");
+
         private void RenderStep()
         {
             var step  = _steps[_currentIndex];
@@ -239,11 +248,11 @@ namespace ClickyKeys
             }
             else
             {
-                TitleText.Text = step.Title;
+                TitleText.Text = WithLineBreaks(step.Title);
                 TitleText.Visibility = Visibility.Visible;
             }
 
-            BodyText.Text = step.Body;
+            BodyText.Text = WithLineBreaks(step.Body);
 
             if (string.IsNullOrEmpty(step.Hint))
             {
@@ -251,7 +260,7 @@ namespace ClickyKeys
             }
             else
             {
-                ArrowHint.Text = step.Hint;
+                ArrowHint.Text = WithLineBreaks(step.Hint);
                 ArrowHint.Visibility = Visibility.Visible;
             }
 
