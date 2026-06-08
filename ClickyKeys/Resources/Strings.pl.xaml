@@ -85,8 +85,8 @@
     <sys:String x:Key="Main_Reset">Reset</sys:String>
     <sys:String x:Key="Main_Stats">Statystyki</sys:String>
     <sys:String x:Key="Main_More">Więcej</sys:String>
-    <sys:String x:Key="Main_Transparent">Przezroczysty</sys:String>
-    <sys:String x:Key="Main_Mode">tryb</sys:String>
+    <sys:String x:Key="Main_Transparent">Tryb</sys:String>
+    <sys:String x:Key="Main_Mode">przezroczysty</sys:String>
     <sys:String x:Key="Main_HideToolbar">Ukryj pasek</sys:String>
     <sys:String x:Key="Main_Info">Info</sys:String>
     <sys:String x:Key="Main_Settings">Ustawienia</sys:String>
