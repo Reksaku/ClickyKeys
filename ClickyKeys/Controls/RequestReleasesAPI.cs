@@ -33,6 +33,12 @@ namespace ClickyKeys
             _httpClient.DefaultRequestHeaders.UserAgent.Add(
                 new ProductInfoHeaderValue("Type", "application"));
 
+            // Launch trigger (auto_start / user_start). Travels as a User-Agent
+            // token like the other flags above rather than as a query string,
+            // keeping every request flag in one place.
+            _httpClient.DefaultRequestHeaders.UserAgent.Add(
+                new ProductInfoHeaderValue("Trigger", App.LaunchTrigger));
+
 
         }
 

@@ -40,6 +40,13 @@ namespace ClickyKeys
         // Startup list.
         private const string ValueName = "ClickyKeys";
 
+        // Command-line flag appended to the autostart launch command. Its
+        // ONLY purpose is to let the app tell, at startup, that it was launched
+        // by Windows at login (auto_start) rather than by the user
+        // (user_start). See <see cref="App.LaunchTrigger"/>. Must stay stable
+        // across versions so an entry written by an older build still parses.
+        public const string AutostartArg = "--autostart";
+
         /// <summary>
         /// Absolute path to the running executable, quoted so a path
         /// containing spaces (e.g. "C:\Program Files\...") is parsed by the
@@ -57,6 +64,22 @@ namespace ClickyKeys
         }
 
         /// <summary>
+        /// Full command written to the Run value: the quoted executable path
+        /// followed by <see cref="AutostartArg"/>. The trailing flag is what
+        /// lets <see cref="App.LaunchTrigger"/> resolve to <c>auto_start</c>
+        /// when Windows launches the app at login. Returns null when the exe
+        /// path can't be determined.
+        /// </summary>
+        private static string? LaunchCommand
+        {
+            get
+            {
+                var exe = QuotedExePath;
+                return exe is null ? null : $"{exe} {AutostartArg}";
+            }
+        }
+
+        /// <summary>
         /// True only when the Run value exists AND points at the executable
         /// that is currently running. A value that points somewhere else is
         /// reported as not-enabled so the UI prompts a refresh on next toggle.
@@ -70,7 +93,7 @@ namespace ClickyKeys
                 if (string.IsNullOrEmpty(stored))
                     return false;
 
-                var expected = QuotedExePath;
+                var expected = LaunchCommand;
                 if (expected is null)
                     return false;
 
@@ -93,7 +116,7 @@ namespace ClickyKeys
         {
             try
             {
-                var exe = QuotedExePath;
+                var exe = LaunchCommand;
                 if (exe is null)
                     return false;
 

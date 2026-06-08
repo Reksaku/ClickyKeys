@@ -31,6 +31,17 @@ namespace ClickyKeys
         private const string MutexName = "Global\\ClickyKeys_SingleInstance";
 
         /// <summary>
+        /// How this process was launched, expressed as the exact token expected
+        /// by the releases endpoint:
+        ///   "auto_start" — Windows started the app at login (the autostart Run
+        ///                  entry passes <see cref="AutostartService.AutostartArg"/>);
+        ///   "user_start" — any other launch (user double-clicked, etc.).
+        /// Resolved once in <see cref="OnStartup"/> and read by
+        /// <c>MainWindow.VerifyVersion</c> when it queries releases.php.
+        /// </summary>
+        public static string LaunchTrigger { get; private set; } = "user_start";
+
+        /// <summary>
         /// Process-wide accessor for the live <see cref="KeyStatsService"/>
         /// instance. Used by windows that need to flush in-memory counters
         /// to disk before reading the snapshot file (e.g. the Stats view).
@@ -48,6 +59,13 @@ namespace ClickyKeys
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Determine how we were launched BEFORE any window is created, so
+            // the first releases.php query (fired from MainWindow's ctor) can
+            // report it. The autostart Run entry appends AutostartArg; its
+            // presence on the command line means Windows launched us at login.
+            if (e.Args != null && Array.IndexOf(e.Args, AutostartService.AutostartArg) >= 0)
+                LaunchTrigger = "auto_start";
+
             // Apply the UI language before any window is created so every window
             // resolves its {DynamicResource ...} strings in the right language
             // from the very first render. If the user has saved an explicit
