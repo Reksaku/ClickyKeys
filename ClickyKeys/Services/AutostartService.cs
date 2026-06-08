@@ -93,13 +93,22 @@ namespace ClickyKeys
                 if (string.IsNullOrEmpty(stored))
                     return false;
 
-                var expected = LaunchCommand;
-                if (expected is null)
+                var exe = QuotedExePath;
+                if (exe is null)
                     return false;
 
-                // Case-insensitive compare; Windows paths aren't case
-                // sensitive and the shell may normalise casing.
-                return string.Equals(stored, expected, StringComparison.OrdinalIgnoreCase);
+                // Enabled when the stored command launches THIS executable —
+                // whether or not it carries the autostart flag. A "legacy"
+                // entry written before the flag existed is the plain quoted
+                // path; a "current" entry appends AutostartArg. Both count as
+                // enabled. EnsureCurrent() upgrades the legacy form so the flag
+                // is present on the next login launch (otherwise the app can't
+                // tell it was autostarted and reports user_start).
+                //
+                // Case-insensitive compare; Windows paths aren't case sensitive
+                // and the shell may normalise casing.
+                return string.Equals(stored, exe, StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(stored, $"{exe} {AutostartArg}", StringComparison.OrdinalIgnoreCase);
             }
             catch (Exception ex)
             {
@@ -166,5 +175,47 @@ namespace ClickyKeys
         /// succeeded.
         /// </summary>
         public static bool Set(bool enabled) => enabled ? Enable() : Disable();
+
+        /// <summary>
+        /// Upgrades a legacy autostart entry (plain exe path, written before the
+        /// autostart flag existed) to the current format that appends
+        /// <see cref="AutostartArg"/>. Without this, such an entry keeps
+        /// launching the app at login WITHOUT the flag, so the app can't tell
+        /// the launch was an autostart and wrongly reports <c>user_start</c> to
+        /// releases.php.
+        /// <para>
+        /// Safe to call on every startup: it only writes when an upgrade is
+        /// actually needed. The fix takes effect from the NEXT login launch
+        /// onward — the current process's command line is already fixed by how
+        /// Windows started it, so this launch keeps whatever trigger it was
+        /// given.
+        /// </para>
+        /// </summary>
+        public static void EnsureCurrent()
+        {
+            try
+            {
+                using var key = Registry.CurrentUser.OpenSubKey(RunKeyPath, writable: false);
+                var stored = key?.GetValue(ValueName) as string;
+                if (string.IsNullOrEmpty(stored))
+                    return; // Autostart not enabled — nothing to upgrade.
+
+                var desired = LaunchCommand;
+                if (desired is null)
+                    return;
+
+                // Rewrite only when the entry refers to this exe (IsEnabled)
+                // but isn't already the desired flag-carrying command.
+                if (IsEnabled()
+                    && !string.Equals(stored, desired, StringComparison.OrdinalIgnoreCase))
+                {
+                    Enable();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"AutostartService.EnsureCurrent failed: {ex}");
+            }
+        }
     }
 }

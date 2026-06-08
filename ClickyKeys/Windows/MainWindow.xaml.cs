@@ -9,7 +9,6 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -307,8 +306,8 @@ namespace ClickyKeys
             if (justUpdated)
             {
                 ShowChangelog(previousVersion);
-                if (ConfigSettings.Version == "2.3.3")
-                    ConfigSettings.ShowTutorial = true; // Just for version 2.3.3
+                if (ConfigSettings.Version == "2.4.0")
+                    ConfigSettings.ShowTutorial = true; // Just for version 2.4.0
             }
 
             if (ConfigSettings.ShowTutorial == true && !_transparent)
