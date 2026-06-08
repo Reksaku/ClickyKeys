@@ -7,8 +7,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
-    <FileVersion>2.3.3</FileVersion>
-    <AssemblyVersion>2.3.3</AssemblyVersion>
+    <FileVersion>2.4.0</FileVersion>
+    <AssemblyVersion>2.4.0</AssemblyVersion>
     <Company>Hobby Clickies</Company>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>

@@ -66,6 +66,12 @@ namespace ClickyKeys
             if (e.Args != null && Array.IndexOf(e.Args, AutostartService.AutostartArg) >= 0)
                 LaunchTrigger = "auto_start";
 
+            // Upgrade any legacy autostart entry (exe path without the flag) so
+            // future login launches carry AutostartArg and are reported as
+            // auto_start. No effect on the CURRENT launch — its command line is
+            // already set by Windows — but fixes every subsequent one.
+            AutostartService.EnsureCurrent();
+
             // Apply the UI language before any window is created so every window
             // resolves its {DynamicResource ...} strings in the right language
             // from the very first render. If the user has saved an explicit
