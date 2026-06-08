@@ -9,6 +9,7 @@
         Title="{DynamicResource Changelog_Title}"
         Width="520"
         MinWidth="400"
+        MaxHeight="640"
         SizeToContent="Height"
         WindowStartupLocation="CenterOwner"
         ResizeMode="CanResize"
