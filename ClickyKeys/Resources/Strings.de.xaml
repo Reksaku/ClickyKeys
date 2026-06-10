@@ -93,6 +93,8 @@
     <sys:String x:Key="Main_UpdateAvailable">Eine neue Version von ClickyKeys ist verfügbar.</sys:String>
     <sys:String x:Key="Main_OpenDownload">Download-Seite öffnen</sys:String>
     <sys:String x:Key="Main_RemindNextTime">Beim nächsten Mal erinnern</sys:String>
+    <sys:String x:Key="Main_BuyMeACoffee">Buy Me a Coffee</sys:String>
+    <sys:String x:Key="Main_NoInternet">Verbindung zum Server nicht möglich. Bitte versuche es später erneut.</sys:String>
     <sys:String x:Key="Main_ErrorPrefix">Fehler: {0}</sys:String>
 
     <!-- SetLoader window -->

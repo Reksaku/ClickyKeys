@@ -331,6 +331,46 @@ namespace ClickyKeys
         private void Stats_Click(object sender, RoutedEventArgs e) => ShowStats();
         private void Settings_Click(object sender, RoutedEventArgs e) => ShowSettings();
 
+        // --- Buy Me a Coffee ---
+
+        /// <summary>
+        /// Fetches the current sponsoring link via <see cref="SponsorshipService"/>
+        /// and opens it in the user's default browser. If the link can't be
+        /// retrieved (e.g. no internet connection) a popup explaining the lack
+        /// of connectivity is shown instead.
+        /// </summary>
+        private async void BuyMeACoffee_Click(object sender, RoutedEventArgs e)
+        {
+            // Close the dropdown so it doesn't linger over the popup/browser.
+            MorePopup.IsOpen = false;
+
+            string? url = await SponsorshipService.GetLinkAsync();
+
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                NoInternetPopup.IsOpen = true;
+                return;
+            }
+
+            try
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(LocalizationManager.Format("Main_ErrorPrefix", ex.Message));
+            }
+        }
+
+        private void CloseNoInternetPopup_Click(object sender, RoutedEventArgs e)
+        {
+            NoInternetPopup.IsOpen = false;
+        }
+
         // --- Display dropdown hover logic ---
 
         private void Display_Button_MouseEnter(object sender, MouseEventArgs e)
