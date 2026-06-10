@@ -15,6 +15,11 @@
             <conv:BoolToFontStyleConverter x:Key="BoolToFontStyleConverter" />
             <conv:BoolToUnderlineConverter x:Key="BoolToUnderlineConverter" />
 
+            <!-- High-quality (Fant) downscaling for every Image. -->
+            <Style TargetType="Image">
+                <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+            </Style>
+
 
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
