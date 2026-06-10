@@ -93,6 +93,8 @@
     <sys:String x:Key="Main_UpdateAvailable">Είναι διαθέσιμη μια νέα έκδοση του ClickyKeys.</sys:String>
     <sys:String x:Key="Main_OpenDownload">Άνοιγμα σελίδας λήψης</sys:String>
     <sys:String x:Key="Main_RemindNextTime">Υπενθύμιση την επόμενη φορά</sys:String>
+    <sys:String x:Key="Main_BuyMeACoffee">Buy Me a Coffee</sys:String>
+    <sys:String x:Key="Main_NoInternet">Δεν είναι δυνατή η σύνδεση με τον διακομιστή. Δοκιμάστε ξανά αργότερα.</sys:String>
     <sys:String x:Key="Main_ErrorPrefix">Σφάλμα: {0}</sys:String>
 
     <!-- SetLoader window -->

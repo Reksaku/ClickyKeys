@@ -278,6 +278,22 @@
                                            Foreground="{Binding ToolbarTextColor}"/>
                             </StackPanel>
                         </Button>
+                        <!-- Uses the Info icon temporarily until a dedicated
+                             "Buy Me a Coffee" icon is added. -->
+                        <Button Click="BuyMeACoffee_Click" x:Name="BuyMeACoffee_Button"
+                                Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
+                                HorizontalAlignment="Stretch"
+                                Padding="4,2" Height="68">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Orientation="Vertical">
+                                <Image Source="/Resources/Buttons/coffee_icon.png"
+                                       Width="28" Height="28" Margin="0,0,0,2"/>
+                                <TextBlock Text="{DynamicResource Main_BuyMeACoffee}" FontSize="13"
+                                           HorizontalAlignment="Center" TextAlignment="Center"
+                                           TextWrapping="Wrap"
+                                           Foreground="{Binding ToolbarTextColor}"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </Border>
             </Popup>
@@ -322,6 +338,29 @@
                         <Button Content="{DynamicResource Main_RemindNextTime}"
                                 Padding="5"
                                 Click="ClosePopup_Click"
+                                Margin="0 5 0 0"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
+            <!-- Shown when the sponsoring URL can't be fetched (no internet). -->
+            <Popup x:Name="NoInternetPopup"
+                   Placement="Center"
+                   PlacementTarget="{Binding ElementName=myGrid}"
+                   StaysOpen="False"
+                   AllowsTransparency="True"
+                   PopupAnimation="Fade">
+                <Border Background="White" Padding="20" CornerRadius="8">
+                    <StackPanel Width="250">
+                        <TextBlock Text="{DynamicResource Main_NoInternet}"
+                                   FontSize="14"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0 0 0 10"/>
+                        <Button Content="{DynamicResource Common_Close}"
+                                Padding="5"
+                                Click="CloseNoInternetPopup_Click"
                                 Margin="0 5 0 0"/>
                     </StackPanel>
                 </Border>
