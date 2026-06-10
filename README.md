@@ -7,8 +7,8 @@
 
 [![Microsoft Store](https://img.shields.io/badge/Microsoft%20Store-Download-blue?logo=microsoft)](https://apps.microsoft.com/store/detail/9PJT83WPC06K?cid=DevShareMCLPCS)
 [![GitHub Release](https://img.shields.io/github/v/release/Reksaku/ClickyKeys)](https://github.com/Reksaku/ClickyKeys/releases/latest)
-[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-green)](LICENSE)
-![Users](https://img.shields.io/badge/Users-500%2B-brightgreen)
+[![License: ELv2](https://img.shields.io/badge/License-Elastic%20License%202.0-blue)](https://github.com/Reksaku/ClickyKeys/blob/main/LICENSE)
+![Users](https://img.shields.io/badge/Users-600%2B-brightgreen)
 
 </div>
 
@@ -19,7 +19,7 @@ ClickyKeys counts how many times you press chosen keys or mouse buttons and disp
 <br>
 <div align="center">
   <picture>
-      <img src="./Resources/Images/Animation.gif" width="50%">
+      <img src="./Resources/Images/Animation.gif" width="80%">
   </picture>
 </div>
 
@@ -50,6 +50,23 @@ ClickyKeys counts how many times you press chosen keys or mouse buttons and disp
 
 <div style="clear: both;"></div>
 
+### 🌍 Available in 13 languages
+
+![DE](https://img.shields.io/badge/DE-%23FFCE00?style=flat-square)
+![GR](https://img.shields.io/badge/GR-%230D5EAF?style=flat-square)
+![GB](https://img.shields.io/badge/GB-%23CF142B?style=flat-square)
+![ES](https://img.shields.io/badge/ES-%23AA151B?style=flat-square)
+![MX](https://img.shields.io/badge/MX-%23006847?style=flat-square)
+![FR](https://img.shields.io/badge/FR-%230055A4?style=flat-square)
+![IT](https://img.shields.io/badge/IT-%23009246?style=flat-square)
+![NO](https://img.shields.io/badge/NO-%23EF2B2D?style=flat-square)
+![NL](https://img.shields.io/badge/NL-%23FF6600?style=flat-square)
+![PL](https://img.shields.io/badge/PL-%23DC143C?style=flat-square)
+![PT](https://img.shields.io/badge/PT-%23006600?style=flat-square)
+![BR](https://img.shields.io/badge/BR-%23009C3B?style=flat-square)
+![SE](https://img.shields.io/badge/SE-%23006AA7?style=flat-square)
+
+
 ---
 
 ## 💾 Save & load style profiles
@@ -59,7 +76,8 @@ Swap profiles with a single click. Game-specific sets are always ready in your l
 <br>
 <div align="center">
   <picture>
-    <img src="./Resources/Images/Profile_picker.png" width="40%">
+  <img src="./Resources/Images/screenshot-settings.png" width="40%">
+    <img src="./Resources/Images/screenshot-loader.png" width="25%">
   </picture>
 </div>
 
@@ -78,7 +96,7 @@ Bored with a static background? Enable the animated rainbow theme and bring more
 
 ---
 
-## 📊 Local key press statistics *(new in v2.3.0)*
+## 📊 Local key press statistics
 
 Track your long-term key usage with built-in local statistics. All data stays on your device — no cloud, no account needed.
 
@@ -153,6 +171,7 @@ Colors, fonts, grid layout — everything is yours to configure.
 
 | Version | Highlights |
 |---------|-----------|
+| **v2.4.0** | Version 2.4.0 is the largest update in a while - see release notes |
 | **v2.3.0** | Local key press statistics — track long-term usage, all data stored on-device |
 | **v2.2.1** | Save & load style profiles — switch configurations instantly between games |
 | **v2.1.1** | Auto-update notifications — the app notifies you when a new version is out |
@@ -163,20 +182,20 @@ Colors, fonts, grid layout — everything is yours to configure.
 
 ## ❓ FAQ
 
-**Does ClickyKeys store or send my data?**  
-No. ClickyKeys only counts key presses and mouse clicks locally and shows them in the panel. No data is transmitted anywhere. The code is fully open — you can verify it yourself.
+**Does ClickyKeys store or send my data?**
+The free version works entirely offline — no data is transmitted anywhere. Local statistics stay on your device only. The upcoming Pro tier will offer opt-in cloud sync, with a clear privacy policy and full user control over stored data.
 
-**Which systems are supported?**  
+**Which systems are supported?**
 Windows (desktop app). If you want to help with ports to other systems, reach out via GitHub Issues.
 
-**Is ClickyKeys free?**  
-Yes. ClickyKeys is completely free and open-source under the **GPL-3.0** license.
+**Is ClickyKeys free?**
+The core version is and will always be free. A paid Pro tier with cloud features is in development. See the comparison table above for details.
 
-**How do I use it with OBS?**  
+**How do I use it with OBS?**
 Run ClickyKeys and select the keys to track. In OBS, add a Window Capture source pointing to the ClickyKeys panel. Use the built-in background colour for chroma key, or enable transparent mode to overlay directly.
 
-**I found a bug or have a feature idea.**  
-Open an issue in this repository — contributions and feedback are welcome!
+**I found a bug or have a feature idea.**
+Open an issue in this repository — feedback is always welcome!
 
 ---
 
@@ -184,10 +203,20 @@ Open an issue in this repository — contributions and feedback are welcome!
 
 Because pressing buttons is fun, and sometimes you just want to know how many times you did it.
 
-A small side project made for simple geeky satisfaction. 
+A side project made for simple geeky satisfaction.
 
 ---
 
-## 🔧 Planned / Ideas
+## 📄 License
 
-- More advanced statistics 📊
+ClickyKeys is **source-available** software, licensed under the [Elastic License 2.0 (ELv2)](https://github.com/Reksaku/ClickyKeys/blob/main/LICENSE).
+
+The source code is publicly visible and you are free to use, modify, and self-host ClickyKeys. Commercial use — including reselling or offering it as a managed service — requires a separate agreement.
+
+> ⚠️ ELv2 is not an open source license as defined by the [Open Source Initiative](https://opensource.org). If you have questions about permitted use, see the [full license text](LICENSE) or open an issue.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Before submitting a pull request, please sign the [Contributor License Agreement](https://cla-assistant.io/Reksaku/ClickyKeys). This allows ClickyKeys to be sustainably developed while keeping the source visible to everyone.
