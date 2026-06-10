@@ -29,7 +29,6 @@ namespace ClickyKeys
         // deletion is pending. Clicking anywhere other than this exact button
         // cancels the pending deletion.
         private Button? _armedDeleteButton;
-        private Image? _armedDeleteImage;
         private TextBlock? _armedConfirmLabel;
 
         // How many DIPs the window was enlarged by to fit the visible
@@ -53,7 +52,10 @@ namespace ClickyKeys
                 appName);
 
             var jsonFiles = Directory.EnumerateFiles(appDataDir, "*.json", SearchOption.AllDirectories);
-            this.Height = 140;
+            // Base height covers the taller icon header + footer + the Card
+            // segment's padding + window margins (see SetLoader.xaml); each
+            // profile row adds 50 below.
+            this.Height = 230;
             
             string list = "";
             int row = 0;
@@ -119,18 +121,24 @@ namespace ClickyKeys
         {
 
             btn.Content = text;
-            btn.Width = 265;
+            // Width trimmed so the profile + delete buttons fit inside the
+            // Card segment padding and window margins (see SetLoader.xaml)
+            // without a horizontal scrollbar.
+            btn.Width = 230;
             btn.Height = 40;
             Thickness myThickness = new Thickness();
             myThickness.Bottom = 5;
-            myThickness.Left = 15;
+            myThickness.Left = 8;
             myThickness.Right = 5;
             myThickness.Top = 5;
             btn.Margin = myThickness;
 
-            btn.Background = new SolidColorBrush( (Color)ColorConverter.ConvertFromString("#FFB4B4B4") );
-            btn.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFB4B4B4"));
+            // Themed to match the Appearance window instead of the old flat grey.
+            btn.Style = (Style)FindResource("MaterialDesignOutlinedButton");
+            btn.HorizontalContentAlignment = HorizontalAlignment.Center;
             btn.Click += (sender, e) => FileButtonClicked(path);
+            btn.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFA8A8A8"));
+            btn.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFA8A8A8"));
 
             Grid.SetRow(btn, row);
             Grid.SetColumn(btn, col);
@@ -141,49 +149,47 @@ namespace ClickyKeys
             loadedFile = filePath;
             _appearanceOverlay.LoadAppearanceFile(filePath);
         }
-        private void AddDeleteButton(Grid grid, Button fileButton, TextBlock confirmLabel, int row, int col, string fileName)
-        {
-            var btn = new Button { };
-            btn.Width = 30;
-            btn.Height = 30;
-            btn.Content = "dell";
-            btn.Tag = "delete";
-            Thickness myThickness = new Thickness();
-            myThickness.Bottom = 5;
-            myThickness.Left = 5;
-            myThickness.Right = 0;
-            myThickness.Top = 5;
-            btn.Margin = myThickness;
-            btn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00FFFFFF"));
-            btn.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F0F29C93"));
-
-            var symbolImage = new Image
+        /// <summary>
+        /// Builds an <see cref="ImageBrush"/> from a Resources image, used as a
+        /// delete button's background so the button shows only the icon — the
+        /// borderless look used by the X/Y buttons in <c>GlassPanelWpf</c>.
+        /// </summary>
+        private static ImageBrush MakeIconBrush(string fileName) =>
+            new ImageBrush(new BitmapImage(new Uri($"pack://application:,,,/Resources/{fileName}")))
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/X_button.png")),
-                Width = 25,
-                Height = 25,
-                Stretch = Stretch.Uniform,
-                Opacity = 0.7,
-                IsHitTestVisible = false,
-                Margin = myThickness
+                Stretch = Stretch.Uniform
             };
 
-            btn.Click += (sender, e) => DeletaButtonClicked(fileName, btn, fileButton, symbolImage, confirmLabel);
+        private void AddDeleteButton(Grid grid, Button fileButton, TextBlock confirmLabel, int row, int col, string fileName)
+        {
+            // Borderless icon button matching GlassPanelWpf: the X/Y image is
+            // the button's Background, the border/foreground are transparent so
+            // no button chrome shows — just the glyph.
+            var btn = new Button
+            {
+                Width = 30,
+                Height = 30,
+                Tag = "delete",
+                Margin = new Thickness(5, 5, 0, 5),
+                Background = MakeIconBrush("X_button.png"),
+                BorderBrush = Brushes.Transparent,
+                BorderThickness = new Thickness(0),
+                Foreground = Brushes.Transparent,
+                Cursor = Cursors.Hand
+            };
+
+            btn.Click += (sender, e) => DeletaButtonClicked(fileName, btn, fileButton, confirmLabel);
 
             Grid.SetRow(btn, row);
             Grid.SetColumn(btn, col);
             grid.Children.Add(btn);
-
-            Grid.SetRow(symbolImage, row);
-            Grid.SetColumn(symbolImage, col);
-            grid.Children.Add(symbolImage);
         }
-        private void DeletaButtonClicked(string fileName, Button btn, Button fileButton, Image symbolImage, TextBlock confirmLabel)
+        private void DeletaButtonClicked(string fileName, Button btn, Button fileButton, TextBlock confirmLabel)
         {
             if (btn.Tag.ToString() == "delete")
             {
-                symbolImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Y_button.png"));
-                btn.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F0B3DFBD"));
+                // Arm: swap the icon to the green confirm (Y) glyph.
+                btn.Background = MakeIconBrush("Y_button.png");
                 btn.Tag = "confirm";
 
                 // Show the "confirm deletion" message above the profile.
@@ -193,7 +199,6 @@ namespace ClickyKeys
                 // click must come directly after, with nothing else clicked
                 // in between.
                 _armedDeleteButton = btn;
-                _armedDeleteImage = symbolImage;
                 _armedConfirmLabel = confirmLabel;
 
                 // Make the window taller so the message isn't just scrolled.
@@ -202,7 +207,6 @@ namespace ClickyKeys
             else if (btn.Tag.ToString() == "confirm")
             {
                 btn.Visibility = Visibility.Collapsed;
-                symbolImage.Visibility = Visibility.Collapsed;
                 fileButton.Visibility = Visibility.Collapsed;
 
                 // The profile is gone — remove its confirmation message too.
@@ -210,7 +214,6 @@ namespace ClickyKeys
 
                 // Nothing is pending anymore.
                 _armedDeleteButton = null;
-                _armedDeleteImage = null;
                 _armedConfirmLabel = null;
 
                 // The message is gone, so give back the extra height.
@@ -252,10 +255,8 @@ namespace ClickyKeys
             if (_armedDeleteButton == null)
                 return;
 
-            if (_armedDeleteImage != null)
-                _armedDeleteImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/X_button.png"));
-
-            _armedDeleteButton.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F0F29C93"));
+            // Disarm: restore the neutral X glyph.
+            _armedDeleteButton.Background = MakeIconBrush("X_button.png");
             _armedDeleteButton.Tag = "delete";
 
             if (_armedConfirmLabel != null)
@@ -265,7 +266,6 @@ namespace ClickyKeys
             ShrinkAfterMessage();
 
             _armedDeleteButton = null;
-            _armedDeleteImage = null;
             _armedConfirmLabel = null;
         }
 
