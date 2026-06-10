@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: Pro Features & Subscriptions
+    url: https://clickykeys.fun
+    about: Questions about ClickyKeys Pro, pricing, or your account.
+  - name: Security Vulnerability
+    url: https://github.com/Reksaku/ClickyKeys/security/advisories/new
+    about: Please report security issues privately via GitHub Security Advisories.
