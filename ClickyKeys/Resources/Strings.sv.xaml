@@ -114,6 +114,11 @@
     <sys:String x:Key="Settings_StartMinimized">Starta minimerad</sys:String>
     <sys:String x:Key="Settings_Language">Språk</sys:String>
     <sys:String x:Key="Settings_AutostartError">Det gick inte att uppdatera Windows startinställning. Din säkerhetsprogramvara eller kontopolicy kan blockera den.</sys:String>
+    <sys:String x:Key="Settings_Shortcuts">Genvägar</sys:String>
+    <sys:String x:Key="Settings_ResetShortcut">Återställ räknare</sys:String>
+    <sys:String x:Key="Settings_ToggleToolbarShortcut">Dölj / visa verktygsfält</sys:String>
+    <sys:String x:Key="Settings_PressKey">Tryck på en tangent…</sys:String>
+    <sys:String x:Key="Settings_ShortcutConflict">Den tangenten är redan tilldelad den andra genvägen.</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Startar…</sys:String>

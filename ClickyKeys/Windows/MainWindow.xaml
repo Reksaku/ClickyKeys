@@ -135,7 +135,7 @@
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="{DynamicResource Main_Reset}" FontSize="13" HorizontalAlignment="Center"
                                        Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                            <TextBlock Text="(F12)" FontSize="13" HorizontalAlignment="Center"
+                            <TextBlock Text="{Binding ResetKeyLabel, RelativeSource={RelativeSource AncestorType=Window}}" FontSize="13" HorizontalAlignment="Center"
                                        Foreground="{Binding ToolbarTextColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
                         </StackPanel>
                     </StackPanel>
@@ -229,7 +229,7 @@
                                        Width="28" Height="28" Margin="0,0,0,2"/>
                                 <TextBlock Text="{DynamicResource Main_HideToolbar}" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
-                                <TextBlock Text="(F11)" FontSize="13" HorizontalAlignment="Center"
+                                <TextBlock Text="{Binding ToggleToolbarKeyLabel}" FontSize="13" HorizontalAlignment="Center"
                                            Foreground="{Binding ToolbarTextColor}"/>
                             </StackPanel>
                         </Button>

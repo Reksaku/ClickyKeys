@@ -114,6 +114,11 @@
     <sys:String x:Key="Settings_StartMinimized">Start minimert</sys:String>
     <sys:String x:Key="Settings_Language">Språk</sys:String>
     <sys:String x:Key="Settings_AutostartError">Kunne ikke oppdatere Windows-oppstartsinnstillingen. Sikkerhetsprogramvaren eller kontoretningslinjene dine kan blokkere den.</sys:String>
+    <sys:String x:Key="Settings_Shortcuts">Snarveier</sys:String>
+    <sys:String x:Key="Settings_ResetShortcut">Nullstill tellere</sys:String>
+    <sys:String x:Key="Settings_ToggleToolbarShortcut">Skjul / vis verktøylinje</sys:String>
+    <sys:String x:Key="Settings_PressKey">Trykk en tast…</sys:String>
+    <sys:String x:Key="Settings_ShortcutConflict">Den tasten er allerede tilordnet den andre snarveien.</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Starter opp…</sys:String>

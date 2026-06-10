@@ -101,6 +101,19 @@ namespace ClickyKeys
         // LocalizationManager.Normalize.
         [JsonPropertyName("language")]
         public string Language { get; set; } = "";
+
+        // Global shortcut keys handled by InputCounter via the low-level hook.
+        // Defaults preserve the historical behaviour: F12 resets all counters,
+        // F11 toggles the toolbar. Serialized as the Key enum name (e.g. "F12")
+        // so the value round-trips losslessly and is human-readable in
+        // config.json. The user can reassign both from the Settings window.
+        [JsonPropertyName("reset_key")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public Key ResetKey { get; set; } = Key.F12;
+
+        [JsonPropertyName("toggle_toolbar_key")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public Key ToggleToolbarKey { get; set; } = Key.F11;
     }
 
     public enum InputType

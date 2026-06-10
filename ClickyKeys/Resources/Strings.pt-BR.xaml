@@ -114,6 +114,11 @@
     <sys:String x:Key="Settings_StartMinimized">Iniciar minimizado</sys:String>
     <sys:String x:Key="Settings_Language">Idioma</sys:String>
     <sys:String x:Key="Settings_AutostartError">Não foi possível atualizar a configuração de inicialização do Windows. Seu software de segurança ou a política da sua conta pode estar bloqueando.</sys:String>
+    <sys:String x:Key="Settings_Shortcuts">Atalhos</sys:String>
+    <sys:String x:Key="Settings_ResetShortcut">Redefinir contadores</sys:String>
+    <sys:String x:Key="Settings_ToggleToolbarShortcut">Ocultar / mostrar barra de ferramentas</sys:String>
+    <sys:String x:Key="Settings_PressKey">Pressione uma tecla…</sys:String>
+    <sys:String x:Key="Settings_ShortcutConflict">Essa tecla já está atribuída ao outro atalho.</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Iniciando…</sys:String>

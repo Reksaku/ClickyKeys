@@ -114,6 +114,11 @@
     <sys:String x:Key="Settings_StartMinimized">Start minimized</sys:String>
     <sys:String x:Key="Settings_Language">Language</sys:String>
     <sys:String x:Key="Settings_AutostartError">Couldn't update the Windows startup setting. Your security software or account policy may be blocking it.</sys:String>
+    <sys:String x:Key="Settings_Shortcuts">Shortcuts</sys:String>
+    <sys:String x:Key="Settings_ResetShortcut">Reset counters</sys:String>
+    <sys:String x:Key="Settings_ToggleToolbarShortcut">Hide / show toolbar</sys:String>
+    <sys:String x:Key="Settings_PressKey">Press a key…</sys:String>
+    <sys:String x:Key="Settings_ShortcutConflict">That key is already assigned to the other shortcut.</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Starting up…</sys:String>
