@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ClickyKeys
 {
@@ -41,6 +42,11 @@ namespace ClickyKeys
         // state doesn't get mistaken for the *user* changing it (which would,
         // e.g., rewrite the registry or reload resources needlessly).
         private bool _initialising;
+
+        // Which shortcut button (if any) is currently waiting to capture the
+        // next key press. None means the buttons behave as ordinary buttons.
+        private enum ShortcutTarget { None, Reset, Toggle }
+        private ShortcutTarget _capturing = ShortcutTarget.None;
 
         public Settings(IOverlay mainOverlay)
         {
@@ -89,6 +95,9 @@ namespace ClickyKeys
                         break;
                     }
                 }
+
+                // Shortcut buttons show the currently assigned keys.
+                RefreshShortcutButtons(cfg);
             }
             finally
             {
@@ -188,6 +197,106 @@ namespace ClickyKeys
 
             // Persist so the choice is restored on the next launch.
             ConfigStore.Update(cfg => cfg.Language = code);
+        }
+
+        // ----------------------------------------------------------------
+        // Shortcuts (reset / toggle toolbar)
+        // ----------------------------------------------------------------
+
+        /// <summary>
+        /// Updates both shortcut buttons' captions to the keys stored in
+        /// <paramref name="cfg"/>, using <see cref="FriendlyKeyName"/> for a
+        /// readable label.
+        /// </summary>
+        private void RefreshShortcutButtons(Configuration cfg)
+        {
+            ResetKeyButton.Content = FriendlyKeyName.ForKey(cfg.ResetKey.ToString());
+            ToggleToolbarKeyButton.Content = FriendlyKeyName.ForKey(cfg.ToggleToolbarKey.ToString());
+        }
+
+        private void ResetKeyButton_Click(object sender, RoutedEventArgs e)
+            => BeginCapture(ShortcutTarget.Reset);
+
+        private void ToggleToolbarKeyButton_Click(object sender, RoutedEventArgs e)
+            => BeginCapture(ShortcutTarget.Toggle);
+
+        /// <summary>
+        /// Puts a shortcut button into "press a key" mode. The next
+        /// <see cref="ShortcutButton_PreviewKeyDown"/> assigns the key.
+        /// </summary>
+        private void BeginCapture(ShortcutTarget target)
+        {
+            _capturing = target;
+            var btn = target == ShortcutTarget.Reset ? ResetKeyButton : ToggleToolbarKeyButton;
+            btn.Content = LocalizationManager.T("Settings_PressKey");
+            btn.Focus();
+        }
+
+        private void CancelCapture()
+        {
+            _capturing = ShortcutTarget.None;
+            RefreshShortcutButtons(ConfigStore.Load());
+        }
+
+        private void ShortcutButton_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Clicking elsewhere while still capturing reverts the prompt.
+            if (_capturing != ShortcutTarget.None)
+                CancelCapture();
+        }
+
+        private void ShortcutButton_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Not capturing → let the button behave normally (Space/Enter click).
+            if (_capturing == ShortcutTarget.None)
+                return;
+
+            // We own every key while capturing so Space/Enter don't "click" the
+            // button and Tab doesn't move focus.
+            e.Handled = true;
+
+            // Alt-combinations arrive as Key.System with the real key in SystemKey.
+            var key = e.Key == Key.System ? e.SystemKey : e.Key;
+
+            // Esc cancels without changing anything.
+            if (key == Key.Escape)
+            {
+                CancelCapture();
+                return;
+            }
+
+            if (key == Key.None)
+                return; // ignore, keep waiting
+
+            var cfg = ConfigStore.Load();
+
+            // Reject assigning the same key to both shortcuts.
+            Key other = _capturing == ShortcutTarget.Reset ? cfg.ToggleToolbarKey : cfg.ResetKey;
+            if (key == other)
+            {
+                MessageBox.Show(
+                    this,
+                    LocalizationManager.T("Settings_ShortcutConflict"),
+                    "ClickyKeys",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                CancelCapture();
+                return;
+            }
+
+            // Persist the new assignment...
+            if (_capturing == ShortcutTarget.Reset)
+                ConfigStore.Update(c => c.ResetKey = key);
+            else
+                ConfigStore.Update(c => c.ToggleToolbarKey = key);
+
+            _capturing = ShortcutTarget.None;
+
+            // ...refresh the buttons and apply to the live counter + toolbar
+            // labels so the change takes effect immediately (no restart).
+            var updated = ConfigStore.Load();
+            RefreshShortcutButtons(updated);
+            _mainOverlay.ApplyShortcuts(updated.ResetKey, updated.ToggleToolbarKey);
         }
 
         // ----------------------------------------------------------------

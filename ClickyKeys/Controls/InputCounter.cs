@@ -23,6 +23,12 @@ namespace ClickyKeys
         private int? _mouseX1PanelIndex;
         private int? _mouseX2PanelIndex;
 
+        // Global shortcut keys. Defaults match the historical hardcoded values
+        // (F12 = reset, F11 = toggle toolbar) and are overridden from config via
+        // SetShortcuts. Compared against the raw pressed key in OnKeyDown.
+        private Key _resetKey = Key.F12;
+        private Key _toggleToolbarKey = Key.F11;
+
         // Fired on UI thread (low-level hooks pump on the installing thread)
         // whenever a tracked panel's counter changes.
         public event Action<int, int>? PanelValueChanged;
@@ -31,6 +37,18 @@ namespace ClickyKeys
         public event Action? CountersReset;
 
         public InputCounter(IOverlay overlay) => _overlay = overlay;
+
+        /// <summary>
+        /// Sets the global shortcut keys (reset / toggle toolbar). Called at
+        /// startup from the persisted <see cref="Configuration"/> and live
+        /// whenever the user reassigns them in the Settings window. A
+        /// <see cref="Key.None"/> value disables that shortcut.
+        /// </summary>
+        public void SetShortcuts(Key resetKey, Key toggleToolbarKey)
+        {
+            _resetKey = resetKey;
+            _toggleToolbarKey = toggleToolbarKey;
+        }
 
         public void LoadPanels(PanelState state)
         {
@@ -179,8 +197,8 @@ namespace ClickyKeys
                 PanelValueChanged?.Invoke(panelIndex, newValue);
             }
 
-            if (wpfKey == Key.F12) Reset();
-            else if (wpfKey == Key.F11) _overlay.ToggleToolStrip();
+            if (_resetKey != Key.None && wpfKey == _resetKey) Reset();
+            else if (_toggleToolbarKey != Key.None && wpfKey == _toggleToolbarKey) _overlay.ToggleToolStrip();
         }
 
         private void OnKeyUp(Key wpfKey)

@@ -114,6 +114,11 @@
     <sys:String x:Key="Settings_StartMinimized">Geminimaliseerd starten</sys:String>
     <sys:String x:Key="Settings_Language">Taal</sys:String>
     <sys:String x:Key="Settings_AutostartError">Kan de Windows-opstartinstelling niet bijwerken. Je beveiligingssoftware of accountbeleid blokkeert dit mogelijk.</sys:String>
+    <sys:String x:Key="Settings_Shortcuts">Sneltoetsen</sys:String>
+    <sys:String x:Key="Settings_ResetShortcut">Tellers resetten</sys:String>
+    <sys:String x:Key="Settings_ToggleToolbarShortcut">Werkbalk verbergen / tonen</sys:String>
+    <sys:String x:Key="Settings_PressKey">Druk op een toets…</sys:String>
+    <sys:String x:Key="Settings_ShortcutConflict">Die toets is al toegewezen aan de andere sneltoets.</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Bezig met opstarten…</sys:String>

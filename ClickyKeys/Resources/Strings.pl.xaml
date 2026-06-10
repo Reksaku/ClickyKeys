@@ -114,6 +114,11 @@
     <sys:String x:Key="Settings_StartMinimized">Uruchamiaj zminimalizowane</sys:String>
     <sys:String x:Key="Settings_Language">Język</sys:String>
     <sys:String x:Key="Settings_AutostartError">Nie udało się zaktualizować ustawienia uruchamiania Windows. Może je blokować oprogramowanie zabezpieczające lub zasady konta.</sys:String>
+    <sys:String x:Key="Settings_Shortcuts">Skróty klawiszowe</sys:String>
+    <sys:String x:Key="Settings_ResetShortcut">Resetuj liczniki</sys:String>
+    <sys:String x:Key="Settings_ToggleToolbarShortcut">Ukryj / pokaż pasek narzędzi</sys:String>
+    <sys:String x:Key="Settings_PressKey">Naciśnij klawisz…</sys:String>
+    <sys:String x:Key="Settings_ShortcutConflict">Ten klawisz jest już przypisany do drugiego skrótu.</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Uruchamianie…</sys:String>

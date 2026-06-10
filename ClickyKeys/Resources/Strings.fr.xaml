@@ -114,6 +114,11 @@
     <sys:String x:Key="Settings_StartMinimized">Démarrer réduit</sys:String>
     <sys:String x:Key="Settings_Language">Langue</sys:String>
     <sys:String x:Key="Settings_AutostartError">Impossible de mettre à jour le paramètre de démarrage de Windows. Votre logiciel de sécurité ou la stratégie de votre compte le bloque peut-être.</sys:String>
+    <sys:String x:Key="Settings_Shortcuts">Raccourcis</sys:String>
+    <sys:String x:Key="Settings_ResetShortcut">Réinitialiser les compteurs</sys:String>
+    <sys:String x:Key="Settings_ToggleToolbarShortcut">Masquer / afficher la barre d'outils</sys:String>
+    <sys:String x:Key="Settings_PressKey">Appuyez sur une touche…</sys:String>
+    <sys:String x:Key="Settings_ShortcutConflict">Cette touche est déjà attribuée à l'autre raccourci.</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Démarrage…</sys:String>

@@ -114,6 +114,11 @@
     <sys:String x:Key="Settings_StartMinimized">Avvia ridotto a icona</sys:String>
     <sys:String x:Key="Settings_Language">Lingua</sys:String>
     <sys:String x:Key="Settings_AutostartError">Impossibile aggiornare l'impostazione di avvio di Windows. Il tuo software di sicurezza o i criteri dell'account potrebbero impedirlo.</sys:String>
+    <sys:String x:Key="Settings_Shortcuts">Scorciatoie</sys:String>
+    <sys:String x:Key="Settings_ResetShortcut">Azzera contatori</sys:String>
+    <sys:String x:Key="Settings_ToggleToolbarShortcut">Mostra / nascondi barra degli strumenti</sys:String>
+    <sys:String x:Key="Settings_PressKey">Premi un tasto…</sys:String>
+    <sys:String x:Key="Settings_ShortcutConflict">Quel tasto è già assegnato all'altra scorciatoia.</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Avvio in corso…</sys:String>

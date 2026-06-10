@@ -116,6 +116,11 @@
     <sys:String x:Key="Settings_StartMinimized">Iniciar minimizado</sys:String>
     <sys:String x:Key="Settings_Language">Idioma</sys:String>
     <sys:String x:Key="Settings_AutostartError">Não foi possível atualizar a definição de arranque do Windows. O seu software de segurança ou a política da conta poderá estar a bloqueá-la.</sys:String>
+    <sys:String x:Key="Settings_Shortcuts">Atalhos</sys:String>
+    <sys:String x:Key="Settings_ResetShortcut">Repor contadores</sys:String>
+    <sys:String x:Key="Settings_ToggleToolbarShortcut">Ocultar / mostrar barra de ferramentas</sys:String>
+    <sys:String x:Key="Settings_PressKey">Prima uma tecla…</sys:String>
+    <sys:String x:Key="Settings_ShortcutConflict">Essa tecla já está atribuída ao outro atalho.</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">A iniciar…</sys:String>

@@ -189,6 +189,59 @@
                     </StackPanel>
                 </materialDesign:Card>
 
+                <!-- ============================================================
+                     Category: Shortcuts
+                     Global hotkeys handled by InputCounter. Each button captures
+                     the next key the user presses (Esc cancels). Defaults: F12
+                     reset, F11 toggle toolbar.
+                     ============================================================ -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource Settings_Shortcuts}"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Margin="0,0,0,6"/>
+
+                        <!-- 1. Reset counters -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       Text="{DynamicResource Settings_ResetShortcut}"/>
+                            <Button Grid.Column="1"
+                                    x:Name="ResetKeyButton"
+                                    MinWidth="150"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Click="ResetKeyButton_Click"
+                                    PreviewKeyDown="ShortcutButton_PreviewKeyDown"
+                                    LostFocus="ShortcutButton_LostFocus"/>
+                        </Grid>
+
+                        <!-- 2. Hide / show toolbar -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       Text="{DynamicResource Settings_ToggleToolbarShortcut}"/>
+                            <Button Grid.Column="1"
+                                    x:Name="ToggleToolbarKeyButton"
+                                    MinWidth="150"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Click="ToggleToolbarKeyButton_Click"
+                                    PreviewKeyDown="ShortcutButton_PreviewKeyDown"
+                                    LostFocus="ShortcutButton_LostFocus"/>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+
             </StackPanel>
         </ScrollViewer>
 

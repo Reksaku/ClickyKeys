@@ -33,6 +33,7 @@ namespace ClickyKeys
         void SetBackgroundRainbow(bool? IsTrue);
         void SetRainbowSpeed(int seconds);
         void ShowTutorial();
+        void ApplyShortcuts(Key resetKey, Key toggleToolbarKey);
     }
 
     /// <summary>
@@ -187,6 +188,57 @@ namespace ClickyKeys
         }
 
         /// <summary>
+        /// Parenthesised, user-friendly label of the reset shortcut shown under
+        /// the Reset button (e.g. "(F12)"). Bound in XAML and refreshed whenever
+        /// the shortcut is reassigned. See <see cref="UpdateShortcutLabels"/>.
+        /// </summary>
+        public static readonly DependencyProperty ResetKeyLabelProperty =
+            DependencyProperty.Register(nameof(ResetKeyLabel), typeof(string),
+                typeof(MainWindow), new PropertyMetadata("(F12)"));
+
+        public string ResetKeyLabel
+        {
+            get => (string)GetValue(ResetKeyLabelProperty);
+            set => SetValue(ResetKeyLabelProperty, value);
+        }
+
+        /// <summary>
+        /// Parenthesised label of the toggle-toolbar shortcut shown under the
+        /// Hide-toolbar button (e.g. "(F11)").
+        /// </summary>
+        public static readonly DependencyProperty ToggleToolbarKeyLabelProperty =
+            DependencyProperty.Register(nameof(ToggleToolbarKeyLabel), typeof(string),
+                typeof(MainWindow), new PropertyMetadata("(F11)"));
+
+        public string ToggleToolbarKeyLabel
+        {
+            get => (string)GetValue(ToggleToolbarKeyLabelProperty);
+            set => SetValue(ToggleToolbarKeyLabelProperty, value);
+        }
+
+        /// <summary>
+        /// Refreshes the parenthesised shortcut labels under the toolbar buttons
+        /// from the given keys, using <see cref="FriendlyKeyName"/> for display.
+        /// </summary>
+        private void UpdateShortcutLabels(Key resetKey, Key toggleToolbarKey)
+        {
+            ResetKeyLabel = $"({FriendlyKeyName.ForKey(resetKey.ToString())})";
+            ToggleToolbarKeyLabel = $"({FriendlyKeyName.ForKey(toggleToolbarKey.ToString())})";
+        }
+
+        /// <summary>
+        /// Applies new shortcut keys to the live counter and refreshes the
+        /// toolbar labels. Called by the Settings window (via
+        /// <see cref="IOverlay"/>) so reassignments take effect without a
+        /// restart.
+        /// </summary>
+        public void ApplyShortcuts(Key resetKey, Key toggleToolbarKey)
+        {
+            _counter?.SetShortcuts(resetKey, toggleToolbarKey);
+            UpdateShortcutLabels(resetKey, toggleToolbarKey);
+        }
+
+        /// <summary>
         /// Recalculates <see cref="ToolbarTextColor"/> from the current background.
         /// Rainbow mode always yields Black. Otherwise luminance decides:
         /// bright background → Black, dark background → White.
@@ -259,6 +311,11 @@ namespace ClickyKeys
             {
                 _counter = new InputCounter(this);
 
+                // Apply the persisted global shortcuts (reset / toggle toolbar)
+                // before starting so the very first keypress is handled per the
+                // user's saved choice.
+                _counter.SetShortcuts(ConfigSettings.ResetKey, ConfigSettings.ToggleToolbarKey);
+
                 // input counter start
                 _counter.Start();
 
@@ -269,6 +326,10 @@ namespace ClickyKeys
             }
 
             LoadPanelConfiguration();
+
+            // Reflect the configured shortcuts in the toolbar labels (both the
+            // master and the transparent sub-window read the same config).
+            UpdateShortcutLabels(ConfigSettings.ResetKey, ConfigSettings.ToggleToolbarKey);
 
             // Skip the update check in the transparent sub-window — it shares
             // the parent's counter and shouldn't ping the API a second time
