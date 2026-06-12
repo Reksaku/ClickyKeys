@@ -67,7 +67,7 @@ namespace ClickyKeys
             => throw new NotImplementedException();
     }
 
-    public partial class MainWindow : Window, IOverlay
+    public partial class MainWindow : Window, IOverlay, PanelOverlay
     {
         private readonly InputCounter _counter;
 
@@ -79,6 +79,10 @@ namespace ClickyKeys
 
         private readonly PanelsService _panelsService = new();
         private PanelState _panel_settings = new();
+
+        // File name (with extension) of the active panels profile in
+        // PanelsService.PanelsDirectory. Persisted in config.PanelsProfile.
+        private string _activePanelsProfile = PanelsService.DefaultProfileFileName;
 
         private readonly bool _transparent;
 
@@ -324,6 +328,22 @@ namespace ClickyKeys
                 // not register a second icon.
                 InitTrayIcon();
             }
+
+            // Point the panels service at the saved panels profile so
+            // LoadPanelConfiguration (below) loads it. Done for BOTH the master
+            // and the transparent sub-window (which shares the counter) so they
+            // agree on the active profile. Falls back to the default if the
+            // saved file no longer exists.
+            _activePanelsProfile = ConfigSettings.PanelsProfile;
+            var panelsPath = Path.Combine(PanelsService.PanelsDirectory, _activePanelsProfile);
+            if (!File.Exists(panelsPath))
+            {
+                _activePanelsProfile = PanelsService.DefaultProfileFileName;
+                panelsPath = Path.Combine(PanelsService.PanelsDirectory, _activePanelsProfile);
+                if (!_transparent)
+                    ConfigStore.Update(c => c.PanelsProfile = _activePanelsProfile);
+            }
+            _panelsService.SetActivePath(panelsPath);
 
             LoadPanelConfiguration();
 
@@ -1606,6 +1626,78 @@ namespace ClickyKeys
             // Broadcast the change so the transparent sub-window (which
             // shares _counter but has its own UI tree) rebuilds its grid
             // without having to re-read the JSON file.
+            WeakReferenceMessenger.Default.Send(
+                new PanelsChangedMessage(_panel_settings));
+        }
+
+        //-------------------------
+        // Panel profiles (PanelOverlay)
+        //-------------------------
+
+        /// <summary>Display name (no extension) of the active panels profile.</summary>
+        public string ActivePanelsProfileName =>
+            Path.GetFileNameWithoutExtension(_activePanelsProfile);
+
+        /// <summary>
+        /// Preview a panels profile from <paramref name="fullPath"/>: load and
+        /// apply it live without yet changing the saved/active target, so a
+        /// subsequent cancel can restore the committed profile.
+        /// </summary>
+        public void LoadPanelsFile(string fullPath)
+        {
+            _panel_settings = _panelsService.LoadFromPath(fullPath);
+            ApplyLoadedPanels();
+        }
+
+        /// <summary>
+        /// Commit a panels profile as the active one: repoint the service,
+        /// persist the choice to config, and apply it live. Becomes active
+        /// immediately — no Save needed on the Appearance card.
+        /// </summary>
+        public void SelectPanelsFile(string fullPath)
+        {
+            _panelsService.SetActivePath(fullPath);
+            _activePanelsProfile = Path.GetFileName(fullPath);
+            ConfigStore.Update(c => c.PanelsProfile = _activePanelsProfile);
+
+            _panel_settings = _panelsService.Load();
+            ApplyLoadedPanels();
+        }
+
+        /// <summary>
+        /// Cancel a preview: reload the committed active profile (the service
+        /// still points at it) and re-apply.
+        /// </summary>
+        public void RevertPanelsFile()
+        {
+            _panel_settings = _panelsService.Load();
+            ApplyLoadedPanels();
+        }
+
+        /// <summary>
+        /// Save the current panel layout under a new name and make it active.
+        /// </summary>
+        public void SavePanelsProfileAs(string name)
+        {
+            var fileName = name.EndsWith(".json", StringComparison.OrdinalIgnoreCase)
+                ? name
+                : name + ".json";
+            var fullPath = Path.Combine(PanelsService.PanelsDirectory, fileName);
+
+            _panelsService.SaveToPath(_panel_settings, fullPath);
+            SelectPanelsFile(fullPath);
+        }
+
+        /// <summary>
+        /// Rebinds the live counter to <see cref="_panel_settings"/>, refreshes
+        /// the grid + toolbar, and notifies the transparent sub-window. Shared
+        /// by every panels-profile operation.
+        /// </summary>
+        private void ApplyLoadedPanels()
+        {
+            _counter.LoadPanels(_panel_settings);
+            SetGrid(_appearanceConfiguration);
+            UpdateButtonLayout();
             WeakReferenceMessenger.Default.Send(
                 new PanelsChangedMessage(_panel_settings));
         }

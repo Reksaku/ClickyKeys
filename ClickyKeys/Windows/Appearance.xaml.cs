@@ -41,6 +41,10 @@ namespace ClickyKeys
         private string _selectedAppearanceProfile;
         private string _temporaryAppearanceProfile = string.Empty;
 
+        // Which profile type the shared "Save As" popup is currently editing.
+        private enum SaveAsMode { Appearance, Panels }
+        private SaveAsMode _saveAsMode = SaveAsMode.Appearance;
+
         private readonly IOverlay _mainOverlay;
         public FontAppearance KeysFontAppearance { get; set; } = new FontAppearance();
         public FontAppearance ValuesFontAppearance { get; set; } = new FontAppearance();
@@ -77,6 +81,7 @@ namespace ClickyKeys
             this.Closed += OnClosedDetachHandlers;
 
             SetOnStart();
+            UpdatePanelsProfileLabel();
             this.Tag = "idle";
 
         }
@@ -364,6 +369,44 @@ namespace ClickyKeys
             }
 
         }
+
+        // ---- Panels profile (mechanism mirrors the appearance profile) ----
+
+        // Opens the panels-profile picker (PanelLoader). Selecting/loading a
+        // profile there applies it live and persists it via MainWindow
+        // (PanelOverlay) — no Save needed on this card. The label refreshes
+        // once the picker closes.
+        private void Click_LoadPanelsProfile(object? sender, RoutedEventArgs e)
+        {
+            if (this.Tag?.ToString() == "loading")
+                return;
+
+            var loader = new PanelLoader((PanelOverlay)_mainOverlay) { Owner = this };
+            this.Tag = "loading";
+            loader.Closed += (_, __) =>
+            {
+                this.Tag = "idle";
+                UpdatePanelsProfileLabel();
+            };
+            loader.Show();
+        }
+
+        // Save the CURRENT panel layout as a new named profile, reusing the
+        // shared "Save As" popup in panels mode.
+        private void Click_SaveAsPanelsProfile(object? sender, RoutedEventArgs e)
+        {
+            _saveAsMode = SaveAsMode.Panels;
+            SaveAsNameTextBox.Text = string.Empty;
+            SaveAsErrorText.Visibility = Visibility.Collapsed;
+            SaveAsOverlay.Visibility = Visibility.Visible;
+            SaveAsNameTextBox.Focus();
+        }
+
+        private void UpdatePanelsProfileLabel()
+        {
+            PanelsProfilesLabel.Content =
+                $"Profile: {((PanelOverlay)_mainOverlay).ActivePanelsProfileName}";
+        }
         private void Click_Close(object? sender, EventArgs e)
         {
             _mainOverlay.OnAppearanceClose(_selectedAppearanceProfile);
@@ -375,6 +418,7 @@ namespace ClickyKeys
         // and validation state, show the popup, and focus the name field.
         private void Click_SaveAs(object? sender, EventArgs e)
         {
+            _saveAsMode = SaveAsMode.Appearance;
             SaveAsNameTextBox.Text = string.Empty;
             SaveAsErrorText.Visibility = Visibility.Collapsed;
             SaveAsOverlay.Visibility = Visibility.Visible;
@@ -395,6 +439,16 @@ namespace ClickyKeys
             }
 
             SaveAsOverlay.Visibility = Visibility.Collapsed;
+
+            if (_saveAsMode == SaveAsMode.Panels)
+            {
+                // Save current panel layout under the new name and make it
+                // active immediately; keep the Appearance window open.
+                ((PanelOverlay)_mainOverlay).SavePanelsProfileAs(name);
+                UpdatePanelsProfileLabel();
+                return;
+            }
+
             await SaveProfileAsync(name + ".json");
         }
 

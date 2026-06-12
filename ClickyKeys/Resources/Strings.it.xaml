@@ -26,6 +26,7 @@
     <!-- Appearance window -->
     <sys:String x:Key="Appearance_Title">Aspetto</sys:String>
     <sys:String x:Key="Appearance_Profile">Profilo:</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfile">Profilo pannelli</sys:String>
     <sys:String x:Key="Appearance_GridRows">Righe della griglia</sys:String>
     <sys:String x:Key="Appearance_GridColumns">Colonne della griglia</sys:String>
     <sys:String x:Key="Appearance_GridSize">Dimensione della griglia</sys:String>
@@ -101,6 +102,7 @@
     <sys:String x:Key="SetLoader_Title">Carica profilo</sys:String>
     <sys:String x:Key="SetLoader_SelectProfile">Seleziona il profilo delle impostazioni</sys:String>
     <sys:String x:Key="SetLoader_ConfirmDelete">Conferma l'eliminazione del profilo</sys:String>
+    <sys:String x:Key="PanelLoader_Title">Carica profilo pannelli</sys:String>
 
     <!-- Settings window -->
     <sys:String x:Key="Settings_Title">Impostazioni di ClickyKeys</sys:String>

@@ -26,6 +26,7 @@
     <!-- Appearance window -->
     <sys:String x:Key="Appearance_Title">Wygląd</sys:String>
     <sys:String x:Key="Appearance_Profile">Profil:</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfile">Profil paneli</sys:String>
     <sys:String x:Key="Appearance_GridRows">Wiersze siatki</sys:String>
     <sys:String x:Key="Appearance_GridColumns">Kolumny siatki</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rozmiar siatki</sys:String>
@@ -101,6 +102,7 @@
     <sys:String x:Key="SetLoader_Title">Wczytaj profil</sys:String>
     <sys:String x:Key="SetLoader_SelectProfile">Wybierz profil ustawień</sys:String>
     <sys:String x:Key="SetLoader_ConfirmDelete">Potwierdź usunięcie profilu</sys:String>
+    <sys:String x:Key="PanelLoader_Title">Wczytaj profil paneli</sys:String>
 
     <!-- Settings window -->
     <sys:String x:Key="Settings_Title">Ustawienia ClickyKeys</sys:String>

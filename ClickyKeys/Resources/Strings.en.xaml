@@ -45,6 +45,7 @@
     <sys:String x:Key="Appearance_SaveAsTitle">Save as new profile</sys:String>
     <sys:String x:Key="Appearance_SaveAsPlaceholder">Profile name</sys:String>
     <sys:String x:Key="Appearance_SaveAsEmptyError">Please enter a profile name.</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfile">Panels profile</sys:String>
 
     <!-- Changelog window -->
     <sys:String x:Key="Changelog_Title">What's new in ClickyKeys</sys:String>
@@ -101,6 +102,7 @@
     <sys:String x:Key="SetLoader_Title">Load profile</sys:String>
     <sys:String x:Key="SetLoader_SelectProfile">Select settings profile</sys:String>
     <sys:String x:Key="SetLoader_ConfirmDelete">Confirm profile deletion</sys:String>
+    <sys:String x:Key="PanelLoader_Title">Load panels profile</sys:String>
 
     <!-- Settings window -->
     <sys:String x:Key="Settings_Title">ClickyKeys Settings</sys:String>

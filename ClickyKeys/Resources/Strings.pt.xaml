@@ -28,6 +28,7 @@
     <!-- Appearance window -->
     <sys:String x:Key="Appearance_Title">Aspeto</sys:String>
     <sys:String x:Key="Appearance_Profile">Perfil:</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfile">Perfil de painéis</sys:String>
     <sys:String x:Key="Appearance_GridRows">Linhas da grelha</sys:String>
     <sys:String x:Key="Appearance_GridColumns">Colunas da grelha</sys:String>
     <sys:String x:Key="Appearance_GridSize">Tamanho da grelha</sys:String>
@@ -103,6 +104,7 @@
     <sys:String x:Key="SetLoader_Title">Carregar perfil</sys:String>
     <sys:String x:Key="SetLoader_SelectProfile">Selecionar perfil de definições</sys:String>
     <sys:String x:Key="SetLoader_ConfirmDelete">Confirmar a eliminação do perfil</sys:String>
+    <sys:String x:Key="PanelLoader_Title">Carregar perfil de painéis</sys:String>
 
     <!-- Settings window -->
     <sys:String x:Key="Settings_Title">Definições do ClickyKeys</sys:String>
