@@ -16,8 +16,33 @@ namespace ClickyKeys
 
     internal class PanelsService
     {
-        private readonly string _filePath;
+        // The currently active profile file. No longer readonly: switching
+        // panel profiles repoints this at another file in PanelsDirectory.
+        private string _filePath;
         private readonly object _lock = new();
+
+        /// <summary>
+        /// Folder holding every panels profile (.json). Created on first
+        /// access. Shared by <see cref="PanelLoader"/> and MainWindow so they
+        /// resolve the same location.
+        /// </summary>
+        public static string PanelsDirectory
+        {
+            get
+            {
+                var dir = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "ClickyKeys", "panels");
+                Directory.CreateDirectory(dir);
+                return dir;
+            }
+        }
+
+        /// <summary>The default profile file name, always present on disk.</summary>
+        public const string DefaultProfileFileName = "default panels.json";
+
+        /// <summary>File name (with extension) of the active profile.</summary>
+        public string ActiveFileName => Path.GetFileName(_filePath);
 
         private static readonly JsonSerializerOptions JsonOptions = new()
 
@@ -33,13 +58,7 @@ namespace ClickyKeys
 
         public PanelsService(string appName = "ClickyKeys")
         {
-            var appDataDir = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                appName,"panels");
-
-            Directory.CreateDirectory(appDataDir);
-
-            _filePath = Path.Combine(appDataDir, "default panels.json");
+            _filePath = Path.Combine(PanelsDirectory, DefaultProfileFileName);
 
             if (!File.Exists(_filePath))
             {
@@ -130,15 +149,57 @@ namespace ClickyKeys
             return pending;
         }
 
-        public PanelState Load()
+        public PanelState Load() => LoadFromPath(_filePath);
+
+        /// <summary>
+        /// Reads and validates a specific profile file WITHOUT changing the
+        /// active target. Used to preview a profile before it is committed.
+        /// </summary>
+        public PanelState LoadFromPath(string fullPath)
         {
             lock (_lock)
             {
-                var json = File.ReadAllText(_filePath);
+                var json = File.ReadAllText(fullPath);
                 return ValidateFormat(JsonSerializer.Deserialize<PanelState>(json, JsonOptions)
                        ?? new PanelState());
             }
         }
+
+        /// <summary>
+        /// Writes <paramref name="state"/> to a specific file (used by
+        /// "Save As" to create a new profile) without changing the active
+        /// target.
+        /// </summary>
+        public void SaveToPath(PanelState state, string fullPath)
+        {
+            var json = JsonSerializer.Serialize(state, JsonOptions);
+            lock (_lock)
+            {
+                AtomicFile.WriteAllText(fullPath, json);
+            }
+        }
+
+        /// <summary>
+        /// Repoints the service at another profile file. Any pending debounced
+        /// write to the previous file is flushed first so it lands on the OLD
+        /// path (SaveAsync resolves <c>_filePath</c> at execution time).
+        /// </summary>
+        public void SetActivePath(string fullPath)
+        {
+            try { FlushAsync().Wait(TimeSpan.FromSeconds(2)); }
+            catch (Exception ex) { Debug.WriteLine($"PanelsService.SetActivePath flush failed: {ex}"); }
+
+            lock (_lock)
+            {
+                _filePath = fullPath;
+            }
+        }
+
+        /// <summary>
+        /// Full paths of every *.json profile in <see cref="PanelsDirectory"/>.
+        /// </summary>
+        public static IEnumerable<string> EnumerateProfilePaths() =>
+            Directory.EnumerateFiles(PanelsDirectory, "*.json", SearchOption.TopDirectoryOnly);
         private PanelState ValidateFormat(PanelState fileData)
         {
             Dictionary<int, Key> _key = new();

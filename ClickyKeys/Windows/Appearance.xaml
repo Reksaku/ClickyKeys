@@ -102,6 +102,37 @@
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
                         <TextBlock Style="{StaticResource CardHeader}"
+                            Text="{DynamicResource Appearance_PanelsProfile}"/>
+
+                        <Label x:Name="PanelsProfilesLabel"
+                           Content="{DynamicResource Appearance_Profile}"
+                           Padding="0"
+                           FontSize="13"
+                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+
+                        <DockPanel Grid.Row="2" Margin="0,8,0,0" LastChildFill="False" Grid.ColumnSpan="2">
+
+                            <Button x:Name="PanelsProfile_SaveAsButton"
+                                DockPanel.Dock="Right"
+                                Margin="8,0,0,0"
+                                Content="{DynamicResource Common_SaveAs}"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Click="Click_SaveAsPanelsProfile"/>
+                            <Button DockPanel.Dock="Right"
+                                Margin="8,0,0,0"
+                                Content="{DynamicResource Common_Load}"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Click="Click_LoadPanelsProfile"/>
+                        </DockPanel>
+
+                    </StackPanel>
+                </materialDesign:Card>
+
+
+                <!-- ===================== Grid size ===================== -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardHeader}"
                                    Text="{DynamicResource Appearance_GridSize}"/>
 
                         <Grid Style="{StaticResource SettingRowGrid}">
