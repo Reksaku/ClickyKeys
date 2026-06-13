@@ -40,6 +40,7 @@
     <sys:String x:Key="Appearance_ExpandPallet">Expandir paleta</sys:String>
     <sys:String x:Key="Appearance_SelectedColor">Cor selecionada:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Pode alterar a saturação através da paleta da cor de fundo</sys:String>
+    <sys:String x:Key="Appearance_Fonts">Tipos de letra</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Tipo de letra das teclas</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Tipo de letra dos valores</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Fundo arco-íris</sys:String>

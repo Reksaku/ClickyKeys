@@ -38,6 +38,7 @@
     <sys:String x:Key="Appearance_ExpandPallet">Utvid palett</sys:String>
     <sys:String x:Key="Appearance_SelectedColor">Valgt farge:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Du kan endre metningen via bakgrunnsfargepaletten</sys:String>
+    <sys:String x:Key="Appearance_Fonts">Skrifter</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Skrifttype for taster</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Skrifttype for verdier</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Regnbuebakgrunn</sys:String>

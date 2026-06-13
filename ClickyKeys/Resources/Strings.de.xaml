@@ -38,6 +38,7 @@
     <sys:String x:Key="Appearance_ExpandPallet">Palette erweitern</sys:String>
     <sys:String x:Key="Appearance_SelectedColor">Ausgewählte Farbe:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Die Sättigung kannst du über die Hintergrundfarbpalette ändern</sys:String>
+    <sys:String x:Key="Appearance_Fonts">Schriftarten</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Schriftart der Tasten</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Schriftart der Werte</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Regenbogen-Hintergrund</sys:String>

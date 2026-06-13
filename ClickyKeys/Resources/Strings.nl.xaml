@@ -38,6 +38,7 @@
     <sys:String x:Key="Appearance_ExpandPallet">Palet uitvouwen</sys:String>
     <sys:String x:Key="Appearance_SelectedColor">Geselecteerde kleur:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Je kunt de verzadiging wijzigen via het achtergrondkleurpalet</sys:String>
+    <sys:String x:Key="Appearance_Fonts">Lettertypen</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Lettertype van toetsen</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Lettertype van waarden</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Regenboogachtergrond</sys:String>
