@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="{DynamicResource Stats_Title}"
-        Width="490" Height="780"
+        Width="490"
+        SizeToContent="Height"
+        MaxHeight="880"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         Closing="Window_Closed"
@@ -42,7 +44,9 @@
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <!-- Auto (not *) so the window shrink-wraps content under
+                 SizeToContent; the ScrollViewer caps tall content. -->
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -59,9 +63,15 @@
             </StackPanel>
         </StackPanel>
 
-        <!-- Main content -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="0,0,0,8">
+        <!-- Main content. MaxHeight caps how tall the window grows: below it the
+             window shrink-wraps the cards; above it the content scrolls here. -->
+        <ScrollViewer x:Name="ContentScroller"
+                      Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                      MaxHeight="634"
+                      ScrollChanged="ContentScroller_ScrollChanged">
+            <!-- Right margin keeps a 5px gap between the cards and the
+                 vertical scrollbar. -->
+            <StackPanel Margin="0,0,5,8">
 
                 <!-- Application uptime. Sits at the very top, above the key
                      statistics, and stays visible regardless of the key-stats
@@ -197,11 +207,14 @@
 
                 <!-- Per-key counts -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
-                    <StackPanel>
-                        <TextBlock Text="{DynamicResource Stats_Keys}"
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   Margin="0,0,0,6"/>
+                    <Expander IsExpanded="False" Background="Transparent" Padding="0">
+                        <Expander.Header>
+                            <TextBlock Text="{DynamicResource Stats_Keys}"
+                                       FontWeight="Bold"
+                                       FontSize="14"
+                                       Margin="0"/>
+                        </Expander.Header>
+                        <StackPanel Margin="0,8,0,0">
                         <TextBlock x:Name="KeysEmptyText"
                                    Text="{DynamicResource Stats_NoKeys}"
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
@@ -209,16 +222,20 @@
                                    Visibility="Collapsed"/>
                         <ItemsControl x:Name="KeysList"
                                       ItemTemplate="{StaticResource StatRowTemplate}"/>
-                    </StackPanel>
+                        </StackPanel>
+                    </Expander>
                 </materialDesign:Card>
 
                 <!-- Per-mouse-button counts -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
-                    <StackPanel>
-                        <TextBlock Text="{DynamicResource Stats_MouseButtons}"
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   Margin="0,0,0,6"/>
+                    <Expander IsExpanded="False" Background="Transparent" Padding="0">
+                        <Expander.Header>
+                            <TextBlock Text="{DynamicResource Stats_MouseButtons}"
+                                       FontWeight="Bold"
+                                       FontSize="14"
+                                       Margin="0"/>
+                        </Expander.Header>
+                        <StackPanel Margin="0,8,0,0">
                         <TextBlock x:Name="MouseEmptyText"
                                    Text="{DynamicResource Stats_NoMouse}"
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
@@ -226,16 +243,20 @@
                                    Visibility="Collapsed"/>
                         <ItemsControl x:Name="MouseList"
                                       ItemTemplate="{StaticResource StatRowTemplate}"/>
-                    </StackPanel>
+                        </StackPanel>
+                    </Expander>
                 </materialDesign:Card>
 
                 <!-- Per-wheel-direction counts -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
-                    <StackPanel>
-                        <TextBlock Text="{DynamicResource Stats_MouseWheel}"
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   Margin="0,0,0,6"/>
+                    <Expander IsExpanded="False" Background="Transparent" Padding="0">
+                        <Expander.Header>
+                            <TextBlock Text="{DynamicResource Stats_MouseWheel}"
+                                       FontWeight="Bold"
+                                       FontSize="14"
+                                       Margin="0"/>
+                        </Expander.Header>
+                        <StackPanel Margin="0,8,0,0">
                         <TextBlock x:Name="WheelEmptyText"
                                    Text="{DynamicResource Stats_NoWheel}"
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
@@ -243,16 +264,20 @@
                                    Visibility="Collapsed"/>
                         <ItemsControl x:Name="WheelList"
                                       ItemTemplate="{StaticResource StatRowTemplate}"/>
-                    </StackPanel>
+                        </StackPanel>
+                    </Expander>
                 </materialDesign:Card>
 
                 <!-- Per-gamepad-button counts -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
-                    <StackPanel>
-                        <TextBlock Text="{DynamicResource Stats_Gamepad}"
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   Margin="0,0,0,6"/>
+                    <Expander IsExpanded="False" Background="Transparent" Padding="0">
+                        <Expander.Header>
+                            <TextBlock Text="{DynamicResource Stats_Gamepad}"
+                                       FontWeight="Bold"
+                                       FontSize="14"
+                                       Margin="0"/>
+                        </Expander.Header>
+                        <StackPanel Margin="0,8,0,0">
                         <TextBlock x:Name="GamepadEmptyText"
                                    Text="{DynamicResource Stats_NoGamepad}"
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
@@ -260,7 +285,8 @@
                                    Visibility="Collapsed"/>
                         <ItemsControl x:Name="GamepadList"
                                       ItemTemplate="{StaticResource StatRowTemplate}"/>
-                    </StackPanel>
+                        </StackPanel>
+                    </Expander>
                 </materialDesign:Card>
 
                 </StackPanel>

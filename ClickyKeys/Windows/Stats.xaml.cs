@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ClickyKeys
 {
@@ -25,6 +26,11 @@ namespace ClickyKeys
     public partial class Stats : Window
     {
         private readonly IOverlay _mainOverlay;
+
+        // Base (no-scrollbar) window width and whether we've widened it to make
+        // room for the vertical scrollbar, so the content width stays constant.
+        private double _baseWidth;
+        private bool _widenedForScrollbar;
 
         // Path is duplicated rather than reached via a singleton accessor
         // because KeyStatsService keeps its file path private — this view is
@@ -45,6 +51,9 @@ namespace ClickyKeys
         {
             _mainOverlay = mainOverlay;
             InitializeComponent();
+
+            // Design width to widen from when the scrollbar appears.
+            _baseWidth = Width;
 
             // Uptime sits at the top and is independent of the key-stats
             // toggle, so render it first and always.
@@ -258,6 +267,21 @@ namespace ClickyKeys
 
         private static string FormatCount(long value) =>
             value.ToString("N0", CultureInfo.CurrentCulture);
+
+        // When the vertical scrollbar's visibility flips, grow/shrink the
+        // window by the scrollbar width so the card area width is unchanged.
+        private void ContentScroller_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            bool visible =
+                ContentScroller.ComputedVerticalScrollBarVisibility == Visibility.Visible;
+
+            if (visible == _widenedForScrollbar)
+                return;
+
+            double scrollbarWidth = SystemParameters.VerticalScrollBarWidth;
+            Width = visible ? _baseWidth + scrollbarWidth : _baseWidth;
+            _widenedForScrollbar = visible;
+        }
 
         private void Click_Close(object sender, RoutedEventArgs e) => Close();
 
