@@ -38,6 +38,7 @@
     <sys:String x:Key="Appearance_ExpandPallet">Rozwiń paletę</sys:String>
     <sys:String x:Key="Appearance_SelectedColor">Wybrany kolor:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Nasycenie możesz zmienić w palecie koloru tła</sys:String>
+    <sys:String x:Key="Appearance_Fonts">Czcionki</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Czcionka klawiszy</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Czcionka wartości</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Tęczowe tło</sys:String>

@@ -38,6 +38,7 @@
     <sys:String x:Key="Appearance_ExpandPallet">Ανάπτυξη παλέτας</sys:String>
     <sys:String x:Key="Appearance_SelectedColor">Επιλεγμένο χρώμα:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Μπορείτε να αλλάξετε τον κορεσμό μέσω της παλέτας χρώματος φόντου</sys:String>
+    <sys:String x:Key="Appearance_Fonts">Γραμματοσειρές</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Γραμματοσειρά πλήκτρων</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Γραμματοσειρά τιμών</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Φόντο ουράνιου τόξου</sys:String>

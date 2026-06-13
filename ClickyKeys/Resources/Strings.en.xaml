@@ -37,6 +37,7 @@
     <sys:String x:Key="Appearance_ExpandPallet">Expand pallet</sys:String>
     <sys:String x:Key="Appearance_SelectedColor">Selected color:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">You may change saturation via background color pallet</sys:String>
+    <sys:String x:Key="Appearance_Fonts">Fonts</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Keys font</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Values font</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Rainbow background</sys:String>

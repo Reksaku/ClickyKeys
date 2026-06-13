@@ -45,6 +45,12 @@ namespace ClickyKeys
         private enum SaveAsMode { Appearance, Panels }
         private SaveAsMode _saveAsMode = SaveAsMode.Appearance;
 
+        // Base (no-scrollbar) window width and whether we've currently widened
+        // it to make room for the vertical scrollbar. When the scrollbar shows,
+        // the window grows by its width so the content keeps the same width.
+        private double _baseWidth;
+        private bool _widenedForScrollbar;
+
         private readonly IOverlay _mainOverlay;
         public FontAppearance KeysFontAppearance { get; set; } = new FontAppearance();
         public FontAppearance ValuesFontAppearance { get; set; } = new FontAppearance();
@@ -83,6 +89,10 @@ namespace ClickyKeys
             SetOnStart();
             UpdatePanelsProfileLabel();
             this.Tag = "idle";
+
+            // Remember the design width so we can widen by exactly the
+            // scrollbar's width when it appears (and restore it when it hides).
+            _baseWidth = Width;
 
         }
 
@@ -406,6 +416,22 @@ namespace ClickyKeys
         {
             PanelsProfilesLabel.Content =
                 $"Profile: {((PanelOverlay)_mainOverlay).ActivePanelsProfileName}";
+        }
+
+        // Fires on any extent/viewport change (expanding a section, etc.). When
+        // the vertical scrollbar's computed visibility flips, grow/shrink the
+        // window by the scrollbar width so the content area width is unchanged.
+        private void ContentScroller_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            bool visible =
+                ContentScroller.ComputedVerticalScrollBarVisibility == Visibility.Visible;
+
+            if (visible == _widenedForScrollbar)
+                return;
+
+            double scrollbarWidth = SystemParameters.VerticalScrollBarWidth;
+            Width = visible ? _baseWidth + scrollbarWidth : _baseWidth;
+            _widenedForScrollbar = visible;
         }
         private void Click_Close(object? sender, EventArgs e)
         {

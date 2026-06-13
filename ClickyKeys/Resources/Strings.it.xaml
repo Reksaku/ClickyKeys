@@ -38,6 +38,7 @@
     <sys:String x:Key="Appearance_ExpandPallet">Espandi tavolozza</sys:String>
     <sys:String x:Key="Appearance_SelectedColor">Colore selezionato:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Puoi modificare la saturazione tramite la tavolozza del colore di sfondo</sys:String>
+    <sys:String x:Key="Appearance_Fonts">Caratteri</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Carattere dei tasti</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Carattere dei valori</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Sfondo arcobaleno</sys:String>

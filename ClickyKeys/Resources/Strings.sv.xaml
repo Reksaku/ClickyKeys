@@ -38,6 +38,7 @@
     <sys:String x:Key="Appearance_ExpandPallet">Expandera palett</sys:String>
     <sys:String x:Key="Appearance_SelectedColor">Vald färg:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Du kan ändra mättnaden via bakgrundsfärgpaletten</sys:String>
+    <sys:String x:Key="Appearance_Fonts">Teckensnitt</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Teckensnitt för tangenter</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Teckensnitt för värden</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Regnbågsbakgrund</sys:String>
