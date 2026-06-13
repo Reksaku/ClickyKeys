@@ -174,10 +174,12 @@ namespace ClickyKeys
             TotalMouseClicksText.Text = FormatCount(snapshot.TotalMouseClicks);
             TotalKeyPressesText.Text = FormatCount(snapshot.TotalKeyPresses);
             TotalWheelTicksText.Text = FormatCount(snapshot.TotalWheelTicks);
+            TotalGamepadPressesText.Text = FormatCount(snapshot.TotalGamepadPresses);
             TotalCombinedText.Text = FormatCount(
                 snapshot.TotalMouseClicks
                 + snapshot.TotalKeyPresses
-                + snapshot.TotalWheelTicks);
+                + snapshot.TotalWheelTicks
+                + snapshot.TotalGamepadPresses);
 
             // Per-bucket lists, sorted descending by count so the most-used
             // entries surface at the top — that's the usual reason someone
@@ -207,15 +209,25 @@ namespace ClickyKeys
                 .ThenBy(r => r.Name, StringComparer.Ordinal)
                 .ToList();
 
+            // Gamepad keys are already friendly button names, so no translation
+            // step — use the key directly.
+            var gamepadRows = snapshot.Gamepad
+                .Select(kv => new StatRow(kv.Key, kv.Value))
+                .OrderByDescending(r => r.Count)
+                .ThenBy(r => r.Name, StringComparer.Ordinal)
+                .ToList();
+
             KeysList.ItemsSource = keyRows;
             MouseList.ItemsSource = mouseRows;
             WheelList.ItemsSource = wheelRows;
+            GamepadList.ItemsSource = gamepadRows;
 
             // Empty-state placeholders — friendlier than blank cards on a
             // first run before any input has been recorded.
             KeysEmptyText.Visibility = keyRows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             MouseEmptyText.Visibility = mouseRows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             WheelEmptyText.Visibility = wheelRows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            GamepadEmptyText.Visibility = gamepadRows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
 
             LastUpdatedText.Text = snapshot.LastUpdatedUtc == default
                 ? LocalizationManager.T("Stats_NoData")

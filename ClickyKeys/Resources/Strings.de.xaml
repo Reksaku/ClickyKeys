@@ -138,6 +138,7 @@
     <sys:String x:Key="Stats_TotalMouseClicks">Mausklicks gesamt</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Tastendrücke gesamt</sys:String>
     <sys:String x:Key="Stats_TotalWheelTicks">Radschritte gesamt</sys:String>
+    <sys:String x:Key="Stats_TotalGamepadPresses">Gamepad-Tasten gesamt</sys:String>
     <sys:String x:Key="Stats_Combined">Kombiniert</sys:String>
     <sys:String x:Key="Stats_Keys">Tasten</sys:String>
     <sys:String x:Key="Stats_NoKeys">Noch keine Tastendrücke erfasst.</sys:String>
@@ -145,6 +146,8 @@
     <sys:String x:Key="Stats_NoMouse">Noch keine Mausklicks erfasst.</sys:String>
     <sys:String x:Key="Stats_MouseWheel">Mausrad</sys:String>
     <sys:String x:Key="Stats_NoWheel">Noch keine Radaktivität erfasst.</sys:String>
+    <sys:String x:Key="Stats_Gamepad">Gamepad</sys:String>
+    <sys:String x:Key="Stats_NoGamepad">Noch keine Gamepad-Eingaben erfasst.</sys:String>
     <sys:String x:Key="Stats_KeyStatsDisabled">Die Erfassung der Tastenstatistik ist deaktiviert.</sys:String>
     <sys:String x:Key="Stats_NoData">Noch keine Daten erfasst.</sys:String>
     <sys:String x:Key="Stats_LastUpdated">Zuletzt aktualisiert: {0}</sys:String>

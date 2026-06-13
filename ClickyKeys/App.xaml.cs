@@ -24,6 +24,7 @@ namespace ClickyKeys
         private UptimeStatsService? _uptime;
 
 
+
         // Mutex that guarantees only one instance of ClickyKeys runs at a time.
         private static Mutex? _singleInstanceMutex;
 
@@ -133,6 +134,11 @@ namespace ClickyKeys
             _uptime.ConfigureCollecting(ConfigStore.Load().CollectUptime);
             _uptime.Start();
 
+            // Gamepad input. The singleton polls connected controllers;
+            // InputCounter consumes presses for panel counting and
+            // KeyStatsService for statistics.
+            GamepadInputService.Instance.Start();
+
             var main = new MainWindow();
             MainWindow = main;
             main.Show();
@@ -159,6 +165,9 @@ namespace ClickyKeys
             // hook, so ordering relative to it doesn't matter.
             _uptime?.Dispose();
             _uptime = null;
+
+            // Stop the gamepad polling thread.
+            GamepadInputService.Instance.Stop();
 
             GlobalInputHook.Instance.Stop();
 

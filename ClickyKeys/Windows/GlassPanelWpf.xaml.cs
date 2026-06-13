@@ -32,6 +32,10 @@ namespace ClickyKeys
 
         private readonly PanelsSettings newConfiguration = new();
 
+        // Cancels an in-flight "press an input" capture when the editor closes
+        // or a new capture starts.
+        private CancellationTokenSource? _captureCts;
+
         private readonly DispatcherTimer _anim = new()
         {
             Interval = TimeSpan.FromMilliseconds(1000.0 / 60.0)
@@ -97,6 +101,7 @@ namespace ClickyKeys
 
         public void CloseEditPanel()
         {
+            _captureCts?.Cancel();
             DescriptionBox.Text = "";
             InputBtn.Content = "Input";
             IsEditorOpen = false;
@@ -321,24 +326,61 @@ namespace ClickyKeys
         private async void InputKey()
         {
             InputBtn.Content = "-";
-            var input = await GlobalInputHook.Instance.CaptureNextInputAsync(
-                keyFilter: k => k != Key.System,
-                mouseFilter: b => true);
 
-            
+            // Capture the next input from EITHER the keyboard/mouse hook or a
+            // gamepad button — whichever the user triggers first wins; the other
+            // capture is cancelled.
+            _captureCts?.Cancel();
+            _captureCts = new CancellationTokenSource();
+            var token = _captureCts.Token;
+
+            var keyTask = GlobalInputHook.Instance.CaptureNextInputAsync(
+                keyFilter: k => k != Key.System,
+                mouseFilter: b => true,
+                timeout: null,
+                cancellationToken: token);
+
+            var padTask = GamepadInputService.Instance.CaptureNextButtonAsync(
+                timeout: null,
+                cancellationToken: token);
+
+            var finished = await Task.WhenAny(keyTask, padTask);
+
+            // Cancel the losing capture.
+            _captureCts.Cancel();
+
+            if (finished == padTask)
+            {
+                int button;
+                try { button = await padTask; }
+                catch { return; }
+
+                newConfiguration.Input = InputType.Gamepad;
+                newConfiguration.KeyCode = Key.None;
+                newConfiguration.GamepadButton = button;
+                InputBtn.Content = $"Pad {GamepadInputService.FriendlyName(button)}";
+                return;
+            }
+
+            (bool IsKey, Key Key, MouseButton MouseButton) input;
+            try { input = await keyTask; }
+            catch { return; }
+
+            // Clear any previous gamepad binding when a key/mouse input wins.
+            newConfiguration.GamepadButton = -1;
+
             if (input.IsKey)
             {
                 newConfiguration.Input = InputType.Key;
                 newConfiguration.KeyCode = input.Key;
                 InputBtn.Content = $"{input.Key}";
             }
-            else 
+            else
             {
                 newConfiguration.Input = MapMouseButton(input.MouseButton);
                 newConfiguration.KeyCode = Key.None;
                 InputBtn.Content = $"{input.MouseButton}";
             }
-            
         }
         static double Lerp(double from, double to, double t) => from + (to - from) * Math.Max(0, Math.Min(1, t));
 

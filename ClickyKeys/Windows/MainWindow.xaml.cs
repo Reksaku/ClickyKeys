@@ -61,7 +61,7 @@ namespace ClickyKeys
     public class OrientationToSizeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => (Orientation)value == Orientation.Horizontal ? 40.0 : 28.0;
+            => (Orientation)value == Orientation.Horizontal ? 30.0 : 26.0;
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();
@@ -266,7 +266,7 @@ namespace ClickyKeys
 
         private void UpdateButtonLayout()
         {
-            ButtonOrientation = myGrid.ColumnDefinitions.Count > 2
+            ButtonOrientation = myGrid.ColumnDefinitions.Count > 3
                 ? Orientation.Horizontal
                 : Orientation.Vertical;
         }
@@ -1593,10 +1593,12 @@ namespace ClickyKeys
                 if (i == state.Index) continue;
 
                 if (_panel_settings.Panels[i].Input == state.Input
-                    && _panel_settings.Panels[i].KeyCode == state.KeyCode)
+                    && _panel_settings.Panels[i].KeyCode == state.KeyCode
+                    && _panel_settings.Panels[i].GamepadButton == state.GamepadButton)
                 {
                     _panel_settings.Panels[i].KeyCode = Key.None;
                     _panel_settings.Panels[i].Input = InputType.None;
+                    _panel_settings.Panels[i].GamepadButton = -1;
                     _panel_settings.Panels[i].Description = "";
                     _counter.ResetSingle(i);
                 }
@@ -1605,6 +1607,7 @@ namespace ClickyKeys
             int id = state.Index;
             _panel_settings.Panels[id].KeyCode = state.KeyCode;
             _panel_settings.Panels[id].Input = state.Input;
+            _panel_settings.Panels[id].GamepadButton = state.GamepadButton;
             _panel_settings.Panels[id].Description = state.Description;
 
             // Reassigning a panel invalidates its running count.

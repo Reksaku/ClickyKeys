@@ -138,6 +138,7 @@
     <sys:String x:Key="Stats_TotalMouseClicks">Łączne kliknięcia myszą</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Łączne naciśnięcia klawiszy</sys:String>
     <sys:String x:Key="Stats_TotalWheelTicks">Łączne ruchy kółka</sys:String>
+    <sys:String x:Key="Stats_TotalGamepadPresses">Łączne naciśnięcia pada</sys:String>
     <sys:String x:Key="Stats_Combined">Razem</sys:String>
     <sys:String x:Key="Stats_Keys">Klawisze</sys:String>
     <sys:String x:Key="Stats_NoKeys">Nie zarejestrowano jeszcze naciśnięć klawiszy.</sys:String>
@@ -145,6 +146,8 @@
     <sys:String x:Key="Stats_NoMouse">Nie zarejestrowano jeszcze kliknięć myszą.</sys:String>
     <sys:String x:Key="Stats_MouseWheel">Kółko myszy</sys:String>
     <sys:String x:Key="Stats_NoWheel">Nie zarejestrowano jeszcze aktywności kółka.</sys:String>
+    <sys:String x:Key="Stats_Gamepad">Pad</sys:String>
+    <sys:String x:Key="Stats_NoGamepad">Nie zarejestrowano jeszcze naciśnięć pada.</sys:String>
     <sys:String x:Key="Stats_KeyStatsDisabled">Zbieranie statystyk klawiszy jest wyłączone.</sys:String>
     <sys:String x:Key="Stats_NoData">Nie zarejestrowano jeszcze danych.</sys:String>
     <sys:String x:Key="Stats_LastUpdated">Ostatnia aktualizacja: {0}</sys:String>

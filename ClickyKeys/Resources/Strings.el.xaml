@@ -138,6 +138,7 @@
     <sys:String x:Key="Stats_TotalMouseClicks">Συνολικά κλικ ποντικιού</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Συνολικά πατήματα πλήκτρων</sys:String>
     <sys:String x:Key="Stats_TotalWheelTicks">Συνολικά βήματα τροχού</sys:String>
+    <sys:String x:Key="Stats_TotalGamepadPresses">Συνολικά πατήματα χειριστηρίου</sys:String>
     <sys:String x:Key="Stats_Combined">Συνδυασμένα</sys:String>
     <sys:String x:Key="Stats_Keys">Πλήκτρα</sys:String>
     <sys:String x:Key="Stats_NoKeys">Δεν έχουν καταγραφεί ακόμη πατήματα πλήκτρων.</sys:String>
@@ -145,6 +146,8 @@
     <sys:String x:Key="Stats_NoMouse">Δεν έχουν καταγραφεί ακόμη κλικ ποντικιού.</sys:String>
     <sys:String x:Key="Stats_MouseWheel">Τροχός ποντικιού</sys:String>
     <sys:String x:Key="Stats_NoWheel">Δεν έχει καταγραφεί ακόμη δραστηριότητα τροχού.</sys:String>
+    <sys:String x:Key="Stats_Gamepad">Χειριστήριο</sys:String>
+    <sys:String x:Key="Stats_NoGamepad">Δεν έχουν καταγραφεί ακόμη πατήματα χειριστηρίου.</sys:String>
     <sys:String x:Key="Stats_KeyStatsDisabled">Η συλλογή στατιστικών πλήκτρων είναι απενεργοποιημένη.</sys:String>
     <sys:String x:Key="Stats_NoData">Δεν έχουν καταγραφεί ακόμη δεδομένα.</sys:String>
     <sys:String x:Key="Stats_LastUpdated">Τελευταία ενημέρωση: {0}</sys:String>
