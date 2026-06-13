@@ -138,6 +138,7 @@
     <sys:String x:Key="Stats_TotalMouseClicks">Total des clics de souris</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Total des appuis de touches</sys:String>
     <sys:String x:Key="Stats_TotalWheelTicks">Total des crans de molette</sys:String>
+    <sys:String x:Key="Stats_TotalGamepadPresses">Total des pressions de manette</sys:String>
     <sys:String x:Key="Stats_Combined">Combiné</sys:String>
     <sys:String x:Key="Stats_Keys">Touches</sys:String>
     <sys:String x:Key="Stats_NoKeys">Aucun appui de touche enregistré pour le moment.</sys:String>
@@ -145,6 +146,8 @@
     <sys:String x:Key="Stats_NoMouse">Aucun clic de souris enregistré pour le moment.</sys:String>
     <sys:String x:Key="Stats_MouseWheel">Molette de la souris</sys:String>
     <sys:String x:Key="Stats_NoWheel">Aucune activité de la molette enregistrée pour le moment.</sys:String>
+    <sys:String x:Key="Stats_Gamepad">Manette</sys:String>
+    <sys:String x:Key="Stats_NoGamepad">Aucune pression de manette enregistrée pour le moment.</sys:String>
     <sys:String x:Key="Stats_KeyStatsDisabled">La collecte des statistiques de touches est désactivée.</sys:String>
     <sys:String x:Key="Stats_NoData">Aucune donnée enregistrée pour le moment.</sys:String>
     <sys:String x:Key="Stats_LastUpdated">Dernière mise à jour : {0}</sys:String>

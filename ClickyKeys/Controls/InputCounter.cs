@@ -12,6 +12,7 @@ namespace ClickyKeys
 
         private readonly ConcurrentDictionary<int, int> _panelCounts = new();
         private readonly Dictionary<Key, int> _keyToPanel = new();
+        private readonly Dictionary<int, int> _gamepadToPanel = new();
         private readonly HashSet<Key> _pressed = new();
         private readonly object _pressedLock = new();
 
@@ -55,6 +56,7 @@ namespace ClickyKeys
             _panelsState = state ?? new PanelState();
 
             _keyToPanel.Clear();
+            _gamepadToPanel.Clear();
             _mouseLeftPanelIndex = null;
             _mouseRightPanelIndex = null;
             _mouseMiddlePanelIndex = null;
@@ -92,10 +94,18 @@ namespace ClickyKeys
                     _mouseX1PanelIndex = idx; 
                     _panelCounts.TryAdd(idx, 0); 
                 }
-                else if (panel.Input == InputType.MouseXButton2) 
-                { 
-                    _mouseX2PanelIndex = idx; 
-                    _panelCounts.TryAdd(idx, 0); 
+                else if (panel.Input == InputType.MouseXButton2)
+                {
+                    _mouseX2PanelIndex = idx;
+                    _panelCounts.TryAdd(idx, 0);
+                }
+                else if (panel.Input == InputType.Gamepad && panel.GamepadButton >= 0)
+                {
+                    if (!_gamepadToPanel.ContainsKey(panel.GamepadButton))
+                    {
+                        _gamepadToPanel[panel.GamepadButton] = idx;
+                        _panelCounts.TryAdd(idx, 0);
+                    }
                 }
             }
         }
@@ -116,6 +126,9 @@ namespace ClickyKeys
             GlobalInputHook.Instance.KeyDown += OnKeyDown;
             GlobalInputHook.Instance.KeyUp += OnKeyUp;
             GlobalInputHook.Instance.MouseDown += OnMouseDown;
+
+            GamepadInputService.Instance.ButtonPressed += OnGamepadButtonPressed;
+            GamepadInputService.Instance.Start();
         }
 
         public void Reset()
@@ -177,6 +190,8 @@ namespace ClickyKeys
             GlobalInputHook.Instance.KeyDown -= OnKeyDown;
             GlobalInputHook.Instance.KeyUp -= OnKeyUp;
             GlobalInputHook.Instance.MouseDown -= OnMouseDown;
+
+            GamepadInputService.Instance.ButtonPressed -= OnGamepadButtonPressed;
         }
 
         // === Event handlers ===
@@ -223,6 +238,29 @@ namespace ClickyKeys
 
             var newValue = _panelCounts.AddOrUpdate(idx.Value, 1, (_, v) => v + 1);
             PanelValueChanged?.Invoke(idx.Value, newValue);
+        }
+
+        private void OnGamepadButtonPressed(object? sender, GamepadButtonEventArgs e)
+        {
+            // Raised on the gamepad poll thread. The keyboard/mouse hooks
+            // deliver on the UI thread and PanelValueChanged consumers update
+            // WPF, so marshal there for consistency and thread-safety. Edge
+            // detection already happens in the service, so no press-repeat
+            // guard is needed here.
+            var dispatcher = System.Windows.Application.Current?.Dispatcher;
+            if (dispatcher != null && !dispatcher.CheckAccess())
+                dispatcher.BeginInvoke(new Action(() => HandleGamepadButton(e.ButtonCode)));
+            else
+                HandleGamepadButton(e.ButtonCode);
+        }
+
+        private void HandleGamepadButton(int buttonCode)
+        {
+            if (_gamepadToPanel.TryGetValue(buttonCode, out var panelIndex))
+            {
+                var newValue = _panelCounts.AddOrUpdate(panelIndex, 1, (_, v) => v + 1);
+                PanelValueChanged?.Invoke(panelIndex, newValue);
+            }
         }
     }
 }

@@ -138,6 +138,7 @@
     <sys:String x:Key="Stats_TotalMouseClicks">Total mouse clicks</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Total key presses</sys:String>
     <sys:String x:Key="Stats_TotalWheelTicks">Total wheel ticks</sys:String>
+    <sys:String x:Key="Stats_TotalGamepadPresses">Total gamepad presses</sys:String>
     <sys:String x:Key="Stats_Combined">Combined</sys:String>
     <sys:String x:Key="Stats_Keys">Keys</sys:String>
     <sys:String x:Key="Stats_NoKeys">No key presses recorded yet.</sys:String>
@@ -145,6 +146,8 @@
     <sys:String x:Key="Stats_NoMouse">No mouse clicks recorded yet.</sys:String>
     <sys:String x:Key="Stats_MouseWheel">Mouse wheel</sys:String>
     <sys:String x:Key="Stats_NoWheel">No wheel activity recorded yet.</sys:String>
+    <sys:String x:Key="Stats_Gamepad">Gamepad</sys:String>
+    <sys:String x:Key="Stats_NoGamepad">No gamepad presses recorded yet.</sys:String>
     <sys:String x:Key="Stats_KeyStatsDisabled">Key statistics collection is disabled.</sys:String>
     <sys:String x:Key="Stats_NoData">No data recorded yet.</sys:String>
     <sys:String x:Key="Stats_LastUpdated">Last updated: {0}</sys:String>

@@ -82,6 +82,12 @@ namespace ClickyKeys
         private readonly ConcurrentDictionary<MouseButton, long> _mouseCounts = new();
         private readonly ConcurrentDictionary<InputType, long> _wheelCounts = new();
 
+        // Gamepad buttons are keyed by their friendly name (e.g. "A", "LB",
+        // "Button 5") — already display-ready, so the Stats view uses the key
+        // as-is. Different controllers that report the same button aggregate
+        // together, which is what an aggregate stat wants.
+        private readonly ConcurrentDictionary<string, long> _gamepadCounts = new();
+
         // Auto-repeat dedupe — mirrors InputCounter._pressed semantics so
         // both views of the world report consistent numbers.
         private readonly HashSet<Key> _pressed = new();
@@ -98,6 +104,7 @@ namespace ClickyKeys
         private long _totalKeyPresses;
         private long _totalMouseClicks;
         private long _totalWheelTicks;
+        private long _totalGamepadPresses;
 
         private DateTime _firstRecordedUtc;
 
@@ -153,6 +160,8 @@ namespace ClickyKeys
             GlobalInputHook.Instance.KeyUp += OnKeyUp;
             GlobalInputHook.Instance.MouseDown += OnMouseDown;
             GlobalInputHook.Instance.Wheel += OnWheel;
+
+            GamepadInputService.Instance.ButtonPressed += OnGamepadButtonPressed;
 
             _saveTimer.Change(SaveInterval, SaveInterval);
         }
@@ -219,6 +228,8 @@ namespace ClickyKeys
                 GlobalInputHook.Instance.KeyUp -= OnKeyUp;
                 GlobalInputHook.Instance.MouseDown -= OnMouseDown;
                 GlobalInputHook.Instance.Wheel -= OnWheel;
+
+                GamepadInputService.Instance.ButtonPressed -= OnGamepadButtonPressed;
             }
 
             // Final flush so even an ungraceful shutdown preserves the
@@ -272,6 +283,17 @@ namespace ClickyKeys
             Interlocked.Increment(ref _dirtyTicks);
         }
 
+        // Raised on the gamepad poll thread. No auto-repeat dedupe is needed:
+        // the service already only fires on rising edges. Shared state is
+        // concurrent/interlocked, so no marshaling is required.
+        private void OnGamepadButtonPressed(object? sender, GamepadButtonEventArgs e)
+        {
+            if (!_collecting) return;
+            _gamepadCounts.AddOrUpdate(e.ButtonName, 1, (_, v) => v + 1);
+            Interlocked.Increment(ref _totalGamepadPresses);
+            Interlocked.Increment(ref _dirtyTicks);
+        }
+
         // ---- Persistence --------------------------------------------------
 
         private void OnSaveTimerTick(object? state) => SaveIfDirty();
@@ -316,6 +338,7 @@ namespace ClickyKeys
                 TotalKeyPresses = Interlocked.Read(ref _totalKeyPresses),
                 TotalMouseClicks = Interlocked.Read(ref _totalMouseClicks),
                 TotalWheelTicks = Interlocked.Read(ref _totalWheelTicks),
+                TotalGamepadPresses = Interlocked.Read(ref _totalGamepadPresses),
             };
 
             // Sort entries for stable file diffs — makes the JSON friendly
@@ -329,6 +352,9 @@ namespace ClickyKeys
 
             foreach (var kv in _wheelCounts.OrderBy(kv => kv.Key.ToString(), StringComparer.Ordinal))
                 snap.Wheel[kv.Key.ToString()] = kv.Value;
+
+            foreach (var kv in _gamepadCounts.OrderBy(kv => kv.Key, StringComparer.Ordinal))
+                snap.Gamepad[kv.Key] = kv.Value;
 
             return snap;
         }
@@ -350,6 +376,7 @@ namespace ClickyKeys
                 _totalKeyPresses = snap.TotalKeyPresses;
                 _totalMouseClicks = snap.TotalMouseClicks;
                 _totalWheelTicks = snap.TotalWheelTicks;
+                _totalGamepadPresses = snap.TotalGamepadPresses;
 
                 foreach (var kv in snap.Keys)
                     if (Enum.TryParse<Key>(kv.Key, out var k))
@@ -362,6 +389,10 @@ namespace ClickyKeys
                 foreach (var kv in snap.Wheel)
                     if (Enum.TryParse<InputType>(kv.Key, out var d))
                         _wheelCounts[d] = kv.Value;
+
+                // Gamepad keys are already friendly-name strings — stored as-is.
+                foreach (var kv in snap.Gamepad)
+                    _gamepadCounts[kv.Key] = kv.Value;
 
                 // Loaded state matches what is on disk — don't trigger an
                 // immediate re-save until at least one new event arrives.
@@ -402,6 +433,9 @@ namespace ClickyKeys
         [JsonPropertyName("total_wheel_ticks")]
         public long TotalWheelTicks { get; set; }
 
+        [JsonPropertyName("total_gamepad_presses")]
+        public long TotalGamepadPresses { get; set; }
+
         [JsonPropertyName("keys")]
         public Dictionary<string, long> Keys { get; set; } = new();
 
@@ -410,5 +444,8 @@ namespace ClickyKeys
 
         [JsonPropertyName("wheel")]
         public Dictionary<string, long> Wheel { get; set; } = new();
+
+        [JsonPropertyName("gamepad")]
+        public Dictionary<string, long> Gamepad { get; set; } = new();
     }
 }

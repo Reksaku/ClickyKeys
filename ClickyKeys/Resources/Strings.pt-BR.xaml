@@ -138,6 +138,7 @@
     <sys:String x:Key="Stats_TotalMouseClicks">Total de cliques do mouse</sys:String>
     <sys:String x:Key="Stats_TotalKeyPresses">Total de teclas pressionadas</sys:String>
     <sys:String x:Key="Stats_TotalWheelTicks">Total de cliques da roda</sys:String>
+    <sys:String x:Key="Stats_TotalGamepadPresses">Total de botões do controle</sys:String>
     <sys:String x:Key="Stats_Combined">Combinado</sys:String>
     <sys:String x:Key="Stats_Keys">Teclas</sys:String>
     <sys:String x:Key="Stats_NoKeys">Nenhuma tecla pressionada registrada ainda.</sys:String>
@@ -145,6 +146,8 @@
     <sys:String x:Key="Stats_NoMouse">Nenhum clique do mouse registrado ainda.</sys:String>
     <sys:String x:Key="Stats_MouseWheel">Roda do mouse</sys:String>
     <sys:String x:Key="Stats_NoWheel">Nenhuma atividade da roda registrada ainda.</sys:String>
+    <sys:String x:Key="Stats_Gamepad">Controle</sys:String>
+    <sys:String x:Key="Stats_NoGamepad">Nenhum botão do controle registrado ainda.</sys:String>
     <sys:String x:Key="Stats_KeyStatsDisabled">A coleta de estatísticas de teclas está desativada.</sys:String>
     <sys:String x:Key="Stats_NoData">Nenhum dado registrado ainda.</sys:String>
     <sys:String x:Key="Stats_LastUpdated">Última atualização: {0}</sys:String>

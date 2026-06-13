@@ -160,6 +160,21 @@
                                        VerticalAlignment="Center"/>
                         </Grid>
 
+                        <Grid Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="{DynamicResource Stats_TotalGamepadPresses}"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1"
+                                       x:Name="TotalGamepadPressesText"
+                                       FontWeight="Bold"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+
                         <Separator Margin="0,8,0,8"/>
 
                         <Grid>
@@ -227,6 +242,23 @@
                                    FontStyle="Italic"
                                    Visibility="Collapsed"/>
                         <ItemsControl x:Name="WheelList"
+                                      ItemTemplate="{StaticResource StatRowTemplate}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Per-gamepad-button counts -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource Stats_Gamepad}"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   Margin="0,0,0,6"/>
+                        <TextBlock x:Name="GamepadEmptyText"
+                                   Text="{DynamicResource Stats_NoGamepad}"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                   FontStyle="Italic"
+                                   Visibility="Collapsed"/>
+                        <ItemsControl x:Name="GamepadList"
                                       ItemTemplate="{StaticResource StatRowTemplate}"/>
                     </StackPanel>
                 </materialDesign:Card>

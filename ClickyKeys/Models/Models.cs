@@ -135,6 +135,10 @@ namespace ClickyKeys
         MouseWheelDown = 21,
         MouseWheelLeft = 22,
         MouseWheelRight = 23,
+
+        // Game controller button (specific button stored in
+        // PanelsSettings.GamepadButton). Matched against any connected pad.
+        Gamepad = 30,
     }
 
     public enum ColorTarget
@@ -155,6 +159,11 @@ namespace ClickyKeys
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public InputType Input { get; set; } = InputType.Key;
+
+        // Raw button index when Input == Gamepad; -1 = unset. Older config
+        // files without this field deserialize to -1, so key/mouse panels are
+        // unaffected.
+        public int GamepadButton { get; set; } = -1;
 
         public string Description { get; set; } = "";
     }
