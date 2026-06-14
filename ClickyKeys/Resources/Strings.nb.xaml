@@ -39,6 +39,11 @@
     <sys:String x:Key="Appearance_SelectedColor">Valgt farge:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Du kan endre metningen via bakgrunnsfargepaletten</sys:String>
     <sys:String x:Key="Appearance_Fonts">Skrifter</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfileDesc">Last inn et lagret paneloppsett, eller lagre det nåværende som en ny profil.</sys:String>
+    <sys:String x:Key="Appearance_GridSizeDesc">Velg hvor mange rader og kolonner med paneler som vises.</sys:String>
+    <sys:String x:Key="Appearance_ColorsDesc">Angi fargene for bakgrunn, paneler, tasteetiketter og verdier.</sys:String>
+    <sys:String x:Key="Appearance_FontsDesc">Velg skriftene for tasteetikettene og tellerverdiene.</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundDesc">Animer bakgrunnen i regnbuens farger.</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Skrifttype for taster</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Skrifttype for verdier</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Regnbuebakgrunn</sys:String>

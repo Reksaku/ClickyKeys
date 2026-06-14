@@ -38,6 +38,11 @@
     <sys:String x:Key="Appearance_SelectedColor">Selected color:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">You may change saturation via background color pallet</sys:String>
     <sys:String x:Key="Appearance_Fonts">Fonts</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfileDesc">Load a saved panel layout, or save the current one as a new profile.</sys:String>
+    <sys:String x:Key="Appearance_GridSizeDesc">Choose how many rows and columns of panels are displayed.</sys:String>
+    <sys:String x:Key="Appearance_ColorsDesc">Set the colors of the background, panels, key labels and values.</sys:String>
+    <sys:String x:Key="Appearance_FontsDesc">Pick the fonts used for the key labels and the counter values.</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundDesc">Animate the background through rainbow colors.</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Keys font</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Values font</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Rainbow background</sys:String>

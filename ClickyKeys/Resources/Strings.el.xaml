@@ -39,6 +39,11 @@
     <sys:String x:Key="Appearance_SelectedColor">Επιλεγμένο χρώμα:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Μπορείτε να αλλάξετε τον κορεσμό μέσω της παλέτας χρώματος φόντου</sys:String>
     <sys:String x:Key="Appearance_Fonts">Γραμματοσειρές</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfileDesc">Φόρτωσε μια αποθηκευμένη διάταξη πάνελ ή αποθήκευσε την τρέχουσα ως νέο προφίλ.</sys:String>
+    <sys:String x:Key="Appearance_GridSizeDesc">Επίλεξε πόσες γραμμές και στήλες πάνελ εμφανίζονται.</sys:String>
+    <sys:String x:Key="Appearance_ColorsDesc">Όρισε τα χρώματα του φόντου, των πάνελ, των ετικετών πλήκτρων και των τιμών.</sys:String>
+    <sys:String x:Key="Appearance_FontsDesc">Διάλεξε τις γραμματοσειρές για τις ετικέτες πλήκτρων και τις τιμές των μετρητών.</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundDesc">Κάνε το φόντο να εναλλάσσεται σε χρώματα ουράνιου τόξου.</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Γραμματοσειρά πλήκτρων</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Γραμματοσειρά τιμών</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Φόντο ουράνιου τόξου</sys:String>

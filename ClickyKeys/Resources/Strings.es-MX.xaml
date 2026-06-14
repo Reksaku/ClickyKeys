@@ -41,6 +41,11 @@
     <sys:String x:Key="Appearance_SelectedColor">Color seleccionado:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Puedes cambiar la saturación desde la paleta del color de fondo</sys:String>
     <sys:String x:Key="Appearance_Fonts">Fuentes</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfileDesc">Carga una disposición de paneles guardada o guarda la actual como un nuevo perfil.</sys:String>
+    <sys:String x:Key="Appearance_GridSizeDesc">Elige cuántas filas y columnas de paneles se muestran.</sys:String>
+    <sys:String x:Key="Appearance_ColorsDesc">Define los colores del fondo, los paneles, las etiquetas de teclas y los valores.</sys:String>
+    <sys:String x:Key="Appearance_FontsDesc">Elige las fuentes de las etiquetas de teclas y de los valores del contador.</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundDesc">Anima el fondo con colores de arcoíris.</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Fuente de las teclas</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Fuente de los valores</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Fondo arcoíris</sys:String>

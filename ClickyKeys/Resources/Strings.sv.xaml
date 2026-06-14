@@ -39,6 +39,11 @@
     <sys:String x:Key="Appearance_SelectedColor">Vald färg:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Du kan ändra mättnaden via bakgrundsfärgpaletten</sys:String>
     <sys:String x:Key="Appearance_Fonts">Teckensnitt</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfileDesc">Läs in en sparad paneluppsättning eller spara den nuvarande som en ny profil.</sys:String>
+    <sys:String x:Key="Appearance_GridSizeDesc">Välj hur många rader och kolumner med paneler som visas.</sys:String>
+    <sys:String x:Key="Appearance_ColorsDesc">Ange färgerna för bakgrund, paneler, tangentetiketter och värden.</sys:String>
+    <sys:String x:Key="Appearance_FontsDesc">Välj teckensnitten för tangentetiketterna och räknarvärdena.</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundDesc">Animera bakgrunden i regnbågens färger.</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Teckensnitt för tangenter</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Teckensnitt för värden</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Regnbågsbakgrund</sys:String>
