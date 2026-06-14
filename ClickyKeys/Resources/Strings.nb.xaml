@@ -67,9 +67,9 @@
     <sys:String x:Key="Info_Feature1">• Teller tastetrykkene og museklikkene du bryr deg om.</sys:String>
     <sys:String x:Key="Info_Feature2">• Lar deg tildele egendefinerte etiketter til taster (f.eks. Hopp, Lad om, Ferdighet 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Fullstendig tilpassbart overlegg: oppsett, knappestørrelse, farger, skrifttype.</sys:String>
-    <sys:String x:Key="Info_Privacy">Personvern og åpen kildekode</sys:String>
+    <sys:String x:Key="Info_Privacy">Personvern og tilgjengelig kildekode</sys:String>
     <sys:String x:Key="Info_PrivacyText1">ClickyKeys behandler tastetrykkene og museklikkene dine lokalt. Ingen brukerdata sendes til noen server.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">Prosjektet er åpen kildekode, så du kan gjennomgå koden, lære av den eller bidra med forbedringer.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Prosjektets kildekode er tilgjengelig, så du kan gjennomgå koden, lære av den eller bidra med forbedringer.</sys:String>
     <sys:String x:Key="Info_Credits">Bidragsytere og takk</sys:String>
     <sys:String x:Key="Info_CreditsText1">ClickyKeys er et hobbyprosjekt som vokser takket være folk som rett og slett liker å klikke med det.</sys:String>
     <sys:String x:Key="Info_CreditsText2">Takk for at du bruker ClickyKeys!</sys:String>

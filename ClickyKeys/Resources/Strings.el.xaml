@@ -67,9 +67,9 @@
     <sys:String x:Key="Info_Feature1">• Μετρά τα πατήματα πλήκτρων και τα κλικ του ποντικιού που σας ενδιαφέρουν.</sys:String>
     <sys:String x:Key="Info_Feature2">• Σας επιτρέπει να αντιστοιχίσετε προσαρμοσμένες ετικέτες σε πλήκτρα (π.χ. Άλμα, Επαναγέμιση, Ικανότητα 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Πλήρως προσαρμόσιμη επικάλυψη: διάταξη, μέγεθος κουμπιών, χρώματα, γραμματοσειρά.</sys:String>
-    <sys:String x:Key="Info_Privacy">Απόρρητο και ανοιχτός κώδικας</sys:String>
+    <sys:String x:Key="Info_Privacy">Απόρρητο και διαθέσιμος πηγαίος κώδικας</sys:String>
     <sys:String x:Key="Info_PrivacyText1">Το ClickyKeys επεξεργάζεται τα πατήματα πλήκτρων και τα κλικ του ποντικιού σας τοπικά. Δεν αποστέλλονται δεδομένα χρήστη σε κανέναν διακομιστή.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">Το έργο είναι ανοιχτού κώδικα, ώστε να μπορείτε να εξετάσετε τον κώδικα, να μάθετε από αυτόν ή να συνεισφέρετε βελτιώσεις.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Ο πηγαίος κώδικας του έργου είναι διαθέσιμος, ώστε να μπορείτε να εξετάσετε τον κώδικα, να μάθετε από αυτόν ή να συνεισφέρετε βελτιώσεις.</sys:String>
     <sys:String x:Key="Info_Credits">Συντελεστές και ευχαριστίες</sys:String>
     <sys:String x:Key="Info_CreditsText1">Το ClickyKeys είναι ένα ερασιτεχνικό έργο που μεγαλώνει χάρη σε ανθρώπους που απλώς απολαμβάνουν να κάνουν κλικ με αυτό.</sys:String>
     <sys:String x:Key="Info_CreditsText2">Ευχαριστούμε που χρησιμοποιείτε το ClickyKeys!</sys:String>

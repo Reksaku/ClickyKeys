@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="{DynamicResource Info_Title}"
-        Width="490" Height="780"
+        Width="500" Height="820"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         Closing="Window_Closed"
@@ -52,7 +52,7 @@
                     </StackPanel>
                 </materialDesign:Card>
 
-                <!-- Privacy & Open Source -->
+                <!-- Privacy & Source Available -->
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource Info_Privacy}"
@@ -127,7 +127,7 @@
                        VerticalAlignment="Center"
                        FontSize="11"
                        Foreground="{DynamicResource MaterialDesignBodyLight}">
-                ClickyKeys · hobby project · v2.2.0
+                ClickyKeys · v2.2.0
             </TextBlock>
             <Button DockPanel.Dock="Right"
                     Width="Auto"

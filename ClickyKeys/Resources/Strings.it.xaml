@@ -67,9 +67,9 @@
     <sys:String x:Key="Info_Feature1">• Conta le pressioni dei tasti e i clic del mouse che ti interessano.</sys:String>
     <sys:String x:Key="Info_Feature2">• Consente di assegnare etichette personalizzate ai tasti (es. Salta, Ricarica, Abilità 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Overlay completamente personalizzabile: layout, dimensione dei pulsanti, colori, carattere.</sys:String>
-    <sys:String x:Key="Info_Privacy">Privacy e open source</sys:String>
+    <sys:String x:Key="Info_Privacy">Privacy e codice sorgente disponibile</sys:String>
     <sys:String x:Key="Info_PrivacyText1">ClickyKeys elabora le pressioni dei tasti e i clic del mouse in locale. Nessun dato utente viene inviato ad alcun server.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">Il progetto è open source, quindi puoi esaminare il codice, imparare da esso o contribuire con miglioramenti.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Il codice sorgente del progetto è disponibile, quindi puoi esaminare il codice, imparare da esso o contribuire con miglioramenti.</sys:String>
     <sys:String x:Key="Info_Credits">Crediti e ringraziamenti</sys:String>
     <sys:String x:Key="Info_CreditsText1">ClickyKeys è un progetto amatoriale che cresce grazie alle persone che si divertono semplicemente a cliccare con esso.</sys:String>
     <sys:String x:Key="Info_CreditsText2">Grazie per aver usato ClickyKeys!</sys:String>
