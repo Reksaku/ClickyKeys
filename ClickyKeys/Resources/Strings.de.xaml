@@ -39,6 +39,11 @@
     <sys:String x:Key="Appearance_SelectedColor">Ausgewählte Farbe:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Die Sättigung kannst du über die Hintergrundfarbpalette ändern</sys:String>
     <sys:String x:Key="Appearance_Fonts">Schriftarten</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfileDesc">Lade ein gespeichertes Panel-Layout oder speichere das aktuelle als neues Profil.</sys:String>
+    <sys:String x:Key="Appearance_GridSizeDesc">Lege fest, wie viele Zeilen und Spalten an Panels angezeigt werden.</sys:String>
+    <sys:String x:Key="Appearance_ColorsDesc">Lege die Farben für Hintergrund, Panels, Tastenbeschriftungen und Werte fest.</sys:String>
+    <sys:String x:Key="Appearance_FontsDesc">Wähle die Schriftarten für die Tastenbeschriftungen und die Zählerwerte.</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundDesc">Animiere den Hintergrund in Regenbogenfarben.</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Schriftart der Tasten</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Schriftart der Werte</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Regenbogen-Hintergrund</sys:String>

@@ -39,6 +39,11 @@
     <sys:String x:Key="Appearance_SelectedColor">Colore selezionato:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Puoi modificare la saturazione tramite la tavolozza del colore di sfondo</sys:String>
     <sys:String x:Key="Appearance_Fonts">Caratteri</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfileDesc">Carica un layout di pannelli salvato o salva quello attuale come nuovo profilo.</sys:String>
+    <sys:String x:Key="Appearance_GridSizeDesc">Scegli quante righe e colonne di pannelli vengono mostrate.</sys:String>
+    <sys:String x:Key="Appearance_ColorsDesc">Imposta i colori dello sfondo, dei pannelli, delle etichette dei tasti e dei valori.</sys:String>
+    <sys:String x:Key="Appearance_FontsDesc">Scegli i caratteri per le etichette dei tasti e per i valori del contatore.</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundDesc">Anima lo sfondo con i colori dell'arcobaleno.</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Carattere dei tasti</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Carattere dei valori</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Sfondo arcobaleno</sys:String>

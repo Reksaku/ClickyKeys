@@ -113,8 +113,13 @@
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <Expander IsExpanded="True" Background="Transparent" Padding="0">
                         <Expander.Header>
-                            <TextBlock Style="{StaticResource CardHeader}" Margin="0"
-                                       Text="{DynamicResource Appearance_PanelsProfile}"/>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource CardHeader}" Margin="0"
+                                           Text="{DynamicResource Appearance_PanelsProfile}"/>
+                                <TextBlock Text="{DynamicResource Appearance_PanelsProfileDesc}"
+                                           FontSize="12" Margin="0,2,0,0" TextWrapping="Wrap"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                            </StackPanel>
                         </Expander.Header>
                         <StackPanel Margin="0,8,0,0">
 
@@ -148,8 +153,13 @@
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <Expander IsExpanded="False" Background="Transparent" Padding="0">
                         <Expander.Header>
-                            <TextBlock Style="{StaticResource CardHeader}" Margin="0"
-                                       Text="{DynamicResource Appearance_GridSize}"/>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource CardHeader}" Margin="0"
+                                           Text="{DynamicResource Appearance_GridSize}"/>
+                                <TextBlock Text="{DynamicResource Appearance_GridSizeDesc}"
+                                           FontSize="12" Margin="0,2,0,0" TextWrapping="Wrap"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                            </StackPanel>
                         </Expander.Header>
                         <StackPanel Margin="0,8,0,0">
 
@@ -198,8 +208,13 @@
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <Expander IsExpanded="False" Background="Transparent" Padding="0">
                         <Expander.Header>
-                            <TextBlock Style="{StaticResource CardHeader}" Margin="0"
-                                       Text="{DynamicResource Appearance_Colors}"/>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource CardHeader}" Margin="0"
+                                           Text="{DynamicResource Appearance_Colors}"/>
+                                <TextBlock Text="{DynamicResource Appearance_ColorsDesc}"
+                                           FontSize="12" Margin="0,2,0,0" TextWrapping="Wrap"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                            </StackPanel>
                         </Expander.Header>
                         <StackPanel Margin="0,8,0,0">
 
@@ -536,8 +551,13 @@
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <Expander IsExpanded="False" Background="Transparent" Padding="0">
                         <Expander.Header>
-                            <TextBlock Style="{StaticResource CardHeader}" Margin="0"
-                                       Text="{DynamicResource Appearance_Fonts}"/>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource CardHeader}" Margin="0"
+                                           Text="{DynamicResource Appearance_Fonts}"/>
+                                <TextBlock Text="{DynamicResource Appearance_FontsDesc}"
+                                           FontSize="12" Margin="0,2,0,0" TextWrapping="Wrap"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                            </StackPanel>
                         </Expander.Header>
                         <StackPanel Margin="0,8,0,0">
                             <TextBlock Text="{DynamicResource Appearance_KeysFont}"
@@ -555,8 +575,13 @@
                 <materialDesign:Card Margin="0,0,0,12" Padding="12">
                     <Expander IsExpanded="False" Background="Transparent" Padding="0">
                         <Expander.Header>
-                            <TextBlock Style="{StaticResource CardHeader}" Margin="0"
-                                       Text="{DynamicResource Appearance_RainbowBackground}"/>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource CardHeader}" Margin="0"
+                                           Text="{DynamicResource Appearance_RainbowBackground}"/>
+                                <TextBlock Text="{DynamicResource Appearance_RainbowBackgroundDesc}"
+                                           FontSize="12" Margin="0,2,0,0" TextWrapping="Wrap"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                            </StackPanel>
                         </Expander.Header>
                         <StackPanel Margin="0,8,0,0">
                         <Grid>

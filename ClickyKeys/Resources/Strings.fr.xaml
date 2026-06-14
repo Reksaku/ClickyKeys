@@ -39,6 +39,11 @@
     <sys:String x:Key="Appearance_SelectedColor">Couleur sélectionnée :</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Vous pouvez modifier la saturation via la palette de couleur d'arrière-plan</sys:String>
     <sys:String x:Key="Appearance_Fonts">Polices</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfileDesc">Chargez une disposition de panneaux enregistrée ou enregistrez l'actuelle comme nouveau profil.</sys:String>
+    <sys:String x:Key="Appearance_GridSizeDesc">Choisissez le nombre de lignes et de colonnes de panneaux affichés.</sys:String>
+    <sys:String x:Key="Appearance_ColorsDesc">Définissez les couleurs du fond, des panneaux, des libellés de touches et des valeurs.</sys:String>
+    <sys:String x:Key="Appearance_FontsDesc">Choisissez les polices des libellés de touches et des valeurs du compteur.</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundDesc">Animez le fond avec des couleurs arc-en-ciel.</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Police des touches</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Police des valeurs</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Arrière-plan arc-en-ciel</sys:String>

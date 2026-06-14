@@ -39,6 +39,11 @@
     <sys:String x:Key="Appearance_SelectedColor">Geselecteerde kleur:</sys:String>
     <sys:String x:Key="Appearance_SaturationNote">Je kunt de verzadiging wijzigen via het achtergrondkleurpalet</sys:String>
     <sys:String x:Key="Appearance_Fonts">Lettertypen</sys:String>
+    <sys:String x:Key="Appearance_PanelsProfileDesc">Laad een opgeslagen panelindeling of sla de huidige op als nieuw profiel.</sys:String>
+    <sys:String x:Key="Appearance_GridSizeDesc">Kies hoeveel rijen en kolommen met panelen worden weergegeven.</sys:String>
+    <sys:String x:Key="Appearance_ColorsDesc">Stel de kleuren in van de achtergrond, panelen, toetslabels en waarden.</sys:String>
+    <sys:String x:Key="Appearance_FontsDesc">Kies de lettertypen voor de toetslabels en de tellerwaarden.</sys:String>
+    <sys:String x:Key="Appearance_RainbowBackgroundDesc">Laat de achtergrond door regenboogkleuren bewegen.</sys:String>
     <sys:String x:Key="Appearance_KeysFont">Lettertype van toetsen</sys:String>
     <sys:String x:Key="Appearance_ValuesFont">Lettertype van waarden</sys:String>
     <sys:String x:Key="Appearance_RainbowBackground">Regenboogachtergrond</sys:String>
