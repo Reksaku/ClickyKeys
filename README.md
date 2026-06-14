@@ -41,16 +41,16 @@ ClickyKeys counts how many times you press chosen keys or mouse buttons and disp
 
 **🎨 Fully customizable panel**
 
-
-
 - Choose which keys to display.
 - Adjust button size and grid layout.
 - Change text and background colors.
 - Select your favourite font and size.
 
-<div style="clear: both;"></div>
+<br>
 
-### 🌍 Available in 13 languages
+<br>
+
+**🌍 Available in 13 languages**
 
 ![DE](https://img.shields.io/badge/DE-%23FFCE00?style=flat-square)
 ![GR](https://img.shields.io/badge/GR-%230D5EAF?style=flat-square)
@@ -65,6 +65,9 @@ ClickyKeys counts how many times you press chosen keys or mouse buttons and disp
 ![PT](https://img.shields.io/badge/PT-%23006600?style=flat-square)
 ![BR](https://img.shields.io/badge/BR-%23009C3B?style=flat-square)
 ![SE](https://img.shields.io/badge/SE-%23006AA7?style=flat-square)
+<div style="clear: both;"></div>
+
+
 
 
 ---
@@ -171,6 +174,7 @@ Colors, fonts, grid layout — everything is yours to configure.
 
 | Version | Highlights |
 |---------|-----------|
+| **v2.4.1** | Gamepad support, collapsible cards, panel profiles and more |
 | **v2.4.0** | Version 2.4.0 is the largest update in a while - see release notes |
 | **v2.3.0** | Local key press statistics — track long-term usage, all data stored on-device |
 | **v2.2.1** | Save & load style profiles — switch configurations instantly between games |
@@ -183,18 +187,27 @@ Colors, fonts, grid layout — everything is yours to configure.
 ## ❓ FAQ
 
 **Does ClickyKeys store or send my data?**
-The free version works entirely offline — no data is transmitted anywhere. Local statistics stay on your device only. The upcoming Pro tier will offer opt-in cloud sync, with a clear privacy policy and full user control over stored data.
 
+ClickyKeys works entirely offline — no data is transmitted anywhere. Local statistics stay on your device only.
+
+---
 **Which systems are supported?**
+
 Windows (desktop app). If you want to help with ports to other systems, reach out via GitHub Issues.
 
+---
 **Is ClickyKeys free?**
-The core version is and will always be free. A paid Pro tier with cloud features is in development. See the comparison table above for details.
 
+Yes — ClickyKeys is completely free.
+
+---
 **How do I use it with OBS?**
+
 Run ClickyKeys and select the keys to track. In OBS, add a Window Capture source pointing to the ClickyKeys panel. Use the built-in background colour for chroma key, or enable transparent mode to overlay directly.
 
+---
 **I found a bug or have a feature idea.**
+
 Open an issue in this repository — feedback is always welcome!
 
 ---
