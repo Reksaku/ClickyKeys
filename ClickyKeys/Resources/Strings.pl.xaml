@@ -67,9 +67,9 @@
     <sys:String x:Key="Info_Feature1">• Zlicza naciśnięcia klawiszy i kliknięcia myszą, które Cię interesują.</sys:String>
     <sys:String x:Key="Info_Feature2">• Pozwala przypisać własne etykiety do klawiszy (np. Skok, Przeładowanie, Umiejętność 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• W pełni konfigurowalna nakładka: układ, rozmiar przycisków, kolory, czcionka.</sys:String>
-    <sys:String x:Key="Info_Privacy">Prywatność i otwarty kod</sys:String>
+    <sys:String x:Key="Info_Privacy">Prywatność i dostępny kod źródłowy</sys:String>
     <sys:String x:Key="Info_PrivacyText1">ClickyKeys przetwarza naciśnięcia klawiszy i kliknięcia myszą lokalnie. Żadne dane użytkownika nie są wysyłane na serwer.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">Projekt ma otwarty kod, więc możesz przejrzeć kod, uczyć się z niego lub wnosić ulepszenia.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Kod źródłowy projektu jest dostępny, więc możesz przejrzeć kod, uczyć się z niego lub wnosić ulepszenia.</sys:String>
     <sys:String x:Key="Info_Credits">Podziękowania</sys:String>
     <sys:String x:Key="Info_CreditsText1">ClickyKeys to projekt hobbystyczny, który rozwija się dzięki ludziom, którzy po prostu lubią z nim klikać.</sys:String>
     <sys:String x:Key="Info_CreditsText2">Dziękujemy za korzystanie z ClickyKeys!</sys:String>

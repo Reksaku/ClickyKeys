@@ -67,9 +67,9 @@
     <sys:String x:Key="Info_Feature1">• Zählt die Tastendrücke und Mausklicks, die dich interessieren.</sys:String>
     <sys:String x:Key="Info_Feature2">• Ermöglicht eigene Bezeichnungen für Tasten (z. B. Springen, Nachladen, Fähigkeit 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Vollständig anpassbares Overlay: Layout, Tastengröße, Farben, Schriftart.</sys:String>
-    <sys:String x:Key="Info_Privacy">Datenschutz &amp; Open Source</sys:String>
+    <sys:String x:Key="Info_Privacy">Datenschutz &amp; einsehbarer Quellcode</sys:String>
     <sys:String x:Key="Info_PrivacyText1">ClickyKeys verarbeitet deine Tastendrücke und Mausklicks lokal. Es werden keine Nutzerdaten an einen Server gesendet.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">Das Projekt ist Open Source – du kannst den Code einsehen, daraus lernen oder Verbesserungen beitragen.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Der Quelltext des Projekts ist einsehbar – du kannst den Code einsehen, daraus lernen oder Verbesserungen beitragen.</sys:String>
     <sys:String x:Key="Info_Credits">Mitwirkende &amp; Dank</sys:String>
     <sys:String x:Key="Info_CreditsText1">ClickyKeys ist ein Hobbyprojekt, das dank Menschen wächst, die einfach Spaß am Klicken damit haben.</sys:String>
     <sys:String x:Key="Info_CreditsText2">Danke, dass du ClickyKeys nutzt!</sys:String>

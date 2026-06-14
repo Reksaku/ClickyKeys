@@ -67,9 +67,9 @@
     <sys:String x:Key="Info_Feature1">• Counts key presses and mouse clicks you care about.</sys:String>
     <sys:String x:Key="Info_Feature2">• Lets you assign custom labels to keys (e.g. Jump, Reload, Ability 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Fully customizable overlay: layout, button size, colors, font.</sys:String>
-    <sys:String x:Key="Info_Privacy">Privacy &amp; Open Source</sys:String>
+    <sys:String x:Key="Info_Privacy">Privacy &amp; Source Available</sys:String>
     <sys:String x:Key="Info_PrivacyText1">ClickyKeys processes your key presses and mouse clicks locally. No user data is sent to any server.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">The project is open source, so you can review the code, learn from it, or contribute improvements.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">The project's source is available, so you can review the code, learn from it, or contribute improvements.</sys:String>
     <sys:String x:Key="Info_Credits">Credits &amp; Thanks</sys:String>
     <sys:String x:Key="Info_CreditsText1">ClickyKeys is a hobby project that grows thanks to people who simply enjoy clicking with it.</sys:String>
     <sys:String x:Key="Info_CreditsText2">Thanks for using ClickyKeys!</sys:String>

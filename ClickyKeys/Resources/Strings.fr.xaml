@@ -67,9 +67,9 @@
     <sys:String x:Key="Info_Feature1">• Compte les appuis de touches et les clics de souris qui vous intéressent.</sys:String>
     <sys:String x:Key="Info_Feature2">• Permet d'attribuer des étiquettes personnalisées aux touches (par ex. Sauter, Recharger, Compétence 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Superposition entièrement personnalisable : disposition, taille des boutons, couleurs, police.</sys:String>
-    <sys:String x:Key="Info_Privacy">Confidentialité et open source</sys:String>
+    <sys:String x:Key="Info_Privacy">Confidentialité et code source disponible</sys:String>
     <sys:String x:Key="Info_PrivacyText1">ClickyKeys traite vos appuis de touches et clics de souris localement. Aucune donnée utilisateur n'est envoyée à un serveur.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">Le projet est open source : vous pouvez consulter le code, en apprendre ou contribuer à des améliorations.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Le code source du projet est disponible : vous pouvez consulter le code, en apprendre ou contribuer à des améliorations.</sys:String>
     <sys:String x:Key="Info_Credits">Crédits et remerciements</sys:String>
     <sys:String x:Key="Info_CreditsText1">ClickyKeys est un projet de loisir qui grandit grâce aux personnes qui aiment simplement cliquer avec.</sys:String>
     <sys:String x:Key="Info_CreditsText2">Merci d'utiliser ClickyKeys !</sys:String>

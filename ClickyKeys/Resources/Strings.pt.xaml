@@ -69,9 +69,9 @@
     <sys:String x:Key="Info_Feature1">• Conta as teclas premidas e os cliques do rato que lhe interessam.</sys:String>
     <sys:String x:Key="Info_Feature2">• Permite atribuir etiquetas personalizadas às teclas (ex.: Saltar, Recarregar, Habilidade 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Sobreposição totalmente personalizável: esquema, tamanho dos botões, cores, tipo de letra.</sys:String>
-    <sys:String x:Key="Info_Privacy">Privacidade e código aberto</sys:String>
+    <sys:String x:Key="Info_Privacy">Privacidade e código-fonte disponível</sys:String>
     <sys:String x:Key="Info_PrivacyText1">O ClickyKeys processa as teclas premidas e os cliques do rato localmente. Não são enviados dados do utilizador para qualquer servidor.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">O projeto é de código aberto, por isso pode rever o código, aprender com ele ou contribuir com melhorias.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">O código-fonte do projeto está disponível, por isso pode rever o código, aprender com ele ou contribuir com melhorias.</sys:String>
     <sys:String x:Key="Info_Credits">Créditos e agradecimentos</sys:String>
     <sys:String x:Key="Info_CreditsText1">O ClickyKeys é um projeto de passatempo que cresce graças às pessoas que simplesmente gostam de clicar com ele.</sys:String>
     <sys:String x:Key="Info_CreditsText2">Obrigado por utilizar o ClickyKeys!</sys:String>

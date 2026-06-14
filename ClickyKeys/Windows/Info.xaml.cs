@@ -27,7 +27,7 @@ namespace ClickyKeys
             _mainOverlay = mainOverlay;
 
             InitializeComponent();
-            textBoxVersion.Text = $"ClickyKeys · hobby project · v{ new Configuration().Version}";
+            textBoxVersion.Text = $"ClickyKeys · v{ new Configuration().Version}";
         }
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {

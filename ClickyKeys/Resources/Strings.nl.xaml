@@ -67,9 +67,9 @@
     <sys:String x:Key="Info_Feature1">• Telt de toetsaanslagen en muisklikken die voor jou belangrijk zijn.</sys:String>
     <sys:String x:Key="Info_Feature2">• Laat je aangepaste labels aan toetsen toewijzen (bijv. Springen, Herladen, Vaardigheid 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Volledig aanpasbare overlay: indeling, knopgrootte, kleuren, lettertype.</sys:String>
-    <sys:String x:Key="Info_Privacy">Privacy &amp; open source</sys:String>
+    <sys:String x:Key="Info_Privacy">Privacy &amp; beschikbare broncode</sys:String>
     <sys:String x:Key="Info_PrivacyText1">ClickyKeys verwerkt je toetsaanslagen en muisklikken lokaal. Er worden geen gebruikersgegevens naar een server verzonden.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">Het project is open source, dus je kunt de code bekijken, ervan leren of verbeteringen bijdragen.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">De broncode van het project is beschikbaar, dus je kunt de code bekijken, ervan leren of verbeteringen bijdragen.</sys:String>
     <sys:String x:Key="Info_Credits">Met dank aan</sys:String>
     <sys:String x:Key="Info_CreditsText1">ClickyKeys is een hobbyproject dat groeit dankzij mensen die er gewoon graag mee klikken.</sys:String>
     <sys:String x:Key="Info_CreditsText2">Bedankt voor het gebruik van ClickyKeys!</sys:String>

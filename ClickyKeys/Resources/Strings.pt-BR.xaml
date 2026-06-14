@@ -67,9 +67,9 @@
     <sys:String x:Key="Info_Feature1">• Conta as teclas pressionadas e os cliques do mouse que importam para você.</sys:String>
     <sys:String x:Key="Info_Feature2">• Permite atribuir rótulos personalizados às teclas (ex.: Pular, Recarregar, Habilidade 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Sobreposição totalmente personalizável: layout, tamanho dos botões, cores, fonte.</sys:String>
-    <sys:String x:Key="Info_Privacy">Privacidade e código aberto</sys:String>
+    <sys:String x:Key="Info_Privacy">Privacidade e código-fonte disponível</sys:String>
     <sys:String x:Key="Info_PrivacyText1">O ClickyKeys processa as teclas pressionadas e os cliques do mouse localmente. Nenhum dado do usuário é enviado a nenhum servidor.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">O projeto é de código aberto, então você pode revisar o código, aprender com ele ou contribuir com melhorias.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">O código-fonte do projeto está disponível, então você pode revisar o código, aprender com ele ou contribuir com melhorias.</sys:String>
     <sys:String x:Key="Info_Credits">Créditos e agradecimentos</sys:String>
     <sys:String x:Key="Info_CreditsText1">O ClickyKeys é um projeto de hobby que cresce graças às pessoas que simplesmente gostam de clicar com ele.</sys:String>
     <sys:String x:Key="Info_CreditsText2">Obrigado por usar o ClickyKeys!</sys:String>
