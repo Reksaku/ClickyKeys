@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Gaming.Input;
 
 namespace ClickyKeys
 {
@@ -11,19 +13,18 @@ namespace ClickyKeys
     /// </summary>
     public sealed class GamepadButtonEventArgs : EventArgs
     {
-        /// <summary>Stable per-device id (RawGameController.NonRoamableId).</summary>
+        /// <summary>Stable device id (SDL joystick instance id) as text.</summary>
         public string ControllerId { get; }
 
-        /// <summary>Human-readable controller name (may be generic).</summary>
+        /// <summary>Human-readable controller name (from SDL, may be generic).</summary>
         public string ControllerName { get; }
 
         /// <summary>
-        /// Stable button code used as the binding key. For controllers Windows
-        /// exposes as a standard gamepad this is a <see cref="GamepadButtons"/>
-        /// bit value (layout-normalized: "A" is always the bottom face button,
-        /// etc.). For unrecognized HID controllers it is
-        /// <c>RawButtonCodeBase + rawIndex</c>. See
-        /// <see cref="GamepadInputService.FriendlyName"/>.
+        /// Stable button code used as the binding key. Recognized controllers map
+        /// to the historical layout-normalized values so existing panel bindings
+        /// and statistics keep working (A=4, B=8, X=16, Y=32, D-Pad 64..512,
+        /// LB=1024, RB=2048, LS=4096, RS=8192, Menu=1, View=2, Guide=16384).
+        /// Unrecognized HID devices use <c>RawButtonCodeBase + rawIndex</c>.
         /// </summary>
         public int ButtonCode { get; }
 
@@ -40,65 +41,153 @@ namespace ClickyKeys
     }
 
     /// <summary>
-    /// Gamepad input source built on <c>Windows.Gaming.Input</c>.
+    /// Gamepad input source built on <b>SDL2</b> (SDL2.dll via P/Invoke).
     ///
     /// <para>
-    /// Controllers Windows recognizes as a standard gamepad (Xbox, PS4/PS5 and
-    /// most Xbox-layout pads) are read through the <see cref="Gamepad"/> facade,
-    /// which normalizes the physical layout: the same <see cref="GamepadButtons"/>
-    /// value always means the same position regardless of brand. That makes the
-    /// button names universal (Xbox-style labels; the position is the same on a
-    /// PlayStation pad even though it's physically ✕/○/□/△ there).
+    /// SDL is used for the widest device coverage: recognized controllers
+    /// (Xbox, PlayStation, Nintendo and many third-party pads, via SDL's
+    /// game-controller mapping database) report layout-normalized, named
+    /// buttons through the <c>SDL_GameController</c> API; anything not in the
+    /// database falls back to the raw <c>SDL_Joystick</c> API with
+    /// index-numbered buttons ("Button N").
     /// </para>
     ///
     /// <para>
-    /// Controllers NOT exposed as a standard gamepad (exotic HID devices) fall
-    /// back to <see cref="RawGameController"/> raw button indices, labelled
-    /// "Button N" — there is no universal naming for arbitrary HID layouts.
+    /// Background input: the <c>SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS</c> hint is
+    /// set before init, so input is read regardless of which window has focus —
+    /// the whole point of the counter (counting while playing in another app).
     /// </para>
     ///
     /// <para>
-    /// Buttons are not delivered through the keyboard/mouse hooks; a single
-    /// background thread polls at ~60 Hz and raises <see cref="ButtonPressed"/>
-    /// on each rising edge. Cost is negligible while connected and effectively
-    /// zero when nothing is plugged in (the loop idles at 4 Hz). Reads work
-    /// regardless of window focus, so background counting keeps working while
-    /// minimized. The event is raised on the polling thread — marshal to the UI
-    /// thread before touching UI.
+    /// A single background thread owns SDL, pumps its events (for hotplug),
+    /// polls open devices at ~60 Hz and raises <see cref="ButtonPressed"/> on
+    /// each rising edge; it re-enumerates devices about once a second. If
+    /// SDL2.dll is missing the service simply disables itself (no crash).
+    /// The event is raised on the polling thread — marshal to the UI thread
+    /// before touching UI.
     /// </para>
     /// </summary>
     public sealed class GamepadInputService : IDisposable
     {
-        /// <summary>
-        /// Process-wide instance, mirroring <see cref="GlobalInputHook.Instance"/>.
-        /// </summary>
         public static GamepadInputService Instance { get; } = new();
 
         private GamepadInputService() { }
 
+        // ---- Embedded native SDL2.dll: extract to the settings folder and
+        // load it from there ----
+
+        // Where the native library is unpacked — the same data folder the rest
+        // of the app uses for settings (%AppData%\ClickyKeys).
+        private static readonly string NativeDir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "ClickyKeys");
+
+        private static string SdlPath => Path.Combine(NativeDir, "SDL2.dll");
+
+        // Runs once on first access to the type, before any SDL P/Invoke: unpack
+        // the embedded SDL2.dll and route "SDL2" imports to the unpacked copy.
+        static GamepadInputService()
+        {
+            try
+            {
+                ExtractEmbeddedSdl();
+                NativeLibrary.SetDllImportResolver(
+                    typeof(GamepadInputService).Assembly, ResolveNativeLibrary);
+            }
+            catch
+            {
+                // If anything fails the service just won't find SDL2 and
+                // disables itself gracefully (see PollLoop init).
+            }
+        }
+
+        // Writes the embedded SDL2.dll to <see cref="SdlPath"/>, but only when
+        // it's missing or a different size (cheap version check), so we don't
+        // rewrite a file that may be loaded by this very process.
+        private static void ExtractEmbeddedSdl()
+        {
+            var asm = typeof(GamepadInputService).Assembly;
+
+            // LogicalName makes this "SDL2.dll"; fall back to the default
+            // "<namespace>.SDL2.dll" name just in case.
+            string? resName = "SDL2.dll";
+            if (asm.GetManifestResourceInfo(resName) == null)
+                resName = Array.Find(asm.GetManifestResourceNames(),
+                    n => n.EndsWith("SDL2.dll", StringComparison.OrdinalIgnoreCase));
+            if (resName == null) return; // not embedded — nothing to do
+
+            using var res = asm.GetManifestResourceStream(resName);
+            if (res == null) return;
+
+            Directory.CreateDirectory(NativeDir);
+
+            if (File.Exists(SdlPath))
+            {
+                try { if (new FileInfo(SdlPath).Length == res.Length) return; }
+                catch { /* fall through and rewrite */ }
+            }
+
+            var tmp = SdlPath + ".tmp";
+            try
+            {
+                using (var fs = new FileStream(tmp, FileMode.Create, FileAccess.Write, FileShare.None))
+                    res.CopyTo(fs);
+                File.Copy(tmp, SdlPath, overwrite: true);
+            }
+            catch
+            {
+                // Target may be locked by a running instance — keep the existing
+                // copy; it's good enough.
+            }
+            finally
+            {
+                try { if (File.Exists(tmp)) File.Delete(tmp); } catch { }
+            }
+        }
+
+        private static IntPtr ResolveNativeLibrary(
+            string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
+        {
+            if (libraryName is "SDL2" or "SDL2.dll")
+            {
+                try
+                {
+                    if (File.Exists(SdlPath) && NativeLibrary.TryLoad(SdlPath, out var handle))
+                        return handle;
+                }
+                catch { /* bad image / arch mismatch → fall back */ }
+            }
+            return IntPtr.Zero; // default resolution for everything else
+        }
+
         /// <summary>Raised on the polling thread when a button is first pressed.</summary>
         public event EventHandler<GamepadButtonEventArgs>? ButtonPressed;
 
-        /// <summary>
-        /// Raw (fallback) button codes start here so they never collide with the
-        /// small <see cref="GamepadButtons"/> bit values (max 0x20000).
-        /// </summary>
+        /// <summary>Base offset for raw (unmapped HID) button codes.</summary>
         public const int RawButtonCodeBase = 1_000_000;
 
-        // Standard, layout-normalized buttons we surface from the Gamepad facade.
-        // Triggers are analog and intentionally excluded (a press threshold could
-        // be added later).
-        private static readonly GamepadButtons[] StdButtons =
+        // Stable button codes (kept equal to the previous values so saved
+        // bindings/stats still match).
+        private const int CodeMenu = 1, CodeView = 2, CodeA = 4, CodeB = 8,
+            CodeX = 16, CodeY = 32, CodeDPadUp = 64, CodeDPadDown = 128,
+            CodeDPadLeft = 256, CodeDPadRight = 512, CodeLB = 1024, CodeRB = 2048,
+            CodeLS = 4096, CodeRS = 8192, CodeGuide = 16384;
+
+        // SDL_GameControllerButton value (0..14, +guide) -> our stable code.
+        private static readonly (int SdlButton, int Code)[] GcButtonMap =
         {
-            GamepadButtons.A, GamepadButtons.B, GamepadButtons.X, GamepadButtons.Y,
-            GamepadButtons.DPadUp, GamepadButtons.DPadDown,
-            GamepadButtons.DPadLeft, GamepadButtons.DPadRight,
-            GamepadButtons.LeftShoulder, GamepadButtons.RightShoulder,
-            GamepadButtons.LeftThumbstick, GamepadButtons.RightThumbstick,
-            GamepadButtons.Menu, GamepadButtons.View,
-            GamepadButtons.Paddle1, GamepadButtons.Paddle2,
-            GamepadButtons.Paddle3, GamepadButtons.Paddle4,
+            (0, CodeA), (1, CodeB), (2, CodeX), (3, CodeY),
+            (4, CodeView),   // BACK
+            (5, CodeGuide),  // GUIDE
+            (6, CodeMenu),   // START
+            (7, CodeLS),     // LEFTSTICK
+            (8, CodeRS),     // RIGHTSTICK
+            (9, CodeLB),     // LEFTSHOULDER
+            (10, CodeRB),    // RIGHTSHOULDER
+            (11, CodeDPadUp), (12, CodeDPadDown), (13, CodeDPadLeft), (14, CodeDPadRight),
         };
+
+        private const int GcButtonCount = 15; // SDL buttons 0..14 we track
 
         /// <summary>Friendly label for a button code.</summary>
         public static string FriendlyName(int code)
@@ -106,26 +195,23 @@ namespace ClickyKeys
             if (code >= RawButtonCodeBase)
                 return $"Button {code - RawButtonCodeBase}";
 
-            return (GamepadButtons)code switch
+            return code switch
             {
-                GamepadButtons.A => "A",
-                GamepadButtons.B => "B",
-                GamepadButtons.X => "X",
-                GamepadButtons.Y => "Y",
-                GamepadButtons.DPadUp => "D-Pad Up",
-                GamepadButtons.DPadDown => "D-Pad Down",
-                GamepadButtons.DPadLeft => "D-Pad Left",
-                GamepadButtons.DPadRight => "D-Pad Right",
-                GamepadButtons.LeftShoulder => "LB",
-                GamepadButtons.RightShoulder => "RB",
-                GamepadButtons.LeftThumbstick => "LS (Click)",
-                GamepadButtons.RightThumbstick => "RS (Click)",
-                GamepadButtons.Menu => "Menu",
-                GamepadButtons.View => "View",
-                GamepadButtons.Paddle1 => "Paddle 1",
-                GamepadButtons.Paddle2 => "Paddle 2",
-                GamepadButtons.Paddle3 => "Paddle 3",
-                GamepadButtons.Paddle4 => "Paddle 4",
+                CodeA => "A",
+                CodeB => "B",
+                CodeX => "X",
+                CodeY => "Y",
+                CodeDPadUp => "D-Pad Up",
+                CodeDPadDown => "D-Pad Down",
+                CodeDPadLeft => "D-Pad Left",
+                CodeDPadRight => "D-Pad Right",
+                CodeLB => "LB",
+                CodeRB => "RB",
+                CodeLS => "LS (Click)",
+                CodeRS => "RS (Click)",
+                CodeMenu => "Menu",
+                CodeView => "View",
+                CodeGuide => "Guide",
                 _ => $"Button {code}"
             };
         }
@@ -172,15 +258,9 @@ namespace ClickyKeys
             return tcs.Task;
         }
 
-        // ~60 Hz while a controller is connected; lazy 4 Hz heartbeat otherwise.
-        private static readonly TimeSpan ActiveInterval = TimeSpan.FromMilliseconds(16);
-        private static readonly TimeSpan IdleInterval = TimeSpan.FromMilliseconds(250);
-
-        // Previous per-controller state for edge detection, keyed by id. A given
-        // controller lives in exactly one of these depending on whether it's a
-        // standard gamepad (button bitmask) or a raw HID device (per-index bools).
-        private readonly Dictionary<string, uint> _prevStd = new();
-        private readonly Dictionary<string, bool[]> _prevRaw = new();
+        private const int ActiveIntervalMs = 16;   // ~60 Hz while devices present
+        private const int IdleIntervalMs = 200;     // when nothing is connected
+        private const long RescanIntervalMs = 1000; // (re)enumerate devices ~1/s
 
         private Thread? _thread;
         private volatile bool _running;
@@ -200,149 +280,260 @@ namespace ClickyKeys
         public void Stop()
         {
             _running = false;
-            try { _thread?.Join(TimeSpan.FromMilliseconds(500)); }
+            try { _thread?.Join(TimeSpan.FromMilliseconds(800)); }
             catch { /* ignore */ }
             _thread = null;
-            _prevStd.Clear();
-            _prevRaw.Clear();
         }
 
         public void Dispose() => Stop();
 
+        private sealed class OpenDevice
+        {
+            public IntPtr Handle;
+            public bool IsController;
+            public bool[] Prev = Array.Empty<bool>();
+            public string Name = "Controller";
+        }
+
         private void PollLoop()
         {
-            // Scratch buffers for the raw path (resized per controller).
-            GameControllerSwitchPosition[] switches = Array.Empty<GameControllerSwitchPosition>();
-            double[] axes = Array.Empty<double>();
+            // Open devices keyed by SDL instance id. Touched only on this thread.
+            var open = new Dictionary<int, OpenDevice>();
 
-            while (_running)
+            // ---- Init SDL (joystick + game controller). Disable gracefully if
+            // SDL2.dll is missing or init fails. ----
+            try
             {
-                IReadOnlyList<RawGameController> controllers;
-                try { controllers = RawGameController.RawGameControllers; }
-                catch { controllers = Array.Empty<RawGameController>(); }
+                SDL_SetHint("SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS", "1");
+                if (SDL_Init(SDL_INIT_GAMECONTROLLER) != 0)
+                    return; // init failed — give up quietly
+            }
+            catch
+            {
+                return; // SDL2.dll not present / not loadable
+            }
 
-                if (controllers.Count == 0)
+            try
+            {
+                long lastScan = 0;
+
+                while (_running)
                 {
-                    if (_prevStd.Count > 0) _prevStd.Clear();
-                    if (_prevRaw.Count > 0) _prevRaw.Clear();
-                    Thread.Sleep(IdleInterval);
+                    // Pump SDL events so device add/remove (hotplug) and the
+                    // device list stay current; also refreshes controller state.
+                    while (SDL_PollEvent(out _) != 0) { }
+                    SDL_GameControllerUpdate();
+
+                    long now = Environment.TickCount64;
+                    if (now - lastScan >= RescanIntervalMs)
+                    {
+                        lastScan = now;
+                        Reenumerate(open);
+                    }
+
+                    foreach (var dev in open.Values)
+                        ReadDevice(dev);
+
+                    Thread.Sleep(open.Count > 0 ? ActiveIntervalMs : IdleIntervalMs);
+                }
+            }
+            catch
+            {
+                // Never let a hardware hiccup crash the app.
+            }
+            finally
+            {
+                foreach (var dev in open.Values)
+                    CloseDevice(dev);
+                open.Clear();
+                try { SDL_Quit(); } catch { /* ignore */ }
+            }
+        }
+
+        // Opens newly connected devices and closes removed ones.
+        private static void Reenumerate(Dictionary<int, OpenDevice> open)
+        {
+            int count;
+            try { count = SDL_NumJoysticks(); }
+            catch { return; }
+
+            var seen = new HashSet<int>();
+
+            for (int idx = 0; idx < count; idx++)
+            {
+                int iid = SDL_JoystickGetDeviceInstanceID(idx);
+                if (iid < 0) continue;
+                seen.Add(iid);
+
+                if (open.ContainsKey(iid))
                     continue;
-                }
 
-                var seen = new HashSet<string>();
-
-                foreach (var controller in controllers)
+                if (SDL_IsGameController(idx) != 0)
                 {
-                    string id;
-                    try { id = controller.NonRoamableId ?? string.Empty; }
-                    catch { continue; }
-                    if (id.Length == 0) continue;
-                    seen.Add(id);
-
-                    string name = SafeName(controller);
-
-                    // Prefer the normalized Gamepad facade when available.
-                    Gamepad? gamepad = null;
-                    try { gamepad = Gamepad.FromGameController(controller); }
-                    catch { gamepad = null; }
-
-                    if (gamepad != null)
-                        PollStandard(id, name, gamepad);
-                    else
-                        PollRaw(id, name, controller, ref switches, ref axes);
+                    var h = SDL_GameControllerOpen(idx);
+                    if (h != IntPtr.Zero)
+                        open[iid] = new OpenDevice
+                        {
+                            Handle = h,
+                            IsController = true,
+                            Prev = new bool[GcButtonCount],
+                            Name = PtrToString(SDL_GameControllerName(h), "Controller")
+                        };
                 }
-
-                PruneUnseen(_prevStd, seen);
-                PruneUnseen(_prevRaw, seen);
-
-                Thread.Sleep(ActiveInterval);
-            }
-        }
-
-        private void PollStandard(string id, string name, Gamepad gamepad)
-        {
-            uint cur;
-            try { cur = (uint)gamepad.GetCurrentReading().Buttons; }
-            catch { return; }
-
-            // A device can switch representation; drop any stale raw state.
-            _prevRaw.Remove(id);
-
-            if (!_prevStd.TryGetValue(id, out var prev))
-            {
-                // Seed without firing so a button already held at connect time
-                // isn't treated as a press.
-                _prevStd[id] = cur;
-                return;
-            }
-
-            foreach (var button in StdButtons)
-            {
-                uint bit = (uint)button;
-                if ((cur & bit) != 0 && (prev & bit) == 0)
+                else
                 {
-                    int code = (int)bit;
-                    ButtonPressed?.Invoke(this, new GamepadButtonEventArgs(id, name, code, FriendlyName(code)));
+                    var h = SDL_JoystickOpen(idx);
+                    if (h != IntPtr.Zero)
+                    {
+                        int nb = Math.Max(0, SDL_JoystickNumButtons(h));
+                        open[iid] = new OpenDevice
+                        {
+                            Handle = h,
+                            IsController = false,
+                            Prev = new bool[nb],
+                            Name = PtrToString(SDL_JoystickName(h), "Controller")
+                        };
+                    }
                 }
             }
 
-            _prevStd[id] = cur;
+            // Close+forget devices that are gone.
+            if (open.Count > 0)
+            {
+                List<int>? stale = null;
+                foreach (var kvp in open)
+                    if (!seen.Contains(kvp.Key))
+                        (stale ??= new List<int>()).Add(kvp.Key);
+                if (stale != null)
+                    foreach (var id in stale)
+                    {
+                        CloseDevice(open[id]);
+                        open.Remove(id);
+                    }
+            }
         }
 
-        private void PollRaw(string id, string name, RawGameController controller,
-            ref GameControllerSwitchPosition[] switches, ref double[] axes)
+        private void ReadDevice(OpenDevice dev)
         {
-            int buttonCount = controller.ButtonCount;
-            if (buttonCount <= 0) return;
-
-            var buttons = new bool[buttonCount];
-            if (switches.Length != controller.SwitchCount)
-                switches = new GameControllerSwitchPosition[controller.SwitchCount];
-            if (axes.Length != controller.AxisCount)
-                axes = new double[controller.AxisCount];
-
-            try { controller.GetCurrentReading(buttons, switches, axes); }
-            catch { return; }
-
-            _prevStd.Remove(id);
-
-            if (!_prevRaw.TryGetValue(id, out var prev) || prev.Length != buttonCount)
+            if (dev.IsController)
             {
-                _prevRaw[id] = (bool[])buttons.Clone();
-                return;
-            }
+                if (SDL_GameControllerGetAttached(dev.Handle) == 0) return;
 
-            for (int b = 0; b < buttonCount; b++)
-            {
-                if (buttons[b] && !prev[b])
+                foreach (var (sdlButton, code) in GcButtonMap)
                 {
-                    int code = RawButtonCodeBase + b;
-                    ButtonPressed?.Invoke(this, new GamepadButtonEventArgs(id, name, code, FriendlyName(code)));
+                    bool cur = SDL_GameControllerGetButton(dev.Handle, sdlButton) != 0;
+                    bool prev = dev.Prev[sdlButton];
+                    if (cur && !prev)
+                        ButtonPressed?.Invoke(this, new GamepadButtonEventArgs(
+                            dev.Name, dev.Name, code, FriendlyName(code)));
+                    dev.Prev[sdlButton] = cur;
                 }
             }
+            else
+            {
+                if (SDL_JoystickGetAttached(dev.Handle) == 0) return;
 
-            Array.Copy(buttons, prev, buttonCount);
+                for (int i = 0; i < dev.Prev.Length; i++)
+                {
+                    bool cur = SDL_JoystickGetButton(dev.Handle, i) != 0;
+                    bool prev = dev.Prev[i];
+                    if (cur && !prev)
+                    {
+                        int code = RawButtonCodeBase + i;
+                        ButtonPressed?.Invoke(this, new GamepadButtonEventArgs(
+                            dev.Name, dev.Name, code, FriendlyName(code)));
+                    }
+                    dev.Prev[i] = cur;
+                }
+            }
         }
 
-        private static void PruneUnseen<TValue>(Dictionary<string, TValue> map, HashSet<string> seen)
-        {
-            if (map.Count == 0) return;
-            List<string>? stale = null;
-            foreach (var key in map.Keys)
-                if (!seen.Contains(key)) (stale ??= new List<string>()).Add(key);
-            if (stale != null)
-                foreach (var key in stale) map.Remove(key);
-        }
-
-        private static string SafeName(RawGameController controller)
+        private static void CloseDevice(OpenDevice dev)
         {
             try
             {
-                return string.IsNullOrWhiteSpace(controller.DisplayName)
-                    ? "Controller"
-                    : controller.DisplayName;
+                if (dev.IsController) SDL_GameControllerClose(dev.Handle);
+                else SDL_JoystickClose(dev.Handle);
             }
-            catch { return "Controller"; }
+            catch { /* ignore */ }
         }
+
+        private static string PtrToString(IntPtr p, string fallback)
+        {
+            try
+            {
+                var s = Marshal.PtrToStringUTF8(p);
+                return string.IsNullOrWhiteSpace(s) ? fallback : s!;
+            }
+            catch { return fallback; }
+        }
+
+        // ---- SDL2 interop (SDL2.dll, cdecl) ----
+
+        private const string LIB = "SDL2";
+        private const uint SDL_INIT_GAMECONTROLLER = 0x00002000u; // implies JOYSTICK + EVENTS
+
+        // 56-byte opaque event blob — we pump but don't inspect events.
+        [StructLayout(LayoutKind.Explicit, Size = 56)]
+        private struct SDL_Event { }
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SDL_Init(uint flags);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SDL_Quit();
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SDL_SetHint(
+            [MarshalAs(UnmanagedType.LPUTF8Str)] string name,
+            [MarshalAs(UnmanagedType.LPUTF8Str)] string value);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SDL_PollEvent(out SDL_Event e);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SDL_GameControllerUpdate();
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SDL_NumJoysticks();
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SDL_JoystickGetDeviceInstanceID(int device_index);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SDL_IsGameController(int joystick_index);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr SDL_GameControllerOpen(int joystick_index);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SDL_GameControllerClose(IntPtr gamecontroller);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern byte SDL_GameControllerGetButton(IntPtr gamecontroller, int button);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SDL_GameControllerGetAttached(IntPtr gamecontroller);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr SDL_GameControllerName(IntPtr gamecontroller);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr SDL_JoystickOpen(int device_index);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SDL_JoystickClose(IntPtr joystick);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SDL_JoystickNumButtons(IntPtr joystick);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern byte SDL_JoystickGetButton(IntPtr joystick, int button);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SDL_JoystickGetAttached(IntPtr joystick);
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr SDL_JoystickName(IntPtr joystick);
     }
 }
