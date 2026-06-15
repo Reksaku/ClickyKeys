@@ -127,6 +127,8 @@
     <sys:String x:Key="Settings_ToggleToolbarShortcut">Symbolleiste ein-/ausblenden</sys:String>
     <sys:String x:Key="Settings_PressKey">Taste drücken…</sys:String>
     <sys:String x:Key="Settings_ShortcutConflict">Diese Taste ist bereits dem anderen Tastenkürzel zugewiesen.</sys:String>
+    <sys:String x:Key="Settings_Gamepad">Gamepad</sys:String>
+    <sys:String x:Key="Settings_TriggerThreshold">LT/RT-Auslöseschwelle:</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Wird gestartet…</sys:String>

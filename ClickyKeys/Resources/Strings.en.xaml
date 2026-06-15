@@ -127,6 +127,8 @@
     <sys:String x:Key="Settings_ToggleToolbarShortcut">Hide / show toolbar</sys:String>
     <sys:String x:Key="Settings_PressKey">Press a key…</sys:String>
     <sys:String x:Key="Settings_ShortcutConflict">That key is already assigned to the other shortcut.</sys:String>
+    <sys:String x:Key="Settings_Gamepad">Gamepad</sys:String>
+    <sys:String x:Key="Settings_TriggerThreshold">LT/RT press threshold:</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Starting up…</sys:String>

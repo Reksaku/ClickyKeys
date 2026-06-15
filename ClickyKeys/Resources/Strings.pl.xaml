@@ -127,6 +127,8 @@
     <sys:String x:Key="Settings_ToggleToolbarShortcut">Ukryj / pokaż pasek narzędzi</sys:String>
     <sys:String x:Key="Settings_PressKey">Naciśnij klawisz…</sys:String>
     <sys:String x:Key="Settings_ShortcutConflict">Ten klawisz jest już przypisany do drugiego skrótu.</sys:String>
+    <sys:String x:Key="Settings_Gamepad">Pad</sys:String>
+    <sys:String x:Key="Settings_TriggerThreshold">Próg aktywacji LT/RT:</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Uruchamianie…</sys:String>

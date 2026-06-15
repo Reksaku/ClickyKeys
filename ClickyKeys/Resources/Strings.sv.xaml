@@ -127,6 +127,8 @@
     <sys:String x:Key="Settings_ToggleToolbarShortcut">Dölj / visa verktygsfält</sys:String>
     <sys:String x:Key="Settings_PressKey">Tryck på en tangent…</sys:String>
     <sys:String x:Key="Settings_ShortcutConflict">Den tangenten är redan tilldelad den andra genvägen.</sys:String>
+    <sys:String x:Key="Settings_Gamepad">Handkontroll</sys:String>
+    <sys:String x:Key="Settings_TriggerThreshold">LT/RT-aktiveringströskel:</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">Startar…</sys:String>

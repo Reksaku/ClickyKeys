@@ -171,7 +171,8 @@ namespace ClickyKeys
         private const int CodeMenu = 1, CodeView = 2, CodeA = 4, CodeB = 8,
             CodeX = 16, CodeY = 32, CodeDPadUp = 64, CodeDPadDown = 128,
             CodeDPadLeft = 256, CodeDPadRight = 512, CodeLB = 1024, CodeRB = 2048,
-            CodeLS = 4096, CodeRS = 8192, CodeGuide = 16384;
+            CodeLS = 4096, CodeRS = 8192, CodeGuide = 16384,
+            CodeLT = 32768, CodeRT = 65536; // analog triggers (threshold-based)
 
         // SDL_GameControllerButton value (0..14, +guide) -> our stable code.
         private static readonly (int SdlButton, int Code)[] GcButtonMap =
@@ -188,6 +189,22 @@ namespace ClickyKeys
         };
 
         private const int GcButtonCount = 15; // SDL buttons 0..14 we track
+
+        private const int SdlTriggerMax = 32767; // SDL trigger axis full-pull value
+
+        // LT/RT activation threshold in SDL axis units (0..32767). volatile so
+        // the UI thread can update it while the poll thread reads it.
+        private volatile int _triggerThresholdAxis = SdlTriggerMax / 2; // ~50%
+
+        /// <summary>
+        /// Sets the LT/RT "counts as a press" threshold as a percentage
+        /// (1..100) of a full trigger pull. Live-adjustable from Settings.
+        /// </summary>
+        public void SetTriggerThresholdPercent(int percent)
+        {
+            percent = Math.Clamp(percent, 1, 100);
+            _triggerThresholdAxis = (int)((long)percent * SdlTriggerMax / 100);
+        }
 
         /// <summary>Friendly label for a button code.</summary>
         public static string FriendlyName(int code)
@@ -212,6 +229,8 @@ namespace ClickyKeys
                 CodeMenu => "Menu",
                 CodeView => "View",
                 CodeGuide => "Guide",
+                CodeLT => "LT",
+                CodeRT => "RT",
                 _ => $"Button {code}"
             };
         }
@@ -292,6 +311,8 @@ namespace ClickyKeys
             public IntPtr Handle;
             public bool IsController;
             public bool[] Prev = Array.Empty<bool>();
+            public bool PrevLT;   // analog trigger edge state
+            public bool PrevRT;
             public string Name = "Controller";
         }
 
@@ -428,6 +449,22 @@ namespace ClickyKeys
                             dev.Name, dev.Name, code, FriendlyName(code)));
                     dev.Prev[sdlButton] = cur;
                 }
+
+                // Analog triggers: count a press when the pull crosses the
+                // configurable threshold (rising edge from below to above).
+                int threshold = _triggerThresholdAxis;
+
+                bool ltCur = SDL_GameControllerGetAxis(dev.Handle, SDL_CONTROLLER_AXIS_TRIGGERLEFT) >= threshold;
+                if (ltCur && !dev.PrevLT)
+                    ButtonPressed?.Invoke(this, new GamepadButtonEventArgs(
+                        dev.Name, dev.Name, CodeLT, FriendlyName(CodeLT)));
+                dev.PrevLT = ltCur;
+
+                bool rtCur = SDL_GameControllerGetAxis(dev.Handle, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) >= threshold;
+                if (rtCur && !dev.PrevRT)
+                    ButtonPressed?.Invoke(this, new GamepadButtonEventArgs(
+                        dev.Name, dev.Name, CodeRT, FriendlyName(CodeRT)));
+                dev.PrevRT = rtCur;
             }
             else
             {
@@ -511,6 +548,13 @@ namespace ClickyKeys
 
         [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte SDL_GameControllerGetButton(IntPtr gamecontroller, int button);
+
+        // SDL_GameControllerAxis: TRIGGERLEFT = 4, TRIGGERRIGHT = 5 (0..32767).
+        private const int SDL_CONTROLLER_AXIS_TRIGGERLEFT = 4;
+        private const int SDL_CONTROLLER_AXIS_TRIGGERRIGHT = 5;
+
+        [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+        private static extern short SDL_GameControllerGetAxis(IntPtr gamecontroller, int axis);
 
         [DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
         private static extern int SDL_GameControllerGetAttached(IntPtr gamecontroller);

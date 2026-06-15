@@ -98,6 +98,9 @@ namespace ClickyKeys
 
                 // Shortcut buttons show the currently assigned keys.
                 RefreshShortcutButtons(cfg);
+
+                // Gamepad LT/RT trigger threshold (percent).
+                TriggerThresholdSlider.Value = Math.Clamp(cfg.GamepadTriggerThreshold, 1, 100);
             }
             finally
             {
@@ -297,6 +300,20 @@ namespace ClickyKeys
             var updated = ConfigStore.Load();
             RefreshShortcutButtons(updated);
             _mainOverlay.ApplyShortcuts(updated.ResetKey, updated.ToggleToolbarKey);
+        }
+
+        // ----------------------------------------------------------------
+        // Gamepad
+        // ----------------------------------------------------------------
+
+        private void TriggerThresholdSlider_ValueChanged(
+            object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (_initialising) return;
+
+            int percent = (int)TriggerThresholdSlider.Value;
+            ConfigStore.Update(cfg => cfg.GamepadTriggerThreshold = percent);
+            GamepadInputService.Instance.SetTriggerThresholdPercent(percent);
         }
 
         // ----------------------------------------------------------------

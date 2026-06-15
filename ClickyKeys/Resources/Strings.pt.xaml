@@ -129,6 +129,8 @@
     <sys:String x:Key="Settings_ToggleToolbarShortcut">Ocultar / mostrar barra de ferramentas</sys:String>
     <sys:String x:Key="Settings_PressKey">Prima uma tecla…</sys:String>
     <sys:String x:Key="Settings_ShortcutConflict">Essa tecla já está atribuída ao outro atalho.</sys:String>
+    <sys:String x:Key="Settings_Gamepad">Comando</sys:String>
+    <sys:String x:Key="Settings_TriggerThreshold">Limiar de ativação LT/RT:</sys:String>
 
     <!-- Splash window -->
     <sys:String x:Key="Splash_Starting">A iniciar…</sys:String>
