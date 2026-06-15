@@ -137,6 +137,8 @@ namespace ClickyKeys
             // Gamepad input. The singleton polls connected controllers;
             // InputCounter consumes presses for panel counting and
             // KeyStatsService for statistics.
+            GamepadInputService.Instance.SetTriggerThresholdPercent(
+                ConfigStore.Load().GamepadTriggerThreshold);
             GamepadInputService.Instance.Start();
 
             var main = new MainWindow();

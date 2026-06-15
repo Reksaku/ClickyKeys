@@ -114,6 +114,11 @@ namespace ClickyKeys
         [JsonPropertyName("toggle_toolbar_key")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public Key ToggleToolbarKey { get; set; } = Key.F11;
+
+        // How far an analog gamepad trigger (LT/RT) must be pressed before it
+        // counts as a single press, in percent (1–100). Adjustable in Settings.
+        [JsonPropertyName("gamepad_trigger_threshold")]
+        public int GamepadTriggerThreshold { get; set; } = 25;
     }
 
     public enum InputType
