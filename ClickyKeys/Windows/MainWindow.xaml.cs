@@ -916,10 +916,14 @@ namespace ClickyKeys
         /// </summary>
         private async void VerifyVersion(Configuration cfg)
         {
+            
             const string url = "https://clickykeys.fun/api/releases.php";
 
             try
             {
+                if (!Version.TryParse(cfg.Version, out var current))
+                    return;
+
                 // Dev builds intentionally skip the check — no release feed
                 // to compare against.
                 if (BuildInfo.Distribution == DistributionType.dev)
@@ -941,12 +945,10 @@ namespace ClickyKeys
                 // a store build doesn't get prompted about a github-only
                 // release and vice versa.
                 Version? latest = null;
-                if (BuildInfo.Distribution == DistributionType.github)
+                if (BuildInfo.Distribution != DistributionType.dev)
                 {
                     foreach (var entry in data)
                     {
-                        if (entry.distribution != BuildInfo.Distribution)
-                            continue;
 
                         if (Version.TryParse(entry.Version, out var parsed)
                             && (latest == null || parsed > latest))
@@ -959,9 +961,6 @@ namespace ClickyKeys
                     return;
 
                 if (latest == null)
-                    return;
-
-                if (!Version.TryParse(cfg.Version, out var current))
                     return;
 
                 if (latest > current)
@@ -1461,8 +1460,13 @@ namespace ClickyKeys
 
         private void OpenLink_Click(object sender, RoutedEventArgs e)
         {
-            string url = "https://clickykeys.fun/update#downloads";
-
+            // Update destination depends on how this build is distributed.
+            string url = BuildInfo.Distribution switch
+            {
+                DistributionType.store => "https://apps.microsoft.com/detail/9PJT83WPC06K",
+                DistributionType.github => "https://github.com/Reksaku/ClickyKeys/releases",
+                _ => "https://github.com/Reksaku/ClickyKeys/releases"
+            };
             try
             {
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo

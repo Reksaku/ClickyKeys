@@ -325,22 +325,36 @@
                    StaysOpen="False"
                    AllowsTransparency="True"
                    PopupAnimation="Fade">
-                <Border x:Name="PopupBorder" Background="White" Padding="20" CornerRadius="8">
-                    <StackPanel Width="250">
-                        <TextBlock Text="{DynamicResource Main_UpdateAvailable}"
-                                   FontSize="14"
-                                   HorizontalAlignment="Center"
-                                   Margin="0 0 0 10"/>
+                <materialDesign:Card x:Name="PopupBorder"
+                                     Width="300"
+                                     Margin="8"
+                                     Padding="16"
+                                     UniformCornerRadius="8"
+                                     Background="{DynamicResource MaterialDesignPaper}"
+                                     TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,0,12">
+                            <Image Width="28" Height="28" Margin="0,0,8,0"
+                                   Source="/Resources/Icon.ico"/>
+                            <TextBlock Text="{DynamicResource Main_UpdateAvailable}"
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       TextWrapping="Wrap"
+                                       VerticalAlignment="Center"
+                                       MaxWidth="220"/>
+                        </StackPanel>
                         <Button Content="{DynamicResource Main_OpenDownload}"
-                                Padding="5"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
                                 Click="OpenLink_Click"
-                                Margin="0 5 0 0"/>
-                        <Button Content="{DynamicResource Main_RemindNextTime}"
-                                Padding="5"
+                                Margin="0,4,0,0"/>
+                        <Button Content="{DynamicResource Common_Close}"
+                                Style="{StaticResource MaterialDesignFlatButton}"
                                 Click="ClosePopup_Click"
-                                Margin="0 5 0 0"/>
+                                Margin="0,4,0,0"/>
                     </StackPanel>
-                </Border>
+                </materialDesign:Card>
             </Popup>
 
             <!-- Shown when the sponsoring URL can't be fetched (no internet). -->
