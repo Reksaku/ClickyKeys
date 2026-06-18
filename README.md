@@ -101,7 +101,7 @@ Bored with a static background? Enable the animated rainbow theme and bring more
 
 ## 📊 Local key press statistics
 
-Track your long-term key usage with built-in local statistics. All data stays on your device — no cloud, no account needed.
+Track your long-term key usage with built-in local statistics. Your key-press statistics stay on your device — no cloud, no account needed.
 
 <br>
 <div align="center">
@@ -188,7 +188,9 @@ Colors, fonts, grid layout — everything is yours to configure.
 
 **Does ClickyKeys store or send my data?**
 
-ClickyKeys works entirely offline — no data is transmitted anywhere. Local statistics stay on your device only.
+Your key-press and usage statistics are stored locally on your device and are never uploaded.
+
+ClickyKeys does make a small number of network requests for app functionality: it checks for new versions and fetches the current "support the project" link. These requests don't include your statistics; the server only sees standard request information (such as a anonymised IP address and the app version).
 
 ---
 **Which systems are supported?**
