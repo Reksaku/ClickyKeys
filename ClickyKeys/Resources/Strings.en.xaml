@@ -136,9 +136,9 @@
     <sys:String x:Key="Settings_CollectTelemetry">Anonymous usage statistics</sys:String>
     <sys:String x:Key="Settings_TelemetryAssurance">ClickyKeys is not a keylogger: no option here ever records what you type, your passwords, or which keys/clicks you make. Keeping you safe matters to this project — the source code is fully available, so you don't have to take our word for it:</sys:String>
     <sys:String x:Key="Settings_TelemetryDescHeader">Statistics collection mode descriptions</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescNone">None sends nothing.</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescBasic">Basic sends a random ID, app version, OS version and interface language.</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescFull">Full additionally sends how features are configured and used (panel layout, display modes, customization, aggregate counts) — never key presses, mouse clicks, panel labels, or anything you type.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescNone">None - sends nothing.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescBasic">Basic - sends a random ID, app version, OS version and interface language.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescFull">Full - additionally sends how features are configured and used (panel layout, display modes, customization, aggregate counts) — never key presses, mouse clicks, panel labels, or anything you type.</sys:String>
     <sys:String x:Key="Settings_TelemetryFull">Full</sys:String>
     <sys:String x:Key="Settings_TelemetryBasic">Basic</sys:String>
     <sys:String x:Key="Settings_TelemetryNone">None</sys:String>

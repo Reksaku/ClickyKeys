@@ -21,23 +21,21 @@
     <sys:String x:Key="Common_Cancel">Annulla</sys:String>
 
     <!-- Already-running toast -->
-    <sys:String x:Key="Toast_AlreadyRunning">L'applicazione è già in esecuzione.</sys:String>
+    <sys:String x:Key="Toast_AlreadyRunning">ClickyKeys è già in esecuzione.</sys:String>
 
-    <!-- Consent dialog (first-run telemetry opt-in, DRAFT).
-         NEEDS TRANSLATION: English placeholder copied in so DynamicResource
-         lookups never resolve to blank text; swap for real translations. -->
-    <sys:String x:Key="Consent_Title">Help improve ClickyKeys?</sys:String>
-    <sys:String x:Key="Consent_Header">Help improve ClickyKeys?</sys:String>
-    <sys:String x:Key="Consent_Body">We'd like to collect anonymous usage statistics to understand how ClickyKeys is used and prioritize what to build next. This is entirely optional and never affects how the app works.</sys:String>
-    <sys:String x:Key="Consent_KeyloggerAssurance">ClickyKeys is not a keylogger. No matter which option you choose below — even Full — it never records what you type, your passwords, clipboard contents, or which specific keys you press or click. At most, it sends anonymous counts and settings; your actual input is never captured or transmitted. [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Consent_FullTitle">Full — usage &amp; feature statistics</sys:String>
-    <sys:String x:Key="Consent_FullBody">Everything in Basic, plus how features are configured and used: panel layout and grid size, which display modes are on (transparent, rainbow background), whether colors/fonts/shortcuts were customized, gamepad settings, and aggregate key/mouse/uptime counts. Never your panel labels, exact colors, exact shortcut keys, or anything you typed.</sys:String>
-    <sys:String x:Key="Consent_BasicTitle">Basic — anonymous identity only</sys:String>
-    <sys:String x:Key="Consent_BasicBody">A randomly generated ID (not tied to you or your PC), the app version, your OS version, and your interface language. Nothing about how you use the app.</sys:String>
-    <sys:String x:Key="Consent_NoneTitle">None — don't collect anything</sys:String>
-    <sys:String x:Key="Consent_NoneBody">Nothing is sent to any server. You can turn statistics on later from Settings → Data Collection if you change your mind.</sys:String>
-    <sys:String x:Key="Consent_Footnote">You can change your choice at any time in Settings → Data Collection.</sys:String>
-    <sys:String x:Key="Consent_PrivacyPolicyLink">Read the full privacy policy</sys:String>
+    <!-- Consent dialog (first-run telemetry opt-in, three tiers) -->
+    <sys:String x:Key="Consent_Title">Vuoi aiutare a migliorare ClickyKeys?</sys:String>
+    <sys:String x:Key="Consent_Header">Vuoi aiutare a migliorare ClickyKeys?</sys:String>
+    <sys:String x:Key="Consent_Body">Vorremmo raccogliere statistiche di utilizzo anonime per capire come viene usato ClickyKeys e decidere cosa sviluppare per primo. È del tutto facoltativo, non influisce mai sul funzionamento dell'app e puoi cambiare la tua scelta in qualsiasi momento.</sys:String>
+    <sys:String x:Key="Consent_KeyloggerAssurance">ClickyKeys non è un keylogger. Qualunque opzione tu scelga qui sotto — anche Completo — l'app non registra mai ciò che digiti, le tue password, il contenuto degli appunti né quali tasti premi o dove fai clic. La tua sicurezza è importante per questo progetto, e il codice sorgente è completamente aperto, così puoi verificarlo di persona tu stesso (o chiunque altro) — non devi crederci sulla parola. Guardalo su GitHub:</sys:String>
+    <sys:String x:Key="Consent_FullTitle">Completo — statistiche di utilizzo e funzionalità</sys:String>
+    <sys:String x:Key="Consent_FullBody">Tutto ciò che c'è in Base, più come le funzionalità vengono configurate e usate: layout dei pannelli e dimensione della griglia, quali modalità di visualizzazione sono attive (trasparente, sfondo arcobaleno), se colori/caratteri/scorciatoie sono stati personalizzati, impostazioni del controller e conteggi aggregati di tasti/mouse/tempo di attività. Mai le etichette dei tuoi pannelli, i colori esatti, i tasti di scorciatoia esatti o qualsiasi cosa tu abbia digitato.</sys:String>
+    <sys:String x:Key="Consent_BasicTitle">Base — solo identità anonima</sys:String>
+    <sys:String x:Key="Consent_BasicBody">Un ID generato in modo casuale (non legato a te né al tuo PC), la versione dell'app, la versione del tuo sistema operativo e la lingua dell'interfaccia. Nulla su come usi l'app.</sys:String>
+    <sys:String x:Key="Consent_NoneTitle">Nessuno — non raccogliere nulla</sys:String>
+    <sys:String x:Key="Consent_NoneBody">Non viene inviato nulla ad alcun server. Se cambi idea, puoi attivare le statistiche più tardi in Impostazioni → Raccolta dati.</sys:String>
+    <sys:String x:Key="Consent_Footnote">Puoi cambiare la tua scelta in qualsiasi momento in Impostazioni → Raccolta dati.</sys:String>
+    <sys:String x:Key="Consent_PrivacyPolicyLink">Leggi l'informativa sulla privacy completa</sys:String>
 
     <!-- Appearance window -->
     <sys:String x:Key="Appearance_Title">Aspetto</sys:String>
@@ -89,7 +87,7 @@
     <sys:String x:Key="Info_Feature2">• Consente di assegnare etichette personalizzate ai tasti (es. Salta, Ricarica, Abilità 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Overlay completamente personalizzabile: layout, dimensione dei pulsanti, colori, carattere.</sys:String>
     <sys:String x:Key="Info_Privacy">Privacy e codice sorgente disponibile</sys:String>
-    <sys:String x:Key="Info_PrivacyText1">ClickyKeys processes your key presses and mouse clicks locally -- that data never leaves your PC. Separately, you can opt in to sending anonymous usage statistics (a random ID, app version, OS version and language) to help us improve the app; this is off by default and can be turned on or off any time in Settings -> Data Collection. [NEEDS TRANSLATION]</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">ClickyKeys elabora le pressioni dei tasti e i clic del mouse in locale — questi dati non lasciano mai il tuo PC. A parte questo, puoi scegliere uno dei due livelli di statistiche di utilizzo anonime (Base: solo identità, oppure Completo: identità più come le funzionalità vengono configurate e usate) per aiutarci a migliorare l'app; è disattivato per impostazione predefinita e può essere modificato in qualsiasi momento in Impostazioni → Raccolta dati.</sys:String>
     <sys:String x:Key="Info_PrivacyText2">Il codice sorgente del progetto è disponibile, quindi puoi esaminare il codice, imparare da esso o contribuire con miglioramenti.</sys:String>
     <sys:String x:Key="Info_Credits">Crediti e ringraziamenti</sys:String>
     <sys:String x:Key="Info_CreditsText1">ClickyKeys è un progetto amatoriale che cresce grazie alle persone che si divertono semplicemente a cliccare con esso.</sys:String>
@@ -131,21 +129,20 @@
     <sys:String x:Key="Settings_Header">Impostazioni</sys:String>
     <sys:String x:Key="Settings_Subtitle">Configura ClickyKeys</sys:String>
     <sys:String x:Key="Settings_DataCollection">Raccolta dati</sys:String>
-    <sys:String x:Key="Settings_LocalDataCollection">Local Data Collection [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryHeader">Telemetry [NEEDS TRANSLATION]</sys:String>
+    <sys:String x:Key="Settings_LocalDataCollection">Raccolta dati locale</sys:String>
+    <sys:String x:Key="Settings_TelemetryHeader">Telemetria</sys:String>
     <sys:String x:Key="Settings_CollectUptime">Raccogli i dati sul tempo di attività dell'applicazione</sys:String>
     <sys:String x:Key="Settings_CollectKeyStats">Raccogli le statistiche sulle pressioni dei tasti</sys:String>
 
-    <!-- NEEDS TRANSLATION: English placeholder, see Consent_* above. -->
-    <sys:String x:Key="Settings_CollectTelemetry">Anonymous usage statistics</sys:String>
-    <sys:String x:Key="Settings_TelemetryAssurance">Not a keylogger: no option here ever records what you type, your passwords, or which keys/clicks you make. [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescHeader">Statistics collection mode descriptions [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescNone">None sends nothing. [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescBasic">Basic sends a random ID, app version, OS version and interface language. [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescFull">Full additionally sends how features are configured and used (panel layout, display modes, customization, aggregate counts) -- never key presses, mouse clicks, panel labels, or anything you type. [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryFull">Full</sys:String>
-    <sys:String x:Key="Settings_TelemetryBasic">Basic</sys:String>
-    <sys:String x:Key="Settings_TelemetryNone">None</sys:String>
+    <sys:String x:Key="Settings_CollectTelemetry">Statistiche di utilizzo anonime</sys:String>
+    <sys:String x:Key="Settings_TelemetryAssurance">ClickyKeys non è un keylogger: nessuna opzione qui registra mai ciò che digiti, le tue password o quali tasti/clic esegui. La tua sicurezza è importante per questo progetto — il codice sorgente è completamente disponibile, quindi non devi crederci sulla parola:</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescHeader">Descrizione delle modalità di raccolta delle statistiche</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescNone">Nessuno non invia nulla.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescBasic">Base invia un ID casuale, la versione dell'app, quella del sistema operativo e la lingua dell'interfaccia.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescFull">Completo invia inoltre come le funzionalità vengono configurate e usate (layout dei pannelli, modalità di visualizzazione, personalizzazioni, conteggi aggregati) — mai le pressioni dei tasti, i clic del mouse, le etichette dei pannelli o qualsiasi cosa tu digiti.</sys:String>
+    <sys:String x:Key="Settings_TelemetryFull">Completo</sys:String>
+    <sys:String x:Key="Settings_TelemetryBasic">Base</sys:String>
+    <sys:String x:Key="Settings_TelemetryNone">Nessuno</sys:String>
     <sys:String x:Key="Settings_Usage">Utilizzo</sys:String>
     <sys:String x:Key="Settings_LaunchOnStartup">Avvia all'avvio del sistema</sys:String>
     <sys:String x:Key="Settings_StartMinimized">Avvia ridotto a icona</sys:String>

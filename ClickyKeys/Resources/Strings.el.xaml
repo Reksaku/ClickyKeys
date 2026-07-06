@@ -21,23 +21,21 @@
     <sys:String x:Key="Common_Cancel">Άκυρο</sys:String>
 
     <!-- Already-running toast -->
-    <sys:String x:Key="Toast_AlreadyRunning">Η εφαρμογή εκτελείται ήδη.</sys:String>
+    <sys:String x:Key="Toast_AlreadyRunning">Το ClickyKeys εκτελείται ήδη.</sys:String>
 
-    <!-- Consent dialog (first-run telemetry opt-in, DRAFT).
-         NEEDS TRANSLATION: English placeholder copied in so DynamicResource
-         lookups never resolve to blank text; swap for real translations. -->
-    <sys:String x:Key="Consent_Title">Help improve ClickyKeys?</sys:String>
-    <sys:String x:Key="Consent_Header">Help improve ClickyKeys?</sys:String>
-    <sys:String x:Key="Consent_Body">We'd like to collect anonymous usage statistics to understand how ClickyKeys is used and prioritize what to build next. This is entirely optional and never affects how the app works.</sys:String>
-    <sys:String x:Key="Consent_KeyloggerAssurance">ClickyKeys is not a keylogger. No matter which option you choose below — even Full — it never records what you type, your passwords, clipboard contents, or which specific keys you press or click. At most, it sends anonymous counts and settings; your actual input is never captured or transmitted. [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Consent_FullTitle">Full — usage &amp; feature statistics</sys:String>
-    <sys:String x:Key="Consent_FullBody">Everything in Basic, plus how features are configured and used: panel layout and grid size, which display modes are on (transparent, rainbow background), whether colors/fonts/shortcuts were customized, gamepad settings, and aggregate key/mouse/uptime counts. Never your panel labels, exact colors, exact shortcut keys, or anything you typed.</sys:String>
-    <sys:String x:Key="Consent_BasicTitle">Basic — anonymous identity only</sys:String>
-    <sys:String x:Key="Consent_BasicBody">A randomly generated ID (not tied to you or your PC), the app version, your OS version, and your interface language. Nothing about how you use the app.</sys:String>
-    <sys:String x:Key="Consent_NoneTitle">None — don't collect anything</sys:String>
-    <sys:String x:Key="Consent_NoneBody">Nothing is sent to any server. You can turn statistics on later from Settings → Data Collection if you change your mind.</sys:String>
-    <sys:String x:Key="Consent_Footnote">You can change your choice at any time in Settings → Data Collection.</sys:String>
-    <sys:String x:Key="Consent_PrivacyPolicyLink">Read the full privacy policy</sys:String>
+    <!-- Consent dialog (first-run telemetry opt-in, three tiers) -->
+    <sys:String x:Key="Consent_Title">Να βοηθήσετε να βελτιωθεί το ClickyKeys;</sys:String>
+    <sys:String x:Key="Consent_Header">Να βοηθήσετε να βελτιωθεί το ClickyKeys;</sys:String>
+    <sys:String x:Key="Consent_Body">Θα θέλαμε να συλλέγουμε ανώνυμα στατιστικά χρήσης για να κατανοήσουμε πώς χρησιμοποιείται το ClickyKeys και να αποφασίσουμε τι θα αναπτύξουμε στη συνέχεια. Είναι εντελώς προαιρετικό, δεν επηρεάζει ποτέ τη λειτουργία της εφαρμογής και μπορείτε να αλλάξετε την επιλογή σας ανά πάσα στιγμή.</sys:String>
+    <sys:String x:Key="Consent_KeyloggerAssurance">Το ClickyKeys δεν είναι keylogger. Όποια επιλογή κι αν διαλέξετε παρακάτω — ακόμη και την Πλήρη — δεν καταγράφει ποτέ τι πληκτρολογείτε, τους κωδικούς σας, το περιεχόμενο του προχείρου ούτε ποια συγκεκριμένα πλήκτρα πατάτε ή πού κάνετε κλικ. Η ασφάλειά σας είναι σημαντική για αυτό το έργο, και ο πηγαίος κώδικας είναι πλήρως ανοιχτός, ώστε να μπορείτε να το ελέγξετε μόνοι σας (ή οποιοσδήποτε άλλος) — δεν χρειάζεται απλώς να μας εμπιστευτείτε. Δείτε τον στο GitHub:</sys:String>
+    <sys:String x:Key="Consent_FullTitle">Πλήρης — στατιστικά χρήσης και δυνατοτήτων</sys:String>
+    <sys:String x:Key="Consent_FullBody">Ό,τι περιλαμβάνει η Βασική, συν το πώς ρυθμίζονται και χρησιμοποιούνται οι δυνατότητες: διάταξη πάνελ και μέγεθος πλέγματος, ποιες λειτουργίες προβολής είναι ενεργές (διαφανές, φόντο ουράνιου τόξου), αν έχουν προσαρμοστεί χρώματα/γραμματοσειρές/συντομεύσεις, ρυθμίσεις χειριστηρίου και συγκεντρωτικοί μετρητές πλήκτρων/ποντικιού/χρόνου λειτουργίας. Ποτέ τις ετικέτες των πάνελ σας, τα ακριβή χρώματα, τα ακριβή πλήκτρα συντόμευσης ή οτιδήποτε πληκτρολογήσατε.</sys:String>
+    <sys:String x:Key="Consent_BasicTitle">Βασική — μόνο ανώνυμη ταυτότητα</sys:String>
+    <sys:String x:Key="Consent_BasicBody">Ένα τυχαία δημιουργημένο αναγνωριστικό (χωρίς σύνδεση με εσάς ή τον υπολογιστή σας), η έκδοση της εφαρμογής, η έκδοση του λειτουργικού σας συστήματος και η γλώσσα της διεπαφής. Τίποτα σχετικά με το πώς χρησιμοποιείτε την εφαρμογή.</sys:String>
+    <sys:String x:Key="Consent_NoneTitle">Καμία — να μη συλλέγεται τίποτα</sys:String>
+    <sys:String x:Key="Consent_NoneBody">Δεν αποστέλλεται τίποτα σε κανέναν διακομιστή. Μπορείτε να ενεργοποιήσετε τα στατιστικά αργότερα από τις Ρυθμίσεις → Συλλογή δεδομένων, αν αλλάξετε γνώμη.</sys:String>
+    <sys:String x:Key="Consent_Footnote">Μπορείτε να αλλάξετε την επιλογή σας ανά πάσα στιγμή στις Ρυθμίσεις → Συλλογή δεδομένων.</sys:String>
+    <sys:String x:Key="Consent_PrivacyPolicyLink">Διαβάστε την πλήρη πολιτική απορρήτου</sys:String>
 
     <!-- Appearance window -->
     <sys:String x:Key="Appearance_Title">Εμφάνιση</sys:String>
@@ -89,7 +87,7 @@
     <sys:String x:Key="Info_Feature2">• Σας επιτρέπει να αντιστοιχίσετε προσαρμοσμένες ετικέτες σε πλήκτρα (π.χ. Άλμα, Επαναγέμιση, Ικανότητα 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Πλήρως προσαρμόσιμη επικάλυψη: διάταξη, μέγεθος κουμπιών, χρώματα, γραμματοσειρά.</sys:String>
     <sys:String x:Key="Info_Privacy">Απόρρητο και διαθέσιμος πηγαίος κώδικας</sys:String>
-    <sys:String x:Key="Info_PrivacyText1">ClickyKeys processes your key presses and mouse clicks locally -- that data never leaves your PC. Separately, you can opt in to sending anonymous usage statistics (a random ID, app version, OS version and language) to help us improve the app; this is off by default and can be turned on or off any time in Settings -> Data Collection. [NEEDS TRANSLATION]</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">Το ClickyKeys επεξεργάζεται τα πατήματα πλήκτρων και τα κλικ του ποντικιού σας τοπικά — αυτά τα δεδομένα δεν φεύγουν ποτέ από τον υπολογιστή σας. Ξεχωριστά, μπορείτε να επιλέξετε ένα από τα δύο επίπεδα ανώνυμων στατιστικών χρήσης (Βασική: μόνο ταυτότητα, ή Πλήρης: ταυτότητα συν το πώς ρυθμίζονται και χρησιμοποιούνται οι δυνατότητες) για να μας βοηθήσετε να βελτιώσουμε την εφαρμογή· είναι απενεργοποιημένο από προεπιλογή και μπορεί να αλλάξει ανά πάσα στιγμή στις Ρυθμίσεις → Συλλογή δεδομένων.</sys:String>
     <sys:String x:Key="Info_PrivacyText2">Ο πηγαίος κώδικας του έργου είναι διαθέσιμος, ώστε να μπορείτε να εξετάσετε τον κώδικα, να μάθετε από αυτόν ή να συνεισφέρετε βελτιώσεις.</sys:String>
     <sys:String x:Key="Info_Credits">Συντελεστές και ευχαριστίες</sys:String>
     <sys:String x:Key="Info_CreditsText1">Το ClickyKeys είναι ένα ερασιτεχνικό έργο που μεγαλώνει χάρη σε ανθρώπους που απλώς απολαμβάνουν να κάνουν κλικ με αυτό.</sys:String>
@@ -131,21 +129,20 @@
     <sys:String x:Key="Settings_Header">Ρυθμίσεις</sys:String>
     <sys:String x:Key="Settings_Subtitle">Διαμόρφωση του ClickyKeys</sys:String>
     <sys:String x:Key="Settings_DataCollection">Συλλογή δεδομένων</sys:String>
-    <sys:String x:Key="Settings_LocalDataCollection">Local Data Collection [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryHeader">Telemetry [NEEDS TRANSLATION]</sys:String>
+    <sys:String x:Key="Settings_LocalDataCollection">Τοπική συλλογή δεδομένων</sys:String>
+    <sys:String x:Key="Settings_TelemetryHeader">Τηλεμετρία</sys:String>
     <sys:String x:Key="Settings_CollectUptime">Συλλογή δεδομένων χρόνου λειτουργίας της εφαρμογής</sys:String>
     <sys:String x:Key="Settings_CollectKeyStats">Συλλογή στατιστικών πατημάτων πλήκτρων</sys:String>
 
-    <!-- NEEDS TRANSLATION: English placeholder, see Consent_* above. -->
-    <sys:String x:Key="Settings_CollectTelemetry">Anonymous usage statistics</sys:String>
-    <sys:String x:Key="Settings_TelemetryAssurance">Not a keylogger: no option here ever records what you type, your passwords, or which keys/clicks you make. [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescHeader">Statistics collection mode descriptions [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescNone">None sends nothing. [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescBasic">Basic sends a random ID, app version, OS version and interface language. [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescFull">Full additionally sends how features are configured and used (panel layout, display modes, customization, aggregate counts) -- never key presses, mouse clicks, panel labels, or anything you type. [NEEDS TRANSLATION]</sys:String>
-    <sys:String x:Key="Settings_TelemetryFull">Full</sys:String>
-    <sys:String x:Key="Settings_TelemetryBasic">Basic</sys:String>
-    <sys:String x:Key="Settings_TelemetryNone">None</sys:String>
+    <sys:String x:Key="Settings_CollectTelemetry">Ανώνυμα στατιστικά χρήσης</sys:String>
+    <sys:String x:Key="Settings_TelemetryAssurance">Το ClickyKeys δεν είναι keylogger: καμία επιλογή εδώ δεν καταγράφει ποτέ τι πληκτρολογείτε, τους κωδικούς σας ή ποια πλήκτρα/κλικ κάνετε. Η ασφάλειά σας είναι σημαντική για αυτό το έργο — ο πηγαίος κώδικας είναι πλήρως διαθέσιμος, οπότε δεν χρειάζεται απλώς να μας εμπιστευτείτε:</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescHeader">Περιγραφή των λειτουργιών συλλογής στατιστικών</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescNone">Η Καμία δεν στέλνει τίποτα.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescBasic">Η Βασική στέλνει ένα τυχαίο αναγνωριστικό, την έκδοση της εφαρμογής, την έκδοση του λειτουργικού συστήματος και τη γλώσσα της διεπαφής.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescFull">Η Πλήρης στέλνει επιπλέον το πώς ρυθμίζονται και χρησιμοποιούνται οι δυνατότητες (διάταξη πάνελ, λειτουργίες προβολής, προσαρμογές, συγκεντρωτικοί μετρητές) — ποτέ πατήματα πλήκτρων, κλικ ποντικιού, ετικέτες πάνελ ή οτιδήποτε πληκτρολογείτε.</sys:String>
+    <sys:String x:Key="Settings_TelemetryFull">Πλήρης</sys:String>
+    <sys:String x:Key="Settings_TelemetryBasic">Βασική</sys:String>
+    <sys:String x:Key="Settings_TelemetryNone">Καμία</sys:String>
     <sys:String x:Key="Settings_Usage">Χρήση</sys:String>
     <sys:String x:Key="Settings_LaunchOnStartup">Εκκίνηση κατά την έναρξη του συστήματος</sys:String>
     <sys:String x:Key="Settings_StartMinimized">Εκκίνηση ελαχιστοποιημένη</sys:String>
