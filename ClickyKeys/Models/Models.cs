@@ -119,6 +119,61 @@ namespace ClickyKeys
         // counts as a single press, in percent (1–100). Adjustable in Settings.
         [JsonPropertyName("gamepad_trigger_threshold")]
         public int GamepadTriggerThreshold { get; set; } = 25;
+
+        // ── Product telemetry consent (DRAFT) ───────────────────────────
+        //
+        // Master opt-in switch for TelemetryService, with THREE consent
+        // states rather than a plain on/off:
+        //   null  = user has never been asked (fresh install, or upgrading
+        //           from a version that predates telemetry). MainWindow shows
+        //           ConsentDialog once on the next startup and persists the
+        //           answer here.
+        //   None  = user opted out (either from the initial dialog or later
+        //           from Settings → Data Collection). No payload is ever
+        //           sent while this is None.
+        //   Basic = anonymous id + app version + distribution + OS version +
+        //           UI language, once per launch. Same payload as before
+        //           this tier split existed.
+        //   Full  = everything Basic sends, PLUS a feature-usage snapshot
+        //           (panel/grid layout, display modes, color/font
+        //           customization, shortcuts, gamepad threshold, aggregate
+        //           key/mouse/uptime counters) so we can tell whether
+        //           shipped features are actually being used and configured
+        //           correctly — see TelemetryService.BuildFeatureSnapshot for
+        //           the exact field list and what is deliberately excluded
+        //           (no panel descriptions/labels, no raw color values tied
+        //           to a person, nothing the user typed).
+        //
+        // This is the ONLY signal TelemetryService trusts to decide whether
+        // — and how much — to send. See TelemetryService.ConfigureCollecting.
+        [JsonPropertyName("telemetry_level")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public TelemetryLevel? TelemetryLevel { get; set; } = null;
+
+        // Random identifier generated locally the first time the user opts
+        // in (see TelemetryService.EnsureUserId). Intentionally NOT derived
+        // from any hardware/OS identifier (MAC address, volume serial,
+        // machine GUID, etc.) — it exists only to let backend aggregation
+        // distinguish "1 user across 30 sessions" from "30 users", and
+        // resets to a new value if the user clears config.json. Empty until
+        // consent is first given. Shared by both the Basic and Full tiers —
+        // switching between them does not generate a new id.
+        [JsonPropertyName("telemetry_user_id")]
+        public string TelemetryUserId { get; set; } = "";
+    }
+
+    /// <summary>
+    /// The three telemetry consent tiers a user can choose (see
+    /// <see cref="Configuration.TelemetryLevel"/> for what each one means and
+    /// sends). Persisted as its string name in config.json
+    /// (<c>"None"</c>/<c>"Basic"</c>/<c>"Full"</c>) via
+    /// <see cref="JsonStringEnumConverter"/> so the file stays human-readable.
+    /// </summary>
+    public enum TelemetryLevel
+    {
+        None = 0,
+        Basic = 1,
+        Full = 2,
     }
 
     public enum InputType

@@ -15,6 +15,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using ClickyKeys.Windows;
 
 namespace ClickyKeys
 {
@@ -396,6 +397,18 @@ namespace ClickyKeys
                 // Defer until the window is fully rendered so ActualWidth/Height
                 // and panel positions are available for spotlight calculations.
                 Loaded += OnShowTutorialLoaded;
+            }
+
+            // DRAFT — first-run telemetry consent. null means "never asked";
+            // any real TelemetryLevel (already answered, either here before
+            // or by an older build's default) skips the prompt. Deferred to
+            // Loaded like the tutorial so it appears on top of a fully
+            // rendered window rather than racing window construction.
+            // Skipped in transparent/overlay mode for the same reason the
+            // tutorial is skipped there — no chrome to anchor a modal to.
+            if (ConfigSettings.TelemetryLevel == null && !_transparent)
+            {
+                Loaded += OnShowConsentDialogLoaded;
             }
 
         }
@@ -859,6 +872,37 @@ namespace ClickyKeys
             tutorial.Closed += (_, _) => SetTutorialAsMarked();
 
             tutorial.Show();
+        }
+
+        //-------------------------
+        // Telemetry consent section (DRAFT)
+        //-------------------------
+
+        private void OnShowConsentDialogLoaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= OnShowConsentDialogLoaded;
+            ShowConsentDialog();
+        }
+
+        private void ShowConsentDialog()
+        {
+            var dialog = new ConsentDialog { Owner = this };
+
+            // The dialog itself persists the answer to config.json (see
+            // ConsentDialog.Finish/OnClosing). Here we only need to flip the
+            // already-running TelemetryService live so choosing Basic/Full
+            // takes effect immediately, without requiring a restart, and —
+            // since this is the very first consent — fire the app_start
+            // event for THIS session too rather than waiting for the next
+            // launch.
+            dialog.Answered += level =>
+            {
+                App.Telemetry?.SetCollecting(level);
+                if (level != TelemetryLevel.None)
+                    App.Telemetry?.SendAppStartAsync();
+            };
+
+            dialog.Show();
         }
 
         private void SetTutorialAsMarked()

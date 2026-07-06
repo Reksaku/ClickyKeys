@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace ClickyKeys
 {
@@ -76,6 +78,23 @@ namespace ClickyKeys
                 CollectKeyStatsToggle.IsChecked = cfg.CollectKeyStats;
                 CollectUptimeToggle.IsChecked = cfg.CollectUptime;
 
+                // DRAFT — telemetry consent (three tiers). Null (never
+                // asked) shows as "None" here; the user only reaches this
+                // screen with a null value if they closed/skipped the
+                // first-run ConsentDialog without MainWindow's Loaded
+                // handler having fired yet, which is an edge case, not the
+                // common path.
+                var telemetryLevel = cfg.TelemetryLevel ?? TelemetryLevel.None;
+                foreach (var obj in TelemetryLevelComboBox.Items)
+                {
+                    if (obj is ComboBoxItem item &&
+                        (item.Tag as string) == telemetryLevel.ToString())
+                    {
+                        TelemetryLevelComboBox.SelectedItem = item;
+                        break;
+                    }
+                }
+
                 // Language: select the ComboBoxItem whose Tag matches the active
                 // language. When the user has saved an explicit choice we match
                 // that; when they haven't (blank = auto-detect), we reflect the
@@ -138,6 +157,38 @@ namespace ClickyKeys
             // if accessed before startup finished or after shutdown — the
             // persisted value above covers that case on next launch.
             App.KeyStats?.SetCollecting(wanted);
+        }
+
+        /// <summary>
+        /// DRAFT — user changed the telemetry level (None/Basic/Full) after
+        /// the initial ConsentDialog answer. Persists the new choice as the
+        /// definitive consent value and applies it to the live
+        /// TelemetryService immediately (no restart needed). Changing this
+        /// takes effect for the next send attempt — there is no
+        /// periodic/in-flight request to cancel (see TelemetryService: one
+        /// event per launch, no background timer).
+        /// </summary>
+        private void TelemetryLevelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_initialising) return;
+
+            var tag = (TelemetryLevelComboBox.SelectedItem as ComboBoxItem)?.Tag as string;
+            if (!Enum.TryParse<TelemetryLevel>(tag, out var wanted))
+                wanted = TelemetryLevel.None;
+
+            ConfigStore.Update(cfg => cfg.TelemetryLevel = wanted);
+            App.Telemetry?.SetCollecting(wanted);
+        }
+
+        /// <summary>
+        /// Opens the GitHub repo link in the Data Collection card's
+        /// keylogger-assurance text (same URL/handler pattern as
+        /// ConsentDialog and Info's links).
+        /// </summary>
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+            e.Handled = true;
         }
 
         // ----------------------------------------------------------------

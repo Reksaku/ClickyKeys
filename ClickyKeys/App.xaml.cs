@@ -23,6 +23,12 @@ namespace ClickyKeys
         // flush) on exit.
         private UptimeStatsService? _uptime;
 
+        // DRAFT — opt-in product telemetry (see TelemetryService header).
+        // Unlike _keyStats/_uptime this never writes local files and holds
+        // no unmanaged resources, so it needs no Dispose/teardown step —
+        // only a seed at startup and a live toggle from Settings.
+        private TelemetryService? _telemetry;
+
 
 
         // Mutex that guarantees only one instance of ClickyKeys runs at a time.
@@ -57,6 +63,14 @@ namespace ClickyKeys
         /// <see cref="OnExit"/>.
         /// </summary>
         public static UptimeStatsService? Uptime => (Current as App)?._uptime;
+
+        /// <summary>
+        /// Process-wide accessor for the live <see cref="TelemetryService"/>.
+        /// Used by ConsentDialog's Answered handler and Settings to flip the
+        /// live switch without needing a restart. Null before
+        /// <see cref="OnStartup"/> and after <see cref="OnExit"/>.
+        /// </summary>
+        public static TelemetryService? Telemetry => (Current as App)?._telemetry;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -141,6 +155,16 @@ namespace ClickyKeys
                 ConfigStore.Load().GamepadTriggerThreshold);
             GamepadInputService.Instance.Start();
 
+            // DRAFT — opt-in telemetry (None/Basic/Full). Seeded from
+            // whatever is already on disk: null (never asked) resolves to
+            // None here; MainWindow's first-run ConsentDialog is what turns
+            // a fresh null into a real choice (see MainWindow ctor +
+            // ConsentDialog). SendAppStartAsync() is itself a no-op at
+            // None, so it's safe to call unconditionally every launch.
+            _telemetry = new TelemetryService();
+            _telemetry.ConfigureCollecting(ConfigStore.Load().TelemetryLevel ?? TelemetryLevel.None);
+            _telemetry.SendAppStartAsync();
+
             var main = new MainWindow();
             MainWindow = main;
             main.Show();
@@ -167,6 +191,11 @@ namespace ClickyKeys
             // hook, so ordering relative to it doesn't matter.
             _uptime?.Dispose();
             _uptime = null;
+
+            // No teardown needed (no local file, no unmanaged handle) — just
+            // drop the reference so App.Telemetry reads null after exit,
+            // matching _keyStats/_uptime's post-OnExit contract.
+            _telemetry = null;
 
             // Stop the gamepad polling thread.
             GamepadInputService.Instance.Stop();

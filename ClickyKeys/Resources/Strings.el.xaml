@@ -23,6 +23,22 @@
     <!-- Already-running toast -->
     <sys:String x:Key="Toast_AlreadyRunning">Η εφαρμογή εκτελείται ήδη.</sys:String>
 
+    <!-- Consent dialog (first-run telemetry opt-in, DRAFT).
+         NEEDS TRANSLATION: English placeholder copied in so DynamicResource
+         lookups never resolve to blank text; swap for real translations. -->
+    <sys:String x:Key="Consent_Title">Help improve ClickyKeys?</sys:String>
+    <sys:String x:Key="Consent_Header">Help improve ClickyKeys?</sys:String>
+    <sys:String x:Key="Consent_Body">We'd like to collect anonymous usage statistics to understand how ClickyKeys is used and prioritize what to build next. This is entirely optional and never affects how the app works.</sys:String>
+    <sys:String x:Key="Consent_KeyloggerAssurance">ClickyKeys is not a keylogger. No matter which option you choose below — even Full — it never records what you type, your passwords, clipboard contents, or which specific keys you press or click. At most, it sends anonymous counts and settings; your actual input is never captured or transmitted. [NEEDS TRANSLATION]</sys:String>
+    <sys:String x:Key="Consent_FullTitle">Full — usage &amp; feature statistics</sys:String>
+    <sys:String x:Key="Consent_FullBody">Everything in Basic, plus how features are configured and used: panel layout and grid size, which display modes are on (transparent, rainbow background), whether colors/fonts/shortcuts were customized, gamepad settings, and aggregate key/mouse/uptime counts. Never your panel labels, exact colors, exact shortcut keys, or anything you typed.</sys:String>
+    <sys:String x:Key="Consent_BasicTitle">Basic — anonymous identity only</sys:String>
+    <sys:String x:Key="Consent_BasicBody">A randomly generated ID (not tied to you or your PC), the app version, your OS version, and your interface language. Nothing about how you use the app.</sys:String>
+    <sys:String x:Key="Consent_NoneTitle">None — don't collect anything</sys:String>
+    <sys:String x:Key="Consent_NoneBody">Nothing is sent to any server. You can turn statistics on later from Settings → Data Collection if you change your mind.</sys:String>
+    <sys:String x:Key="Consent_Footnote">You can change your choice at any time in Settings → Data Collection.</sys:String>
+    <sys:String x:Key="Consent_PrivacyPolicyLink">Read the full privacy policy</sys:String>
+
     <!-- Appearance window -->
     <sys:String x:Key="Appearance_Title">Εμφάνιση</sys:String>
     <sys:String x:Key="Appearance_Profile">Προφίλ:</sys:String>
@@ -73,7 +89,7 @@
     <sys:String x:Key="Info_Feature2">• Σας επιτρέπει να αντιστοιχίσετε προσαρμοσμένες ετικέτες σε πλήκτρα (π.χ. Άλμα, Επαναγέμιση, Ικανότητα 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Πλήρως προσαρμόσιμη επικάλυψη: διάταξη, μέγεθος κουμπιών, χρώματα, γραμματοσειρά.</sys:String>
     <sys:String x:Key="Info_Privacy">Απόρρητο και διαθέσιμος πηγαίος κώδικας</sys:String>
-    <sys:String x:Key="Info_PrivacyText1">Το ClickyKeys επεξεργάζεται τα πατήματα πλήκτρων και τα κλικ του ποντικιού σας τοπικά. Δεν αποστέλλονται δεδομένα χρήστη σε κανέναν διακομιστή.</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">ClickyKeys processes your key presses and mouse clicks locally -- that data never leaves your PC. Separately, you can opt in to sending anonymous usage statistics (a random ID, app version, OS version and language) to help us improve the app; this is off by default and can be turned on or off any time in Settings -> Data Collection. [NEEDS TRANSLATION]</sys:String>
     <sys:String x:Key="Info_PrivacyText2">Ο πηγαίος κώδικας του έργου είναι διαθέσιμος, ώστε να μπορείτε να εξετάσετε τον κώδικα, να μάθετε από αυτόν ή να συνεισφέρετε βελτιώσεις.</sys:String>
     <sys:String x:Key="Info_Credits">Συντελεστές και ευχαριστίες</sys:String>
     <sys:String x:Key="Info_CreditsText1">Το ClickyKeys είναι ένα ερασιτεχνικό έργο που μεγαλώνει χάρη σε ανθρώπους που απλώς απολαμβάνουν να κάνουν κλικ με αυτό.</sys:String>
@@ -115,8 +131,21 @@
     <sys:String x:Key="Settings_Header">Ρυθμίσεις</sys:String>
     <sys:String x:Key="Settings_Subtitle">Διαμόρφωση του ClickyKeys</sys:String>
     <sys:String x:Key="Settings_DataCollection">Συλλογή δεδομένων</sys:String>
+    <sys:String x:Key="Settings_LocalDataCollection">Local Data Collection [NEEDS TRANSLATION]</sys:String>
+    <sys:String x:Key="Settings_TelemetryHeader">Telemetry [NEEDS TRANSLATION]</sys:String>
     <sys:String x:Key="Settings_CollectUptime">Συλλογή δεδομένων χρόνου λειτουργίας της εφαρμογής</sys:String>
     <sys:String x:Key="Settings_CollectKeyStats">Συλλογή στατιστικών πατημάτων πλήκτρων</sys:String>
+
+    <!-- NEEDS TRANSLATION: English placeholder, see Consent_* above. -->
+    <sys:String x:Key="Settings_CollectTelemetry">Anonymous usage statistics</sys:String>
+    <sys:String x:Key="Settings_TelemetryAssurance">Not a keylogger: no option here ever records what you type, your passwords, or which keys/clicks you make. [NEEDS TRANSLATION]</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescHeader">Statistics collection mode descriptions [NEEDS TRANSLATION]</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescNone">None sends nothing. [NEEDS TRANSLATION]</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescBasic">Basic sends a random ID, app version, OS version and interface language. [NEEDS TRANSLATION]</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescFull">Full additionally sends how features are configured and used (panel layout, display modes, customization, aggregate counts) -- never key presses, mouse clicks, panel labels, or anything you type. [NEEDS TRANSLATION]</sys:String>
+    <sys:String x:Key="Settings_TelemetryFull">Full</sys:String>
+    <sys:String x:Key="Settings_TelemetryBasic">Basic</sys:String>
+    <sys:String x:Key="Settings_TelemetryNone">None</sys:String>
     <sys:String x:Key="Settings_Usage">Χρήση</sys:String>
     <sys:String x:Key="Settings_LaunchOnStartup">Εκκίνηση κατά την έναρξη του συστήματος</sys:String>
     <sys:String x:Key="Settings_StartMinimized">Εκκίνηση ελαχιστοποιημένη</sys:String>

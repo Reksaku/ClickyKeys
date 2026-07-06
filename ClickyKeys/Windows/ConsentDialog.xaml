@@ -1,0 +1,145 @@
+<Window x:Class="ClickyKeys.Windows.ConsentDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="{DynamicResource Consent_Title}"
+        Width="460" Height="700"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Topmost="True"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontFamily="Segoe UI"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+
+    <!--
+      Shown exactly once, on the first launch after this feature ships (i.e.
+      whenever Configuration.TelemetryLevel is still null). Presents three
+      equally-weighted options — None / Basic / Full — as full-width cards;
+      clicking one IS the answer, there's no separate confirm step. Deliberately
+      NOT closable via [X]/Alt-F4/Esc without an answer — see code-behind
+      OnClosing — so the user always leaves with an explicit choice, never a
+      silently-defaulted one. All three options are the same size and style;
+      none is visually pushed as "recommended," because this is a real choice,
+      not a dark-patterned nag.
+    -->
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <Image Width="36" Height="36" Source="/Resources/Icon.ico" Margin="0,0,10,0"/>
+            <TextBlock Text="{DynamicResource Consent_Header}"
+                       FontSize="17"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock TextWrapping="Wrap"
+                           Margin="0,0,0,12"
+                           FontSize="12"
+                           Text="{DynamicResource Consent_Body}"/>
+
+                <!-- Prominent, tier-independent reassurance: whichever option
+                     is picked (including Full), nothing that could be
+                     considered a keylogger is ever collected. Deliberately
+                     placed BEFORE the three option cards so it's read first,
+                     not buried in the small print under an option. Ends by
+                     pointing at the public GitHub repo — the "don't just
+                     take our word for it" backing the text above. -->
+                <materialDesign:Card Padding="10" Margin="0,0,0,14">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🔒" FontSize="20" Margin="0,0,10,0" VerticalAlignment="Top"/>
+                        <StackPanel Width="358">
+                            <TextBlock TextWrapping="Wrap"
+                                       FontSize="11.5"
+                                       Text="{DynamicResource Consent_KeyloggerAssurance}"/>
+                            <TextBlock Margin="0,4,0,0">
+                                <Hyperlink NavigateUri="https://github.com/Reksaku/ClickyKeys"
+                                           RequestNavigate="Hyperlink_RequestNavigate">
+                                    <Run Text="github.com/Reksaku/ClickyKeys" FontSize="11"/>
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Option: Full -->
+                <Button Click="Full_Click"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        HorizontalContentAlignment="Stretch"
+                        Padding="12"
+                        Margin="0,0,0,10"
+                        Height="42">
+                    <StackPanel HorizontalAlignment="Stretch">
+                        <TextBlock Text="{DynamicResource Consent_FullTitle}"
+                                   FontWeight="Bold" FontSize="13"
+                                   TextWrapping="Wrap" TextAlignment="Left"/>
+                        <TextBlock Text="{DynamicResource Consent_FullBody}"
+                                   TextWrapping="Wrap" TextAlignment="Left"
+                                   FontSize="11" Margin="0,4,0,0"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Option: Basic -->
+                <Button Click="Basic_Click"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        HorizontalContentAlignment="Stretch"
+                        Padding="12"
+                        Margin="0,0,0,10" Height="42">
+                    <StackPanel HorizontalAlignment="Stretch">
+                        <TextBlock Text="{DynamicResource Consent_BasicTitle}"
+                                   FontWeight="Bold" FontSize="13"
+                                   TextWrapping="Wrap" TextAlignment="Left"/>
+                        <TextBlock Text="{DynamicResource Consent_BasicBody}"
+                                   TextWrapping="Wrap" TextAlignment="Left"
+                                   FontSize="11" Margin="0,4,0,0"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Option: None -->
+                <Button Click="None_Click"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        HorizontalContentAlignment="Stretch"
+                        Padding="12"
+                        Margin="0,0,0,10" Height="42">
+                    <StackPanel HorizontalAlignment="Stretch">
+                        <TextBlock Text="{DynamicResource Consent_NoneTitle}"
+                                   FontWeight="Bold" FontSize="13"
+                                   TextWrapping="Wrap" TextAlignment="Left"/>
+                        <TextBlock Text="{DynamicResource Consent_NoneBody}"
+                                   TextWrapping="Wrap" TextAlignment="Left"
+                                   FontSize="11" Margin="0,4,0,0"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                    </StackPanel>
+                </Button>
+
+                <TextBlock TextWrapping="Wrap"
+                           Margin="0,4,0,0"
+                           FontSize="11"
+                           FontStyle="Italic"
+                           Text="{DynamicResource Consent_Footnote}"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <DockPanel Grid.Row="2" Margin="0,10,0,0">
+            <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+                <Hyperlink NavigateUri="https://clickykeys.fun/privacy"
+                           RequestNavigate="Hyperlink_RequestNavigate">
+                    <Run Text="{DynamicResource Consent_PrivacyPolicyLink}" FontSize="11"/>
+                </Hyperlink>
+            </TextBlock>
+        </DockPanel>
+    </Grid>
+</Window>

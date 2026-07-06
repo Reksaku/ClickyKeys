@@ -23,6 +23,20 @@
     <!-- Already-running toast -->
     <sys:String x:Key="Toast_AlreadyRunning">Application is already running.</sys:String>
 
+    <!-- Consent dialog (first-run telemetry opt-in, DRAFT, three tiers) -->
+    <sys:String x:Key="Consent_Title">Help improve ClickyKeys?</sys:String>
+    <sys:String x:Key="Consent_Header">Help improve ClickyKeys?</sys:String>
+    <sys:String x:Key="Consent_Body">We'd like to collect anonymous usage statistics to understand how ClickyKeys is used and prioritize what to build next. This is entirely optional, never affects how the app works, and you can change your choice at any time.</sys:String>
+    <sys:String x:Key="Consent_KeyloggerAssurance">ClickyKeys is not a keylogger. Whichever option you pick below — even Full — it never records what you type, your passwords, clipboard contents, or which specific keys you press or click. Keeping you safe matters to this project, and the source code is fully open so you (or anyone else) can check that for yourself — no need to just take our word for it. See it on GitHub:</sys:String>
+    <sys:String x:Key="Consent_FullTitle">Full — usage &amp; feature statistics</sys:String>
+    <sys:String x:Key="Consent_FullBody">Everything in Basic, plus how features are configured and used: panel layout and grid size, which display modes are on (transparent, rainbow background), whether colors/fonts/shortcuts were customized, gamepad settings, and aggregate key/mouse/uptime counts. Never your panel labels, exact colors, exact shortcut keys, or anything you typed.</sys:String>
+    <sys:String x:Key="Consent_BasicTitle">Basic — anonymous identity only</sys:String>
+    <sys:String x:Key="Consent_BasicBody">A randomly generated ID (not tied to you or your PC), the app version, your OS version, and your interface language. Nothing about how you use the app.</sys:String>
+    <sys:String x:Key="Consent_NoneTitle">None — don't collect anything</sys:String>
+    <sys:String x:Key="Consent_NoneBody">Nothing is sent to any server. You can turn statistics on later from Settings → Data Collection if you change your mind.</sys:String>
+    <sys:String x:Key="Consent_Footnote">You can change your choice at any time in Settings → Data Collection.</sys:String>
+    <sys:String x:Key="Consent_PrivacyPolicyLink">Read the full privacy policy</sys:String>
+
     <!-- Appearance window -->
     <sys:String x:Key="Appearance_Title">Appearance</sys:String>
     <sys:String x:Key="Appearance_Profile">Profile:</sys:String>
@@ -73,7 +87,7 @@
     <sys:String x:Key="Info_Feature2">• Lets you assign custom labels to keys (e.g. Jump, Reload, Ability 1).</sys:String>
     <sys:String x:Key="Info_Feature3">• Fully customizable overlay: layout, button size, colors, font.</sys:String>
     <sys:String x:Key="Info_Privacy">Privacy &amp; Source Available</sys:String>
-    <sys:String x:Key="Info_PrivacyText1">ClickyKeys processes your key presses and mouse clicks locally. No user data is sent to any server.</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">ClickyKeys processes your key presses and mouse clicks locally — that data never leaves your PC. Separately, you can opt in to one of two anonymous usage-statistics tiers (Basic: identity only, or Full: identity plus how features are configured and used) to help us improve the app; this is off by default and can be changed any time in Settings → Data Collection.</sys:String>
     <sys:String x:Key="Info_PrivacyText2">The project's source is available, so you can review the code, learn from it, or contribute improvements.</sys:String>
     <sys:String x:Key="Info_Credits">Credits &amp; Thanks</sys:String>
     <sys:String x:Key="Info_CreditsText1">ClickyKeys is a hobby project that grows thanks to people who simply enjoy clicking with it.</sys:String>
@@ -115,8 +129,19 @@
     <sys:String x:Key="Settings_Header">Settings</sys:String>
     <sys:String x:Key="Settings_Subtitle">Configure ClickyKeys</sys:String>
     <sys:String x:Key="Settings_DataCollection">Data Collection</sys:String>
+    <sys:String x:Key="Settings_LocalDataCollection">Local Data Collection</sys:String>
+    <sys:String x:Key="Settings_TelemetryHeader">Telemetry</sys:String>
     <sys:String x:Key="Settings_CollectUptime">Collect application uptime data</sys:String>
     <sys:String x:Key="Settings_CollectKeyStats">Collect key-press statistics</sys:String>
+    <sys:String x:Key="Settings_CollectTelemetry">Anonymous usage statistics</sys:String>
+    <sys:String x:Key="Settings_TelemetryAssurance">ClickyKeys is not a keylogger: no option here ever records what you type, your passwords, or which keys/clicks you make. Keeping you safe matters to this project — the source code is fully available, so you don't have to take our word for it:</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescHeader">Statistics collection mode descriptions</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescNone">None sends nothing.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescBasic">Basic sends a random ID, app version, OS version and interface language.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescFull">Full additionally sends how features are configured and used (panel layout, display modes, customization, aggregate counts) — never key presses, mouse clicks, panel labels, or anything you type.</sys:String>
+    <sys:String x:Key="Settings_TelemetryFull">Full</sys:String>
+    <sys:String x:Key="Settings_TelemetryBasic">Basic</sys:String>
+    <sys:String x:Key="Settings_TelemetryNone">None</sys:String>
     <sys:String x:Key="Settings_Usage">Usage</sys:String>
     <sys:String x:Key="Settings_LaunchOnStartup">Launch on system startup</sys:String>
     <sys:String x:Key="Settings_StartMinimized">Start minimized</sys:String>
