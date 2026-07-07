@@ -30,12 +30,18 @@ namespace ClickyKeys
     /// MainWindow shows ConsentDialog and writes the answer.</item>
     /// <item><see cref="TelemetryLevel.None"/> — opted out. Every send below
     /// is a no-op.</item>
-    /// <item><see cref="TelemetryLevel.Basic"/> — sends ONLY the identity
-    /// fields: anonymous id, app version, distribution, OS version, UI
-    /// language. Exactly what shipped before this tier split.</item>
+    /// <item><see cref="TelemetryLevel.Basic"/> — sends the identity fields
+    /// (anonymous id, app version, distribution, OS version, UI language)
+    /// PLUS two single aggregate numbers: <c>total_input_events</c> (the SUM
+    /// of key presses + mouse clicks + wheel ticks + gamepad presses — one
+    /// number, not a per-category breakdown) and <c>total_uptime_seconds</c>.
+    /// No per-category split and no feature-usage detail at this tier — that
+    /// stays Full-only, see below.</item>
     /// <item><see cref="TelemetryLevel.Full"/> — sends everything Basic
     /// sends, PLUS a feature-usage snapshot built by
-    /// <see cref="BuildFeatureSnapshot"/>. Every field in that snapshot is
+    /// <see cref="BuildFeatureSnapshot"/> (which repeats the same counters
+    /// broken down per category, alongside feature-configuration fields).
+    /// Every field in that snapshot is
     /// deliberately a count, a boolean, or a small enum-like value — never
     /// free text the user typed (panel descriptions/labels are excluded on
     /// purpose), never a raw color/font value tied back to a person, never a
@@ -110,6 +116,17 @@ namespace ClickyKeys
 
                     var userId = EnsureUserId(cfg);
 
+                    // Aggregate counters — sent at BOTH tiers (Basic and
+                    // Full). Basic gets only these two numbers: one summed
+                    // total across all input categories (never a per-category
+                    // split — that stays Full-only inside Feature) plus total
+                    // uptime. Read directly off disk, same as
+                    // BuildFeatureSnapshot below, so this is correct even
+                    // when no MainWindow is open yet.
+                    var (keyPresses, mouseClicks, wheelTicks, gamepadPresses) = ReadKeyStatsTotals();
+                    var totalInputEvents = keyPresses + mouseClicks + wheelTicks + gamepadPresses;
+                    var totalUptimeSeconds = ReadUptimeTotalSeconds();
+
                     var payload = new TelemetryEvent
                     {
                         UserId = userId,
@@ -120,6 +137,8 @@ namespace ClickyKeys
                         EventType = "app_start",
                         TimestampUtc = DateTime.UtcNow,
                         Level = level.ToString().ToLowerInvariant(),
+                        TotalInputEvents = totalInputEvents,
+                        TotalUptimeSeconds = totalUptimeSeconds,
                     };
 
                     // Full tier additionally attaches the feature-usage
@@ -368,6 +387,19 @@ namespace ClickyKeys
         /// whether a "feature" object should be expected.</summary>
         [JsonPropertyName("level")]
         public string Level { get; set; } = "basic";
+
+        /// <summary>
+        /// Sent at BOTH tiers (Basic and Full). A single summed total across
+        /// every input category (key presses + mouse clicks + wheel ticks +
+        /// gamepad presses) — deliberately never a per-category breakdown at
+        /// this level; that detail is Full-only, inside <see cref="Feature"/>.
+        /// </summary>
+        [JsonPropertyName("total_input_events")]
+        public long TotalInputEvents { get; set; }
+
+        /// <summary>Sent at BOTH tiers (Basic and Full). Cumulative app uptime in seconds.</summary>
+        [JsonPropertyName("total_uptime_seconds")]
+        public long TotalUptimeSeconds { get; set; }
 
         [JsonPropertyName("feature")]
         public TelemetryFeatureSnapshot? Feature { get; set; }

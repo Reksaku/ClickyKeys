@@ -31,7 +31,7 @@
     <sys:String x:Key="Consent_FullTitle">Volledig — gebruiks- &amp; functiestatistieken</sys:String>
     <sys:String x:Key="Consent_FullBody">Alles uit Basis, plus hoe functies worden ingesteld en gebruikt: paneelindeling en rastergrootte, welke weergavemodi aanstaan (transparant, regenboogachtergrond), of kleuren/lettertypen/sneltoetsen zijn aangepast, gamepad-instellingen en samengevoegde tellingen van toetsen/muis/actieve tijd. Nooit je paneellabels, exacte kleuren, exacte sneltoetsen of iets wat je hebt getypt.</sys:String>
     <sys:String x:Key="Consent_BasicTitle">Basis — alleen anonieme identiteit</sys:String>
-    <sys:String x:Key="Consent_BasicBody">Een willekeurig gegenereerde ID (niet gekoppeld aan jou of je pc), de app-versie, je OS-versie en je interfacetaal. Niets over hoe je de app gebruikt.</sys:String>
+    <sys:String x:Key="Consent_BasicBody">Een willekeurig gegenereerde ID (niet gekoppeld aan jou of je pc), de app-versie, je OS-versie, je interfacetaal, plus het gecombineerde aantal toetsaanslagen en de totale gebruiksduur.</sys:String>
     <sys:String x:Key="Consent_NoneTitle">Geen — niets verzamelen</sys:String>
     <sys:String x:Key="Consent_NoneBody">Er wordt niets naar een server verzonden. Je kunt statistieken later inschakelen via Instellingen → Gegevensverzameling als je van gedachten verandert.</sys:String>
     <sys:String x:Key="Consent_Footnote">Je kunt je keuze op elk moment wijzigen via Instellingen → Gegevensverzameling.</sys:String>
@@ -138,7 +138,7 @@
     <sys:String x:Key="Settings_TelemetryAssurance">ClickyKeys is geen keylogger: geen enkele optie hier registreert wat je typt, je wachtwoorden of welke toetsen/klikken je maakt. Jouw veiligheid is belangrijk voor dit project — de broncode is volledig beschikbaar, dus je hoeft ons niet zomaar op ons woord te geloven:</sys:String>
     <sys:String x:Key="Settings_TelemetryDescHeader">Beschrijving van de verzamelmodi voor statistieken</sys:String>
     <sys:String x:Key="Settings_TelemetryDescNone">Geen verzendt niets.</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescBasic">Basis verzendt een willekeurige ID, de app-versie, de OS-versie en de interfacetaal.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescBasic">Basis - verzendt een willekeurige ID, de app-versie, de OS-versie, de interfacetaal, plus het gecombineerde aantal toetsaanslagen en de totale gebruiksduur.</sys:String>
     <sys:String x:Key="Settings_TelemetryDescFull">Volledig verzendt daarnaast hoe functies worden ingesteld en gebruikt (paneelindeling, weergavemodi, aanpassingen, samengevoegde tellingen) — nooit toetsaanslagen, muisklikken, paneellabels of iets wat je typt.</sys:String>
     <sys:String x:Key="Settings_TelemetryFull">Volledig</sys:String>
     <sys:String x:Key="Settings_TelemetryBasic">Basis</sys:String>

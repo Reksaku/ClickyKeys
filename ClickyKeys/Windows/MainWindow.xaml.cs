@@ -388,8 +388,6 @@ namespace ClickyKeys
             if (justUpdated)
             {
                 ShowChangelog(previousVersion);
-                if (ConfigSettings.Version == "2.4.0")
-                    ConfigSettings.ShowTutorial = true; // Just for version 2.4.0
             }
 
             if (ConfigSettings.ShowTutorial == true && !_transparent)

@@ -31,7 +31,7 @@
     <sys:String x:Key="Consent_FullTitle">Full — usage &amp; feature statistics</sys:String>
     <sys:String x:Key="Consent_FullBody">Everything in Basic, plus how features are configured and used: panel layout and grid size, which display modes are on (transparent, rainbow background), whether colors/fonts/shortcuts were customized, gamepad settings, and aggregate key/mouse/uptime counts. Never your panel labels, exact colors, exact shortcut keys, or anything you typed.</sys:String>
     <sys:String x:Key="Consent_BasicTitle">Basic — anonymous identity only</sys:String>
-    <sys:String x:Key="Consent_BasicBody">A randomly generated ID (not tied to you or your PC), the app version, your OS version, and your interface language. Nothing about how you use the app.</sys:String>
+    <sys:String x:Key="Consent_BasicBody">A randomly generated ID (not tied to you or your PC), the app version, your OS version, your interface language, plus your combined key press count and total uptime.</sys:String>
     <sys:String x:Key="Consent_NoneTitle">None — don't collect anything</sys:String>
     <sys:String x:Key="Consent_NoneBody">Nothing is sent to any server. You can turn statistics on later from Settings → Data Collection if you change your mind.</sys:String>
     <sys:String x:Key="Consent_Footnote">You can change your choice at any time in Settings → Data Collection.</sys:String>
@@ -137,7 +137,7 @@
     <sys:String x:Key="Settings_TelemetryAssurance">ClickyKeys is not a keylogger: no option here ever records what you type, your passwords, or which keys/clicks you make. Keeping you safe matters to this project — the source code is fully available, so you don't have to take our word for it:</sys:String>
     <sys:String x:Key="Settings_TelemetryDescHeader">Statistics collection mode descriptions</sys:String>
     <sys:String x:Key="Settings_TelemetryDescNone">None - sends nothing.</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescBasic">Basic - sends a random ID, app version, OS version and interface language.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescBasic">Basic - sends a random ID, app version, OS version, interface language, plus your combined key press count and total uptime.</sys:String>
     <sys:String x:Key="Settings_TelemetryDescFull">Full - additionally sends how features are configured and used (panel layout, display modes, customization, aggregate counts) — never key presses, mouse clicks, panel labels, or anything you type.</sys:String>
     <sys:String x:Key="Settings_TelemetryFull">Full</sys:String>
     <sys:String x:Key="Settings_TelemetryBasic">Basic</sys:String>

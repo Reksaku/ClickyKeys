@@ -31,7 +31,7 @@
     <sys:String x:Key="Consent_FullTitle">Fullständig — användnings- &amp; funktionsstatistik</sys:String>
     <sys:String x:Key="Consent_FullBody">Allt i Grundläggande, plus hur funktioner konfigureras och används: panellayout och rutnätsstorlek, vilka visningslägen som är på (transparent, regnbågsbakgrund), om färger/teckensnitt/genvägar har anpassats, inställningar för handkontroll och sammanlagda räknare för tangenter/mus/drifttid. Aldrig dina paneletiketter, exakta färger, exakta genvägstangenter eller något du har skrivit.</sys:String>
     <sys:String x:Key="Consent_BasicTitle">Grundläggande — endast anonym identitet</sys:String>
-    <sys:String x:Key="Consent_BasicBody">Ett slumpmässigt genererat ID (inte kopplat till dig eller din dator), appversionen, din OS-version och ditt gränssnittsspråk. Inget om hur du använder appen.</sys:String>
+    <sys:String x:Key="Consent_BasicBody">Ett slumpmässigt genererat ID (inte kopplat till dig eller din dator), appversionen, din OS-version, ditt gränssnittsspråk, samt det kombinerade antalet tangenttryckningar och total användningstid.</sys:String>
     <sys:String x:Key="Consent_NoneTitle">Ingen — samla inte in något</sys:String>
     <sys:String x:Key="Consent_NoneBody">Inget skickas till någon server. Du kan slå på statistik senare under Inställningar → Datainsamling om du ändrar dig.</sys:String>
     <sys:String x:Key="Consent_Footnote">Du kan när som helst ändra ditt val under Inställningar → Datainsamling.</sys:String>
@@ -138,7 +138,7 @@
     <sys:String x:Key="Settings_TelemetryAssurance">ClickyKeys är inte en keylogger: inget alternativ här registrerar någonsin vad du skriver, dina lösenord eller vilka tangenter/klick du gör. Din säkerhet är viktig för det här projektet — källkoden är helt tillgänglig, så du behöver inte bara ta oss på orden:</sys:String>
     <sys:String x:Key="Settings_TelemetryDescHeader">Beskrivning av insamlingslägena för statistik</sys:String>
     <sys:String x:Key="Settings_TelemetryDescNone">Ingen skickar ingenting.</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescBasic">Grundläggande skickar ett slumpmässigt ID, appversion, OS-version och gränssnittsspråk.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescBasic">Grundläggande - skickar ett slumpmässigt ID, appversion, OS-version, gränssnittsspråk, samt det kombinerade antalet tangenttryckningar och total användningstid.</sys:String>
     <sys:String x:Key="Settings_TelemetryDescFull">Fullständig skickar dessutom hur funktioner konfigureras och används (panellayout, visningslägen, anpassning, sammanlagda räknare) — aldrig tangenttryckningar, musklick, paneletiketter eller något du skriver.</sys:String>
     <sys:String x:Key="Settings_TelemetryFull">Fullständig</sys:String>
     <sys:String x:Key="Settings_TelemetryBasic">Grundläggande</sys:String>

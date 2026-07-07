@@ -31,7 +31,7 @@
     <sys:String x:Key="Consent_FullTitle">Voll — Nutzungs- &amp; Funktionsstatistiken</sys:String>
     <sys:String x:Key="Consent_FullBody">Alles aus Basis, plus wie Funktionen konfiguriert und genutzt werden: Panel-Layout und Rastergröße, welche Anzeigemodi aktiv sind (transparent, Regenbogen-Hintergrund), ob Farben/Schriftarten/Tastenkürzel angepasst wurden, Gamepad-Einstellungen sowie zusammengefasste Tasten-/Maus-/Laufzeitzähler. Nie deine Panel-Bezeichnungen, genaue Farben, genaue Tastenkürzel oder irgendetwas, das du getippt hast.</sys:String>
     <sys:String x:Key="Consent_BasicTitle">Basis — nur anonyme Identität</sys:String>
-    <sys:String x:Key="Consent_BasicBody">Eine zufällig generierte ID (nicht mit dir oder deinem PC verknüpft), die App-Version, deine Betriebssystemversion und deine Oberflächensprache. Nichts darüber, wie du die App nutzt.</sys:String>
+    <sys:String x:Key="Consent_BasicBody">Eine zufällig generierte ID (nicht mit dir oder deinem PC verknüpft), die App-Version, deine Betriebssystemversion, deine Oberflächensprache sowie die kombinierte Anzahl der Tastenanschläge und die Gesamtnutzungsdauer.</sys:String>
     <sys:String x:Key="Consent_NoneTitle">Keine — nichts erfassen</sys:String>
     <sys:String x:Key="Consent_NoneBody">Es wird nichts an einen Server gesendet. Du kannst die Statistiken später unter Einstellungen → Datenerfassung einschalten, falls du es dir anders überlegst.</sys:String>
     <sys:String x:Key="Consent_Footnote">Du kannst deine Wahl jederzeit unter Einstellungen → Datenerfassung ändern.</sys:String>
@@ -138,7 +138,7 @@
     <sys:String x:Key="Settings_TelemetryAssurance">ClickyKeys ist kein Keylogger: Keine Option hier zeichnet je auf, was du tippst, deine Passwörter oder welche Tasten/Klicks du machst. Deine Sicherheit ist diesem Projekt wichtig — der Quellcode ist vollständig verfügbar, du musst uns also nicht einfach glauben:</sys:String>
     <sys:String x:Key="Settings_TelemetryDescHeader">Beschreibung der Statistik-Erfassungsmodi</sys:String>
     <sys:String x:Key="Settings_TelemetryDescNone">Keine sendet nichts.</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescBasic">Basis sendet eine zufällige ID, App-Version, Betriebssystemversion und Oberflächensprache.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescBasic">Basis - sendet eine zufällige ID, App-Version, Betriebssystemversion, Oberflächensprache sowie die kombinierte Anzahl der Tastenanschläge und die Gesamtnutzungsdauer.</sys:String>
     <sys:String x:Key="Settings_TelemetryDescFull">Voll sendet zusätzlich, wie Funktionen konfiguriert und genutzt werden (Panel-Layout, Anzeigemodi, Anpassungen, zusammengefasste Zähler) — nie Tastendrücke, Mausklicks, Panel-Bezeichnungen oder irgendetwas, das du tippst.</sys:String>
     <sys:String x:Key="Settings_TelemetryFull">Voll</sys:String>
     <sys:String x:Key="Settings_TelemetryBasic">Basis</sys:String>

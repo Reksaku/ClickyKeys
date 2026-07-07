@@ -31,7 +31,7 @@
     <sys:String x:Key="Consent_FullTitle">Completa — estatísticas de uso e recursos</sys:String>
     <sys:String x:Key="Consent_FullBody">Tudo o que há na Básica, mais como os recursos são configurados e usados: layout dos painéis e tamanho da grade, quais modos de exibição estão ativos (transparente, fundo arco-íris), se cores/fontes/atalhos foram personalizados, configurações do controle e contadores agregados de teclas/mouse/tempo de atividade. Nunca os rótulos dos seus painéis, as cores exatas, as teclas de atalho exatas nem nada do que você digitou.</sys:String>
     <sys:String x:Key="Consent_BasicTitle">Básica — apenas identidade anônima</sys:String>
-    <sys:String x:Key="Consent_BasicBody">Um ID gerado aleatoriamente (não vinculado a você nem ao seu PC), a versão do app, a versão do seu sistema operacional e o idioma da interface. Nada sobre como você usa o app.</sys:String>
+    <sys:String x:Key="Consent_BasicBody">Um ID gerado aleatoriamente (não vinculado a você nem ao seu PC), a versão do app, a versão do seu sistema operacional, o idioma da interface, além do número combinado de teclas pressionadas e o tempo total de uso.</sys:String>
     <sys:String x:Key="Consent_NoneTitle">Nenhuma — não coletar nada</sys:String>
     <sys:String x:Key="Consent_NoneBody">Nada é enviado a nenhum servidor. Você pode ativar as estatísticas depois em Configurações → Coleta de dados, se mudar de ideia.</sys:String>
     <sys:String x:Key="Consent_Footnote">Você pode mudar sua escolha a qualquer momento em Configurações → Coleta de dados.</sys:String>
@@ -138,7 +138,7 @@
     <sys:String x:Key="Settings_TelemetryAssurance">O ClickyKeys não é um keylogger: nenhuma opção aqui registra o que você digita, suas senhas ou quais teclas/cliques você faz. Sua segurança é importante para este projeto — o código-fonte está totalmente disponível, então você não precisa acreditar só na nossa palavra:</sys:String>
     <sys:String x:Key="Settings_TelemetryDescHeader">Descrição dos modos de coleta de estatísticas</sys:String>
     <sys:String x:Key="Settings_TelemetryDescNone">Nenhuma não envia nada.</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescBasic">Básica envia um ID aleatório, a versão do app, a do sistema operacional e o idioma da interface.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescBasic">Básica - envia um ID aleatório, a versão do app, a do sistema operacional, o idioma da interface, além do número combinado de teclas pressionadas e o tempo total de uso.</sys:String>
     <sys:String x:Key="Settings_TelemetryDescFull">Completa envia também como os recursos são configurados e usados (layout dos painéis, modos de exibição, personalização, contadores agregados) — nunca teclas pressionadas, cliques do mouse, rótulos de painéis ou nada do que você digita.</sys:String>
     <sys:String x:Key="Settings_TelemetryFull">Completa</sys:String>
     <sys:String x:Key="Settings_TelemetryBasic">Básica</sys:String>

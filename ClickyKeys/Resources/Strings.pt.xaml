@@ -33,7 +33,7 @@
     <sys:String x:Key="Consent_FullTitle">Completo — estatísticas de utilização e funcionalidades</sys:String>
     <sys:String x:Key="Consent_FullBody">Tudo o que está em Básico, mais como as funcionalidades são configuradas e usadas: disposição dos painéis e tamanho da grelha, que modos de apresentação estão ativos (transparente, fundo arco-íris), se cores/tipos de letra/atalhos foram personalizados, definições do comando e contadores agregados de teclas/rato/tempo de atividade. Nunca as etiquetas dos seus painéis, as cores exatas, as teclas de atalho exatas nem nada do que escreveu.</sys:String>
     <sys:String x:Key="Consent_BasicTitle">Básico — apenas identidade anónima</sys:String>
-    <sys:String x:Key="Consent_BasicBody">Um ID gerado aleatoriamente (não associado a si nem ao seu PC), a versão da aplicação, a versão do seu sistema operativo e o idioma da interface. Nada sobre como usa a aplicação.</sys:String>
+    <sys:String x:Key="Consent_BasicBody">Um ID gerado aleatoriamente (não associado a si nem ao seu PC), a versão da aplicação, a versão do seu sistema operativo, o idioma da interface, além do número combinado de pressões de teclas e o tempo total de utilização.</sys:String>
     <sys:String x:Key="Consent_NoneTitle">Nenhum — não recolher nada</sys:String>
     <sys:String x:Key="Consent_NoneBody">Nada é enviado para qualquer servidor. Pode ativar as estatísticas mais tarde em Definições → Recolha de dados, se mudar de ideias.</sys:String>
     <sys:String x:Key="Consent_Footnote">Pode alterar a sua escolha a qualquer momento em Definições → Recolha de dados.</sys:String>
@@ -140,7 +140,7 @@
     <sys:String x:Key="Settings_TelemetryAssurance">O ClickyKeys não é um keylogger: nenhuma opção aqui regista o que escreve, as suas palavras-passe ou que teclas/cliques faz. A sua segurança é importante para este projeto — o código-fonte está totalmente disponível, por isso não tem de acreditar na nossa palavra:</sys:String>
     <sys:String x:Key="Settings_TelemetryDescHeader">Descrição dos modos de recolha de estatísticas</sys:String>
     <sys:String x:Key="Settings_TelemetryDescNone">Nenhum não envia nada.</sys:String>
-    <sys:String x:Key="Settings_TelemetryDescBasic">Básico envia um ID aleatório, a versão da aplicação, a do sistema operativo e o idioma da interface.</sys:String>
+    <sys:String x:Key="Settings_TelemetryDescBasic">Básico - envia um ID aleatório, a versão da aplicação, a do sistema operativo, o idioma da interface, além do número combinado de pressões de teclas e o tempo total de utilização.</sys:String>
     <sys:String x:Key="Settings_TelemetryDescFull">Completo envia adicionalmente como as funcionalidades são configuradas e usadas (disposição dos painéis, modos de apresentação, personalização, contadores agregados) — nunca teclas premidas, cliques do rato, etiquetas de painéis ou nada do que escreve.</sys:String>
     <sys:String x:Key="Settings_TelemetryFull">Completo</sys:String>
     <sys:String x:Key="Settings_TelemetryBasic">Básico</sys:String>
