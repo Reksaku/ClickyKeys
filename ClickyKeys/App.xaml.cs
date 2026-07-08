@@ -29,6 +29,11 @@ namespace ClickyKeys
         // only a seed at startup and a live toggle from Settings.
         private TelemetryService? _telemetry;
 
+        // Inbox / announcements. Like _telemetry it holds no unmanaged
+        // resources and needs no teardown — it only fetches at startup and
+        // persists to its own DPAPI-encrypted store (see MessagesService).
+        private MessagesService? _messages;
+
 
 
         // Mutex that guarantees only one instance of ClickyKeys runs at a time.
@@ -71,6 +76,14 @@ namespace ClickyKeys
         /// <see cref="OnStartup"/> and after <see cref="OnExit"/>.
         /// </summary>
         public static TelemetryService? Telemetry => (Current as App)?._telemetry;
+
+        /// <summary>
+        /// Process-wide accessor for the live <see cref="MessagesService"/>.
+        /// The Phase 2 Inbox window / unread badge read cached messages and
+        /// mark them read through this. Null before <see cref="OnStartup"/> and
+        /// after <see cref="OnExit"/>.
+        /// </summary>
+        public static MessagesService? Messages => (Current as App)?._messages;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -165,6 +178,13 @@ namespace ClickyKeys
             _telemetry.ConfigureCollecting(ConfigStore.Load().TelemetryLevel ?? TelemetryLevel.None);
             _telemetry.SendAppStartAsync();
 
+            // Inbox — incremental announcements fetch. Fire-and-forget: it
+            // checks the server for messages newer than the stored cursor and
+            // persists them to messages.dat. No UI yet (Phase 1); safe to call
+            // unconditionally — it swallows every failure internally.
+            _messages = new MessagesService();
+            _messages.FetchAtStartup();
+
             var main = new MainWindow();
             MainWindow = main;
             main.Show();
@@ -196,6 +216,10 @@ namespace ClickyKeys
             // drop the reference so App.Telemetry reads null after exit,
             // matching _keyStats/_uptime's post-OnExit contract.
             _telemetry = null;
+
+            // No teardown needed (persists to its own store, no unmanaged
+            // handle) — drop the reference so App.Messages reads null after exit.
+            _messages = null;
 
             // Stop the gamepad polling thread.
             GamepadInputService.Instance.Stop();

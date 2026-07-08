@@ -37,6 +37,9 @@
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
     <PackageReference Include="MahApps.Metro" Version="2.4.11" />
     <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
+    <!-- DPAPI (ProtectedData) for the encrypted messages.dat store. Not part
+         of the base net8.0 surface, so it comes in as a package. -->
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

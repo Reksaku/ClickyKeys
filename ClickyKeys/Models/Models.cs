@@ -289,4 +289,114 @@ namespace ClickyKeys
         [JsonPropertyName("detail")]
         public string Detail { get; set; } = string.Empty;
     }
+
+    // ── Messages / Inbox API ───────────────────────────────────────────────────
+    //
+    // Announcements & news, fetched incrementally from
+    // clickykeys.fun/api/messages.php. The client stores an opaque, server-
+    // signed cursor and echoes it back so it only ever receives messages newer
+    // than its last successful check (see MessagesService + MESSAGES_PLAN.md).
+
+    /// <summary>
+    /// One request's worth of the messages feed: the messages newer than the
+    /// cursor the client sent, plus the new cursor to persist for next time.
+    /// </summary>
+    public class MessagesResponse
+    {
+        // Opaque, server-signed watermark. The client stores this verbatim and
+        // sends it back next launch; it never parses or trusts its contents.
+        // Empty/absent on error responses — in which case the client keeps the
+        // cursor it already had.
+        [JsonPropertyName("cursor")]
+        public string Cursor { get; set; } = string.Empty;
+
+        [JsonPropertyName("messages")]
+        public List<MessageEntry> Messages { get; set; } = [];
+    }
+
+    /// <summary>
+    /// A single announcement. <see cref="Id"/> is the stable key used for the
+    /// read/unread set and for cache de-duplication.
+    /// </summary>
+    public class MessageEntry
+    {
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+
+        [JsonPropertyName("type")]
+        public string Type { get; set; } = "announcement";
+
+        [JsonPropertyName("title")]
+        public string Title { get; set; } = string.Empty;
+
+        [JsonPropertyName("body")]
+        public string Body { get; set; } = string.Empty;
+
+        [JsonPropertyName("publish_at")]
+        public DateTime PublishAt { get; set; }
+
+        // null = never expires.
+        [JsonPropertyName("expires_at")]
+        public DateTime? ExpiresAt { get; set; }
+
+        // Optional; omitted target means "everyone".
+        [JsonPropertyName("target")]
+        public MessageTarget? Target { get; set; }
+
+        // Optional call-to-action. Only https links are ever opened.
+        [JsonPropertyName("link")]
+        public MessageLink? Link { get; set; }
+    }
+
+    /// <summary>
+    /// Audience filter for a message. Both criteria are also enforced server-
+    /// side (from the User-Agent tokens); the client re-checks as a defensive
+    /// measure. A null/empty field means "no restriction on that axis".
+    /// </summary>
+    public class MessageTarget
+    {
+        // Distribution channels this message is for ("store", "github").
+        // Empty/absent = all channels.
+        [JsonPropertyName("distributions")]
+        public List<string> Distributions { get; set; } = [];
+
+        // Version rule. Supported forms:
+        //   ""        → all versions
+        //   "2.4.2"   → exactly that version
+        //   "2.4.0+"  → that version or newer
+        [JsonPropertyName("version")]
+        public string Version { get; set; } = string.Empty;
+    }
+
+    public class MessageLink
+    {
+        [JsonPropertyName("label")]
+        public string Label { get; set; } = string.Empty;
+
+        [JsonPropertyName("url")]
+        public string Url { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// The locally persisted state of the inbox, stored DPAPI-encrypted in
+    /// <c>%AppData%\ClickyKeys\messages.dat</c> (never in config.json). Because
+    /// fetching is incremental, <see cref="Cache"/> is the ONLY complete record
+    /// of what the user has been shown — it can't be rebuilt from the server.
+    /// A failure to decrypt/parse self-heals to a fresh empty instance.
+    /// </summary>
+    public class MessagesState
+    {
+        // Last server-issued cursor. Empty = "never fetched"; the client then
+        // sends no cursor and the server opens the delivery window at "now".
+        [JsonPropertyName("cursor")]
+        public string Cursor { get; set; } = string.Empty;
+
+        // Ids of messages the user has opened/read.
+        [JsonPropertyName("read_ids")]
+        public List<int> ReadIds { get; set; } = [];
+
+        // Every message delivered so far (post-filter), de-duplicated by id.
+        [JsonPropertyName("cache")]
+        public List<MessageEntry> Cache { get; set; } = [];
+    }
 }
