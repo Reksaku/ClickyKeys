@@ -32,9 +32,18 @@ namespace ClickyKeys
             Loaded += async (_, __) => await FetchAndDisplayAsync();
         }
 
+        private static readonly string Endpoint = ResolveEndpoint();
+        private static string ResolveEndpoint()
+        {
+            var host = BuildInfo.Distribution == DistributionType.dev
+                ? "https://staging.clickykeys.fun"
+                : "https://clickykeys.fun";
+            return host + "/api/changelog.php";
+        }
+
         private async System.Threading.Tasks.Task FetchAndDisplayAsync()
         {
-            string url = $"https://clickykeys.fun/api/changelog.php?since={Uri.EscapeDataString(_sinceVersion)}";
+            string url = Endpoint + $"?since={Uri.EscapeDataString(_sinceVersion)}";
 
             try
             {

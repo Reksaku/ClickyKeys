@@ -981,24 +981,18 @@ namespace ClickyKeys
         /// </summary>
         private async void VerifyVersion(Configuration cfg)
         {
-            
-            const string url = "https://clickykeys.fun/api/releases.php";
+                    
+            var host = BuildInfo.Distribution == DistributionType.dev
+                ? "https://staging.clickykeys.fun"
+                : "https://clickykeys.fun";
+
+            string url = host + "/api/releases.php";
 
             try
             {
                 if (!Version.TryParse(cfg.Version, out var current))
                     return;
 
-                // Dev builds intentionally skip the check — no release feed
-                // to compare against.
-                if (BuildInfo.Distribution == DistributionType.dev)
-                    return;
-
-                // store + github share the same logic. If more channels are
-                // added later, add them to the guard below.
-                if (BuildInfo.Distribution != DistributionType.store
-                    && BuildInfo.Distribution != DistributionType.github)
-                    return;
 
                 var data = await _releasesApiClient
                     .GetJsonAsync<MyReleasesResponse[]>(url);
@@ -1010,21 +1004,16 @@ namespace ClickyKeys
                 // a store build doesn't get prompted about a github-only
                 // release and vice versa.
                 Version? latest = null;
-                if (BuildInfo.Distribution != DistributionType.dev)
+                foreach (var entry in data)
                 {
-                    foreach (var entry in data)
-                    {
 
-                        if (Version.TryParse(entry.Version, out var parsed)
-                            && (latest == null || parsed > latest))
-                        {
-                            latest = parsed;
-                        }
+                    if (Version.TryParse(entry.Version, out var parsed)
+                        && (latest == null || parsed > latest))
+                    {
+                        latest = parsed;
                     }
                 }
-                else
-                    return;
-
+                
                 if (latest == null)
                     return;
 

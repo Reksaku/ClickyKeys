@@ -39,7 +39,14 @@ namespace ClickyKeys
     /// </summary>
     public static class SponsorshipService
     {
-        private const string Endpoint = "https://clickykeys.fun/api/sponsorship.php";
+        private static readonly string Endpoint = ResolveEndpoint();
+        private static string ResolveEndpoint()
+        {
+            var host = BuildInfo.Distribution == DistributionType.dev
+                ? "https://staging.clickykeys.fun"
+                : "https://clickykeys.fun";
+            return host + "/api/sponsorship.php";
+        }
 
         /// <summary>
         /// Fetches the sponsorship feed and returns the first valid http(s)
