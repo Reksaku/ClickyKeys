@@ -97,8 +97,11 @@
     <sys:String x:Key="Info_Links">Länkar</sys:String>
     <sys:String x:Key="Info_WebsiteLabel">Webbplats: </sys:String>
     <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
+    <sys:String x:Key="Info_PrivacyPolicyLabel">Integritetspolicy: </sys:String>
     <sys:String x:Key="Info_Contact">Kontakt</sys:String>
-    <sys:String x:Key="Info_ContactText1">Allmän kontakt: contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText1">Allmän kontakt: </sys:String>
+    <sys:String x:Key="Info_CopyEmail">Kopiera</sys:String>
+    <sys:String x:Key="Info_EmailCopied">Kopierat!</sys:String>
     <sys:String x:Key="Info_ContactText2">Felrapporter &amp; funktionsförslag: använd GitHub Issues eller skriv till contact@clickykeys.fun</sys:String>
     <sys:String x:Key="Info_ShowTutorial">Visa handledning</sys:String>
 

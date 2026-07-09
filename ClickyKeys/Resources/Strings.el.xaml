@@ -97,8 +97,11 @@
     <sys:String x:Key="Info_Links">Σύνδεσμοι</sys:String>
     <sys:String x:Key="Info_WebsiteLabel">Ιστότοπος: </sys:String>
     <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
+    <sys:String x:Key="Info_PrivacyPolicyLabel">Πολιτική απορρήτου: </sys:String>
     <sys:String x:Key="Info_Contact">Επικοινωνία</sys:String>
-    <sys:String x:Key="Info_ContactText1">Γενική επικοινωνία: contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText1">Γενική επικοινωνία: </sys:String>
+    <sys:String x:Key="Info_CopyEmail">Αντιγραφή</sys:String>
+    <sys:String x:Key="Info_EmailCopied">Αντιγράφηκε!</sys:String>
     <sys:String x:Key="Info_ContactText2">Αναφορές σφαλμάτων και αιτήματα δυνατοτήτων: χρησιμοποιήστε το GitHub Issues ή γράψτε στο contact@clickykeys.fun</sys:String>
     <sys:String x:Key="Info_ShowTutorial">Εμφάνιση οδηγού</sys:String>
 

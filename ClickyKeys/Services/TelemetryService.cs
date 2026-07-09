@@ -68,7 +68,15 @@ namespace ClickyKeys
         // DRAFT endpoint — mirrors the existing releases.php / sponsorship.php
         // convention on the same host. See TELEMETRY_BACKEND.md for the
         // server-side plan (accepts an optional "feature" object for Full).
-        private const string Endpoint = "https://clickykeys.fun/api/telemetry.php";
+        private static readonly string Endpoint = ResolveEndpoint();
+
+        private static string ResolveEndpoint()
+        {
+            var host = BuildInfo.Distribution == DistributionType.dev
+                ? "https://staging.clickykeys.fun"
+                : "https://clickykeys.fun";
+            return host + "/api/telemetry.php";
+        }
 
         private static readonly HttpClient _http = BuildHttpClient();
 
@@ -212,6 +220,8 @@ namespace ClickyKeys
 
                 snapshot.GridRows = appearance.GridRows;
                 snapshot.GridColumns = appearance.GridColumns;
+                snapshot.PanelWidth = appearance.PanelWidth;
+                snapshot.PanelHeight = appearance.PanelHeight;
 
                 snapshot.ColorsCustomized =
                     appearance.BackgroundColor != defaults.BackgroundColor ||
@@ -417,6 +427,12 @@ namespace ClickyKeys
 
         [JsonPropertyName("grid_columns")]
         public int GridColumns { get; set; }
+
+        [JsonPropertyName("panel_width")]
+        public int PanelWidth { get; set; }
+
+        [JsonPropertyName("panel_height")]
+        public int PanelHeight { get; set; }
 
         [JsonPropertyName("colors_customized")]
         public bool ColorsCustomized { get; set; }

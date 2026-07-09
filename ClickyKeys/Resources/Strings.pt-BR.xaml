@@ -97,8 +97,11 @@
     <sys:String x:Key="Info_Links">Links</sys:String>
     <sys:String x:Key="Info_WebsiteLabel">Site: </sys:String>
     <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
+    <sys:String x:Key="Info_PrivacyPolicyLabel">Política de privacidade: </sys:String>
     <sys:String x:Key="Info_Contact">Contato</sys:String>
-    <sys:String x:Key="Info_ContactText1">Contato geral: contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText1">Contato geral: </sys:String>
+    <sys:String x:Key="Info_CopyEmail">Copiar</sys:String>
+    <sys:String x:Key="Info_EmailCopied">Copiado!</sys:String>
     <sys:String x:Key="Info_ContactText2">Relatórios de bugs e solicitações de recursos: use o GitHub Issues ou escreva para contact@clickykeys.fun</sys:String>
     <sys:String x:Key="Info_ShowTutorial">Mostrar tutorial</sys:String>
 

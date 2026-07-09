@@ -105,189 +105,9 @@
                     </StackPanel>
                 </materialDesign:Card>
 
-                <!-- ============================================================
-                     Category: Telemetry
-                     DRAFT — anonymous product telemetry (opt-in, three tiers:
-                     None / Basic / Full). Separate card from Local Data
-                     Collection above: this is the sole control that governs
-                     anything sent to a server. See TelemetryService's header
-                     comment for exactly what each tier sends.
-                     ============================================================ -->
-                <materialDesign:Card Margin="0,0,0,12" Padding="12">
-                    <StackPanel>
-                        <TextBlock Text="{DynamicResource Settings_TelemetryHeader}"
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   Margin="0,0,0,6"/>
+                
 
-                        <Grid Style="{StaticResource SettingRowGrid}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       Style="{StaticResource SettingLabel}"
-                                       Text="{DynamicResource Settings_CollectTelemetry}"/>
-                            <ComboBox Grid.Column="1"
-                                      x:Name="TelemetryLevelComboBox"
-                                      MinWidth="140"
-                                      VerticalAlignment="Center"
-                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                      SelectionChanged="TelemetryLevelComboBox_SelectionChanged">
-                                <!-- Tag holds the TelemetryLevel enum name the
-                                     wiring layer reads; Content is the
-                                     user-facing label. Order matches the
-                                     ConsentDialog cards (Full, Basic, None). -->
-                                <ComboBoxItem Content="{DynamicResource Settings_TelemetryFull}" Tag="Full"/>
-                                <ComboBoxItem Content="{DynamicResource Settings_TelemetryBasic}" Tag="Basic"/>
-                                <ComboBoxItem Content="{DynamicResource Settings_TelemetryNone}" Tag="None" IsSelected="True"/>
-                            </ComboBox>
-                        </Grid>
-                        <!-- Prominent, tier-independent reassurance — same
-                             message and tone as ConsentDialog's keylogger
-                             card (not a keylogger + security priority + open
-                             source, ending in the same GitHub link), kept
-                             visible here too since this is where a returning
-                             user reconsiders their choice, not just on first
-                             run. -->
-                        <TextBlock TextWrapping="Wrap"
-                                   Margin="0,2,0,2"
-                                   FontSize="11"
-                                   FontWeight="Bold"
-                                   Text="{DynamicResource Settings_TelemetryAssurance}"/>
-                        <TextBlock Margin="0,0,0,4">
-                            <Hyperlink NavigateUri="https://github.com/Reksaku/ClickyKeys"
-                                       RequestNavigate="Hyperlink_RequestNavigate">
-                                <Run Text="github.com/Reksaku/ClickyKeys" FontSize="11"/>
-                            </Hyperlink>
-                        </TextBlock>
-                        <!-- Collapsed by default — the assurance text above
-                             already covers the important safety point;
-                             this is the "read more if you're curious" detail
-                             per tier, one paragraph each. -->
-                        <Expander Header="{DynamicResource Settings_TelemetryDescHeader}"
-                                  FontSize="11"
-                                  Margin="0,0,0,0"
-                                  IsExpanded="False" Background="White">
-                            <StackPanel Margin="0,6,0,0">
-                                <TextBlock FontWeight="Bold"
-                                           FontSize="11"
-                                           Margin="0,0,0,1"
-                                           Text="{DynamicResource Settings_TelemetryNone}"/>
-                                <TextBlock TextWrapping="Wrap"
-                                           FontSize="11"
-                                           Margin="0,0,0,6"
-                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                           Text="{DynamicResource Settings_TelemetryDescNone}"/>
-
-                                <TextBlock FontWeight="Bold"
-                                           FontSize="11"
-                                           Margin="0,0,0,1"
-                                           Text="{DynamicResource Settings_TelemetryBasic}"/>
-                                <TextBlock TextWrapping="Wrap"
-                                           FontSize="11"
-                                           Margin="0,0,0,6"
-                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                           Text="{DynamicResource Settings_TelemetryDescBasic}"/>
-
-                                <TextBlock FontWeight="Bold"
-                                           FontSize="11"
-                                           Margin="0,0,0,1"
-                                           Text="{DynamicResource Settings_TelemetryFull}"/>
-                                <TextBlock TextWrapping="Wrap"
-                                           FontSize="11"
-                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                           Text="{DynamicResource Settings_TelemetryDescFull}"/>
-                            </StackPanel>
-                        </Expander>
-                    </StackPanel>
-                </materialDesign:Card>
-
-                <!-- ============================================================
-                     Category: Usage
-                     Autostart and start-minimized are OS-integration toggles;
-                     language switching requires reloading localized resources.
-                     All are UI-only placeholders for now — see code-behind.
-                     ============================================================ -->
-                <materialDesign:Card Margin="0,0,0,12" Padding="12">
-                    <StackPanel>
-                        <TextBlock Text="{DynamicResource Settings_Usage}"
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   Margin="0,0,0,6"/>
-
-                        <!-- 1. Launch on system startup (autostart) -->
-                        <Grid Style="{StaticResource SettingRowGrid}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       Style="{StaticResource SettingLabel}"
-                                       Text="{DynamicResource Settings_LaunchOnStartup}"/>
-                            <ToggleButton Grid.Column="1"
-                                          x:Name="AutostartToggle"
-                                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                                          Checked="AutostartToggle_Changed"
-                                          Unchecked="AutostartToggle_Changed"/>
-                        </Grid>
-
-                        <!-- 2. Start minimized -->
-                        <Grid Style="{StaticResource SettingRowGrid}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       Style="{StaticResource SettingLabel}"
-                                       Text="{DynamicResource Settings_StartMinimized}"/>
-                            <ToggleButton Grid.Column="1"
-                                          x:Name="StartMinimizedToggle"
-                                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                                          Checked="StartMinimizedToggle_Changed"
-                                          Unchecked="StartMinimizedToggle_Changed"/>
-                        </Grid>
-
-                        <!-- 3. Language selector -->
-                        <Grid Style="{StaticResource SettingRowGrid}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       Style="{StaticResource SettingLabel}"
-                                       Text="{DynamicResource Settings_Language}"/>
-                            <ComboBox Grid.Column="1"
-                                      x:Name="LanguageComboBox"
-                                      MinWidth="140"
-                                      VerticalAlignment="Center"
-                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                      SelectionChanged="LanguageComboBox_SelectionChanged">
-                                <!-- Tag holds the culture code the wiring layer
-                                     will eventually read; Content is the
-                                     user-facing label. -->
-                                <!-- Languages are listed alphabetically by their
-                                     native name. Ελληνικά (Greek) is placed in
-                                     the "E" group (Ε ≈ E / "Elliniká"). The Tag
-                                     is the culture code read by the wiring layer;
-                                     Content is the user-facing native label. -->
-                                <ComboBoxItem Content="Deutsch" Tag="de"/>
-                                <ComboBoxItem Content="Ελληνικά" Tag="el"/>
-                                <ComboBoxItem Content="English" Tag="en" IsSelected="True"/>
-                                <ComboBoxItem Content="Español" Tag="es"/>
-                                <ComboBoxItem Content="Español (México)" Tag="es-MX"/>
-                                <ComboBoxItem Content="Français" Tag="fr"/>
-                                <ComboBoxItem Content="Italiano" Tag="it"/>
-                                <ComboBoxItem Content="Nederlands" Tag="nl"/>
-                                <ComboBoxItem Content="Norsk" Tag="nb"/>
-                                <ComboBoxItem Content="Polski" Tag="pl"/>
-                                <ComboBoxItem Content="Português" Tag="pt"/>
-                                <ComboBoxItem Content="Português (Brasil)" Tag="pt-BR"/>
-                                <ComboBoxItem Content="Svenska" Tag="sv"/>
-                            </ComboBox>
-                        </Grid>
-                    </StackPanel>
-                </materialDesign:Card>
+                
 
                 <!-- ============================================================
                      Category: Shortcuts
@@ -371,6 +191,190 @@
                                     Value="25"
                                     ValueChanged="TriggerThresholdSlider_ValueChanged"/>
                         </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- ============================================================
+                 Category: Usage
+                 Autostart and start-minimized are OS-integration toggles;
+                 language switching requires reloading localized resources.
+                 All are UI-only placeholders for now — see code-behind.
+                 ============================================================ -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource Settings_Usage}"
+                   FontWeight="Bold"
+                   FontSize="14"
+                   Margin="0,0,0,6"/>
+
+                        <!-- 1. Launch on system startup (autostart) -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                       Style="{StaticResource SettingLabel}"
+                       Text="{DynamicResource Settings_LaunchOnStartup}"/>
+                            <ToggleButton Grid.Column="1"
+                          x:Name="AutostartToggle"
+                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                          Checked="AutostartToggle_Changed"
+                          Unchecked="AutostartToggle_Changed"/>
+                        </Grid>
+
+                        <!-- 2. Start minimized -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                       Style="{StaticResource SettingLabel}"
+                       Text="{DynamicResource Settings_StartMinimized}"/>
+                            <ToggleButton Grid.Column="1"
+                          x:Name="StartMinimizedToggle"
+                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                          Checked="StartMinimizedToggle_Changed"
+                          Unchecked="StartMinimizedToggle_Changed"/>
+                        </Grid>
+
+                        <!-- 3. Language selector -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                       Style="{StaticResource SettingLabel}"
+                       Text="{DynamicResource Settings_Language}"/>
+                            <ComboBox Grid.Column="1"
+                      x:Name="LanguageComboBox"
+                      MinWidth="140"
+                      VerticalAlignment="Center"
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                      SelectionChanged="LanguageComboBox_SelectionChanged">
+                                <!-- Tag holds the culture code the wiring layer
+                     will eventually read; Content is the
+                     user-facing label. -->
+                                <!-- Languages are listed alphabetically by their
+                     native name. Ελληνικά (Greek) is placed in
+                     the "E" group (Ε ≈ E / "Elliniká"). The Tag
+                     is the culture code read by the wiring layer;
+                     Content is the user-facing native label. -->
+                                <ComboBoxItem Content="Deutsch" Tag="de"/>
+                                <ComboBoxItem Content="Ελληνικά" Tag="el"/>
+                                <ComboBoxItem Content="English" Tag="en" IsSelected="True"/>
+                                <ComboBoxItem Content="Español" Tag="es"/>
+                                <ComboBoxItem Content="Español (México)" Tag="es-MX"/>
+                                <ComboBoxItem Content="Français" Tag="fr"/>
+                                <ComboBoxItem Content="Italiano" Tag="it"/>
+                                <ComboBoxItem Content="Nederlands" Tag="nl"/>
+                                <ComboBoxItem Content="Norsk" Tag="nb"/>
+                                <ComboBoxItem Content="Polski" Tag="pl"/>
+                                <ComboBoxItem Content="Português" Tag="pt"/>
+                                <ComboBoxItem Content="Português (Brasil)" Tag="pt-BR"/>
+                                <ComboBoxItem Content="Svenska" Tag="sv"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- ============================================================
+                 Category: Telemetry
+                 DRAFT — anonymous product telemetry (opt-in, three tiers:
+                 None / Basic / Full). Separate card from Local Data
+                 Collection above: this is the sole control that governs
+                 anything sent to a server. See TelemetryService's header
+                 comment for exactly what each tier sends.
+                 ============================================================ -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource Settings_TelemetryHeader}"
+                   FontWeight="Bold"
+                   FontSize="14"
+                   Margin="0,0,0,6"/>
+
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                       Style="{StaticResource SettingLabel}"
+                       Text="{DynamicResource Settings_CollectTelemetry}"/>
+                            <ComboBox Grid.Column="1"
+                      x:Name="TelemetryLevelComboBox"
+                      MinWidth="140"
+                      VerticalAlignment="Center"
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                      SelectionChanged="TelemetryLevelComboBox_SelectionChanged">
+                                <!-- Tag holds the TelemetryLevel enum name the
+                     wiring layer reads; Content is the
+                     user-facing label. Order matches the
+                     ConsentDialog cards (Full, Basic, None). -->
+                                <ComboBoxItem Content="{DynamicResource Settings_TelemetryFull}" Tag="Full"/>
+                                <ComboBoxItem Content="{DynamicResource Settings_TelemetryBasic}" Tag="Basic"/>
+                                <ComboBoxItem Content="{DynamicResource Settings_TelemetryNone}" Tag="None" IsSelected="True"/>
+                            </ComboBox>
+                        </Grid>
+                        <!-- Prominent, tier-independent reassurance — same
+             message and tone as ConsentDialog's keylogger
+             card (not a keylogger + security priority + open
+             source, ending in the same GitHub link), kept
+             visible here too since this is where a returning
+             user reconsiders their choice, not just on first
+             run. -->
+                        <TextBlock TextWrapping="Wrap"
+                   Margin="0,2,0,2"
+                   FontSize="11"
+                   FontWeight="Bold"
+                   Text="{DynamicResource Settings_TelemetryAssurance}"/>
+                        <TextBlock Margin="0,0,0,4">
+            <Hyperlink NavigateUri="https://github.com/Reksaku/ClickyKeys"
+                       RequestNavigate="Hyperlink_RequestNavigate">
+                <Run Text="github.com/Reksaku/ClickyKeys" FontSize="11"/>
+            </Hyperlink>
+                        </TextBlock>
+                        <!-- Collapsed by default — the assurance text above
+             already covers the important safety point;
+             this is the "read more if you're curious" detail
+             per tier, one paragraph each. -->
+                        <Expander Header="{DynamicResource Settings_TelemetryDescHeader}"
+                  FontSize="11"
+                  Margin="0,0,0,0"
+                  IsExpanded="False" Background="White">
+                            <StackPanel Margin="0,6,0,0">
+                                <TextBlock FontWeight="Bold"
+                           FontSize="11"
+                           Margin="0,0,0,1"
+                           Text="{DynamicResource Settings_TelemetryNone}"/>
+                                <TextBlock TextWrapping="Wrap"
+                           FontSize="11"
+                           Margin="0,0,0,6"
+                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                           Text="{DynamicResource Settings_TelemetryDescNone}"/>
+
+                                <TextBlock FontWeight="Bold"
+                           FontSize="11"
+                           Margin="0,0,0,1"
+                           Text="{DynamicResource Settings_TelemetryBasic}"/>
+                                <TextBlock TextWrapping="Wrap"
+                           FontSize="11"
+                           Margin="0,0,0,6"
+                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                           Text="{DynamicResource Settings_TelemetryDescBasic}"/>
+
+                                <TextBlock FontWeight="Bold"
+                           FontSize="11"
+                           Margin="0,0,0,1"
+                           Text="{DynamicResource Settings_TelemetryFull}"/>
+                                <TextBlock TextWrapping="Wrap"
+                           FontSize="11"
+                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                           Text="{DynamicResource Settings_TelemetryDescFull}"/>
+                            </StackPanel>
+                        </Expander>
                     </StackPanel>
                 </materialDesign:Card>
 
