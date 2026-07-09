@@ -240,4 +240,5 @@
     <sys:String x:Key="Inbox_Empty">No messages yet.</sys:String>
     <sys:String x:Key="Inbox_CountOne">{0} message</sys:String>
     <sys:String x:Key="Inbox_CountMany">{0} messages</sys:String>
+    <sys:String x:Key="Inbox_Read">Displayed</sys:String>
 </ResourceDictionary>

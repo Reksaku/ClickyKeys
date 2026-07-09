@@ -238,7 +238,8 @@
     <sys:String x:Key="Main_Messages">Messages</sys:String>
     <sys:String x:Key="Inbox_Title">Messages</sys:String>
     <sys:String x:Key="Inbox_Header">Messages</sys:String>
-    <sys:String x:Key="Inbox_Empty">No messages yet.</sys:String>
+    <sys:String x:Key="Inbox_Empty">Aucun message pour l'instant.</sys:String>
     <sys:String x:Key="Inbox_CountOne">{0} message</sys:String>
     <sys:String x:Key="Inbox_CountMany">{0} messages</sys:String>
+    <sys:String x:Key="Inbox_Read">Affiché</sys:String>
 </ResourceDictionary>

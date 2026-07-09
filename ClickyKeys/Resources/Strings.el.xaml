@@ -235,10 +235,11 @@
 
 
     <!-- Messages / Inbox -->
-    <sys:String x:Key="Main_Messages">Messages</sys:String>
-    <sys:String x:Key="Inbox_Title">Messages</sys:String>
-    <sys:String x:Key="Inbox_Header">Messages</sys:String>
-    <sys:String x:Key="Inbox_Empty">No messages yet.</sys:String>
-    <sys:String x:Key="Inbox_CountOne">{0} message</sys:String>
-    <sys:String x:Key="Inbox_CountMany">{0} messages</sys:String>
+    <sys:String x:Key="Main_Messages">Μηνύματα</sys:String>
+    <sys:String x:Key="Inbox_Title">Μηνύματα</sys:String>
+    <sys:String x:Key="Inbox_Header">Μηνύματα</sys:String>
+    <sys:String x:Key="Inbox_Empty">Δεν υπάρχουν μηνύματα ακόμη.</sys:String>
+    <sys:String x:Key="Inbox_CountOne">{0} μήνυμα</sys:String>
+    <sys:String x:Key="Inbox_CountMany">{0} μηνύματα</sys:String>
+    <sys:String x:Key="Inbox_Read">Εμφανίστηκε</sys:String>
 </ResourceDictionary>

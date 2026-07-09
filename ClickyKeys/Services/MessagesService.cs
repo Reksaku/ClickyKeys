@@ -220,6 +220,15 @@ namespace ClickyKeys
             return state.Cache.OrderByDescending(m => m.PublishAt).ToList();
         }
 
+        /// <summary>
+        /// Snapshot of the ids the user has already read. The inbox reads this
+        /// once when it opens — BEFORE marking the shown messages read — so it
+        /// can render previously-read messages collapsed and unread ones
+        /// expanded.
+        /// </summary>
+        public IReadOnlyCollection<int> GetReadIds()
+            => new HashSet<int>(MessagesStore.Load().ReadIds);
+
         /// <summary>Count of cached, non-expired messages not yet read.</summary>
         public int UnreadCount() => UnreadCountFrom(MessagesStore.Load());
 

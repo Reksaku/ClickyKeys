@@ -235,10 +235,11 @@
 
 
     <!-- Messages / Inbox -->
-    <sys:String x:Key="Main_Messages">Messages</sys:String>
-    <sys:String x:Key="Inbox_Title">Messages</sys:String>
-    <sys:String x:Key="Inbox_Header">Messages</sys:String>
-    <sys:String x:Key="Inbox_Empty">No messages yet.</sys:String>
-    <sys:String x:Key="Inbox_CountOne">{0} message</sys:String>
-    <sys:String x:Key="Inbox_CountMany">{0} messages</sys:String>
+    <sys:String x:Key="Main_Messages">Nachrichten</sys:String>
+    <sys:String x:Key="Inbox_Title">Nachrichten</sys:String>
+    <sys:String x:Key="Inbox_Header">Nachrichten</sys:String>
+    <sys:String x:Key="Inbox_Empty">Noch keine Nachrichten.</sys:String>
+    <sys:String x:Key="Inbox_CountOne">{0} Nachricht</sys:String>
+    <sys:String x:Key="Inbox_CountMany">{0} Nachrichten</sys:String>
+    <sys:String x:Key="Inbox_Read">Angezeigt</sys:String>
 </ResourceDictionary>

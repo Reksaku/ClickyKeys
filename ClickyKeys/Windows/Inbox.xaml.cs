@@ -48,12 +48,18 @@ namespace ClickyKeys
             SubtitleText.Text = LocalizationManager.Format(
                 messages.Count == 1 ? "Inbox_CountOne" : "Inbox_CountMany", messages.Count);
 
+            // Snapshot the read set BEFORE marking anything read below, so
+            // already-read messages render collapsed and unread ones expanded.
+            var readIds = new HashSet<int>(App.Messages?.GetReadIds() ?? new List<int>());
+
             foreach (var msg in messages)
             {
-                EntriesPanel.Children.Add(BuildCard(msg));
+                bool wasRead = readIds.Contains(msg.Id);
+                EntriesPanel.Children.Add(BuildCard(msg, startCollapsed: wasRead));
 
                 // Opening the inbox counts as reading. Marking here (rather than
-                // per-click) clears the unread badge once the user has looked.
+                // per-click) clears the unread badge once the user has looked;
+                // next time the window opens this message starts collapsed.
                 App.Messages?.MarkRead(msg.Id);
             }
 
@@ -61,7 +67,13 @@ namespace ClickyKeys
             ContentScroller.Visibility = Visibility.Visible;
         }
 
-        private UIElement BuildCard(MessageEntry msg)
+        /// <summary>
+        /// Builds one message card. The header (type badge + title + chevron) is
+        /// always visible and clickable; the body (date + text + optional link)
+        /// collapses under it. <paramref name="startCollapsed"/> is true for
+        /// messages the user had already read.
+        /// </summary>
+        private UIElement BuildCard(MessageEntry msg, bool startCollapsed)
         {
             var card = new MaterialDesignThemes.Wpf.Card
             {
@@ -71,12 +83,8 @@ namespace ClickyKeys
 
             var content = new StackPanel();
 
-            // ── Header row: title + type badge + date ──────────────────────
-            var headerRow = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                Margin = new Thickness(0, 0, 0, 6)
-            };
+            // ── Header row: type badge + title + collapse chevron ──────────
+            var headerRow = new DockPanel { LastChildFill = true };
 
             var badge = new Border
             {
@@ -93,21 +101,64 @@ namespace ClickyKeys
                 FontWeight = FontWeights.SemiBold,
                 Foreground = Brushes.White
             };
+            DockPanel.SetDock(badge, Dock.Left);
             headerRow.Children.Add(badge);
 
+            var chevron = new TextBlock
+            {
+                Text = startCollapsed ? "▸" : "▾",   // ▸ collapsed / ▾ expanded
+                FontSize = 12,
+                Margin = new Thickness(8, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Foreground = (Brush)FindResource("MaterialDesignBodyLight")
+            };
+            DockPanel.SetDock(chevron, Dock.Right);
+            headerRow.Children.Add(chevron);
+
+            // "Displayed" marker for messages the user has already seen. Added
+            // before the title so it docks just left of the chevron.
+            if (startCollapsed)
+            {
+                var readLabel = new TextBlock
+                {
+                    Text = LocalizationManager.T("Inbox_Read"),
+                    FontSize = 10,
+                    FontStyle = FontStyles.Italic,
+                    Margin = new Thickness(0, 0, 8, 0),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Foreground = (Brush)FindResource("MaterialDesignBodyLight")
+                };
+                DockPanel.SetDock(readLabel, Dock.Right);
+                headerRow.Children.Add(readLabel);
+            }
+
+            // Fills the remaining space between badge and chevron.
             headerRow.Children.Add(new TextBlock
             {
                 Text = msg.Title,
                 FontSize = 15,
                 FontWeight = FontWeights.Bold,
                 VerticalAlignment = VerticalAlignment.Center,
-                TextWrapping = TextWrapping.Wrap,
-                MaxWidth = 380
+                TextWrapping = TextWrapping.Wrap
             });
 
-            content.Children.Add(headerRow);
+            // Whole header is a hit-testable toggle.
+            var headerBorder = new Border
+            {
+                Background = Brushes.Transparent,
+                Cursor = Cursors.Hand,
+                Child = headerRow
+            };
+            content.Children.Add(headerBorder);
 
-            content.Children.Add(new TextBlock
+            // ── Collapsible body: date + text + optional link ──────────────
+            var body = new StackPanel
+            {
+                Margin = new Thickness(0, 6, 0, 0),
+                Visibility = startCollapsed ? Visibility.Collapsed : Visibility.Visible
+            };
+
+            body.Children.Add(new TextBlock
             {
                 Text = FormatDate(msg.PublishAt),
                 FontSize = 11,
@@ -115,15 +166,13 @@ namespace ClickyKeys
                 Foreground = (Brush)FindResource("MaterialDesignBodyLight")
             });
 
-            // ── Body ───────────────────────────────────────────────────────
-            content.Children.Add(new TextBlock
+            body.Children.Add(new TextBlock
             {
                 Text = msg.Body,
                 TextWrapping = TextWrapping.Wrap,
                 FontSize = 13
             });
 
-            // ── Optional call-to-action (https only) ───────────────────────
             if (msg.Link is { } link
                 && !string.IsNullOrWhiteSpace(link.Url)
                 && Uri.TryCreate(link.Url, UriKind.Absolute, out var uri)
@@ -138,8 +187,17 @@ namespace ClickyKeys
                     Tag = uri.AbsoluteUri
                 };
                 button.Click += Link_Click;
-                content.Children.Add(button);
+                body.Children.Add(button);
             }
+
+            content.Children.Add(body);
+
+            headerBorder.MouseLeftButtonUp += (_, __) =>
+            {
+                bool show = body.Visibility != Visibility.Visible;
+                body.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+                chevron.Text = show ? "▾" : "▸";
+            };
 
             card.Content = content;
             return card;
