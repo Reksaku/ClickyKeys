@@ -190,6 +190,25 @@ namespace ClickyKeys
                 body.Children.Add(button);
             }
 
+            // Delete button, bottom-right of the expanded body (so it only shows
+            // once the message is expanded). Removes the message from the local
+            // cache and drops the card from the list.
+            var deleteButton = new Button
+            {
+                Content = LocalizationManager.T("Inbox_Delete"),
+                Style = (Style)FindResource("MaterialDesignFlatButton"),
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Margin = new Thickness(0, 6, 0, 0),
+                Foreground = new SolidColorBrush(Color.FromRgb(244, 67, 54)) // red
+            };
+            deleteButton.Click += (_, __) =>
+            {
+                App.Messages?.Delete(msg.Id);
+                EntriesPanel.Children.Remove(card);
+                UpdateAfterDelete();
+            };
+            body.Children.Add(deleteButton);
+
             content.Children.Add(body);
 
             headerBorder.MouseLeftButtonUp += (_, __) =>
@@ -201,6 +220,26 @@ namespace ClickyKeys
 
             card.Content = content;
             return card;
+        }
+
+        /// <summary>
+        /// Refreshes the subtitle count / empty state after a card is deleted.
+        /// </summary>
+        private void UpdateAfterDelete()
+        {
+            int remaining = EntriesPanel.Children.Count;
+
+            if (remaining == 0)
+            {
+                SubtitleText.Text = LocalizationManager.T("Inbox_Empty");
+                EmptyPanel.Visibility = Visibility.Visible;
+                ContentScroller.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                SubtitleText.Text = LocalizationManager.Format(
+                    remaining == 1 ? "Inbox_CountOne" : "Inbox_CountMany", remaining);
+            }
         }
 
         private void Link_Click(object sender, RoutedEventArgs e)

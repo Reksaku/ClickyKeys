@@ -37,7 +37,20 @@ namespace ClickyKeys
     /// </summary>
     public sealed class MessagesService
     {
-        private const string Endpoint = "https://staging.clickykeys.fun/api/messages.php";
+        // Endpoint is chosen by build channel, not hardcoded: dev builds talk to
+        // staging (for testing), while real store/github builds hit production.
+        // This mirrors how the distribution channel itself is a compile-time
+        // constant in BuildInfo, so a shipped build can't accidentally point at
+        // staging and the choice can't be flipped from config.json.
+        private static readonly string Endpoint = ResolveEndpoint();
+
+        private static string ResolveEndpoint()
+        {
+            var host = BuildInfo.Distribution == DistributionType.dev
+                ? "https://staging.clickykeys.fun"
+                : "https://clickykeys.fun";
+            return host + "/api/messages.php";
+        }
 
         private static readonly HttpClient _http = BuildHttpClient();
 
@@ -127,6 +140,10 @@ namespace ClickyKeys
                 if (!string.IsNullOrEmpty(response.Cursor))
                     state.Cursor = response.Cursor;
 
+                // Housekeeping: drop expired messages and orphaned read ids so
+                // the on-disk cache doesn't grow without bound.
+                PruneState(state);
+
                 MessagesStore.Save(state);
 
                 Debug.WriteLine(
@@ -211,13 +228,36 @@ namespace ClickyKeys
             return Version.TryParse(rule, out var exact) && current == exact;
         }
 
+        /// <summary>
+        /// Removes messages past their <c>expires_at</c> and read ids that no
+        /// longer map to a cached message, in place. Keeps the persisted cache
+        /// bounded over time.
+        /// </summary>
+        private static void PruneState(MessagesState state)
+        {
+            var now = DateTime.UtcNow;
+
+            state.Cache.RemoveAll(m => m.ExpiresAt is { } exp && exp <= now);
+
+            var liveIds = new HashSet<int>(state.Cache.Select(m => m.Id));
+            state.ReadIds.RemoveAll(id => !liveIds.Contains(id));
+        }
+
         // ── Read/unread helpers (used by the Phase 2 UI) ───────────────────────
 
-        /// <summary>All cached messages, newest first.</summary>
+        /// <summary>
+        /// All cached, non-expired messages, newest first. Expired entries are
+        /// filtered here too (not only pruned on fetch) so a long-running
+        /// session never shows a message past its expiry.
+        /// </summary>
         public IReadOnlyList<MessageEntry> GetCachedMessages()
         {
+            var now = DateTime.UtcNow;
             var state = MessagesStore.Load();
-            return state.Cache.OrderByDescending(m => m.PublishAt).ToList();
+            return state.Cache
+                .Where(m => m.ExpiresAt is not { } exp || exp > now)
+                .OrderByDescending(m => m.PublishAt)
+                .ToList();
         }
 
         /// <summary>
@@ -247,6 +287,20 @@ namespace ClickyKeys
             {
                 if (!state.ReadIds.Contains(id))
                     state.ReadIds.Add(id);
+            });
+        }
+
+        /// <summary>
+        /// Permanently removes a message from the local cache (and its read
+        /// mark). It won't reappear: the incremental cursor has already advanced
+        /// past it, so the server won't send it again.
+        /// </summary>
+        public void Delete(int id)
+        {
+            MessagesStore.Update(state =>
+            {
+                state.Cache.RemoveAll(m => m.Id == id);
+                state.ReadIds.RemoveAll(x => x == id);
             });
         }
     }

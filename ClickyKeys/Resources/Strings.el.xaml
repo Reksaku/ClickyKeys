@@ -242,4 +242,5 @@
     <sys:String x:Key="Inbox_CountOne">{0} μήνυμα</sys:String>
     <sys:String x:Key="Inbox_CountMany">{0} μηνύματα</sys:String>
     <sys:String x:Key="Inbox_Read">Εμφανίστηκε</sys:String>
+    <sys:String x:Key="Inbox_Delete">Διαγραφή</sys:String>
 </ResourceDictionary>

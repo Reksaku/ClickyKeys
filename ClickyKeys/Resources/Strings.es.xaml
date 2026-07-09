@@ -242,4 +242,5 @@
     <sys:String x:Key="Inbox_CountOne">{0} mensaje</sys:String>
     <sys:String x:Key="Inbox_CountMany">{0} mensajes</sys:String>
     <sys:String x:Key="Inbox_Read">Mostrado</sys:String>
+    <sys:String x:Key="Inbox_Delete">Eliminar</sys:String>
 </ResourceDictionary>

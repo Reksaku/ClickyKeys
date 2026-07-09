@@ -242,4 +242,5 @@
     <sys:String x:Key="Inbox_CountOne">{0} melding</sys:String>
     <sys:String x:Key="Inbox_CountMany">{0} meldinger</sys:String>
     <sys:String x:Key="Inbox_Read">Vist</sys:String>
+    <sys:String x:Key="Inbox_Delete">Slett</sys:String>
 </ResourceDictionary>
