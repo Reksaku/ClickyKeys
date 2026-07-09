@@ -41,6 +41,15 @@ namespace ClickyKeys
 
         private static readonly HttpClient _http = BuildHttpClient();
 
+        /// <summary>
+        /// Raised after each successful fetch (including ones that added
+        /// nothing), with the number of NEW messages added. Fires on the
+        /// fetch's background thread, so subscribers must marshal to the UI
+        /// thread themselves. Lets the UI light up the unread badges the moment
+        /// a message is received, without waiting for user interaction.
+        /// </summary>
+        public event Action<int>? Updated;
+
         private static HttpClient BuildHttpClient()
         {
             var http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
@@ -123,6 +132,10 @@ namespace ClickyKeys
                 Debug.WriteLine(
                     $"MessagesService: +{added} new message(s), cache={state.Cache.Count}, " +
                     $"unread={UnreadCountFrom(state)}, cursor set={(!string.IsNullOrEmpty(state.Cursor))}");
+
+                // Notify the UI (badges) that state changed. Raised on this
+                // background thread; handlers marshal to the UI thread.
+                Updated?.Invoke(added);
 
                 return added;
             }

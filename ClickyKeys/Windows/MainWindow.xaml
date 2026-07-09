@@ -172,12 +172,32 @@
                                 VerticalAlignment="Center"
                                 Orientation="{Binding ButtonOrientation,
                                     RelativeSource={RelativeSource AncestorType=Window}}">
-                        <Image Source="/Resources/Buttons/more_icon.png"
-                               Width="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
-                               Height="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
-                               Margin="{Binding ButtonOrientation,
+                        <!-- Icon wrapped in a Grid so the unread badge can
+                             overlay it, mirroring the Messages button badge.
+                             Shown by RefreshMessagesBadge when a new message
+                             has been received. -->
+                        <Grid Margin="{Binding ButtonOrientation,
                                    RelativeSource={RelativeSource AncestorType=Window},
-                                   Converter={StaticResource OrientationToMarginConverter}}"/>
+                                   Converter={StaticResource OrientationToMarginConverter}}">
+                            <Image Source="/Resources/Buttons/more_icon.png"
+                                   Width="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"
+                                   Height="{Binding ButtonOrientation, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource OrientationToSizeConverter}}"/>
+                            <Border x:Name="MoreBadge"
+                                    Visibility="Collapsed"
+                                    Background="#F44336"
+                                    CornerRadius="8"
+                                    MinWidth="16" Height="16"
+                                    Padding="3,0"
+                                    HorizontalAlignment="Right" VerticalAlignment="Top"
+                                    Margin="0,-4,-6,0">
+                                <TextBlock x:Name="MoreBadgeText"
+                                           Text="0"
+                                           FontSize="10" FontWeight="Bold"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
                         <TextBlock Text="{DynamicResource Main_More}" FontSize="13"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
@@ -254,6 +274,36 @@
                         MouseLeave="MorePopup_MouseLeave"
                         Background="{Binding Background}">
                     <StackPanel Orientation="Vertical">
+                        <Button Click="Messages_Click" x:Name="Messages_Button"
+                                Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
+                                HorizontalAlignment="Stretch"
+                                Padding="4,2" Height="68">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Orientation="Vertical">
+                                <Grid Width="28" Height="28" Margin="0,0,0,2">
+                                    <Image Source="/Resources/Buttons/messages_icon.png"
+                                           Width="28" Height="28"/>
+                                    <Border x:Name="MessagesBadge"
+                                            Visibility="Collapsed"
+                                            Background="#F44336"
+                                            CornerRadius="8"
+                                            MinWidth="16" Height="16"
+                                            Padding="3,0"
+                                            HorizontalAlignment="Right" VerticalAlignment="Top"
+                                            Margin="0,-4,-6,0">
+                                        <TextBlock x:Name="MessagesBadgeText"
+                                                   Text="0"
+                                                   FontSize="10" FontWeight="Bold"
+                                                   Foreground="White"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                                <TextBlock Text="{DynamicResource Main_Messages}" FontSize="13"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{Binding ToolbarTextColor}"/>
+                            </StackPanel>
+                        </Button>
                         <Button Click="Info_Click" x:Name="Info_Button"
                                 Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                                 HorizontalAlignment="Stretch"

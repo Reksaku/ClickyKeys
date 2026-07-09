@@ -233,4 +233,12 @@
     <sys:String x:Key="Tutorial_S15_Title">Dat is alles!</sys:String>
     <sys:String x:Key="Tutorial_S15_Body">Veel plezier met ClickyKeys! 🎉</sys:String>
 
+
+    <!-- Messages / Inbox -->
+    <sys:String x:Key="Main_Messages">Messages</sys:String>
+    <sys:String x:Key="Inbox_Title">Messages</sys:String>
+    <sys:String x:Key="Inbox_Header">Messages</sys:String>
+    <sys:String x:Key="Inbox_Empty">No messages yet.</sys:String>
+    <sys:String x:Key="Inbox_CountOne">{0} message</sys:String>
+    <sys:String x:Key="Inbox_CountMany">{0} messages</sys:String>
 </ResourceDictionary>

@@ -31,6 +31,7 @@ namespace ClickyKeys
         public void OnInfoClose();
         public void OnStatsClose();
         public void OnSettingsClose();
+        public void OnMessagesClose();
         void SetBackgroundRainbow(bool? IsTrue);
         void SetRainbowSpeed(int seconds);
         void ShowTutorial();
@@ -119,6 +120,7 @@ namespace ClickyKeys
         private bool OpenedAppearance = false;
         private bool OpenedStats = false;
         private bool OpenedSettings = false;
+        private bool OpenedMessages = false;
 
         private readonly object _lock = new();
 
@@ -409,6 +411,17 @@ namespace ClickyKeys
                 Loaded += OnShowConsentDialogLoaded;
             }
 
+            // Inbox badges (Messages button + More button). The startup fetch
+            // runs asynchronously, so subscribe to be notified when it finishes
+            // (the handler marshals to the UI thread) and do one initial refresh
+            // once loaded for anything already cached and unread from a previous
+            // session. Only the master window has a visible toolbar.
+            if (!_transparent && App.Messages is { } messages)
+            {
+                messages.Updated += OnMessagesUpdated;
+                Loaded += (_, __) => RefreshMessagesBadge();
+            }
+
         }
 
         //-------------------------
@@ -422,6 +435,13 @@ namespace ClickyKeys
         private void Info_Click(object sender, RoutedEventArgs e) => ShowInfo();
         private void Stats_Click(object sender, RoutedEventArgs e) => ShowStats();
         private void Settings_Click(object sender, RoutedEventArgs e) => ShowSettings();
+
+        private void Messages_Click(object sender, RoutedEventArgs e)
+        {
+            // Close the dropdown so it doesn't linger over the inbox window.
+            MorePopup.IsOpen = false;
+            ShowMessages();
+        }
 
         // --- Buy Me a Coffee ---
 
@@ -498,6 +518,9 @@ namespace ClickyKeys
         private void More_Button_MouseEnter(object sender, MouseEventArgs e)
         {
             _moreCloseTimer?.Stop();
+            // Refresh the unread badge just before the dropdown appears, so it
+            // reflects the latest fetch even though that ran async at startup.
+            RefreshMessagesBadge();
             MorePopup.IsOpen = true;
         }
 
@@ -1375,6 +1398,65 @@ namespace ClickyKeys
         public void OnSettingsClose()
         {
             OpenedSettings = false;
+        }
+
+        // Messages / Inbox window — same single-instance pattern as
+        // Info/Stats/Settings. Opening it marks shown messages read, so the
+        // unread badge is refreshed once the window closes.
+        public void ShowMessages()
+        {
+            if (OpenedMessages == false)
+            {
+                var inbox = new Inbox(this) { Owner = this };
+                inbox.Show();
+                OpenedMessages = true;
+            }
+        }
+
+        public void OnMessagesClose()
+        {
+            OpenedMessages = false;
+            RefreshMessagesBadge();
+        }
+
+        /// <summary>
+        /// Updates the unread-count badge on BOTH the Messages button (inside
+        /// the More dropdown) and the top-level More button itself, from
+        /// <see cref="MessagesService.UnreadCount"/>. The More-button badge is
+        /// what surfaces a freshly received message before the user opens the
+        /// dropdown. Cheap to call; invoked when a fetch completes, when the
+        /// More dropdown opens, and after the inbox closes.
+        /// </summary>
+        private void RefreshMessagesBadge()
+        {
+            int unread = App.Messages?.UnreadCount() ?? 0;
+            string text = unread > 99 ? "99+" : unread.ToString();
+            var visibility = unread > 0 ? Visibility.Visible : Visibility.Collapsed;
+
+            // Both badges may be absent in the transparent sub-window (its
+            // toolbar is collapsed), so guard against null element references.
+            if (MessagesBadge != null)
+            {
+                MessagesBadgeText.Text = text;
+                MessagesBadge.Visibility = visibility;
+            }
+
+            if (MoreBadge != null)
+            {
+                MoreBadgeText.Text = text;
+                MoreBadge.Visibility = visibility;
+            }
+        }
+
+        /// <summary>
+        /// Fired by <see cref="MessagesService.Updated"/> on a background thread
+        /// after the startup fetch completes — marshal to the UI thread and
+        /// refresh the badges so a newly received message shows up on the More
+        /// button without waiting for a hover.
+        /// </summary>
+        private void OnMessagesUpdated(int added)
+        {
+            Dispatcher.BeginInvoke(new Action(RefreshMessagesBadge));
         }
         private void SaveProfileToConfig(string profile)
         {

@@ -44,6 +44,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Buttons\coffee_icon.png" />
+    <Resource Include="Resources\Buttons\messages_icon.png" />
     <Resource Include="Resources\Buttons\settings_icon.png" />
 	<Resource Include="Resources\Buttons\appearance_icon.png" />
 	<Resource Include="Resources\Buttons\display_icon.png" />
