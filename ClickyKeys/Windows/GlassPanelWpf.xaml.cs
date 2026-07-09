@@ -167,7 +167,7 @@ namespace ClickyKeys
 
         public static readonly DependencyProperty PanelWidthProperty =
             DependencyProperty.Register(nameof(PanelWidth), typeof(int), typeof(GlassPanelWpf),
-                new PropertyMetadata(200));
+                new PropertyMetadata(200, OnPanelSizeChanged));
 
         public int PanelWidth
         {
@@ -177,12 +177,24 @@ namespace ClickyKeys
 
         public static readonly DependencyProperty PanelHeightProperty =
             DependencyProperty.Register(nameof(PanelHeight), typeof(int), typeof(GlassPanelWpf),
-                new PropertyMetadata(100));
+                new PropertyMetadata(100, OnPanelSizeChanged));
 
         public int PanelHeight
         {
             get => (int)GetValue(PanelHeightProperty);
             set => SetValue(PanelHeightProperty, value);
+        }
+
+        // Keeps the visual tree's actual size in sync whenever PanelWidth or
+        // PanelHeight is assigned (the constructor also seeds root once, but
+        // these properties are typically set AFTER construction from
+        // MainWindow.ApplyPanelState, so we need the live update here).
+        private static void OnPanelSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var c = (GlassPanelWpf)d;
+            if (c.root == null) return;
+            c.root.Width = c.PanelWidth;
+            c.root.Height = c.PanelHeight;
         }
 
         private static void OnBrushesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

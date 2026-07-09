@@ -200,6 +200,44 @@
                                         Click="Click_GridColumns"/>
                             </StackPanel>
                         </Grid>
+
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       Text="{DynamicResource Appearance_PanelWidth}"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <materialDesign:DecimalUpDown x:Name="PanelWidthCount"
+                                                              Width="90" Minimum="40" Maximum="600"
+                                                              FontSize="15" VerticalAlignment="Center"/>
+                                <Button Content="{DynamicResource Common_Set}"
+                                        Margin="8,0,0,0" VerticalAlignment="Center"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Click="Click_PanelWidth"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       Text="{DynamicResource Appearance_PanelHeight}"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <materialDesign:DecimalUpDown x:Name="PanelHeightCount"
+                                                              Width="90" Minimum="30" Maximum="400"
+                                                              FontSize="15" VerticalAlignment="Center"/>
+                                <Button Content="{DynamicResource Common_Set}"
+                                        Margin="8,0,0,0" VerticalAlignment="Center"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Click="Click_PanelHeight"/>
+                            </StackPanel>
+                        </Grid>
                         </StackPanel>
                     </Expander>
                 </materialDesign:Card>

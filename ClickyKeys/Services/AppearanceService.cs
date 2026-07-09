@@ -168,6 +168,17 @@ namespace ClickyKeys
         [JsonPropertyName("grid_columns")]
         public int GridColumns { get; set; } = 4;
 
+        // Per-panel size in device-independent pixels. Older config.json files
+        // without these fields deserialize to the historical defaults
+        // (200 x 100), so existing layouts are unchanged. Adjustable in the
+        // Appearance window; the grid uses Auto rows/columns so it reflows to
+        // whatever size the panels report.
+        [JsonPropertyName("panel_width")]
+        public int PanelWidth { get; set; } = 200;
+
+        [JsonPropertyName("panel_height")]
+        public int PanelHeight { get; set; } = 100;
+
         //[JsonPropertyName("panels_spacing")]
         //public int PanelsSpacing { get; set; } = 0;
 

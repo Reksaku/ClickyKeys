@@ -1629,6 +1629,8 @@ namespace ClickyKeys
             Color valuesColor = (Color)ColorConverter.ConvertFromString(settings.ValuesTextColor);
             FontAppearance keysFont = settings.KeysFontAppearance;
             FontAppearance valuesFont = settings.ValuesFontAppearance;
+            int panelWidth = settings.PanelWidth;
+            int panelHeight = settings.PanelHeight;
 
             bool dimensionsChanged =
                 settings.GridRows != rows ||
@@ -1643,7 +1645,8 @@ namespace ClickyKeys
                 {
                     if (_panelsById.TryGetValue(id, out var existing))
                         ApplyPanelState(existing, id, panelColor, keysColor,
-                            valuesColor, keysFont, valuesFont, resetValue: false);
+                            valuesColor, keysFont, valuesFont, panelWidth,
+                            panelHeight, resetValue: false);
                 }
                 return;
             }
@@ -1669,7 +1672,8 @@ namespace ClickyKeys
                 {
                     var panel = new GlassPanelWpf(this) { ID = nextId };
                     ApplyPanelState(panel, nextId, panelColor, keysColor,
-                        valuesColor, keysFont, valuesFont, resetValue: true);
+                        valuesColor, keysFont, valuesFont, panelWidth,
+                        panelHeight, resetValue: true);
 
                     _panelsById[nextId] = panel;
                     Grid.SetRow(panel, r);
@@ -1688,6 +1692,8 @@ namespace ClickyKeys
             Color valuesColor,
             FontAppearance keysFont,
             FontAppearance valuesFont,
+            int panelWidth,
+            int panelHeight,
             bool resetValue)
         {
             var cfg = _panel_settings.Panels[id];
@@ -1702,6 +1708,8 @@ namespace ClickyKeys
             panel.ValueTextColor = valuesColor;
             panel.KeyFont = keysFont;
             panel.ValueFont = valuesFont;
+            panel.PanelWidth = panelWidth;
+            panel.PanelHeight = panelHeight;
 
             // For newly-constructed panels seed the value from the live
             // counter (0 if unknown). In-place updates keep the current

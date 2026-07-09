@@ -100,6 +100,8 @@ namespace ClickyKeys
         {
             RowsCount.Value = _appearance.GridRows;
             ColumnsCount.Value = _appearance.GridColumns;
+            PanelWidthCount.Value = _appearance.PanelWidth;
+            PanelHeightCount.Value = _appearance.PanelHeight;
 
             BackgroundRainbowCheckBox.IsChecked = _appearance.IsBackgroundRainbow;
             if (_appearance.IsBackgroundRainbow == true)
@@ -315,6 +317,16 @@ namespace ClickyKeys
             _appearance.GridColumns = (int)ColumnsCount.Value;
             _mainOverlay.OnGridChange(_appearance);
         }
+        private void Click_PanelWidth(object? sender, EventArgs e)
+        {
+            _appearance.PanelWidth = (int)PanelWidthCount.Value;
+            _mainOverlay.OnGridChange(_appearance);
+        }
+        private void Click_PanelHeight(object? sender, EventArgs e)
+        {
+            _appearance.PanelHeight = (int)PanelHeightCount.Value;
+            _mainOverlay.OnGridChange(_appearance);
+        }
         // Plain "Save": persists the current edits to the active profile
         // (the temporary one if a different profile was selected this session,
         // otherwise the one we opened with) and closes. "Save As" no longer
@@ -343,6 +355,8 @@ namespace ClickyKeys
 
             _appearanceConfiguration.GridColumns = (int)ColumnsCount.Value;
             _appearanceConfiguration.GridRows = (int)RowsCount.Value;
+            _appearanceConfiguration.PanelWidth = (int)PanelWidthCount.Value;
+            _appearanceConfiguration.PanelHeight = (int)PanelHeightCount.Value;
             var converter = new ColorConverter();
             _appearanceConfiguration.BackgroundColor = converter.ConvertToString(backgroundColor);
             _appearanceConfiguration.PanelsColor = converter.ConvertToString(panelsColor);

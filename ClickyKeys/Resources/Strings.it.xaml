@@ -1,4 +1,4 @@
-<ResourceDictionary
+﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
@@ -43,6 +43,8 @@
     <sys:String x:Key="Appearance_PanelsProfile">Profilo pannelli</sys:String>
     <sys:String x:Key="Appearance_GridRows">Righe della griglia</sys:String>
     <sys:String x:Key="Appearance_GridColumns">Colonne della griglia</sys:String>
+    <sys:String x:Key="Appearance_PanelWidth">Larghezza del pannello</sys:String>
+    <sys:String x:Key="Appearance_PanelHeight">Altezza del pannello</sys:String>
     <sys:String x:Key="Appearance_GridSize">Dimensione della griglia</sys:String>
     <sys:String x:Key="Appearance_Colors">Colori</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Colore di sfondo</sys:String>

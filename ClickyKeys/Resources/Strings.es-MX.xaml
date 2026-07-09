@@ -1,4 +1,4 @@
-<ResourceDictionary
+﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
@@ -45,6 +45,8 @@
     <sys:String x:Key="Appearance_PanelsProfile">Perfil de paneles</sys:String>
     <sys:String x:Key="Appearance_GridRows">Filas de la cuadrícula</sys:String>
     <sys:String x:Key="Appearance_GridColumns">Columnas de la cuadrícula</sys:String>
+    <sys:String x:Key="Appearance_PanelWidth">Ancho del panel</sys:String>
+    <sys:String x:Key="Appearance_PanelHeight">Alto del panel</sys:String>
     <sys:String x:Key="Appearance_GridSize">Tamaño de la cuadrícula</sys:String>
     <sys:String x:Key="Appearance_Colors">Colores</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Color de fondo</sys:String>
