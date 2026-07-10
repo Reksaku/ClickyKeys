@@ -30,7 +30,7 @@
     <sys:String x:Key="Consent_KeyloggerAssurance">ClickyKeys er ikke en keylogger. Uansett hvilket alternativ du velger nedenfor — selv Full — registrerer den aldri hva du skriver, passordene dine, innholdet på utklippstavlen eller hvilke taster du trykker på eller klikker. Sikkerheten din er viktig for dette prosjektet, og kildekoden er helt åpen, så du (eller hvem som helst) kan sjekke det selv — du trenger ikke bare ta oss på ordet. Se den på GitHub:</sys:String>
     <sys:String x:Key="Consent_FullTitle">Full — bruks- &amp; funksjonsstatistikk</sys:String>
     <sys:String x:Key="Consent_FullBody">Alt i Grunnleggende, pluss hvordan funksjoner er konfigurert og brukt: paneloppsett og rutenettstørrelse, hvilke visningsmoduser som er på (gjennomsiktig, regnbuebakgrunn), om farger/skrifter/snarveier er tilpasset, spillkontrollerinnstillinger og samlede tellinger for taster/mus/oppetid. Aldri paneletikettene dine, nøyaktige farger, nøyaktige snarveistaster eller noe du har skrevet.</sys:String>
-    <sys:String x:Key="Consent_BasicTitle">Grunnleggende — kun anonym identitet</sys:String>
+    <sys:String x:Key="Consent_BasicTitle">Grunnleggende — grunnleggende bruk &amp; anonym identitet</sys:String>
     <sys:String x:Key="Consent_BasicBody">En tilfeldig generert ID (ikke knyttet til deg eller PC-en din), appversjonen, OS-versjonen din, grensesnittspråket ditt, samt det kombinerte antallet tastetrykk og total brukstid.</sys:String>
     <sys:String x:Key="Consent_NoneTitle">Ingen — ikke samle inn noe</sys:String>
     <sys:String x:Key="Consent_NoneBody">Ingenting sendes til noen server. Du kan slå på statistikk senere under Innstillinger → Datainnsamling hvis du ombestemmer deg.</sys:String>
@@ -85,15 +85,15 @@
     <sys:String x:Key="Info_Title">Om ClickyKeys</sys:String>
     <sys:String x:Key="Info_Tagline">Tast- &amp; klikkteller for gamere og nerder</sys:String>
     <sys:String x:Key="Info_Features">Funksjoner</sys:String>
-    <sys:String x:Key="Info_Feature1">• Teller tastetrykkene og museklikkene du bryr deg om.</sys:String>
-    <sys:String x:Key="Info_Feature2">• Lar deg tildele egendefinerte etiketter til taster (f.eks. Hopp, Lad om, Ferdighet 1).</sys:String>
-    <sys:String x:Key="Info_Feature3">• Fullstendig tilpassbart overlegg: oppsett, knappestørrelse, farger, skrifttype.</sys:String>
+    <sys:String x:Key="Info_Feature1">• Teller hvert tastetrykk og museklikk du faktisk bryr deg om — live, mens det skjer.</sys:String>
+    <sys:String x:Key="Info_Feature2">• Gi tastene dine ekte navn: Hopp, Lad om, Ferdighet 1 — hva enn som gir mening for deg.</sys:String>
+    <sys:String x:Key="Info_Feature3">• Gjør overlegget til ditt eget: rutenett- og panelstørrelse, farger, skrifttyper, til og med gamepad-knapper.</sys:String>
     <sys:String x:Key="Info_Privacy">Personvern og tilgjengelig kildekode</sys:String>
-    <sys:String x:Key="Info_PrivacyText1">ClickyKeys behandler tastetrykkene og museklikkene dine lokalt — disse dataene forlater aldri PC-en din. I tillegg kan du velge ett av to nivåer med anonym bruksstatistikk (Grunnleggende: kun identitet, eller Full: identitet pluss hvordan funksjoner er konfigurert og brukt) for å hjelpe oss å forbedre appen; dette er av som standard og kan endres når som helst under Innstillinger → Datainnsamling.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">Prosjektets kildekode er tilgjengelig, så du kan gjennomgå koden, lære av den eller bidra med forbedringer.</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">Tastetrykkene og klikkene dine telles her, på PC-en din, og forlater den aldri — punktum. Vil du hjelpe ClickyKeys å vokse, kan du slå på anonym bruksstatistikk: Grunnleggende (en anonym ID, appversjon, distribusjonskanal, OS-versjon, grensesnittspråk, pluss to totalsummer — totalt antall handlinger og oppetid) eller Full (alt dette pluss hvordan funksjoner er konfigurert og brukt). Det er av med mindre du slår det på, og du kan endre det når som helst under Innstillinger → Datainnsamling.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Hele kildekoden er åpen — kikk under panseret, lær av den eller send en pull request.</sys:String>
     <sys:String x:Key="Info_Credits">Bidragsytere og takk</sys:String>
-    <sys:String x:Key="Info_CreditsText1">ClickyKeys er et hobbyprosjekt som vokser takket være folk som rett og slett liker å klikke med det.</sys:String>
-    <sys:String x:Key="Info_CreditsText2">Takk for at du bruker ClickyKeys!</sys:String>
+    <sys:String x:Key="Info_CreditsText1">ClickyKeys er et hobbyprosjekt laget av én person, holdt i live av folk som rett og slett liker å se tellerne stige.</sys:String>
+    <sys:String x:Key="Info_CreditsText2">God klikking — og takk for at du er her.</sys:String>
     <sys:String x:Key="Info_Links">Lenker</sys:String>
     <sys:String x:Key="Info_WebsiteLabel">Nettsted: </sys:String>
     <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
@@ -102,7 +102,7 @@
     <sys:String x:Key="Info_ContactText1">Generell kontakt: </sys:String>
     <sys:String x:Key="Info_CopyEmail">Kopier</sys:String>
     <sys:String x:Key="Info_EmailCopied">Kopiert!</sys:String>
-    <sys:String x:Key="Info_ContactText2">Feilrapporter og funksjonsforespørsler: bruk GitHub Issues eller skriv til contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText2">Fant du en feil eller har en idé til en funksjon? Åpne en GitHub-issue eller skriv til contact@clickykeys.fun</sys:String>
     <sys:String x:Key="Info_ShowTutorial">Vis veiledning</sys:String>
 
     <!-- Main window toolbar -->
@@ -211,7 +211,7 @@
     <sys:String x:Key="Tutorial_S5_Title">Lagre endringer</sys:String>
     <sys:String x:Key="Tutorial_S5_Body">Bekreft endringene med den grønne ✔-knappen, eller forkast dem med den røde ✖.</sys:String>
     <sys:String x:Key="Tutorial_S6_Title">Utseende</sys:String>
-    <sys:String x:Key="Tutorial_S6_Body">Åpne Utseende-fanen for å tilpasse farger, rutenettstørrelse, skrifttyper og mer.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Body">Åpne Utseende-fanen for å tilpasse farger, rutenettstørrelse, panelstørrelse, skrifttyper og mer.</sys:String>
     <sys:String x:Key="Tutorial_S6_Hint">👆 Utseende-knappen</sys:String>
     <sys:String x:Key="Tutorial_S7_Title">Bruke endringer</sys:String>
     <sys:String x:Key="Tutorial_S7_Body">Klikk Lagre nederst i Utseende for å lagre det gjeldende oppsettet og overskrive gjeldende profil.\nUlagrede endringer forkastes etter at Utseende-fanen lukkes.</sys:String>

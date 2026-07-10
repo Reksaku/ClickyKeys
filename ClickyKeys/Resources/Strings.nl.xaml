@@ -30,7 +30,7 @@
     <sys:String x:Key="Consent_KeyloggerAssurance">ClickyKeys is geen keylogger. Welke optie je hieronder ook kiest — zelfs Volledig — het registreert nooit wat je typt, je wachtwoorden, de inhoud van je klembord of welke toetsen je precies indrukt of waarop je klikt. Jouw veiligheid is belangrijk voor dit project, en de broncode is volledig open, zodat je het zelf kunt controleren (of wie dan ook) — je hoeft ons niet zomaar op ons woord te geloven. Bekijk het op GitHub:</sys:String>
     <sys:String x:Key="Consent_FullTitle">Volledig — gebruiks- &amp; functiestatistieken</sys:String>
     <sys:String x:Key="Consent_FullBody">Alles uit Basis, plus hoe functies worden ingesteld en gebruikt: paneelindeling en rastergrootte, welke weergavemodi aanstaan (transparant, regenboogachtergrond), of kleuren/lettertypen/sneltoetsen zijn aangepast, gamepad-instellingen en samengevoegde tellingen van toetsen/muis/actieve tijd. Nooit je paneellabels, exacte kleuren, exacte sneltoetsen of iets wat je hebt getypt.</sys:String>
-    <sys:String x:Key="Consent_BasicTitle">Basis — alleen anonieme identiteit</sys:String>
+    <sys:String x:Key="Consent_BasicTitle">Basis — basisgebruik &amp; anonieme identiteit</sys:String>
     <sys:String x:Key="Consent_BasicBody">Een willekeurig gegenereerde ID (niet gekoppeld aan jou of je pc), de app-versie, je OS-versie, je interfacetaal, plus het gecombineerde aantal toetsaanslagen en de totale gebruiksduur.</sys:String>
     <sys:String x:Key="Consent_NoneTitle">Geen — niets verzamelen</sys:String>
     <sys:String x:Key="Consent_NoneBody">Er wordt niets naar een server verzonden. Je kunt statistieken later inschakelen via Instellingen → Gegevensverzameling als je van gedachten verandert.</sys:String>
@@ -85,15 +85,15 @@
     <sys:String x:Key="Info_Title">Over ClickyKeys</sys:String>
     <sys:String x:Key="Info_Tagline">Toets- &amp; klikteller voor gamers en geeks</sys:String>
     <sys:String x:Key="Info_Features">Functies</sys:String>
-    <sys:String x:Key="Info_Feature1">• Telt de toetsaanslagen en muisklikken die voor jou belangrijk zijn.</sys:String>
-    <sys:String x:Key="Info_Feature2">• Laat je aangepaste labels aan toetsen toewijzen (bijv. Springen, Herladen, Vaardigheid 1).</sys:String>
-    <sys:String x:Key="Info_Feature3">• Volledig aanpasbare overlay: indeling, knopgrootte, kleuren, lettertype.</sys:String>
+    <sys:String x:Key="Info_Feature1">• Telt elke toetsaanslag en muisklik die er voor jou echt toe doet — live, terwijl het gebeurt.</sys:String>
+    <sys:String x:Key="Info_Feature2">• Geef je toetsen echte namen: Springen, Herladen, Vaardigheid 1 — wat voor jou logisch is.</sys:String>
+    <sys:String x:Key="Info_Feature3">• Maak de overlay van jou: raster- en paneelgrootte, kleuren, lettertypen, zelfs gamepad-knoppen.</sys:String>
     <sys:String x:Key="Info_Privacy">Privacy &amp; beschikbare broncode</sys:String>
-    <sys:String x:Key="Info_PrivacyText1">ClickyKeys verwerkt je toetsaanslagen en muisklikken lokaal — die gegevens verlaten nooit je pc. Los daarvan kun je kiezen voor een van de twee niveaus van anonieme gebruiksstatistieken (Basis: alleen identiteit, of Volledig: identiteit plus hoe functies worden ingesteld en gebruikt) om ons te helpen de app te verbeteren; dit staat standaard uit en kan op elk moment worden gewijzigd via Instellingen → Gegevensverzameling.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">De broncode van het project is beschikbaar, dus je kunt de code bekijken, ervan leren of verbeteringen bijdragen.</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">Je toetsaanslagen en klikken worden hier op je pc geteld en verlaten die nooit — punt uit. Wil je ClickyKeys helpen groeien, dan kun je anonieme gebruiksstatistieken aanzetten: Basis (een anonieme ID, app-versie, distributiekanaal, OS-versie, interfacetaal, plus twee totalen — totaal aantal acties en gebruiksduur) of Volledig (dat alles plus hoe functies worden ingesteld en gebruikt). Het staat uit tenzij je het aanzet, en je kunt het altijd terugzetten via Instellingen → Gegevensverzameling.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">De volledige broncode ligt open — kijk onder de motorkap, leer ervan of stuur een pull request.</sys:String>
     <sys:String x:Key="Info_Credits">Met dank aan</sys:String>
-    <sys:String x:Key="Info_CreditsText1">ClickyKeys is een hobbyproject dat groeit dankzij mensen die er gewoon graag mee klikken.</sys:String>
-    <sys:String x:Key="Info_CreditsText2">Bedankt voor het gebruik van ClickyKeys!</sys:String>
+    <sys:String x:Key="Info_CreditsText1">ClickyKeys is een hobbyproject van één persoon, in leven gehouden door mensen die gewoon graag de tellers zien oplopen.</sys:String>
+    <sys:String x:Key="Info_CreditsText2">Veel klikplezier — en bedankt dat je er bent.</sys:String>
     <sys:String x:Key="Info_Links">Links</sys:String>
     <sys:String x:Key="Info_WebsiteLabel">Website: </sys:String>
     <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
@@ -102,7 +102,7 @@
     <sys:String x:Key="Info_ContactText1">Algemeen contact: </sys:String>
     <sys:String x:Key="Info_CopyEmail">Kopiëren</sys:String>
     <sys:String x:Key="Info_EmailCopied">Gekopieerd!</sys:String>
-    <sys:String x:Key="Info_ContactText2">Bugrapporten &amp; functieverzoeken: gebruik GitHub Issues of schrijf naar contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText2">Een bug gevonden of een idee voor een functie? Open een GitHub-issue of stuur een bericht naar contact@clickykeys.fun</sys:String>
     <sys:String x:Key="Info_ShowTutorial">Tutorial tonen</sys:String>
 
     <!-- Main window toolbar -->
@@ -211,7 +211,7 @@
     <sys:String x:Key="Tutorial_S5_Title">Wijzigingen opslaan</sys:String>
     <sys:String x:Key="Tutorial_S5_Body">Bevestig je wijzigingen met de groene knop ✔ of verwerp ze met de rode ✖.</sys:String>
     <sys:String x:Key="Tutorial_S6_Title">Weergave</sys:String>
-    <sys:String x:Key="Tutorial_S6_Body">Open het tabblad Weergave om kleuren, rastergrootte, lettertypen en meer aan te passen.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Body">Open het tabblad Weergave om kleuren, rastergrootte, paneelgrootte, lettertypen en meer aan te passen.</sys:String>
     <sys:String x:Key="Tutorial_S6_Hint">👆 Knop Weergave</sys:String>
     <sys:String x:Key="Tutorial_S7_Title">Wijzigingen toepassen</sys:String>
     <sys:String x:Key="Tutorial_S7_Body">Klik op Opslaan onderaan Weergave om je huidige indeling op te slaan en het huidige profiel te overschrijven.\nNiet-opgeslagen wijzigingen worden verwijderd nadat het tabblad Weergave is gesloten.</sys:String>

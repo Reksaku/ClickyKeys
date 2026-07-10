@@ -32,7 +32,7 @@
     <sys:String x:Key="Consent_KeyloggerAssurance">ClickyKeys no es un keylogger. Sin importar la opción que elijas abajo — incluso Completo — nunca registra lo que escribes, tus contraseñas, el contenido del portapapeles ni qué teclas presionas o dónde haces clic. Tu seguridad le importa a este proyecto, y el código fuente es totalmente abierto, así que puedes comprobarlo tú mismo (o cualquier otra persona) — no tienes que creernos nada más porque sí. Míralo en GitHub:</sys:String>
     <sys:String x:Key="Consent_FullTitle">Completo — estadísticas de uso y funciones</sys:String>
     <sys:String x:Key="Consent_FullBody">Todo lo de Básico, más cómo se configuran y usan las funciones: disposición de los paneles y tamaño de la cuadrícula, qué modos de visualización están activos (transparente, fondo arcoíris), si se personalizaron colores/fuentes/atajos, ajustes del control y contadores agregados de teclas/mouse/tiempo de actividad. Nunca las etiquetas de tus paneles, los colores exactos, las teclas de atajo exactas ni nada de lo que escribas.</sys:String>
-    <sys:String x:Key="Consent_BasicTitle">Básico — solo identidad anónima</sys:String>
+    <sys:String x:Key="Consent_BasicTitle">Básico — uso básico &amp; identidad anónima</sys:String>
     <sys:String x:Key="Consent_BasicBody">Un identificador generado al azar (no vinculado a ti ni a tu PC), la versión de la aplicación, la versión de tu sistema operativo, el idioma de la interfaz, además del número combinado de pulsaciones de teclas y el tiempo total de uso.</sys:String>
     <sys:String x:Key="Consent_NoneTitle">Ninguno — no recopilar nada</sys:String>
     <sys:String x:Key="Consent_NoneBody">No se envía nada a ningún servidor. Puedes activar las estadísticas más tarde en Configuración → Recopilación de datos si cambias de opinión.</sys:String>
@@ -87,15 +87,15 @@
     <sys:String x:Key="Info_Title">Acerca de ClickyKeys</sys:String>
     <sys:String x:Key="Info_Tagline">Contador de teclas y clics para gamers y geeks</sys:String>
     <sys:String x:Key="Info_Features">Funciones</sys:String>
-    <sys:String x:Key="Info_Feature1">• Cuenta las pulsaciones de teclas y los clics del mouse que te importan.</sys:String>
-    <sys:String x:Key="Info_Feature2">• Te permite asignar etiquetas personalizadas a las teclas (p. ej. Saltar, Recargar, Habilidad 1).</sys:String>
-    <sys:String x:Key="Info_Feature3">• Overlay totalmente personalizable: diseño, tamaño de los botones, colores, fuente.</sys:String>
+    <sys:String x:Key="Info_Feature1">• Cuenta cada tecla y clic del mouse que de verdad te importa — en vivo, al instante.</sys:String>
+    <sys:String x:Key="Info_Feature2">• Dale a tus teclas nombres de verdad: Saltar, Recargar, Habilidad 1 — lo que tenga sentido para ti.</sys:String>
+    <sys:String x:Key="Info_Feature3">• Haz tuya la superposición: tamaño de cuadrícula y panel, colores, fuentes, hasta botones de gamepad.</sys:String>
     <sys:String x:Key="Info_Privacy">Privacidad y código fuente disponible</sys:String>
-    <sys:String x:Key="Info_PrivacyText1">ClickyKeys procesa tus pulsaciones de teclas y clics del mouse de forma local: esos datos nunca salen de tu PC. Aparte de eso, puedes optar por uno de los dos niveles de estadísticas de uso anónimas (Básico: solo identidad, o Completo: identidad más cómo se configuran y usan las funciones) para ayudarnos a mejorar la aplicación; está desactivado de forma predeterminada y se puede cambiar en cualquier momento en Configuración → Recopilación de datos.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">El código fuente del proyecto está disponible, así que puedes revisar el código, aprender de él o contribuir con mejoras.</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">Tus pulsaciones y clics se cuentan aquí mismo, en tu PC, y nunca salen de él — punto. Si quieres ayudar a que ClickyKeys crezca, puedes activar estadísticas de uso anónimas: Básico (un ID anónimo, versión de la app, canal de distribución, versión del sistema, idioma de la interfaz, más dos totales acumulados — número total de acciones y tiempo de uso) o Completo (todo eso más cómo se configuran y usan las funciones). Está desactivado salvo que tú lo actives, y puedes cambiarlo cuando quieras en Configuración → Recopilación de datos.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">Todo el código fuente está a la vista — asómate bajo el capó, aprende de él o envía un pull request.</sys:String>
     <sys:String x:Key="Info_Credits">Créditos y agradecimientos</sys:String>
-    <sys:String x:Key="Info_CreditsText1">ClickyKeys es un proyecto por afición que crece gracias a las personas que simplemente disfrutan haciendo clic con él.</sys:String>
-    <sys:String x:Key="Info_CreditsText2">¡Gracias por usar ClickyKeys!</sys:String>
+    <sys:String x:Key="Info_CreditsText1">ClickyKeys es un proyecto de aficionado de una sola persona, que sigue vivo gracias a quienes simplemente disfrutan viendo subir los números.</sys:String>
+    <sys:String x:Key="Info_CreditsText2">¡Feliz clic — y gracias por estar aquí!</sys:String>
     <sys:String x:Key="Info_Links">Enlaces</sys:String>
     <sys:String x:Key="Info_WebsiteLabel">Sitio web: </sys:String>
     <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
@@ -104,7 +104,7 @@
     <sys:String x:Key="Info_ContactText1">Contacto general: </sys:String>
     <sys:String x:Key="Info_CopyEmail">Copiar</sys:String>
     <sys:String x:Key="Info_EmailCopied">¡Copiado!</sys:String>
-    <sys:String x:Key="Info_ContactText2">Reportes de errores y solicitudes de funciones: usa GitHub Issues o escribe a contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText2">¿Encontraste un error o se te ocurrió una función? Abre un issue en GitHub o escribe a contact@clickykeys.fun</sys:String>
     <sys:String x:Key="Info_ShowTutorial">Mostrar tutorial</sys:String>
 
     <!-- Main window toolbar -->
@@ -213,7 +213,7 @@
     <sys:String x:Key="Tutorial_S5_Title">Guardar cambios</sys:String>
     <sys:String x:Key="Tutorial_S5_Body">Confirma tus cambios con el botón verde ✔ o descártalos con el rojo ✖.</sys:String>
     <sys:String x:Key="Tutorial_S6_Title">Apariencia</sys:String>
-    <sys:String x:Key="Tutorial_S6_Body">Abre la pestaña Apariencia para personalizar colores, tamaño de la cuadrícula, fuentes y mucho más.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Body">Abre la pestaña Apariencia para personalizar colores, tamaño de la cuadrícula, tamaño del panel, fuentes y mucho más.</sys:String>
     <sys:String x:Key="Tutorial_S6_Hint">👆 Botón Apariencia</sys:String>
     <sys:String x:Key="Tutorial_S7_Title">Aplicar cambios</sys:String>
     <sys:String x:Key="Tutorial_S7_Body">Haz clic en Guardar en la parte inferior de Apariencia para guardar tu diseño actual y sobrescribir el perfil actual.\nLos cambios no guardados se descartarán al cerrar la pestaña Apariencia.</sys:String>

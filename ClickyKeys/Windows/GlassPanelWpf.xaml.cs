@@ -103,7 +103,11 @@ namespace ClickyKeys
         {
             _captureCts?.Cancel();
             DescriptionBox.Text = "";
-            InputBtn.Content = "Input";
+            // Re-establish the localized binding rather than assigning a literal
+            // string. Setting InputBtn.Content = "Input" would replace the XAML
+            // DynamicResource with a hardcoded English value, leaving the button
+            // stuck in English on every subsequent open until the app restarts.
+            InputBtn.SetResourceReference(ContentControl.ContentProperty, "Common_Input");
             IsEditorOpen = false;
             EditorBorder.Visibility = Visibility.Collapsed;
         }
@@ -287,6 +291,17 @@ namespace ClickyKeys
 
         public int ID { get; set; } = 0;
 
+        // The panel's raw, unmodified description straight from config ("" when
+        // unset). Kept separate from the Description dependency property because
+        // that one is overwritten with an "id. N" placeholder for unassigned
+        // panels — we need the true value to preload the editor. Set by
+        // MainWindow.ApplyPanelState alongside Type/Key.
+        public string RawDescription { get; set; } = "";
+
+        // The panel's assigned gamepad button (-1 when unset). Mirrors
+        // PanelsSettings.GamepadButton so the editor can preload a pad binding.
+        public int GamepadButton { get; set; } = -1;
+
         public double Scale => _scale;
         public double PanelFillOpacity => Math.Max(0, Math.Min(1, PanelOpacity / 100.0 + 0.16 * _flash));
         public double ShadowOpacity => Math.Max(0, Math.Min(1, 0.35 + 0.2 * _flash));
@@ -309,9 +324,67 @@ namespace ClickyKeys
 
         public void OpenEditor()
         {
+            // Preload the editor with the panel's CURRENT binding so the user
+            // can change the description OR the key independently, without
+            // having to re-enter the other. Seeding newConfiguration means an
+            // untouched field is saved back with its existing value instead of
+            // the previous default (which used to wipe the key when only the
+            // description was edited).
+            newConfiguration.Index = ID;
+            newConfiguration.Input = Type;
+            newConfiguration.KeyCode = this.Key;
+            newConfiguration.GamepadButton = GamepadButton;
+            newConfiguration.Description = RawDescription ?? "";
+
+            // Leave the box empty for an empty description so its hint
+            // ("Description") placeholder shows through.
+            DescriptionBox.Text = newConfiguration.Description;
+            SetInputButtonToCurrentBinding();
+
             EditorBorder.Visibility = Visibility.Visible;
             IsEditorOpen = true;
             TriggerFlash();
+        }
+
+        // Shows the panel's current binding on the Input button, using the same
+        // labels the live-capture path produces. Falls back to the localized
+        // "Input" placeholder (via a resource reference so it tracks the app
+        // language) when nothing is assigned yet.
+        private void SetInputButtonToCurrentBinding()
+        {
+            if (Type == InputType.Gamepad && GamepadButton >= 0)
+            {
+                InputBtn.Content = $"Pad {GamepadInputService.FriendlyName(GamepadButton)}";
+                return;
+            }
+
+            if (Type == InputType.Key && this.Key != Key.None)
+            {
+                InputBtn.Content = $"{this.Key}";
+                return;
+            }
+
+            string? mouse = Type switch
+            {
+                InputType.MouseLeft => "Left",
+                InputType.MouseRight => "Right",
+                InputType.MouseMiddle => "Middle",
+                InputType.MouseXButton1 => "XButton1",
+                InputType.MouseXButton2 => "XButton2",
+                InputType.MouseWheelUp => "Wheel Up",
+                InputType.MouseWheelDown => "Wheel Down",
+                InputType.MouseWheelLeft => "Wheel Left",
+                InputType.MouseWheelRight => "Wheel Right",
+                _ => null
+            };
+
+            if (mouse != null)
+            {
+                InputBtn.Content = mouse;
+                return;
+            }
+
+            InputBtn.SetResourceReference(ContentControl.ContentProperty, "Common_Input");
         }
 
         private void OnCloseEditor(object sender, RoutedEventArgs e) => CloseEditPanel();

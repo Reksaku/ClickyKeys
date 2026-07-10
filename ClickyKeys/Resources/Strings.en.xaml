@@ -30,7 +30,7 @@
     <sys:String x:Key="Consent_KeyloggerAssurance">ClickyKeys is not a keylogger. Whichever option you pick below — even Full — it never records what you type, your passwords, clipboard contents, or which specific keys you press or click. Keeping you safe matters to this project, and the source code is fully open so you (or anyone else) can check that for yourself — no need to just take our word for it. See it on GitHub:</sys:String>
     <sys:String x:Key="Consent_FullTitle">Full — usage &amp; feature statistics</sys:String>
     <sys:String x:Key="Consent_FullBody">Everything in Basic, plus how features are configured and used: panel layout and grid size, which display modes are on (transparent, rainbow background), whether colors/fonts/shortcuts were customized, gamepad settings, and aggregate key/mouse/uptime counts. Never your panel labels, exact colors, exact shortcut keys, or anything you typed.</sys:String>
-    <sys:String x:Key="Consent_BasicTitle">Basic — anonymous identity only</sys:String>
+    <sys:String x:Key="Consent_BasicTitle">Basic — basic usage &amp; anonymous identity</sys:String>
     <sys:String x:Key="Consent_BasicBody">A randomly generated ID (not tied to you or your PC), the app version, your OS version, your interface language, plus your combined key press count and total uptime.</sys:String>
     <sys:String x:Key="Consent_NoneTitle">None — don't collect anything</sys:String>
     <sys:String x:Key="Consent_NoneBody">Nothing is sent to any server. You can turn statistics on later from Settings → Data Collection if you change your mind.</sys:String>
@@ -85,15 +85,15 @@
     <sys:String x:Key="Info_Title">About ClickyKeys</sys:String>
     <sys:String x:Key="Info_Tagline">Key &amp; click counter for gamers and geeks</sys:String>
     <sys:String x:Key="Info_Features">Features</sys:String>
-    <sys:String x:Key="Info_Feature1">• Counts key presses and mouse clicks you care about.</sys:String>
-    <sys:String x:Key="Info_Feature2">• Lets you assign custom labels to keys (e.g. Jump, Reload, Ability 1).</sys:String>
-    <sys:String x:Key="Info_Feature3">• Fully customizable overlay: layout, button size, colors, font.</sys:String>
+    <sys:String x:Key="Info_Feature1">• Counts every key press and mouse click you actually care about — live, as it happens.</sys:String>
+    <sys:String x:Key="Info_Feature2">• Give your keys real names: Jump, Reload, Ability 1 — whatever makes sense to you.</sys:String>
+    <sys:String x:Key="Info_Feature3">• Make the overlay yours: grid and panel size, colours, fonts, even gamepad buttons.</sys:String>
     <sys:String x:Key="Info_Privacy">Privacy &amp; Source Available</sys:String>
-    <sys:String x:Key="Info_PrivacyText1">ClickyKeys processes your key presses and mouse clicks locally — that data never leaves your PC. Separately, you can opt in to one of two anonymous usage-statistics tiers (Basic: identity only, or Full: identity plus how features are configured and used) to help us improve the app; this is off by default and can be changed any time in Settings → Data Collection.</sys:String>
-    <sys:String x:Key="Info_PrivacyText2">The project's source is available, so you can review the code, learn from it, or contribute improvements.</sys:String>
+    <sys:String x:Key="Info_PrivacyText1">Your key presses and clicks are counted right here on your PC and never leave it — full stop. If you'd like to help ClickyKeys grow, you can opt in to anonymous usage stats: Basic (an anonymous ID, app version, distribution channel, OS version, UI language, plus two running totals — overall input count and uptime) or Full (all of that plus how features are configured and used). It stays off unless you turn it on, and you can switch it back any time in Settings → Data Collection.</sys:String>
+    <sys:String x:Key="Info_PrivacyText2">The whole source is out in the open — peek under the hood, learn from it, or send a pull request.</sys:String>
     <sys:String x:Key="Info_Credits">Credits &amp; Thanks</sys:String>
-    <sys:String x:Key="Info_CreditsText1">ClickyKeys is a hobby project that grows thanks to people who simply enjoy clicking with it.</sys:String>
-    <sys:String x:Key="Info_CreditsText2">Thanks for using ClickyKeys!</sys:String>
+    <sys:String x:Key="Info_CreditsText1">ClickyKeys is a one-person hobby project, kept alive by people who simply enjoy watching the numbers climb.</sys:String>
+    <sys:String x:Key="Info_CreditsText2">Happy clicking — and thanks for being here.</sys:String>
     <sys:String x:Key="Info_Links">Links</sys:String>
     <sys:String x:Key="Info_WebsiteLabel">Website: </sys:String>
     <sys:String x:Key="Info_GitHubLabel">GitHub: </sys:String>
@@ -102,7 +102,7 @@
     <sys:String x:Key="Info_ContactText1">General contact: </sys:String>
     <sys:String x:Key="Info_CopyEmail">Copy</sys:String>
     <sys:String x:Key="Info_EmailCopied">Copied!</sys:String>
-    <sys:String x:Key="Info_ContactText2">Bug reports &amp; feature requests: please use GitHub Issues or write to contact@clickykeys.fun</sys:String>
+    <sys:String x:Key="Info_ContactText2">Found a bug or dreaming up a feature? Open a GitHub issue or drop a line to contact@clickykeys.fun</sys:String>
     <sys:String x:Key="Info_ShowTutorial">Show tutorial</sys:String>
 
     <!-- Main window toolbar -->
@@ -210,7 +210,7 @@
     <sys:String x:Key="Tutorial_S5_Title">Saving changes</sys:String>
     <sys:String x:Key="Tutorial_S5_Body">Confirm your changes with the green ✔ button, or discard them with the red ✖.</sys:String>
     <sys:String x:Key="Tutorial_S6_Title">Appearance</sys:String>
-    <sys:String x:Key="Tutorial_S6_Body">Open the Appearance tab to customise colours, grid size, fonts, and more.</sys:String>
+    <sys:String x:Key="Tutorial_S6_Body">Open the Appearance tab to customise colours, grid size, panel size, fonts, and more.</sys:String>
     <sys:String x:Key="Tutorial_S6_Hint">👆 Appearance button</sys:String>
     <sys:String x:Key="Tutorial_S7_Title">Applying changes</sys:String>
     <sys:String x:Key="Tutorial_S7_Body">Click Save at the bottom of Appearance to save your current layout and override current profile.\nUnsaved changes will be discarded after closing Appearance tab.</sys:String>

@@ -6,7 +6,8 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="{DynamicResource Consent_Title}"
-        Width="460" Height="700"
+        Width="480"
+        SizeToContent="Height"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
@@ -29,20 +30,21 @@
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-            <Image Width="36" Height="36" Source="/Resources/Icon.ico" Margin="0,0,10,0"/>
+        <DockPanel Grid.Row="0" Margin="0,0,0,10">
+            <Image Width="36" Height="36" Source="/Resources/Icon.ico" Margin="0,0,10,0"
+                   VerticalAlignment="Center" DockPanel.Dock="Left"/>
             <TextBlock Text="{DynamicResource Consent_Header}"
                        FontSize="17"
                        FontWeight="Bold"
                        VerticalAlignment="Center"
                        TextWrapping="Wrap"/>
-        </StackPanel>
+        </DockPanel>
 
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <Grid Grid.Row="1">
             <StackPanel>
                 <TextBlock TextWrapping="Wrap"
                            Margin="0,0,0,12"
@@ -57,20 +59,21 @@
                      pointing at the public GitHub repo — the "don't just
                      take our word for it" backing the text above. -->
                 <materialDesign:Card Padding="10" Margin="0,0,0,14">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="🔒" FontSize="20" Margin="0,0,10,0" VerticalAlignment="Top"/>
-                        <StackPanel Width="358">
+                    <DockPanel>
+                        <TextBlock Text="🔒" FontSize="20" Margin="0,0,10,0" VerticalAlignment="Top"
+                                   DockPanel.Dock="Left"/>
+                        <StackPanel>
                             <TextBlock TextWrapping="Wrap"
                                        FontSize="11.5"
                                        Text="{DynamicResource Consent_KeyloggerAssurance}"/>
-                            <TextBlock Margin="0,4,0,0">
+                            <TextBlock Margin="0,4,0,0" TextWrapping="Wrap">
                                 <Hyperlink NavigateUri="https://github.com/Reksaku/ClickyKeys"
                                            RequestNavigate="Hyperlink_RequestNavigate">
                                     <Run Text="github.com/Reksaku/ClickyKeys" FontSize="11"/>
                                 </Hyperlink>
                             </TextBlock>
                         </StackPanel>
-                    </StackPanel>
+                    </DockPanel>
                 </materialDesign:Card>
 
                 <!-- Option: Full -->
@@ -79,7 +82,7 @@
                         HorizontalContentAlignment="Stretch"
                         Padding="12"
                         Margin="0,0,0,10"
-                        Height="42">
+                        MinHeight="42">
                     <StackPanel HorizontalAlignment="Stretch">
                         <TextBlock Text="{DynamicResource Consent_FullTitle}"
                                    FontWeight="Bold" FontSize="13"
@@ -96,7 +99,7 @@
                         Style="{StaticResource MaterialDesignOutlinedButton}"
                         HorizontalContentAlignment="Stretch"
                         Padding="12"
-                        Margin="0,0,0,10" Height="42">
+                        Margin="0,0,0,10" MinHeight="42">
                     <StackPanel HorizontalAlignment="Stretch">
                         <TextBlock Text="{DynamicResource Consent_BasicTitle}"
                                    FontWeight="Bold" FontSize="13"
@@ -113,7 +116,7 @@
                         Style="{StaticResource MaterialDesignOutlinedButton}"
                         HorizontalContentAlignment="Stretch"
                         Padding="12"
-                        Margin="0,0,0,10" Height="42">
+                        Margin="0,0,0,10" MinHeight="42">
                     <StackPanel HorizontalAlignment="Stretch">
                         <TextBlock Text="{DynamicResource Consent_NoneTitle}"
                                    FontWeight="Bold" FontSize="13"
@@ -131,7 +134,7 @@
                            FontStyle="Italic"
                            Text="{DynamicResource Consent_Footnote}"/>
             </StackPanel>
-        </ScrollViewer>
+        </Grid>
 
         <DockPanel Grid.Row="2" Margin="0,10,0,0">
             <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Center">

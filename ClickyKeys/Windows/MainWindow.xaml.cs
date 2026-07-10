@@ -691,7 +691,10 @@ namespace ClickyKeys
             if (!storedParsed || coded > stored)
             {
                 cfg.Version = BuildInfo.Version;
-                SaveInitSettings(cfg);
+
+                if (BuildInfo.Distribution != DistributionType.dev)
+                    SaveInitSettings(cfg);
+
                 return true;
             }
 
@@ -1578,7 +1581,7 @@ namespace ClickyKeys
             {
                 DistributionType.store => "https://apps.microsoft.com/detail/9PJT83WPC06K",
                 DistributionType.github => "https://github.com/Reksaku/ClickyKeys/releases",
-                _ => "https://github.com/Reksaku/ClickyKeys/releases"
+                _ => "https://clickykeys.fun"
             };
             try
             {
@@ -1692,6 +1695,8 @@ namespace ClickyKeys
                 : cfg.Description;
             panel.Type = cfg.Input;
             panel.Key = cfg.KeyCode;
+            panel.RawDescription = cfg.Description;
+            panel.GamepadButton = cfg.GamepadButton;
             panel.PanelColor = panelColor;
             panel.KeyTextColor = keysColor;
             panel.ValueTextColor = valuesColor;

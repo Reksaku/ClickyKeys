@@ -20,9 +20,9 @@ namespace ClickyKeys
 
         // Colours for the change-type badge
         private static readonly SolidColorBrush BrushNew    = new(Color.FromRgb(76, 175, 80));   // green
-        private static readonly SolidColorBrush BrushFix    = new(Color.FromRgb(244, 67, 54));   // red
-        private static readonly SolidColorBrush BrushChange = new(Color.FromRgb(255, 178, 102));  // blue
-        private static readonly SolidColorBrush BrushInfo   = new(Color.FromRgb(33, 150, 243));  // orange
+        private static readonly SolidColorBrush BrushFix    = new(Color.FromRgb(255, 178, 102));  // orange
+        private static readonly SolidColorBrush BrushChange =  new(Color.FromRgb(33, 150, 243));  // blue
+        private static readonly SolidColorBrush BrushBreaking = new(Color.FromRgb(244, 67, 54));   // red
         private static readonly SolidColorBrush BrushOther  = new(Color.FromRgb(158, 158, 158)); // grey
 
         public Changelog(string sinceVersion)
@@ -282,11 +282,11 @@ namespace ClickyKeys
 
         private static SolidColorBrush BadgeColor(string type) => type.ToLowerInvariant() switch
         {
-            "new"    => BrushNew,
-            "fix"    => BrushFix,
-            "change" => BrushChange,
-            "info"   => BrushInfo,
-            _        => BrushOther
+            "new"       => BrushNew,
+            "fix"       => BrushFix,
+            "change"    => BrushChange,
+            "breaking"  => BrushBreaking,
+            _           => BrushOther
         };
 
         private static string FormatDate(string raw)

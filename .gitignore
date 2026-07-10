@@ -441,3 +441,6 @@ ClickyKeys.Packaging/*.cer
 # Publishing Profiles
 ClickyKeys.Packaging/Properties/PublishProfiles/*.pubxml.user
 Properties/PublishProfiles/*.pubxml.user
+
+# Documentation files
+ClickyKeys/Documentation/
