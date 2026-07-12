@@ -358,7 +358,7 @@ namespace ClickyKeys
             // the parent's counter and shouldn't ping the API a second time
             // or raise a duplicate popup.
             if (!_transparent)
-                VerifyVersion(ConfigSettings);
+                VerifyVersion();
             VerifySettings();
 
             // Push updates into the UI only when a counter actually changes
@@ -982,7 +982,7 @@ namespace ClickyKeys
         /// <c>MyPopup</c> if it is newer than the running version.
         /// </para>
         /// </summary>
-        private async void VerifyVersion(Configuration cfg)
+        private async void VerifyVersion()
         {
                     
             var host = BuildInfo.Distribution == DistributionType.dev
@@ -993,7 +993,14 @@ namespace ClickyKeys
 
             try
             {
-                if (!Version.TryParse(cfg.Version, out var current))
+                // Compare against the RUNNING build, not cfg.Version. On the
+                // first launch after an update, config.json still holds the
+                // previous version here — it isn't bumped until HandleAppUpdate
+                // runs later in this same startup — so using cfg.Version made
+                // the freshly-installed release look "newer than current" and
+                // wrongly popped the update prompt alongside the changelog.
+                // BuildInfo.Version is the authoritative current version.
+                if (!Version.TryParse(BuildInfo.Version, out var current))
                     return;
 
 
