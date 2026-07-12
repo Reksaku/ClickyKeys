@@ -570,6 +570,8 @@ namespace ClickyKeys
         {
             target.GridRows = source.GridRows;
             target.GridColumns = source.GridColumns;
+            target.PanelWidth = source.PanelWidth;
+            target.PanelHeight = source.PanelHeight;
             target.BackgroundColor = source.BackgroundColor;
             target.PanelsColor = source.PanelsColor;
             target.KeysTextColor = source.KeysTextColor;
