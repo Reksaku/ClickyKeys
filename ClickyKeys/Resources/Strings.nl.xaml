@@ -45,6 +45,7 @@
     <sys:String x:Key="Appearance_GridColumns">Rasterkolommen</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Paneelbreedte</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Paneelhoogte</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Vensterdekking</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rastergrootte</sys:String>
     <sys:String x:Key="Appearance_Colors">Kleuren</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Achtergrondkleur</sys:String>

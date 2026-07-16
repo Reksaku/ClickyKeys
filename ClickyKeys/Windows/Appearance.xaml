@@ -238,6 +238,29 @@
                                         Click="Click_PanelHeight"/>
                             </StackPanel>
                         </Grid>
+
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       VerticalAlignment="Center"
+                                       Text="{DynamicResource Appearance_WindowOpacity}"/>
+                            <StackPanel Grid.Column="1" Width="200" VerticalAlignment="Center">
+                                <TextBlock FontSize="11" HorizontalAlignment="Right"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}">
+                                    <Run Text="{Binding ElementName=WindowOpacitySlider, Path=Value, StringFormat={}{0:0}}"/><Run Text="%"/>
+                                </TextBlock>
+                                <Slider x:Name="WindowOpacitySlider"
+                                        Minimum="20" Maximum="100"
+                                        TickFrequency="10" IsSnapToTickEnabled="True"
+                                        TickPlacement="BottomRight"
+                                        Value="100"
+                                        ValueChanged="WindowOpacitySlider_ValueChanged"/>
+                            </StackPanel>
+                        </Grid>
                         </StackPanel>
                     </Expander>
                 </materialDesign:Card>

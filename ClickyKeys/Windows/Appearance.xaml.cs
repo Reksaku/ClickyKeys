@@ -111,6 +111,11 @@ namespace ClickyKeys
 
             RainbowSpeedSlider.Value = Math.Clamp(_appearance.RainbowSpeedSeconds, 1, 10);
 
+            // Reflect the profile's overlay opacity on the slider and apply it
+            // live (setting Value raises WindowOpacitySlider_ValueChanged, which
+            // pushes it to the overlay window). Clamped to the slider's range.
+            WindowOpacitySlider.Value = Math.Clamp(_appearance.WindowOpacity, 20, 100);
+
             BackgroundColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.BackgroundColor);
             PanelsColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.PanelsColor);
             KeysColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.KeysTextColor);
@@ -307,6 +312,18 @@ namespace ClickyKeys
             // safe even if the event fires while the XAML value is first set.
             _mainOverlay?.SetRainbowSpeed((int)RainbowSpeedSlider.Value);
         }
+
+        // Live-updates the overlay window opacity as the user drags the slider,
+        // and records it on the active profile so it persists on save.
+        private void WindowOpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int value = (int)WindowOpacitySlider.Value;
+            if (_appearance != null)
+                _appearance.WindowOpacity = value;
+            // _mainOverlay is assigned before InitializeComponent, so this is
+            // safe even if the event fires while the XAML value is first set.
+            _mainOverlay?.SetWindowOpacity(value);
+        }
         private void Click_GridRows(object? sender, EventArgs e)
         {
             _appearance.GridRows = (int)RowsCount.Value;
@@ -357,6 +374,7 @@ namespace ClickyKeys
             _appearanceConfiguration.GridRows = (int)RowsCount.Value;
             _appearanceConfiguration.PanelWidth = (int)PanelWidthCount.Value;
             _appearanceConfiguration.PanelHeight = (int)PanelHeightCount.Value;
+            _appearanceConfiguration.WindowOpacity = (int)WindowOpacitySlider.Value;
             var converter = new ColorConverter();
             _appearanceConfiguration.BackgroundColor = converter.ConvertToString(backgroundColor);
             _appearanceConfiguration.PanelsColor = converter.ConvertToString(panelsColor);
@@ -572,6 +590,7 @@ namespace ClickyKeys
             target.GridColumns = source.GridColumns;
             target.PanelWidth = source.PanelWidth;
             target.PanelHeight = source.PanelHeight;
+            target.WindowOpacity = source.WindowOpacity;
             target.BackgroundColor = source.BackgroundColor;
             target.PanelsColor = source.PanelsColor;
             target.KeysTextColor = source.KeysTextColor;

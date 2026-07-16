@@ -179,6 +179,15 @@ namespace ClickyKeys
         [JsonPropertyName("panel_height")]
         public int PanelHeight { get; set; } = 100;
 
+        // Opacity of the WHOLE overlay window (toolbar + panels), as a percent
+        // 20–100. Applied via Window.Opacity to both the master window and the
+        // transparent sub-window. Clamped to a 20% floor so the app can never
+        // be made completely invisible/unclickable from this slider. Stored per
+        // appearance profile. Older config files without it default to 100
+        // (fully opaque), so existing setups are unchanged.
+        [JsonPropertyName("window_opacity")]
+        public int WindowOpacity { get; set; } = 100;
+
         //[JsonPropertyName("panels_spacing")]
         //public int PanelsSpacing { get; set; } = 0;
 

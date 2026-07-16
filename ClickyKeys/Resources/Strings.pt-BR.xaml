@@ -45,6 +45,7 @@
     <sys:String x:Key="Appearance_GridColumns">Colunas da grade</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Largura do painel</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Altura do painel</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Opacidade da janela</sys:String>
     <sys:String x:Key="Appearance_GridSize">Tamanho da grade</sys:String>
     <sys:String x:Key="Appearance_Colors">Cores</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Cor de fundo</sys:String>

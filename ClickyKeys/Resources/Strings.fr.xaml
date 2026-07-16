@@ -45,6 +45,7 @@
     <sys:String x:Key="Appearance_GridColumns">Colonnes de la grille</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Largeur du panneau</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Hauteur du panneau</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Opacité de la fenêtre</sys:String>
     <sys:String x:Key="Appearance_GridSize">Taille de la grille</sys:String>
     <sys:String x:Key="Appearance_Colors">Couleurs</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Couleur d'arrière-plan</sys:String>

@@ -44,6 +44,7 @@
     <sys:String x:Key="Appearance_GridColumns">Grid columns</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Panel width</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Panel height</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Window opacity</sys:String>
     <sys:String x:Key="Appearance_GridSize">Grid size</sys:String>
     <sys:String x:Key="Appearance_Colors">Colors</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Background color</sys:String>

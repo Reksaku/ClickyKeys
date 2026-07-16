@@ -45,6 +45,7 @@
     <sys:String x:Key="Appearance_GridColumns">Rasterspalten</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Panelbreite</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Panelhöhe</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Deckkraft des Fensters</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rastergröße</sys:String>
     <sys:String x:Key="Appearance_Colors">Farben</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Hintergrundfarbe</sys:String>

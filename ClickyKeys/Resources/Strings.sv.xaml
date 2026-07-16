@@ -45,6 +45,7 @@
     <sys:String x:Key="Appearance_GridColumns">Rutnätskolumner</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Panelbredd</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Panelhöjd</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Fönsteropacitet</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rutnätsstorlek</sys:String>
     <sys:String x:Key="Appearance_Colors">Färger</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Bakgrundsfärg</sys:String>

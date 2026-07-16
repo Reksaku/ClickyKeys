@@ -45,6 +45,7 @@
     <sys:String x:Key="Appearance_GridColumns">Στήλες πλέγματος</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Πλάτος πίνακα</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Ύψος πίνακα</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Αδιαφάνεια παραθύρου</sys:String>
     <sys:String x:Key="Appearance_GridSize">Μέγεθος πλέγματος</sys:String>
     <sys:String x:Key="Appearance_Colors">Χρώματα</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Χρώμα φόντου</sys:String>

@@ -34,6 +34,13 @@ namespace ClickyKeys
         public void OnMessagesClose();
         void SetBackgroundRainbow(bool? IsTrue);
         void SetRainbowSpeed(int seconds);
+        void SetWindowOpacity(int percent);
+
+        // Called by a panel on left-button-down. In transparent (overlay) mode
+        // this starts a window drag and returns true so the panel skips opening
+        // its editor; in normal mode it returns false and the panel edits as
+        // usual.
+        bool TryBeginPanelDrag();
         void ShowTutorial();
         void ApplyShortcuts(Key resetKey, Key toggleToolbarKey);
     }
@@ -310,6 +317,12 @@ namespace ClickyKeys
             // current state.
             Topmost = ConfigSettings.AlwaysOnTop;
             UpdateAlwaysOnTopStateText(ConfigSettings.AlwaysOnTop);
+
+            // Apply the profile's overlay opacity — but ONLY to the transparent
+            // overlay window. The master window must stay fully opaque (setting
+            // Window.Opacity on it renders it black); see SetWindowOpacity.
+            if (_transparent)
+                Opacity = Math.Clamp(_appearanceConfiguration.WindowOpacity, 20, 100) / 100.0;
 
             // configuration for transparent mode
             if (counter != null && transparent == true)
@@ -593,8 +606,28 @@ namespace ClickyKeys
         private void InitTransparentMode()
         {
             _transparentWindow = new MainWindow(true, _counter);
-            _transparentWindow.Show();
 
+            // Open the overlay exactly where the app currently sits, then let
+            // the user drag it around (see TryBeginPanelDrag). WindowStartup-
+            // Location defaults to Manual, so assigning Left/Top before Show
+            // positions it precisely over the master window.
+            _transparentWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+            _transparentWindow.Left = Left;
+            _transparentWindow.Top = Top;
+
+            _transparentWindow.Show();
+        }
+
+        // Transparent overlay: begin dragging the borderless window. Returns
+        // false for the master window so its panels keep opening their editors.
+        public bool TryBeginPanelDrag()
+        {
+            if (!_transparent)
+                return false;
+
+            try { DragMove(); }
+            catch { /* DragMove throws if the button was already released */ }
+            return true;
         }
 
         /// <summary>
@@ -1101,6 +1134,7 @@ namespace ClickyKeys
             LoadBackgroundFromSettings();
             UpdateRainbowState();
             SetGrid(_appearanceConfiguration);
+            SetWindowOpacity(_appearanceConfiguration.WindowOpacity);
             UpdateButtonLayout();
             OpenedAppearance = false;
         }
@@ -1565,6 +1599,27 @@ namespace ClickyKeys
         {
             SetGrid(settings);
             UpdateButtonLayout();
+        }
+
+        // Sets the opacity of the whole overlay window (toolbar + panels) and
+        // mirrors it onto the transparent sub-window when one is open. Clamped
+        // to a 20% floor so the window can never become fully invisible. Keeps
+        // the in-memory appearance config in sync so a later SetGrid/save uses
+        // the current value.
+        public void SetWindowOpacity(int percent)
+        {
+            int clamped = Math.Clamp(percent, 20, 100);
+            _appearanceConfiguration.WindowOpacity = clamped;
+
+            // Opacity is only applied to the transparent overlay (the panels
+            // window, which has AllowsTransparency). The master window has a
+            // normal border and no per-pixel alpha, so Window.Opacity < 1 there
+            // renders it black — hence we never fade the master and only adjust
+            // the transparent sub-window.
+            if (_transparent)
+                Opacity = clamped / 100.0;
+            if (_transparentWindow != null)
+                _transparentWindow.Opacity = clamped / 100.0;
         }
         //-------------------------
         // OnColorChanges section

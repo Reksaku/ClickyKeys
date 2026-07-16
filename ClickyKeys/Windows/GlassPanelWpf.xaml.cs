@@ -317,6 +317,11 @@ namespace ClickyKeys
 
         public void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            // In transparent overlay mode a click-drag moves the whole window
+            // instead of opening the panel editor (there's no title bar to grab).
+            if (_overlay.TryBeginPanelDrag())
+                return;
+
             EditorBorder.Height = MainRectangle.ActualHeight;
             EditorBorder.Width = MainRectangle.ActualWidth;
             OpenEditor();

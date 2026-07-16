@@ -45,6 +45,7 @@
     <sys:String x:Key="Appearance_GridColumns">Kolumny siatki</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Szerokość panelu</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Wysokość panelu</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Krycie okna</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rozmiar siatki</sys:String>
     <sys:String x:Key="Appearance_Colors">Kolory</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Kolor tła</sys:String>
