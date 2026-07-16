@@ -304,6 +304,13 @@ namespace ClickyKeys
             DisplayPopup.DataContext = this;
             MorePopup.DataContext = this;
 
+            // Apply the persisted always-on-top preference. Both the master and
+            // the transparent sub-window run through this constructor, so each
+            // honours it independently; the Display-tab toggle reflects the
+            // current state.
+            Topmost = ConfigSettings.AlwaysOnTop;
+            UpdateAlwaysOnTopStateText(ConfigSettings.AlwaysOnTop);
+
             // configuration for transparent mode
             if (counter != null && transparent == true)
             {
@@ -430,6 +437,28 @@ namespace ClickyKeys
 
         private void Appearance_Click(object sender, RoutedEventArgs e) => ShowAppearance();
         private void ToggleToolbar_Click(object sender, RoutedEventArgs e) => ToggleToolStrip();
+
+        // Display tab → Always on top. Flips this window's Topmost, mirrors it
+        // onto the transparent sub-window if one is open, persists the choice,
+        // and updates the toggle's on/off caption.
+        private void AlwaysOnTop_Click(object sender, RoutedEventArgs e)
+        {
+            bool enabled = !Topmost;
+            Topmost = enabled;
+
+            if (_transparentWindow != null)
+                _transparentWindow.Topmost = enabled;
+
+            ConfigStore.Update(c => c.AlwaysOnTop = enabled);
+            UpdateAlwaysOnTopStateText(enabled);
+        }
+
+        // Reflects the current always-on-top state on the Display-tab toggle.
+        private void UpdateAlwaysOnTopStateText(bool enabled)
+        {
+            if (AlwaysOnTopStateText == null) return;
+            AlwaysOnTopStateText.Text = LocalizationManager.T(enabled ? "Main_On" : "Main_Off");
+        }
         private void Reset_Click(object sender, RoutedEventArgs e) => ResetCounter();
         private void TransparentMode_Click(object sender, RoutedEventArgs e) => TransparentMode();
         private void Info_Click(object sender, RoutedEventArgs e) => ShowInfo();

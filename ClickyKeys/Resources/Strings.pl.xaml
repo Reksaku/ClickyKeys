@@ -114,6 +114,9 @@
     <sys:String x:Key="Main_Transparent">Tryb</sys:String>
     <sys:String x:Key="Main_Mode">przezroczysty</sys:String>
     <sys:String x:Key="Main_HideToolbar">Ukryj pasek</sys:String>
+    <sys:String x:Key="Main_AlwaysOnTop">Zawsze na wierzchu</sys:String>
+    <sys:String x:Key="Main_On">Wł.</sys:String>
+    <sys:String x:Key="Main_Off">Wył.</sys:String>
     <sys:String x:Key="Main_Info">Info</sys:String>
     <sys:String x:Key="Main_Settings">Ustawienia</sys:String>
     <sys:String x:Key="Main_UpdateAvailable">Dostępna jest nowa wersja ClickyKeys.</sys:String>

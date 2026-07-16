@@ -72,6 +72,14 @@ namespace ClickyKeys
         [JsonPropertyName("start_minimized")]
         public bool StartMinimized { get; set; } = false;
 
+        // When true the overlay window (and the transparent sub-window) stay
+        // above other applications' windows via WPF's Window.Topmost. Toggled
+        // from the Display slide-out tab and honoured on every launch. Note:
+        // this cannot cover games running in exclusive fullscreen — no WPF
+        // overlay can — but works for windowed / borderless-windowed apps.
+        [JsonPropertyName("always_on_top")]
+        public bool AlwaysOnTop { get; set; } = false;
+
         // Master switch for input-statistics collection (KeyStatsService).
         // When false, no new key/mouse/wheel events are counted or written to
         // keystats.json, and the Statistics window shows a "collection disabled"

@@ -253,6 +253,24 @@
                                            Foreground="{Binding ToolbarTextColor}"/>
                             </StackPanel>
                         </Button>
+                        <Button Click="AlwaysOnTop_Click" x:Name="AlwaysOnTop_Button"
+                                Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
+                                HorizontalAlignment="Stretch"
+                                Padding="4,2" Height="68">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Orientation="Vertical">
+                                <Image Source="/Resources/Buttons/display_icon.png"
+                                       Width="28" Height="28" Margin="0,0,0,2"/>
+                                <TextBlock Text="{DynamicResource Main_AlwaysOnTop}" FontSize="13"
+                                           HorizontalAlignment="Center" TextAlignment="Center"
+                                           TextWrapping="Wrap"
+                                           Foreground="{Binding ToolbarTextColor}"/>
+                                <TextBlock x:Name="AlwaysOnTopStateText"
+                                           Text="{DynamicResource Main_Off}" FontSize="13"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{Binding ToolbarTextColor}"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </Border>
             </Popup>

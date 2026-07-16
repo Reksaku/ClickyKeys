@@ -114,6 +114,9 @@
     <sys:String x:Key="Main_Transparent">Gjennomsiktig</sys:String>
     <sys:String x:Key="Main_Mode">modus</sys:String>
     <sys:String x:Key="Main_HideToolbar">Skjul verktøylinje</sys:String>
+    <sys:String x:Key="Main_AlwaysOnTop">Alltid øverst</sys:String>
+    <sys:String x:Key="Main_On">På</sys:String>
+    <sys:String x:Key="Main_Off">Av</sys:String>
     <sys:String x:Key="Main_Info">Info</sys:String>
     <sys:String x:Key="Main_Settings">Innstillinger</sys:String>
     <sys:String x:Key="Main_UpdateAvailable">En ny versjon av ClickyKeys er tilgjengelig.</sys:String>

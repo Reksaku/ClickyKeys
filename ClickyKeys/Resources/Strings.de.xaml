@@ -114,6 +114,9 @@
     <sys:String x:Key="Main_Transparent">Transparenter</sys:String>
     <sys:String x:Key="Main_Mode">Modus</sys:String>
     <sys:String x:Key="Main_HideToolbar">Symbolleiste ausblenden</sys:String>
+    <sys:String x:Key="Main_AlwaysOnTop">Immer im Vordergrund</sys:String>
+    <sys:String x:Key="Main_On">Ein</sys:String>
+    <sys:String x:Key="Main_Off">Aus</sys:String>
     <sys:String x:Key="Main_Info">Info</sys:String>
     <sys:String x:Key="Main_Settings">Einstellungen</sys:String>
     <sys:String x:Key="Main_UpdateAvailable">Eine neue Version von ClickyKeys ist verfügbar.</sys:String>
