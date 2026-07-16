@@ -198,6 +198,14 @@ namespace ClickyKeys
         [JsonPropertyName("background_opacity")]
         public int BackgroundOpacity { get; set; } = 0;
 
+        // Fill opacity of the panels themselves ("glass" look), as a percent
+        // 0–100. 100 = fully solid panels; the default 80 keeps the historical
+        // semi-transparent glass fill. Applies to panels in BOTH windows (it's
+        // a panel property), but is grouped under transparent-mode options since
+        // that's where it matters most. Stored per appearance profile.
+        [JsonPropertyName("panel_opacity")]
+        public int PanelOpacity { get; set; } = 80;
+
         //[JsonPropertyName("panels_spacing")]
         //public int PanelsSpacing { get; set; } = 0;
 

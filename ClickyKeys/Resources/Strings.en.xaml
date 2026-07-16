@@ -44,8 +44,11 @@
     <sys:String x:Key="Appearance_GridColumns">Grid columns</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Panel width</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Panel height</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Transparent mode opacity</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Overlay opacity</sys:String>
     <sys:String x:Key="Appearance_BackgroundOpacity">Background opacity</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptions">Transparent mode options</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptionsDesc">Opacity of the panels window when used as an overlay.</sys:String>
+    <sys:String x:Key="Appearance_PanelOpacity">Panel opacity</sys:String>
     <sys:String x:Key="Appearance_GridSize">Grid size</sys:String>
     <sys:String x:Key="Appearance_Colors">Colors</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Background color</sys:String>

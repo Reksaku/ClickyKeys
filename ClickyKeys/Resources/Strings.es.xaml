@@ -45,8 +45,11 @@
     <sys:String x:Key="Appearance_GridColumns">Columnas de la cuadrícula</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Ancho del panel</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Alto del panel</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Opacidad del modo transparente</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Opacidad de la superposición</sys:String>
     <sys:String x:Key="Appearance_BackgroundOpacity">Opacidad del fondo</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptions">Opciones del modo transparente</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptionsDesc">Opacidad de la ventana de paneles al usarse como superposición.</sys:String>
+    <sys:String x:Key="Appearance_PanelOpacity">Opacidad de los paneles</sys:String>
     <sys:String x:Key="Appearance_GridSize">Tamaño de la cuadrícula</sys:String>
     <sys:String x:Key="Appearance_Colors">Colores</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Color de fondo</sys:String>

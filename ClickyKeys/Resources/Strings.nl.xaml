@@ -45,8 +45,11 @@
     <sys:String x:Key="Appearance_GridColumns">Rasterkolommen</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Paneelbreedte</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Paneelhoogte</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Dekking in transparante modus</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Overlaydekking</sys:String>
     <sys:String x:Key="Appearance_BackgroundOpacity">Achtergronddekking</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptions">Opties transparante modus</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptionsDesc">Dekking van het panelenvenster wanneer gebruikt als overlay.</sys:String>
+    <sys:String x:Key="Appearance_PanelOpacity">Paneeldekking</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rastergrootte</sys:String>
     <sys:String x:Key="Appearance_Colors">Kleuren</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Achtergrondkleur</sys:String>

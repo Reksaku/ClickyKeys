@@ -47,8 +47,11 @@
     <sys:String x:Key="Appearance_GridColumns">Colunas da grelha</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Largura do painel</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Altura do painel</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Opacidade do modo transparente</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Opacidade da sobreposição</sys:String>
     <sys:String x:Key="Appearance_BackgroundOpacity">Opacidade do fundo</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptions">Opções do modo transparente</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptionsDesc">Opacidade da janela de painéis quando usada como sobreposição.</sys:String>
+    <sys:String x:Key="Appearance_PanelOpacity">Opacidade dos painéis</sys:String>
     <sys:String x:Key="Appearance_GridSize">Tamanho da grelha</sys:String>
     <sys:String x:Key="Appearance_Colors">Cores</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Cor de fundo</sys:String>

@@ -45,8 +45,11 @@
     <sys:String x:Key="Appearance_GridColumns">Rasterspalten</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Panelbreite</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Panelhöhe</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Deckkraft im Transparent-Modus</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Deckkraft des Overlays</sys:String>
     <sys:String x:Key="Appearance_BackgroundOpacity">Deckkraft des Hintergrunds</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptions">Optionen für Transparent-Modus</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptionsDesc">Deckkraft des Panel-Fensters bei Verwendung als Overlay.</sys:String>
+    <sys:String x:Key="Appearance_PanelOpacity">Deckkraft der Panels</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rastergröße</sys:String>
     <sys:String x:Key="Appearance_Colors">Farben</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Hintergrundfarbe</sys:String>

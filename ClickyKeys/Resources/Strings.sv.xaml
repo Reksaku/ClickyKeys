@@ -45,8 +45,11 @@
     <sys:String x:Key="Appearance_GridColumns">Rutnätskolumner</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Panelbredd</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Panelhöjd</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Opacitet i transparent läge</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Överläggsopacitet</sys:String>
     <sys:String x:Key="Appearance_BackgroundOpacity">Bakgrundsopacitet</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptions">Alternativ för transparent läge</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptionsDesc">Opacitet för panelfönstret när det används som överlägg.</sys:String>
+    <sys:String x:Key="Appearance_PanelOpacity">Panelopacitet</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rutnätsstorlek</sys:String>
     <sys:String x:Key="Appearance_Colors">Färger</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Bakgrundsfärg</sys:String>

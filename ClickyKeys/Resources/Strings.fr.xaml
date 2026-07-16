@@ -45,8 +45,11 @@
     <sys:String x:Key="Appearance_GridColumns">Colonnes de la grille</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Largeur du panneau</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Hauteur du panneau</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Opacité du mode transparent</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Opacité de la superposition</sys:String>
     <sys:String x:Key="Appearance_BackgroundOpacity">Opacité de l'arrière-plan</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptions">Options du mode transparent</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptionsDesc">Opacité de la fenêtre des panneaux utilisée comme superposition.</sys:String>
+    <sys:String x:Key="Appearance_PanelOpacity">Opacité des panneaux</sys:String>
     <sys:String x:Key="Appearance_GridSize">Taille de la grille</sys:String>
     <sys:String x:Key="Appearance_Colors">Couleurs</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Couleur d'arrière-plan</sys:String>

@@ -45,8 +45,11 @@
     <sys:String x:Key="Appearance_GridColumns">Rutenettkolonner</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Panelbredde</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Panelhøyde</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Opasitet i gjennomsiktig modus</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Overleggsopasitet</sys:String>
     <sys:String x:Key="Appearance_BackgroundOpacity">Bakgrunnsopasitet</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptions">Alternativer for gjennomsiktig modus</sys:String>
+    <sys:String x:Key="Appearance_TransparentOptionsDesc">Opasitet for panelvinduet når det brukes som overlegg.</sys:String>
+    <sys:String x:Key="Appearance_PanelOpacity">Panelopasitet</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rutenettstørrelse</sys:String>
     <sys:String x:Key="Appearance_Colors">Farger</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Bakgrunnsfarge</sys:String>

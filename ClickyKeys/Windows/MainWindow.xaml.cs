@@ -36,6 +36,7 @@ namespace ClickyKeys
         void SetRainbowSpeed(int seconds);
         void SetWindowOpacity(int percent);
         void SetBackgroundOpacity(int percent);
+        void SetPanelOpacity(int percent);
 
         // Called by a panel on left-button-down. In transparent (overlay) mode
         // this starts a window drag and returns true so the panel skips opening
@@ -1731,6 +1732,21 @@ namespace ClickyKeys
                 _transparentWindow.SetBackgroundOpacity(clamped);
         }
 
+        // Sets the panels' glass-fill opacity (0–100%) directly on every live
+        // panel — 100 = fully solid, lower = more see-through glass. Applies to
+        // both windows and mirrors onto the open transparent sub-window.
+        public void SetPanelOpacity(int percent)
+        {
+            int clamped = Math.Clamp(percent, 0, 100);
+            _appearanceConfiguration.PanelOpacity = clamped;
+
+            foreach (var panel in _panelsById.Values)
+                panel.PanelOpacity = clamped;
+
+            if (_transparentWindow != null)
+                _transparentWindow.SetPanelOpacity(clamped);
+        }
+
         // Sets the opacity of the whole overlay window (toolbar + panels) and
         // mirrors it onto the transparent sub-window when one is open. Clamped
         // to a 20% floor so the window can never become fully invisible. Keeps
@@ -1844,6 +1860,7 @@ namespace ClickyKeys
             FontAppearance valuesFont = settings.ValuesFontAppearance;
             int panelWidth = settings.PanelWidth;
             int panelHeight = settings.PanelHeight;
+            int panelOpacity = settings.PanelOpacity;
 
             bool dimensionsChanged =
                 settings.GridRows != rows ||
@@ -1859,7 +1876,7 @@ namespace ClickyKeys
                     if (_panelsById.TryGetValue(id, out var existing))
                         ApplyPanelState(existing, id, panelColor, keysColor,
                             valuesColor, keysFont, valuesFont, panelWidth,
-                            panelHeight, resetValue: false);
+                            panelHeight, panelOpacity, resetValue: false);
                 }
                 return;
             }
@@ -1886,7 +1903,7 @@ namespace ClickyKeys
                     var panel = new GlassPanelWpf(this) { ID = nextId };
                     ApplyPanelState(panel, nextId, panelColor, keysColor,
                         valuesColor, keysFont, valuesFont, panelWidth,
-                        panelHeight, resetValue: true);
+                        panelHeight, panelOpacity, resetValue: true);
 
                     _panelsById[nextId] = panel;
                     Grid.SetRow(panel, r);
@@ -1907,6 +1924,7 @@ namespace ClickyKeys
             FontAppearance valuesFont,
             int panelWidth,
             int panelHeight,
+            int panelOpacity,
             bool resetValue)
         {
             var cfg = _panel_settings.Panels[id];
@@ -1925,6 +1943,7 @@ namespace ClickyKeys
             panel.ValueFont = valuesFont;
             panel.PanelWidth = panelWidth;
             panel.PanelHeight = panelHeight;
+            panel.PanelOpacity = panelOpacity;
 
             // For newly-constructed panels seed the value from the live
             // counter (0 if unknown). In-place updates keep the current

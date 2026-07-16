@@ -581,54 +581,6 @@
                                    Margin="0,4,0,0"
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"/>
                         -->
-
-                        <!-- Transparent-mode overlay opacity -->
-                        <Grid Style="{StaticResource SettingRowGrid}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       Style="{StaticResource SettingLabel}"
-                                       VerticalAlignment="Center"
-                                       Text="{DynamicResource Appearance_WindowOpacity}"/>
-                            <StackPanel Grid.Column="1" Width="200" VerticalAlignment="Center">
-                                <TextBlock FontSize="11" HorizontalAlignment="Right"
-                                           Foreground="{DynamicResource MaterialDesignBodyLight}">
-                                    <Run Text="{Binding ElementName=WindowOpacitySlider, Path=Value, StringFormat={}{0:0}}"/><Run Text="%"/>
-                                </TextBlock>
-                                <Slider x:Name="WindowOpacitySlider"
-                                        Minimum="20" Maximum="100"
-                                        TickFrequency="10" IsSnapToTickEnabled="True"
-                                        TickPlacement="BottomRight"
-                                        Value="100"
-                                        ValueChanged="WindowOpacitySlider_ValueChanged"/>
-                            </StackPanel>
-                        </Grid>
-
-                        <!-- Transparent-mode background opacity (0 = fully see-through) -->
-                        <Grid Style="{StaticResource SettingRowGrid}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       Style="{StaticResource SettingLabel}"
-                                       VerticalAlignment="Center"
-                                       Text="{DynamicResource Appearance_BackgroundOpacity}"/>
-                            <StackPanel Grid.Column="1" Width="200" VerticalAlignment="Center">
-                                <TextBlock FontSize="11" HorizontalAlignment="Right"
-                                           Foreground="{DynamicResource MaterialDesignBodyLight}">
-                                    <Run Text="{Binding ElementName=BackgroundOpacitySlider, Path=Value, StringFormat={}{0:0}}"/><Run Text="%"/>
-                                </TextBlock>
-                                <Slider x:Name="BackgroundOpacitySlider"
-                                        Minimum="0" Maximum="100"
-                                        TickFrequency="10" IsSnapToTickEnabled="True"
-                                        TickPlacement="BottomRight"
-                                        Value="0"
-                                        ValueChanged="BackgroundOpacitySlider_ValueChanged"/>
-                            </StackPanel>
-                        </Grid>
                         </StackPanel>
                     </Expander>
                 </materialDesign:Card>
@@ -694,6 +646,95 @@
                                         TickPlacement="BottomRight"
                                         Value="6"
                                         ValueChanged="RainbowSpeedSlider_ValueChanged"/>
+                            </StackPanel>
+                        </Grid>
+                        </StackPanel>
+                    </Expander>
+                </materialDesign:Card>
+
+                <!-- ================= Transparent mode options ================= -->
+                <materialDesign:Card Margin="0,0,0,12" Padding="12">
+                    <Expander IsExpanded="False" Background="Transparent" Padding="0">
+                        <Expander.Header>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource CardHeader}" Margin="0"
+                                           Text="{DynamicResource Appearance_TransparentOptions}"/>
+                                <TextBlock Text="{DynamicResource Appearance_TransparentOptionsDesc}"
+                                           FontSize="12" Margin="0,2,0,0" TextWrapping="Wrap"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                            </StackPanel>
+                        </Expander.Header>
+                        <StackPanel Margin="0,8,0,0">
+
+                        <!-- Overlay window opacity -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       VerticalAlignment="Center"
+                                       Text="{DynamicResource Appearance_WindowOpacity}"/>
+                            <StackPanel Grid.Column="1" Width="200" VerticalAlignment="Center">
+                                <TextBlock FontSize="11" HorizontalAlignment="Right"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}">
+                                    <Run Text="{Binding ElementName=WindowOpacitySlider, Path=Value, StringFormat={}{0:0}}"/><Run Text="%"/>
+                                </TextBlock>
+                                <Slider x:Name="WindowOpacitySlider"
+                                        Minimum="20" Maximum="100"
+                                        TickFrequency="10" IsSnapToTickEnabled="True"
+                                        TickPlacement="BottomRight"
+                                        Value="100"
+                                        ValueChanged="WindowOpacitySlider_ValueChanged"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Background opacity (0 = fully see-through) -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       VerticalAlignment="Center"
+                                       Text="{DynamicResource Appearance_BackgroundOpacity}"/>
+                            <StackPanel Grid.Column="1" Width="200" VerticalAlignment="Center">
+                                <TextBlock FontSize="11" HorizontalAlignment="Right"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}">
+                                    <Run Text="{Binding ElementName=BackgroundOpacitySlider, Path=Value, StringFormat={}{0:0}}"/><Run Text="%"/>
+                                </TextBlock>
+                                <Slider x:Name="BackgroundOpacitySlider"
+                                        Minimum="0" Maximum="100"
+                                        TickFrequency="10" IsSnapToTickEnabled="True"
+                                        TickPlacement="BottomRight"
+                                        Value="0"
+                                        ValueChanged="BackgroundOpacitySlider_ValueChanged"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Panel (glass) fill opacity -->
+                        <Grid Style="{StaticResource SettingRowGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Style="{StaticResource SettingLabel}"
+                                       VerticalAlignment="Center"
+                                       Text="{DynamicResource Appearance_PanelOpacity}"/>
+                            <StackPanel Grid.Column="1" Width="200" VerticalAlignment="Center">
+                                <TextBlock FontSize="11" HorizontalAlignment="Right"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}">
+                                    <Run Text="{Binding ElementName=PanelOpacitySlider, Path=Value, StringFormat={}{0:0}}"/><Run Text="%"/>
+                                </TextBlock>
+                                <Slider x:Name="PanelOpacitySlider"
+                                        Minimum="0" Maximum="100"
+                                        TickFrequency="10" IsSnapToTickEnabled="True"
+                                        TickPlacement="BottomRight"
+                                        Value="80"
+                                        ValueChanged="PanelOpacitySlider_ValueChanged"/>
                             </StackPanel>
                         </Grid>
                         </StackPanel>

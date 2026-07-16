@@ -116,6 +116,7 @@ namespace ClickyKeys
             // pushes it to the overlay window). Clamped to the slider's range.
             WindowOpacitySlider.Value = Math.Clamp(_appearance.WindowOpacity, 20, 100);
             BackgroundOpacitySlider.Value = Math.Clamp(_appearance.BackgroundOpacity, 0, 100);
+            PanelOpacitySlider.Value = Math.Clamp(_appearance.PanelOpacity, 0, 100);
 
             BackgroundColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.BackgroundColor);
             PanelsColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.PanelsColor);
@@ -335,6 +336,16 @@ namespace ClickyKeys
                 _appearance.BackgroundOpacity = value;
             _mainOverlay?.SetBackgroundOpacity(value);
         }
+
+        // Live-updates the panel glass-fill opacity and records it on the active
+        // profile so it persists on save.
+        private void PanelOpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int value = (int)PanelOpacitySlider.Value;
+            if (_appearance != null)
+                _appearance.PanelOpacity = value;
+            _mainOverlay?.SetPanelOpacity(value);
+        }
         private void Click_GridRows(object? sender, EventArgs e)
         {
             _appearance.GridRows = (int)RowsCount.Value;
@@ -387,6 +398,7 @@ namespace ClickyKeys
             _appearanceConfiguration.PanelHeight = (int)PanelHeightCount.Value;
             _appearanceConfiguration.WindowOpacity = (int)WindowOpacitySlider.Value;
             _appearanceConfiguration.BackgroundOpacity = (int)BackgroundOpacitySlider.Value;
+            _appearanceConfiguration.PanelOpacity = (int)PanelOpacitySlider.Value;
             var converter = new ColorConverter();
             _appearanceConfiguration.BackgroundColor = converter.ConvertToString(backgroundColor);
             _appearanceConfiguration.PanelsColor = converter.ConvertToString(panelsColor);
@@ -604,6 +616,7 @@ namespace ClickyKeys
             target.PanelHeight = source.PanelHeight;
             target.WindowOpacity = source.WindowOpacity;
             target.BackgroundOpacity = source.BackgroundOpacity;
+            target.PanelOpacity = source.PanelOpacity;
             target.BackgroundColor = source.BackgroundColor;
             target.PanelsColor = source.PanelsColor;
             target.KeysTextColor = source.KeysTextColor;
