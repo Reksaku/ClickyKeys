@@ -230,7 +230,7 @@
     <sys:String x:Key="Tutorial_S9_Body">Il pulsante Reimposta (F12) azzera tutti i contatori dei pannelli senza modificarne la configurazione o la disposizione.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Pulsante Reimposta</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Visualizzazione</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Passa il mouse sulla scheda Visualizzazione per mostrare opzioni aggiuntive:\n• Modalità trasparente — nasconde lo sfondo e la barra degli strumenti, utile per gli overlay in streaming.\n• Nascondi barra (F11) — nasconde la barra degli strumenti.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Passa il mouse sulla scheda Visualizzazione per mostrare opzioni aggiuntive:\n• Modalità trasparente — nasconde lo sfondo e la barra degli strumenti, utile per gli overlay in streaming. Spostala trascinando un pannello qualsiasi (quando «Clic passante» è disattivato) e cambia l'opacità in Aspetto ▸ Opzioni della modalità trasparente.\n• Sempre in primo piano — mantiene l'overlay sopra le altre finestre.\n• Clic passante — lascia passare i clic all'app sottostante.\n• Nascondi barra (F11) — nasconde la barra degli strumenti.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Passa il mouse sulla scheda Visualizzazione</sys:String>
     <sys:String x:Key="Tutorial_S11_Title">Statistiche</sys:String>
     <sys:String x:Key="Tutorial_S11_Body">La scheda Statistiche mostra quanti tasti hai premuto in totale.\nI tuoi dati sono memorizzati solo sul tuo disco locale.</sys:String>

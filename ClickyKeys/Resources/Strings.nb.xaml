@@ -230,7 +230,7 @@
     <sys:String x:Key="Tutorial_S9_Body">Knappen Tilbakestill (F12) nullstiller alle panel-tellere uten å endre konfigurasjonen eller oppsettet deres.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Knappen Tilbakestill</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Visning</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Hold musepekeren over fanen Visning for å vise flere alternativer:\n• Gjennomsiktig modus — skjuler bakgrunnen og verktøylinjen, nyttig for strømmeoverlegg.\n• Skjul verktøylinje (F11) — skjuler verktøylinjen.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Hold musepekeren over fanen Visning for å vise flere alternativer:\n• Gjennomsiktig modus — skjuler bakgrunnen og verktøylinjen, nyttig for strømmeoverlegg. Flytt det ved å dra et hvilket som helst panel (når «Gjennomklikk» er av), og endre gjennomsiktigheten i Utseende ▸ Alternativer for gjennomsiktig modus.\n• Alltid øverst — holder overlegget over andre vinduer.\n• Gjennomklikk — lar klikk gå gjennom til appen under.\n• Skjul verktøylinje (F11) — skjuler verktøylinjen.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Hold pekeren over fanen Visning</sys:String>
     <sys:String x:Key="Tutorial_S11_Title">Statistikk</sys:String>
     <sys:String x:Key="Tutorial_S11_Body">Statistikk-fanen viser hvor mange taster du har trykket totalt.\nDataene dine lagres kun på din lokale disk.</sys:String>

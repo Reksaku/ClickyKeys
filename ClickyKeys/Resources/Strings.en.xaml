@@ -229,7 +229,7 @@
     <sys:String x:Key="Tutorial_S9_Body">The Reset button (F12) clears all panel counters without changing their configuration or layout.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Reset button</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Display</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Hover the Display tab to reveal extra options:\n• Transparent mode — hides the background and toolbar, useful for streaming overlays.\n• Hide toolbar (F11) — collapses the toolbar.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Hover the Display tab to reveal extra options:\n• Transparent mode — hides the background and toolbar, useful for streaming overlays. Move it by dragging any panel (when Click-through is off), and change its opacity in Appearance ▸ Transparent mode options.\n• Always on top — keeps the overlay above other windows.\n• Click-through — lets clicks pass through to the app underneath.\n• Hide toolbar (F11) — collapses the toolbar.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Hover the Display tab</sys:String>
     <sys:String x:Key="Tutorial_S11_Title">Stats</sys:String>
     <sys:String x:Key="Tutorial_S11_Body">The Stats tab shows how many keys you've pressed in total.\nYour data is stored only on your local drive.</sys:String>

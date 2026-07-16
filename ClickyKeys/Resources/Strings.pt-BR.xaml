@@ -230,7 +230,7 @@
     <sys:String x:Key="Tutorial_S9_Body">O botão Redefinir (F12) zera todos os contadores dos painéis sem alterar sua configuração ou disposição.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Botão Redefinir</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Exibição</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Passe o mouse sobre a aba Exibição para mostrar opções adicionais:\n• Modo transparente — oculta o fundo e a barra de ferramentas, útil para sobreposições de transmissão.\n• Ocultar barra (F11) — oculta a barra de ferramentas.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Passe o mouse sobre a aba Exibição para mostrar opções adicionais:\n• Modo transparente — oculta o fundo e a barra de ferramentas, útil para sobreposições de transmissão. Mova-o arrastando qualquer painel (quando «Clique passante» está desativado) e altere a opacidade em Aparência ▸ Opções do modo transparente.\n• Sempre visível — mantém a sobreposição acima de outras janelas.\n• Clique passante — deixa os cliques passarem para o app abaixo.\n• Ocultar barra (F11) — oculta a barra de ferramentas.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Passe o mouse sobre a aba Exibição</sys:String>
     <sys:String x:Key="Tutorial_S11_Title">Estatísticas</sys:String>
     <sys:String x:Key="Tutorial_S11_Body">A aba Estatísticas mostra quantas teclas você pressionou no total.\nSeus dados são armazenados apenas no seu disco local.</sys:String>

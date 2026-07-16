@@ -232,7 +232,7 @@
     <sys:String x:Key="Tutorial_S9_Body">O botão Repor (F12) coloca a zero todos os contadores dos painéis sem alterar a sua configuração ou disposição.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Botão Repor</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Apresentação</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Passe o rato sobre o separador Apresentação para mostrar opções adicionais:\n• Modo transparente — oculta o fundo e a barra de ferramentas, útil para sobreposições de transmissão.\n• Ocultar barra (F11) — oculta a barra de ferramentas.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Passe o rato sobre o separador Apresentação para mostrar opções adicionais:\n• Modo transparente — oculta o fundo e a barra de ferramentas, útil para sobreposições de transmissão. Mova-o arrastando qualquer painel (quando «Clique passante» está desativado) e altere a opacidade em Aspeto ▸ Opções do modo transparente.\n• Sempre visível — mantém a sobreposição acima de outras janelas.\n• Clique passante — deixa os cliques passarem para a aplicação por baixo.\n• Ocultar barra (F11) — oculta a barra de ferramentas.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Passe o rato sobre o separador Apresentação</sys:String>
     <sys:String x:Key="Tutorial_S11_Title">Estatísticas</sys:String>
     <sys:String x:Key="Tutorial_S11_Body">O separador Estatísticas mostra quantas teclas premiu no total.\nOs seus dados são armazenados apenas no seu disco local.</sys:String>

@@ -230,7 +230,7 @@
     <sys:String x:Key="Tutorial_S9_Body">Le bouton Réinitialiser (F12) remet à zéro tous les compteurs des panneaux sans modifier leur configuration ni leur disposition.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Bouton Réinitialiser</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Affichage</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Survolez l'onglet Affichage pour afficher des options supplémentaires :\n• Mode transparent — masque l'arrière-plan et la barre d'outils, utile pour les superpositions de streaming.\n• Masquer la barre (F11) — masque la barre d'outils.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Survolez l'onglet Affichage pour afficher des options supplémentaires :\n• Mode transparent — masque l'arrière-plan et la barre d'outils, utile pour les superpositions de streaming. Déplacez-le en faisant glisser n'importe quel panneau (lorsque « Clic traversant » est désactivé) et modifiez son opacité dans Apparence ▸ Options du mode transparent.\n• Toujours visible — garde la superposition au-dessus des autres fenêtres.\n• Clic traversant — laisse passer les clics vers l'application en dessous.\n• Masquer la barre (F11) — masque la barre d'outils.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Survolez l'onglet Affichage</sys:String>
     <sys:String x:Key="Tutorial_S11_Title">Stats</sys:String>
     <sys:String x:Key="Tutorial_S11_Body">L'onglet Stats indique combien de touches vous avez appuyées au total.\nVos données sont stockées uniquement sur votre disque local.</sys:String>

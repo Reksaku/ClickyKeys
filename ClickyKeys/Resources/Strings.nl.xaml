@@ -230,7 +230,7 @@
     <sys:String x:Key="Tutorial_S9_Body">De knop Opnieuw instellen (F12) zet alle paneeltellers op nul zonder de configuratie of indeling te wijzigen.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Knop Opnieuw instellen</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Weergeven</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Beweeg de muis over het tabblad Weergeven om extra opties te tonen:\n• Transparante modus — verbergt de achtergrond en werkbalk, handig voor stream-overlays.\n• Werkbalk verbergen (F11) — verbergt de werkbalk.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Beweeg de muis over het tabblad Weergeven om extra opties te tonen:\n• Transparante modus — verbergt de achtergrond en werkbalk, handig voor stream-overlays. Verplaats hem door een willekeurig paneel te slepen (wanneer «Klikken doorlaten» uit staat) en pas de dekking aan via Weergave ▸ Opties transparante modus.\n• Altijd bovenop — houdt de overlay boven andere vensters.\n• Klikken doorlaten — laat klikken door naar de app eronder.\n• Werkbalk verbergen (F11) — verbergt de werkbalk.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Beweeg over het tabblad Weergeven</sys:String>
     <sys:String x:Key="Tutorial_S11_Title">Statistieken</sys:String>
     <sys:String x:Key="Tutorial_S11_Body">Het tabblad Statistieken toont hoeveel toetsen je in totaal hebt ingedrukt.\nJe gegevens worden alleen op je lokale schijf opgeslagen.</sys:String>

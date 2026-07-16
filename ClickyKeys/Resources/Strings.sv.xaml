@@ -230,7 +230,7 @@
     <sys:String x:Key="Tutorial_S9_Body">Knappen Återställ (F12) nollställer alla panelräknare utan att ändra deras konfiguration eller layout.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Knappen Återställ</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Visning</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Håll muspekaren över fliken Visning för att visa fler alternativ:\n• Transparent läge — döljer bakgrunden och verktygsfältet, användbart för streaming-överlägg.\n• Dölj verktygsfält (F11) — döljer verktygsfältet.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Håll muspekaren över fliken Visning för att visa fler alternativ:\n• Transparent läge — döljer bakgrunden och verktygsfältet, användbart för streaming-överlägg. Flytta det genom att dra valfri panel (när «Klick igenom» är av) och ändra opaciteten i Utseende ▸ Alternativ för transparent läge.\n• Alltid överst — håller överlägget ovanför andra fönster.\n• Klick igenom — släpper igenom klick till appen under.\n• Dölj verktygsfält (F11) — döljer verktygsfältet.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Håll pekaren över fliken Visning</sys:String>
     <sys:String x:Key="Tutorial_S11_Title">Statistik</sys:String>
     <sys:String x:Key="Tutorial_S11_Body">Fliken Statistik visar hur många tangenter du har tryckt på totalt.\nDina data lagras endast på din lokala disk.</sys:String>

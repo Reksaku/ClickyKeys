@@ -232,7 +232,7 @@
     <sys:String x:Key="Tutorial_S9_Body">El botón Restablecer (F12) pone en cero todos los contadores de los paneles sin cambiar su configuración ni su disposición.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Botón Restablecer</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Visualización</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Pasa el cursor sobre la pestaña Visualización para mostrar opciones adicionales:\n• Modo transparente — oculta el fondo y la barra de herramientas, útil para overlays de streaming.\n• Ocultar barra (F11) — oculta la barra de herramientas.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Pasa el cursor sobre la pestaña Visualización para mostrar opciones adicionales:\n• Modo transparente — oculta el fondo y la barra de herramientas, útil para overlays de streaming. Muévelo arrastrando cualquier panel (cuando «Clic pasante» está desactivado) y cambia su opacidad en Apariencia ▸ Opciones del modo transparente.\n• Siempre visible — mantiene la superposición por encima de otras ventanas.\n• Clic pasante — deja pasar los clics a la app de abajo.\n• Ocultar barra (F11) — oculta la barra de herramientas.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Pasa el cursor sobre la pestaña Visualización</sys:String>
     <sys:String x:Key="Tutorial_S11_Title">Estadísticas</sys:String>
     <sys:String x:Key="Tutorial_S11_Body">La pestaña Estadísticas muestra cuántas teclas has presionado en total.\nTus datos se almacenan únicamente en tu disco local.</sys:String>

@@ -230,7 +230,7 @@
     <sys:String x:Key="Tutorial_S9_Body">Die Schaltfläche Zurücksetzen (F12) setzt alle Panel-Zähler zurück, ohne deren Konfiguration oder Layout zu ändern.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Schaltfläche Zurücksetzen</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Anzeige</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Bewege den Mauszeiger über den Tab Anzeige, um weitere Optionen einzublenden:\n• Transparenter Modus — blendet Hintergrund und Symbolleiste aus, nützlich für Streaming-Overlays.\n• Symbolleiste ausblenden (F11) — verbirgt die Symbolleiste.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Bewege den Mauszeiger über den Tab Anzeige, um weitere Optionen einzublenden:\n• Transparenter Modus — blendet Hintergrund und Symbolleiste aus, nützlich für Streaming-Overlays. Verschiebe ihn, indem du ein beliebiges Panel ziehst (wenn „Klicks durchlassen“ aus ist), und ändere die Deckkraft unter Darstellung ▸ Optionen für Transparent-Modus.\n• Immer im Vordergrund — hält das Overlay über anderen Fenstern.\n• Klicks durchlassen — Klicks gehen an die darunterliegende App.\n• Symbolleiste ausblenden (F11) — verbirgt die Symbolleiste.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Zeige auf den Tab Anzeige</sys:String>
     <sys:String x:Key="Tutorial_S11_Title">Statistik</sys:String>
     <sys:String x:Key="Tutorial_S11_Body">Der Tab Statistik zeigt, wie viele Tasten du insgesamt gedrückt hast.\nDeine Daten werden nur auf deiner lokalen Festplatte gespeichert.</sys:String>

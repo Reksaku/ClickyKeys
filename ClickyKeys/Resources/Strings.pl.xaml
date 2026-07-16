@@ -229,7 +229,7 @@
     <sys:String x:Key="Tutorial_S9_Body">Przycisk Reset (klawisz F12) zeruje wszystkie liczniki paneli, nie zmieniając ich konfiguracji ani układu.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Przycisk Reset</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Wyświetlanie</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Najedź na kartę Wyświetlanie, aby rozwinąć dodatkowe opcje:\n• Tryb przezroczysty — ukrywa tło i pasek narzędzi, przydatne do nakładek na transmisjach.\n• Ukryj pasek (F11) — chowa pasek narzędzi.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Najedź na kartę Wyświetlanie, aby rozwinąć dodatkowe opcje:\n• Tryb przezroczysty — ukrywa tło i pasek narzędzi, przydatne do nakładek na transmisjach. Przesuwaj go, przeciągając dowolny panel (gdy Kliknięcia na wylot są wyłączone), a przezroczystość zmienisz w Wygląd ▸ Opcje trybu transparentnego.\n• Zawsze na wierzchu — utrzymuje nakładkę nad innymi oknami.\n• Kliknięcia na wylot — przepuszczają kliknięcia do aplikacji pod spodem.\n• Ukryj pasek (F11) — chowa pasek narzędzi.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Najedź na kartę Wyświetlanie</sys:String>
     <sys:String x:Key="Tutorial_S11_Title">Statystyki</sys:String>
     <sys:String x:Key="Tutorial_S11_Body">Karta Statystyki pokazuje, ile klawiszy nacisnąłeś łącznie.\nTwoje dane są przechowywane wyłącznie na lokalnym dysku.</sys:String>
