@@ -45,7 +45,8 @@
     <sys:String x:Key="Appearance_GridColumns">Rasterspalten</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Panelbreite</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Panelhöhe</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Deckkraft des Fensters</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Deckkraft im Transparent-Modus</sys:String>
+    <sys:String x:Key="Appearance_BackgroundOpacity">Deckkraft des Hintergrunds</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rastergröße</sys:String>
     <sys:String x:Key="Appearance_Colors">Farben</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Hintergrundfarbe</sys:String>
@@ -116,6 +117,7 @@
     <sys:String x:Key="Main_Mode">Modus</sys:String>
     <sys:String x:Key="Main_HideToolbar">Symbolleiste ausblenden</sys:String>
     <sys:String x:Key="Main_AlwaysOnTop">Immer im Vordergrund</sys:String>
+    <sys:String x:Key="Main_ClickThrough">Klicks durchlassen</sys:String>
     <sys:String x:Key="Main_On">Ein</sys:String>
     <sys:String x:Key="Main_Off">Aus</sys:String>
     <sys:String x:Key="Main_Info">Info</sys:String>

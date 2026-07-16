@@ -47,7 +47,8 @@
     <sys:String x:Key="Appearance_GridColumns">Columnas de la cuadrícula</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Ancho del panel</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Alto del panel</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Opacidad de la ventana</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Opacidad del modo transparente</sys:String>
+    <sys:String x:Key="Appearance_BackgroundOpacity">Opacidad del fondo</sys:String>
     <sys:String x:Key="Appearance_GridSize">Tamaño de la cuadrícula</sys:String>
     <sys:String x:Key="Appearance_Colors">Colores</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Color de fondo</sys:String>
@@ -118,6 +119,7 @@
     <sys:String x:Key="Main_Mode">modo</sys:String>
     <sys:String x:Key="Main_HideToolbar">Ocultar barra</sys:String>
     <sys:String x:Key="Main_AlwaysOnTop">Siempre visible</sys:String>
+    <sys:String x:Key="Main_ClickThrough">Clic pasante</sys:String>
     <sys:String x:Key="Main_On">Activado</sys:String>
     <sys:String x:Key="Main_Off">Desactivado</sys:String>
     <sys:String x:Key="Main_Info">Info</sys:String>

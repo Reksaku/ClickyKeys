@@ -188,6 +188,16 @@ namespace ClickyKeys
         [JsonPropertyName("window_opacity")]
         public int WindowOpacity { get; set; } = 100;
 
+        // Opacity of the overlay BACKGROUND in transparent mode, as a percent
+        // 0–100. 0 = fully see-through (only the panels float, the historical
+        // transparent-mode look); higher values keep the background colour
+        // visible behind the panels so the overlay stays readable over busy
+        // scenes. Only affects the transparent sub-window — the master window
+        // always shows its full background. Stored per appearance profile;
+        // older files default to 0 (unchanged behaviour).
+        [JsonPropertyName("background_opacity")]
+        public int BackgroundOpacity { get; set; } = 0;
+
         //[JsonPropertyName("panels_spacing")]
         //public int PanelsSpacing { get; set; } = 0;
 

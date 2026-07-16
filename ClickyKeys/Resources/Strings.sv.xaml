@@ -45,7 +45,8 @@
     <sys:String x:Key="Appearance_GridColumns">Rutnätskolumner</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Panelbredd</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Panelhöjd</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Fönsteropacitet</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Opacitet i transparent läge</sys:String>
+    <sys:String x:Key="Appearance_BackgroundOpacity">Bakgrundsopacitet</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rutnätsstorlek</sys:String>
     <sys:String x:Key="Appearance_Colors">Färger</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Bakgrundsfärg</sys:String>
@@ -116,6 +117,7 @@
     <sys:String x:Key="Main_Mode">läge</sys:String>
     <sys:String x:Key="Main_HideToolbar">Dölj verktygsfält</sys:String>
     <sys:String x:Key="Main_AlwaysOnTop">Alltid överst</sys:String>
+    <sys:String x:Key="Main_ClickThrough">Klick igenom</sys:String>
     <sys:String x:Key="Main_On">På</sys:String>
     <sys:String x:Key="Main_Off">Av</sys:String>
     <sys:String x:Key="Main_Info">Info</sys:String>

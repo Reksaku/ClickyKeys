@@ -35,6 +35,7 @@ namespace ClickyKeys
         void SetBackgroundRainbow(bool? IsTrue);
         void SetRainbowSpeed(int seconds);
         void SetWindowOpacity(int percent);
+        void SetBackgroundOpacity(int percent);
 
         // Called by a panel on left-button-down. In transparent (overlay) mode
         // this starts a window drag and returns true so the panel skips opening
@@ -172,6 +173,56 @@ namespace ClickyKeys
         private static extern IntPtr GetShellWindow();
 
         private bool _isCloaked = false;
+
+        // ── Overlay window styles (transparent sub-window only) ─────────────
+        [DllImport("user32.dll", EntryPoint = "GetWindowLongW")]
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLongW")]
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        private const int GWL_EXSTYLE = -20;
+        private const int WS_EX_TRANSPARENT = 0x00000020;   // click-through
+        private const int WS_EX_NOACTIVATE = 0x08000000;    // never steal focus
+
+        // Tracks the desired click-through state (persisted in
+        // Configuration.ClickThrough). Set on both windows so the master can
+        // toggle it and the transparent sub-window can apply it on show.
+        private bool _clickThrough = false;
+
+        // Applies overlay-only extended styles once the HWND exists. Only the
+        // transparent sub-window is affected: WS_EX_NOACTIVATE stops the overlay
+        // from stealing focus from the game/app underneath, and the persisted
+        // click-through preference is applied on first show.
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            if (!_transparent) return;
+
+            var hwnd = new WindowInteropHelper(this).Handle;
+            if (hwnd == IntPtr.Zero) return;
+
+            int ex = GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_NOACTIVATE;
+            SetWindowLong(hwnd, GWL_EXSTYLE, ex);
+
+            SetClickThrough(_clickThrough);
+        }
+
+        // Adds/removes WS_EX_TRANSPARENT on THIS window so mouse input passes
+        // through to whatever is underneath. Meaningful only for the transparent
+        // overlay (AllowsTransparency already makes it a layered window, which
+        // click-through requires). While enabled the overlay cannot be dragged.
+        public void SetClickThrough(bool enabled)
+        {
+            _clickThrough = enabled;
+
+            var hwnd = new WindowInteropHelper(this).Handle;
+            if (hwnd == IntPtr.Zero) return;
+
+            int ex = GetWindowLong(hwnd, GWL_EXSTYLE);
+            ex = enabled ? (ex | WS_EX_TRANSPARENT) : (ex & ~WS_EX_TRANSPARENT);
+            SetWindowLong(hwnd, GWL_EXSTYLE, ex);
+        }
 
 
         /// <summary>
@@ -318,6 +369,12 @@ namespace ClickyKeys
             Topmost = ConfigSettings.AlwaysOnTop;
             UpdateAlwaysOnTopStateText(ConfigSettings.AlwaysOnTop);
 
+            // Seed click-through state (applied to the overlay's window styles
+            // in OnSourceInitialized / SetClickThrough) and reflect it on the
+            // Display-tab toggle.
+            _clickThrough = ConfigSettings.ClickThrough;
+            UpdateClickThroughStateText(ConfigSettings.ClickThrough);
+
             // Apply the profile's overlay opacity — but ONLY to the transparent
             // overlay window. The master window must stay fully opaque (setting
             // Window.Opacity on it renders it black); see SetWindowOpacity.
@@ -330,7 +387,13 @@ namespace ClickyKeys
                 _counter = counter;
                 WindowStyle = WindowStyle.None;
                 AllowsTransparency = true;
-                Background = Brushes.Transparent;
+                // Use the mutable background brush (colour seeded by
+                // LoadBackgroundFromSettings) with a configurable alpha instead
+                // of a fixed fully-transparent brush, so the user can keep a
+                // persistent background behind the panels. 0% == the historical
+                // fully-see-through look.
+                _backgroundBrush.Opacity = Math.Clamp(_appearanceConfiguration.BackgroundOpacity, 0, 100) / 100.0;
+                Background = _backgroundBrush;
                 this.Title = "ClickyKeys: Transparent Mode";
                 ToolStrip.Visibility = Visibility.Collapsed;
             }
@@ -471,6 +534,29 @@ namespace ClickyKeys
         {
             if (AlwaysOnTopStateText == null) return;
             AlwaysOnTopStateText.Text = LocalizationManager.T(enabled ? "Main_On" : "Main_Off");
+        }
+
+        // Display tab → Click-through. Toggles WS_EX_TRANSPARENT on the open
+        // transparent overlay (clicks pass through to whatever is underneath),
+        // persists the choice, and updates the toggle caption. Only visibly
+        // affects the overlay; when it's not open the preference is stored and
+        // applied the next time transparent mode starts.
+        private void ClickThrough_Click(object sender, RoutedEventArgs e)
+        {
+            bool enabled = !_clickThrough;
+            _clickThrough = enabled;
+
+            _transparentWindow?.SetClickThrough(enabled);
+
+            ConfigStore.Update(c => c.ClickThrough = enabled);
+            UpdateClickThroughStateText(enabled);
+        }
+
+        // Reflects the current click-through state on the Display-tab toggle.
+        private void UpdateClickThroughStateText(bool enabled)
+        {
+            if (ClickThroughStateText == null) return;
+            ClickThroughStateText.Text = LocalizationManager.T(enabled ? "Main_On" : "Main_Off");
         }
         private void Reset_Click(object sender, RoutedEventArgs e) => ResetCounter();
         private void TransparentMode_Click(object sender, RoutedEventArgs e) => TransparentMode();
@@ -616,6 +702,10 @@ namespace ClickyKeys
             _transparentWindow.Top = Top;
 
             _transparentWindow.Show();
+
+            // Ensure the overlay honours the master's current click-through
+            // preference even if it changed since the config was last written.
+            _transparentWindow.SetClickThrough(_clickThrough);
         }
 
         // Transparent overlay: begin dragging the borderless window. Returns
@@ -1136,6 +1226,8 @@ namespace ClickyKeys
             SetGrid(_appearanceConfiguration);
             SetWindowOpacity(_appearanceConfiguration.WindowOpacity);
             UpdateButtonLayout();
+            // Push the freshly-loaded profile onto the open transparent overlay.
+            _transparentWindow?.ApplyAppearanceFromMaster(_appearanceConfiguration);
             OpenedAppearance = false;
         }
 
@@ -1163,13 +1255,18 @@ namespace ClickyKeys
             if (_transparentWindow == null)
             {
                 myGrid.Visibility = Visibility.Collapsed;
-                Appearance_Button.Visibility = Visibility.Collapsed;
+                // Keep the Appearance button available so the user can still
+                // open settings while in transparent mode — edits are mirrored
+                // onto the overlay live (see ApplyAppearanceFromMaster).
+                // Click-through only makes sense for the overlay, so its toggle
+                // is shown only while transparent mode is active.
+                ClickThrough_Button.Visibility = Visibility.Visible;
                 InitTransparentMode();
             }
             else
             {
                 myGrid.Visibility = Visibility.Visible;
-                Appearance_Button.Visibility = Visibility.Visible;
+                ClickThrough_Button.Visibility = Visibility.Collapsed;
                 _transparentWindow?.Close();
                 _transparentWindow = null;
             }
@@ -1599,6 +1696,39 @@ namespace ClickyKeys
         {
             SetGrid(settings);
             UpdateButtonLayout();
+            // Mirror grid/size/font changes onto the open transparent overlay so
+            // settings edits take effect live in transparent mode too.
+            _transparentWindow?.ApplyAppearanceFromMaster(settings);
+        }
+
+        // Applies the master window's current appearance to THIS transparent
+        // overlay: grid dimensions, panel size, fonts, panel colours and
+        // opacity. Called by the master whenever appearance changes while the
+        // overlay is open. (Background/rainbow are skipped — the overlay has a
+        // transparent background — and colours also arrive via
+        // ColorChangedMessage.)
+        public void ApplyAppearanceFromMaster(AppearanceConfiguration settings)
+        {
+            _appearanceConfiguration = settings;
+            SetGrid(settings);
+            UpdateButtonLayout();
+            SetWindowOpacity(settings.WindowOpacity);
+            SetBackgroundOpacity(settings.BackgroundOpacity);
+        }
+
+        // Sets the transparent overlay's BACKGROUND alpha (0–100%). Applied to
+        // the mutable background brush of the transparent sub-window; the master
+        // window is unaffected (it always shows its full background). Mirrored
+        // onto the open sub-window so the Appearance slider updates it live.
+        public void SetBackgroundOpacity(int percent)
+        {
+            int clamped = Math.Clamp(percent, 0, 100);
+            _appearanceConfiguration.BackgroundOpacity = clamped;
+
+            if (_transparent)
+                _backgroundBrush.Opacity = clamped / 100.0;
+            if (_transparentWindow != null)
+                _transparentWindow.SetBackgroundOpacity(clamped);
         }
 
         // Sets the opacity of the whole overlay window (toolbar + panels) and

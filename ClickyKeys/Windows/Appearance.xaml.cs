@@ -115,6 +115,7 @@ namespace ClickyKeys
             // live (setting Value raises WindowOpacitySlider_ValueChanged, which
             // pushes it to the overlay window). Clamped to the slider's range.
             WindowOpacitySlider.Value = Math.Clamp(_appearance.WindowOpacity, 20, 100);
+            BackgroundOpacitySlider.Value = Math.Clamp(_appearance.BackgroundOpacity, 0, 100);
 
             BackgroundColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.BackgroundColor);
             PanelsColorPicker.Color = (Color)ColorConverter.ConvertFromString(_appearance.PanelsColor);
@@ -324,6 +325,16 @@ namespace ClickyKeys
             // safe even if the event fires while the XAML value is first set.
             _mainOverlay?.SetWindowOpacity(value);
         }
+
+        // Live-updates the transparent-mode background opacity and records it on
+        // the active profile so it persists on save.
+        private void BackgroundOpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int value = (int)BackgroundOpacitySlider.Value;
+            if (_appearance != null)
+                _appearance.BackgroundOpacity = value;
+            _mainOverlay?.SetBackgroundOpacity(value);
+        }
         private void Click_GridRows(object? sender, EventArgs e)
         {
             _appearance.GridRows = (int)RowsCount.Value;
@@ -375,6 +386,7 @@ namespace ClickyKeys
             _appearanceConfiguration.PanelWidth = (int)PanelWidthCount.Value;
             _appearanceConfiguration.PanelHeight = (int)PanelHeightCount.Value;
             _appearanceConfiguration.WindowOpacity = (int)WindowOpacitySlider.Value;
+            _appearanceConfiguration.BackgroundOpacity = (int)BackgroundOpacitySlider.Value;
             var converter = new ColorConverter();
             _appearanceConfiguration.BackgroundColor = converter.ConvertToString(backgroundColor);
             _appearanceConfiguration.PanelsColor = converter.ConvertToString(panelsColor);
@@ -591,6 +603,7 @@ namespace ClickyKeys
             target.PanelWidth = source.PanelWidth;
             target.PanelHeight = source.PanelHeight;
             target.WindowOpacity = source.WindowOpacity;
+            target.BackgroundOpacity = source.BackgroundOpacity;
             target.BackgroundColor = source.BackgroundColor;
             target.PanelsColor = source.PanelsColor;
             target.KeysTextColor = source.KeysTextColor;

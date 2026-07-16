@@ -45,7 +45,8 @@
     <sys:String x:Key="Appearance_GridColumns">Kolumny siatki</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Szerokość panelu</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Wysokość panelu</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Krycie okna</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Krycie trybu transparentnego</sys:String>
+    <sys:String x:Key="Appearance_BackgroundOpacity">Krycie tła</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rozmiar siatki</sys:String>
     <sys:String x:Key="Appearance_Colors">Kolory</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Kolor tła</sys:String>
@@ -116,6 +117,7 @@
     <sys:String x:Key="Main_Mode">przezroczysty</sys:String>
     <sys:String x:Key="Main_HideToolbar">Ukryj pasek</sys:String>
     <sys:String x:Key="Main_AlwaysOnTop">Zawsze na wierzchu</sys:String>
+    <sys:String x:Key="Main_ClickThrough">Kliknięcia na wylot</sys:String>
     <sys:String x:Key="Main_On">Wł.</sys:String>
     <sys:String x:Key="Main_Off">Wył.</sys:String>
     <sys:String x:Key="Main_Info">Info</sys:String>

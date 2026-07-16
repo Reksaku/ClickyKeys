@@ -80,6 +80,14 @@ namespace ClickyKeys
         [JsonPropertyName("always_on_top")]
         public bool AlwaysOnTop { get; set; } = false;
 
+        // When true the transparent overlay lets mouse clicks pass through to
+        // whatever is underneath (a game, another app) via WS_EX_TRANSPARENT —
+        // the overlay becomes purely visual and cannot be dragged until this is
+        // turned off. Toggled from the Display slide-out tab, same as
+        // AlwaysOnTop. Only affects the transparent sub-window.
+        [JsonPropertyName("click_through")]
+        public bool ClickThrough { get; set; } = false;
+
         // Master switch for input-statistics collection (KeyStatsService).
         // When false, no new key/mouse/wheel events are counted or written to
         // keystats.json, and the Statistics window shows a "collection disabled"

@@ -45,7 +45,8 @@
     <sys:String x:Key="Appearance_GridColumns">Rutenettkolonner</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Panelbredde</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Panelhøyde</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Vindusopasitet</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Opasitet i gjennomsiktig modus</sys:String>
+    <sys:String x:Key="Appearance_BackgroundOpacity">Bakgrunnsopasitet</sys:String>
     <sys:String x:Key="Appearance_GridSize">Rutenettstørrelse</sys:String>
     <sys:String x:Key="Appearance_Colors">Farger</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Bakgrunnsfarge</sys:String>
@@ -116,6 +117,7 @@
     <sys:String x:Key="Main_Mode">modus</sys:String>
     <sys:String x:Key="Main_HideToolbar">Skjul verktøylinje</sys:String>
     <sys:String x:Key="Main_AlwaysOnTop">Alltid øverst</sys:String>
+    <sys:String x:Key="Main_ClickThrough">Gjennomklikk</sys:String>
     <sys:String x:Key="Main_On">På</sys:String>
     <sys:String x:Key="Main_Off">Av</sys:String>
     <sys:String x:Key="Main_Info">Info</sys:String>

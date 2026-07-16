@@ -47,7 +47,8 @@
     <sys:String x:Key="Appearance_GridColumns">Colunas da grelha</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Largura do painel</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Altura do painel</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Opacidade da janela</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Opacidade do modo transparente</sys:String>
+    <sys:String x:Key="Appearance_BackgroundOpacity">Opacidade do fundo</sys:String>
     <sys:String x:Key="Appearance_GridSize">Tamanho da grelha</sys:String>
     <sys:String x:Key="Appearance_Colors">Cores</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Cor de fundo</sys:String>
@@ -118,6 +119,7 @@
     <sys:String x:Key="Main_Mode">modo</sys:String>
     <sys:String x:Key="Main_HideToolbar">Ocultar barra</sys:String>
     <sys:String x:Key="Main_AlwaysOnTop">Sempre visível</sys:String>
+    <sys:String x:Key="Main_ClickThrough">Clique passante</sys:String>
     <sys:String x:Key="Main_On">Ativado</sys:String>
     <sys:String x:Key="Main_Off">Desativado</sys:String>
     <sys:String x:Key="Main_Info">Info</sys:String>

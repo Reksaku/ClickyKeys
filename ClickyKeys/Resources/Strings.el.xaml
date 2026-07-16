@@ -45,7 +45,8 @@
     <sys:String x:Key="Appearance_GridColumns">Στήλες πλέγματος</sys:String>
     <sys:String x:Key="Appearance_PanelWidth">Πλάτος πίνακα</sys:String>
     <sys:String x:Key="Appearance_PanelHeight">Ύψος πίνακα</sys:String>
-    <sys:String x:Key="Appearance_WindowOpacity">Αδιαφάνεια παραθύρου</sys:String>
+    <sys:String x:Key="Appearance_WindowOpacity">Αδιαφάνεια διαφανούς λειτουργίας</sys:String>
+    <sys:String x:Key="Appearance_BackgroundOpacity">Αδιαφάνεια φόντου</sys:String>
     <sys:String x:Key="Appearance_GridSize">Μέγεθος πλέγματος</sys:String>
     <sys:String x:Key="Appearance_Colors">Χρώματα</sys:String>
     <sys:String x:Key="Appearance_BackgroundColor">Χρώμα φόντου</sys:String>
@@ -116,6 +117,7 @@
     <sys:String x:Key="Main_Mode">λειτουργία</sys:String>
     <sys:String x:Key="Main_HideToolbar">Απόκρυψη γραμμής</sys:String>
     <sys:String x:Key="Main_AlwaysOnTop">Πάντα πάνω</sys:String>
+    <sys:String x:Key="Main_ClickThrough">Πέρασμα κλικ</sys:String>
     <sys:String x:Key="Main_On">Ενεργό</sys:String>
     <sys:String x:Key="Main_Off">Ανενεργό</sys:String>
     <sys:String x:Key="Main_Info">Πληροφορίες</sys:String>
