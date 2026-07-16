@@ -17,7 +17,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Buttons\always_on_top_icon.png" />
     <None Remove="Resources\Buttons\appearance_icon.png" />
+    <None Remove="Resources\Buttons\click_throught_icon.png" />
     <None Remove="Resources\Buttons\coffee_icon.png" />
     <None Remove="Resources\Buttons\display_icon.png" />
     <None Remove="Resources\Buttons\more_icon.png" />
@@ -43,6 +45,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Buttons\always_on_top_icon.png" />
+    <Resource Include="Resources\Buttons\click_throught_icon.png" />
     <Resource Include="Resources\Buttons\coffee_icon.png" />
     <Resource Include="Resources\Buttons\messages_icon.png" />
     <Resource Include="Resources\Buttons\settings_icon.png" />
