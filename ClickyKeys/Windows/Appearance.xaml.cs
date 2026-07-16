@@ -60,6 +60,15 @@ namespace ClickyKeys
         private Color keysColor;
         private Color valuesColor;
 
+        // Suppresses the slider ValueChanged handlers while the window is being
+        // populated. InitializeComponent creates the sliders with their XAML
+        // default values, which would otherwise fire ValueChanged and overwrite
+        // the loaded profile's opacity/rainbow values (and mutate the live
+        // window) before SetOnStart can reflect the real values. Starts true so
+        // the construction-time events are ignored; SetOnStart clears it once
+        // the sliders hold the profile's values.
+        private bool _suppressSliderApply = true;
+
         public Appearance(AppearanceConfiguration appearanceConfiguration, IOverlay mainOverlay, string selectedPrifile)
         {
             _appearance = appearanceConfiguration;
@@ -98,6 +107,10 @@ namespace ClickyKeys
 
         private void SetOnStart()
         {
+            // Populate controls without letting the slider handlers re-apply /
+            // overwrite the profile values; re-enabled at the end.
+            _suppressSliderApply = true;
+
             RowsCount.Value = _appearance.GridRows;
             ColumnsCount.Value = _appearance.GridColumns;
             PanelWidthCount.Value = _appearance.PanelWidth;
@@ -145,6 +158,9 @@ namespace ClickyKeys
             }
 
             ProfilesLabel.Content = $"Profile: {name}";
+
+            // Controls now mirror the profile; user interaction may apply again.
+            _suppressSliderApply = false;
         }
 
         private void OnBackgroundColorChanged(object sender, EventArgs e)
@@ -310,8 +326,7 @@ namespace ClickyKeys
         // Live-updates the rainbow cycle length as the user drags the slider.
         private void RainbowSpeedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // _mainOverlay is assigned before InitializeComponent, so this is
-            // safe even if the event fires while the XAML value is first set.
+            if (_suppressSliderApply) return;
             _mainOverlay?.SetRainbowSpeed((int)RainbowSpeedSlider.Value);
         }
 
@@ -319,11 +334,10 @@ namespace ClickyKeys
         // and records it on the active profile so it persists on save.
         private void WindowOpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (_suppressSliderApply) return;
             int value = (int)WindowOpacitySlider.Value;
             if (_appearance != null)
                 _appearance.WindowOpacity = value;
-            // _mainOverlay is assigned before InitializeComponent, so this is
-            // safe even if the event fires while the XAML value is first set.
             _mainOverlay?.SetWindowOpacity(value);
         }
 
@@ -331,6 +345,7 @@ namespace ClickyKeys
         // the active profile so it persists on save.
         private void BackgroundOpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (_suppressSliderApply) return;
             int value = (int)BackgroundOpacitySlider.Value;
             if (_appearance != null)
                 _appearance.BackgroundOpacity = value;
@@ -341,6 +356,7 @@ namespace ClickyKeys
         // profile so it persists on save.
         private void PanelOpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (_suppressSliderApply) return;
             int value = (int)PanelOpacitySlider.Value;
             if (_appearance != null)
                 _appearance.PanelOpacity = value;
