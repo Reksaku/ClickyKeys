@@ -211,6 +211,8 @@
 
     <sys:String x:Key="Tutorial_S1_Title">Welcome to ClickyKeys!</sys:String>
     <sys:String x:Key="Tutorial_S1_Body">Let me walk you through a quick tutorial.\nFeel free to interact with the app at any time — click Next to continue.</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Title">ClickyKeys has been updated</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Body">This release changes how some features work, so it's worth going through the tutorial again.\nYou can use the app at any time — click Next to continue.</sys:String>
     <sys:String x:Key="Tutorial_S2_Title">Panels</sys:String>
     <sys:String x:Key="Tutorial_S2_Body">These are your display panels — the main feature of ClickyKeys.\nEach panel counts presses of its assigned key.</sys:String>
     <sys:String x:Key="Tutorial_S3_Title">Editing a panel</sys:String>

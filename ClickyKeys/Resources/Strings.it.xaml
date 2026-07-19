@@ -212,6 +212,8 @@
 
     <sys:String x:Key="Tutorial_S1_Title">Benvenuto in ClickyKeys!</sys:String>
     <sys:String x:Key="Tutorial_S1_Body">Ti guiderò attraverso un breve tutorial.\nPuoi interagire con l'app in qualsiasi momento — fai clic su Avanti per continuare.</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Title">ClickyKeys è stato aggiornato</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Body">In questa versione alcune funzionalità funzionano in modo diverso, quindi vale la pena rivedere il tutorial.\nPuoi usare l'app in qualsiasi momento — fai clic su Avanti per continuare.</sys:String>
     <sys:String x:Key="Tutorial_S2_Title">Pannelli</sys:String>
     <sys:String x:Key="Tutorial_S2_Body">Questi sono i tuoi pannelli di visualizzazione — la funzione principale di ClickyKeys.\nOgni pannello conta le pressioni del tasto assegnato.</sys:String>
     <sys:String x:Key="Tutorial_S3_Title">Modificare un pannello</sys:String>

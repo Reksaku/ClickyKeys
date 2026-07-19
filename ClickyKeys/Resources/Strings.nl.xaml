@@ -212,6 +212,8 @@
 
     <sys:String x:Key="Tutorial_S1_Title">Welkom bij ClickyKeys!</sys:String>
     <sys:String x:Key="Tutorial_S1_Body">Ik loop met je door een korte tutorial.\nJe kunt op elk moment met de app werken — klik op Volgende om door te gaan.</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Title">ClickyKeys is bijgewerkt</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Body">In deze versie werken sommige functies anders, dus het is de moeite waard de rondleiding opnieuw te doorlopen.\nJe kunt de app op elk moment gebruiken — klik op Volgende om door te gaan.</sys:String>
     <sys:String x:Key="Tutorial_S2_Title">Panelen</sys:String>
     <sys:String x:Key="Tutorial_S2_Body">Dit zijn je weergavepanelen — de hoofdfunctie van ClickyKeys.\nElk paneel telt de aanslagen van de toegewezen toets.</sys:String>
     <sys:String x:Key="Tutorial_S3_Title">Een paneel bewerken</sys:String>

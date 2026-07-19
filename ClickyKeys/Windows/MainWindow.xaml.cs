@@ -478,8 +478,9 @@ namespace ClickyKeys
 
             if (justUpdated)
             {
-                ShowChangelog(previousVersion,
-                    replayTutorialAfterUpdate ? (Action)ShowTutorialWindow : null);
+                ShowChangelog(previousVersion, replayTutorialAfterUpdate
+                    ? (Action)(() => ShowTutorialWindow(afterUpdate: true))
+                    : null);
             }
 
             // Normal first-run path. Skipped when the update replay above is
@@ -1041,12 +1042,16 @@ namespace ClickyKeys
 
         public void ShowTutorial() => ShowTutorialWindow();
 
-        private void ShowTutorialWindow()
+        /// <param name="afterUpdate">
+        /// True when the tutorial is being replayed because the app was just
+        /// updated — swaps the welcome step for the "worth a refresher" copy.
+        /// </param>
+        private void ShowTutorialWindow(bool afterUpdate = false)
         {
             // Build the steps with the user's actual reset / toggle-toolbar key
             // labels so the tutorial reflects any reassigned shortcuts.
             var tutorial = new TutorialWindow(
-                this, TutorialWindow.DefaultSteps(ResetKeyLabel, ToggleToolbarKeyLabel));
+                this, TutorialWindow.DefaultSteps(ResetKeyLabel, ToggleToolbarKeyLabel, afterUpdate));
 
             // Pass named elements the tutorial needs to spotlight.
             // _panelsById[4] is a representative panel (centre of a 2×2 grid).

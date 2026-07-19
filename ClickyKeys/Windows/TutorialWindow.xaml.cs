@@ -45,13 +45,20 @@ namespace ClickyKeys
         // language. Only the per-step keys differ; the spotlight targets are
         // structural and stay in code. T() falls back to the key name (and the
         // English baseline merged in App.xaml) if a translation is missing.
+        /// <param name="afterUpdate">
+        /// When true the opening step uses the "app was updated, worth going
+        /// through this again" copy instead of the first-run welcome, because
+        /// the tutorial is being replayed for a user who already saw it
+        /// (see <c>BuildInfo.ForceTutorialOnUpdate</c>).
+        /// </param>
         public static IReadOnlyList<TutorialStep> DefaultSteps(
-            string resetKeyLabel = "(F12)", string toggleKeyLabel = "(F11)") => new List<TutorialStep>
+            string resetKeyLabel = "(F12)", string toggleKeyLabel = "(F11)",
+            bool afterUpdate = false) => new List<TutorialStep>
         {
             new()
             {
-                Title  = LocalizationManager.T("Tutorial_S1_Title"),
-                Body   = LocalizationManager.T("Tutorial_S1_Body"),
+                Title  = LocalizationManager.T(afterUpdate ? "Tutorial_UpdateIntro_Title" : "Tutorial_S1_Title"),
+                Body   = LocalizationManager.T(afterUpdate ? "Tutorial_UpdateIntro_Body"  : "Tutorial_S1_Body"),
                 Target = TutorialTarget.PanelGrid,
             },
             new()

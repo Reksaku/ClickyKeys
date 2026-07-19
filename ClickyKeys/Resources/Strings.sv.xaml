@@ -212,6 +212,8 @@
 
     <sys:String x:Key="Tutorial_S1_Title">Välkommen till ClickyKeys!</sys:String>
     <sys:String x:Key="Tutorial_S1_Body">Låt mig guida dig genom en snabb handledning.\nDu kan använda appen när som helst — klicka på Nästa för att fortsätta.</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Title">ClickyKeys har uppdaterats</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Body">I den här versionen fungerar vissa funktioner annorlunda, så det är värt att gå igenom guiden igen.\nDu kan använda appen när som helst — klicka på Nästa för att fortsätta.</sys:String>
     <sys:String x:Key="Tutorial_S2_Title">Paneler</sys:String>
     <sys:String x:Key="Tutorial_S2_Body">Det här är dina visningspaneler — huvudfunktionen i ClickyKeys.\nVarje panel räknar tryckningarna på sin tilldelade tangent.</sys:String>
     <sys:String x:Key="Tutorial_S3_Title">Redigera en panel</sys:String>

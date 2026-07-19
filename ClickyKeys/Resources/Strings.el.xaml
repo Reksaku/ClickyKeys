@@ -212,6 +212,8 @@
 
     <sys:String x:Key="Tutorial_S1_Title">Καλώς ήρθατε στο ClickyKeys!</sys:String>
     <sys:String x:Key="Tutorial_S1_Body">Θα σας καθοδηγήσω σε έναν γρήγορο οδηγό.\nΜπορείτε να αλληλεπιδράσετε με την εφαρμογή ανά πάσα στιγμή — κάντε κλικ στο Επόμενο για να συνεχίσετε.</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Title">Το ClickyKeys ενημερώθηκε</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Body">Σε αυτή την έκδοση άλλαξε ο τρόπος λειτουργίας ορισμένων δυνατοτήτων, οπότε αξίζει να ξαναδείτε τον οδηγό.\nΜπορείτε να χρησιμοποιείτε την εφαρμογή ανά πάσα στιγμή — πατήστε Επόμενο για να συνεχίσετε.</sys:String>
     <sys:String x:Key="Tutorial_S2_Title">Πάνελ</sys:String>
     <sys:String x:Key="Tutorial_S2_Body">Αυτά είναι τα πάνελ προβολής σας — η κύρια δυνατότητα του ClickyKeys.\nΚάθε πάνελ μετρά τα πατήματα του πλήκτρου που του έχει αντιστοιχιστεί.</sys:String>
     <sys:String x:Key="Tutorial_S3_Title">Επεξεργασία πάνελ</sys:String>

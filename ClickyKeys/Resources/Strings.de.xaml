@@ -212,6 +212,8 @@
 
     <sys:String x:Key="Tutorial_S1_Title">Willkommen bei ClickyKeys!</sys:String>
     <sys:String x:Key="Tutorial_S1_Body">Ich führe dich durch ein kurzes Tutorial.\nDu kannst die App jederzeit bedienen — klicke auf Weiter, um fortzufahren.</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Title">ClickyKeys wurde aktualisiert</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Body">In dieser Version funktionieren einige Funktionen anders, daher lohnt es sich, das Tutorial erneut durchzugehen.\nDu kannst die App jederzeit benutzen — klicke auf Weiter, um fortzufahren.</sys:String>
     <sys:String x:Key="Tutorial_S2_Title">Panels</sys:String>
     <sys:String x:Key="Tutorial_S2_Body">Das sind deine Anzeige-Panels — die Hauptfunktion von ClickyKeys.\nJedes Panel zählt die Drücke der zugewiesenen Taste.</sys:String>
     <sys:String x:Key="Tutorial_S3_Title">Ein Panel bearbeiten</sys:String>

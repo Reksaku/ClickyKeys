@@ -212,6 +212,8 @@
 
     <sys:String x:Key="Tutorial_S1_Title">Velkommen til ClickyKeys!</sys:String>
     <sys:String x:Key="Tutorial_S1_Body">La meg ta deg gjennom en rask veiledning.\nDu kan bruke appen når som helst — klikk Neste for å fortsette.</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Title">ClickyKeys er oppdatert</sys:String>
+    <sys:String x:Key="Tutorial_UpdateIntro_Body">I denne versjonen fungerer enkelte funksjoner annerledes, så det er verdt å gå gjennom veiledningen på nytt.\nDu kan bruke appen når som helst — klikk Neste for å fortsette.</sys:String>
     <sys:String x:Key="Tutorial_S2_Title">Paneler</sys:String>
     <sys:String x:Key="Tutorial_S2_Body">Dette er visningspanelene dine — hovedfunksjonen i ClickyKeys.\nHvert panel teller trykkene på den tildelte tasten.</sys:String>
     <sys:String x:Key="Tutorial_S3_Title">Redigere et panel</sys:String>
