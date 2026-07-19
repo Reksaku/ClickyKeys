@@ -471,12 +471,20 @@ namespace ClickyKeys
             string previousVersion = ConfigSettings.Version;
             bool justUpdated = !_transparent && HandleAppUpdate(ConfigSettings);
 
+            // Opt-in per release (BuildInfo.ForceTutorialOnUpdate): replay the
+            // tutorial once after an update even for users who already finished
+            // it. Chained onto the changelog's close so both don't pop at once.
+            bool replayTutorialAfterUpdate = justUpdated && BuildInfo.ForceTutorialOnUpdate;
+
             if (justUpdated)
             {
-                ShowChangelog(previousVersion);
+                ShowChangelog(previousVersion,
+                    replayTutorialAfterUpdate ? (Action)ShowTutorialWindow : null);
             }
 
-            if (ConfigSettings.ShowTutorial == true && !_transparent)
+            // Normal first-run path. Skipped when the update replay above is
+            // already going to open the tutorial, so it never shows twice.
+            if (ConfigSettings.ShowTutorial == true && !_transparent && !replayTutorialAfterUpdate)
             {
                 // Defer until the window is fully rendered so ActualWidth/Height
                 // and panel positions are available for spotlight calculations.
@@ -1515,7 +1523,12 @@ namespace ClickyKeys
         /// <paramref name="sinceVersion"/>. Fetches the live API;
         /// replaces the old hardcoded step-0 tutorial overlay.
         /// </summary>
-        private void ShowChangelog(string sinceVersion)
+        /// <param name="onClosed">
+        /// Optional continuation invoked once the changelog window is closed —
+        /// used to replay the tutorial after an update without the two windows
+        /// appearing at the same time.
+        /// </param>
+        private void ShowChangelog(string sinceVersion, Action? onClosed = null)
         {
             // Owner cannot be set before the parent window has been shown.
             // Defer to Loaded so the handle exists by the time we assign it.
@@ -1525,6 +1538,8 @@ namespace ClickyKeys
             {
                 Loaded -= OnShowChangelogLoaded;
                 var changelogWindow = new Changelog(sinceVersion) { Owner = this };
+                if (onClosed != null)
+                    changelogWindow.Closed += (_, _) => onClosed();
                 changelogWindow.Show();
             }
         }

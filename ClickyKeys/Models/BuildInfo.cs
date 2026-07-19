@@ -20,11 +20,26 @@ namespace ClickyKeys
         /// <summary>
         /// Version baked into this build. Compared at startup against the
         /// version persisted in <c>config.json</c>; when this constant is
-        /// strictly greater than the config value an update is detected,
-        /// the tutorial is replayed (via <c>ShowTutorial(0)</c>) and the
-        /// config is bumped to match. Bump this every release alongside
-        /// <c>FileVersion</c>/<c>AssemblyVersion</c> in the .csproj.
+        /// strictly greater than the config value an update is detected, the
+        /// changelog is shown and the config is bumped to match. Bump this
+        /// every release alongside <c>FileVersion</c>/<c>AssemblyVersion</c>
+        /// in the .csproj.
         /// </summary>
         public const string Version = "2.4.3";
+
+        /// <summary>
+        /// When <c>true</c>, the first launch after an update replays the
+        /// tutorial once — even for users who already completed it (i.e. it
+        /// overrides <c>Configuration.ShowTutorial == false</c>). The tutorial
+        /// opens after the changelog window is closed, so the two don't compete
+        /// for attention, and finishing it marks the tutorial as seen again.
+        ///
+        /// <para>
+        /// Turn this on for releases that meaningfully change the tutorial or
+        /// the features it walks through; leave it off for routine updates so
+        /// returning users aren't shown the walkthrough again.
+        /// </para>
+        /// </summary>
+        public const bool ForceTutorialOnUpdate = true;
     }
 }
