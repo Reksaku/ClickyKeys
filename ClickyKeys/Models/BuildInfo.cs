@@ -25,7 +25,7 @@ namespace ClickyKeys
         /// every release alongside <c>FileVersion</c>/<c>AssemblyVersion</c>
         /// in the .csproj.
         /// </summary>
-        public const string Version = "2.4.3";
+        public const string Version = "2.4.4";
 
         /// <summary>
         /// When <c>true</c>, the first launch after an update replays the

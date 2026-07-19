@@ -30,10 +30,11 @@ ClickyKeys counts how many times you press chosen keys or mouse buttons and disp
 <h4>
 <img src="./Resources/Images/screenshot-cream.png" width="50%" align="right">
 
-**🎯 Count any key or mouse button**
-- Pick exactly which keys and mouse buttons to track.
-- Give each key its own custom label (e.g. *Jump*, *Reload*, *LMB*).
-- Counters update in real time.
+**🎯 Count any key, mouse button or gamepad input**
+- Pick exactly which keys, mouse buttons and gamepad buttons to track.
+- Includes the LT/RT triggers, with an adjustable press threshold.
+- Give each input its own custom label (e.g. *Jump*, *Reload*, *LMB*).
+- Counters update in real time, even while the app sits in the background.
 
 <br>
 
@@ -42,7 +43,7 @@ ClickyKeys counts how many times you press chosen keys or mouse buttons and disp
 **🎨 Fully customizable panel**
 
 - Choose which keys to display.
-- Adjust button size and grid layout.
+- Resize the panels and adjust the grid layout.
 - Change text and background colors.
 - Select your favourite font and size.
 
@@ -127,6 +128,19 @@ Track your long-term key usage with built-in local statistics. Your key-press st
 
 ---
 
+## 🪟 Overlay mode
+
+Turn the panel into a live overlay that stays visible while you play.
+
+- **Transparent mode** — drops the background and toolbar, leaving just the counters. Drag it anywhere by grabbing a panel.
+- **Always on top** — keeps the window above other applications, so the counters never disappear behind your game.
+- **Click-through** — lets mouse clicks pass straight through to whatever is underneath, so the overlay never gets in the way.
+- **Opacity controls** — separate sliders for the overlay, its background and the panels themselves.
+
+> ###### Always on top works over windowed and borderless-windowed applications. Games running in **exclusive fullscreen** bypass all desktop overlays — switch such games to borderless windowed to see the panel.
+
+---
+
 ## 🎬 OBS integration
 
 ClickyKeys works great with OBS. You can either:
@@ -165,8 +179,9 @@ Colors, fonts, grid layout — everything is yours to configure.
 2. Click the panel and choose the keys you want to track.
 3. Set a custom label for each button (e.g. *Jump*, *Reload*).
 4. Smash your keyboard (or click around) and watch the counters go up!
-5. Reset all counters anytime with **F12**.
-6. *(Optional)* In OBS, add a Window Capture source for the panel and use chroma key or transparent mode.
+5. Reset all counters anytime with **F12** — or reassign that shortcut in Settings.
+6. *(Optional)* Open the **Display** tab to enable transparent mode, always on top or click-through.
+7. *(Optional)* In OBS, add a Window Capture source for the panel and use chroma key or transparent mode.
 
 ---
 
@@ -174,6 +189,9 @@ Colors, fonts, grid layout — everything is yours to configure.
 
 | Version | Highlights |
 |---------|-----------|
+| **v2.4.4** | Overlay upgrade — always on top, click-through, opacity controls and an interactive tutorial |
+| **v2.4.3** | Panel resizing, in-app messages and opt-in anonymous statistics |
+| **v2.4.2** | Gamepad fixes — background capture and LT/RT trigger support |
 | **v2.4.1** | Gamepad support, collapsible cards, panel profiles and more |
 | **v2.4.0** | Version 2.4.0 is the largest update in a while - see release notes |
 | **v2.3.0** | Local key press statistics — track long-term usage, all data stored on-device |
@@ -188,9 +206,11 @@ Colors, fonts, grid layout — everything is yours to configure.
 
 **Does ClickyKeys store or send my data?**
 
-Your key-press and usage statistics are stored locally on your device and are never uploaded.
+Your key presses and clicks are counted locally on your device and never leave your PC.
 
-ClickyKeys does make a small number of network requests for app functionality: it checks for new versions and fetches the current "support the project" link. These requests don't include your statistics; the server only sees standard request information (such as a anonymised IP address and the app version).
+ClickyKeys does make a small number of network requests for app functionality: it checks for new versions, fetches announcements for the in-app messages inbox, and fetches the current "support the project" link. These requests don't include what you press or type; the server only sees standard request information (such as an anonymised IP address and the app version).
+
+Separately, you can **opt in** to anonymous usage statistics — *Basic* or *Full* — under **Settings → Data Collection**. It is off by default, you are asked once, and you can change or turn it off at any time. Even on *Full* it never includes your panel labels, exact colours, assigned shortcuts, or anything you typed.
 
 ---
 **Which systems are supported?**
