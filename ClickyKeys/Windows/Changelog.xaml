@@ -35,7 +35,7 @@
                 <TextBlock x:Name="SubtitleText"
                            Text="{DynamicResource Changelog_Loading}"
                            FontSize="12"
-                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                           Foreground="{DynamicResource MaterialDesignBody}"/>
             </StackPanel>
         </StackPanel>
 
@@ -53,7 +53,7 @@
                              Style="{StaticResource MaterialDesignLinearProgressBar}"/>
                 <TextBlock Text="{DynamicResource Changelog_Fetching}"
                            HorizontalAlignment="Center"
-                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                           Foreground="{DynamicResource MaterialDesignBody}"/>
             </StackPanel>
 
             <!-- Error message -->
@@ -65,7 +65,7 @@
                            Text="{DynamicResource Changelog_LoadError}"
                            TextWrapping="Wrap"
                            TextAlignment="Center"
-                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                           Foreground="{DynamicResource MaterialDesignBody}"
                            MaxWidth="360"/>
             </StackPanel>
 

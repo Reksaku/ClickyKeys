@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -82,8 +83,13 @@ namespace ClickyKeys
                 response.Count, response.Since);
 
             // Show at most 2 newest entries; the window auto-sizes to fit them.
+            int entryIndex = 0;
             foreach (var entry in response.Entries.Take(2))
             {
+                // The newest version's caption opens expanded, so the release
+                // summary is readable without a click.
+                bool isNewestEntry = entryIndex++ == 0;
+
                 // ── Version card ──────────────────────────────────────────
 
                 var card = new MaterialDesignThemes.Wpf.Card
@@ -111,7 +117,7 @@ namespace ClickyKeys
                     FontSize = 11,
                     Margin = new Thickness(10, 0, 0, 0),
                     VerticalAlignment = VerticalAlignment.Center,
-                    Foreground = (Brush)FindResource("MaterialDesignBodyLight")
+                    Foreground = (Brush)FindResource("MaterialDesignBody")
                 });
 
                 cardContent.Children.Add(headerRow);
@@ -123,13 +129,17 @@ namespace ClickyKeys
                 foreach (var item in entry.Changes)
                 {
                     if (IsInfo(item.Type))
-                        cardContent.Children.Add(BuildInfoCaption(item));
+                        cardContent.Children.Add(BuildInfoCaption(item, startExpanded: isNewestEntry));
                 }
 
-                foreach (var item in entry.Changes)
+                // Remaining changes are grouped by type so every version reads
+                // in the same order (new → change → fix → …) instead of the
+                // arbitrary order the feed happens to return.
+                foreach (var item in entry.Changes
+                                          .Where(i => !IsInfo(i.Type))
+                                          .OrderBy(i => TypeOrder(i.Type)))
                 {
-                    if (!IsInfo(item.Type))
-                        cardContent.Children.Add(BuildChangeRow(item));
+                    cardContent.Children.Add(BuildChangeRow(item));
                 }
 
                 card.Content = cardContent;
@@ -148,28 +158,32 @@ namespace ClickyKeys
         /// shown directly under the version header as a description. Expandable
         /// to its full <c>detail</c> when one is present.
         /// </summary>
-        private UIElement BuildInfoCaption(ChangelogItem item)
+        /// <param name="startExpanded">
+        /// True for the newest version's caption, so its detail is already open
+        /// when the window appears.
+        /// </param>
+        private UIElement BuildInfoCaption(ChangelogItem item, bool startExpanded = false)
         {
             var container = new StackPanel { Margin = new Thickness(0, 0, 0, 6) };
 
-            var headerRow = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                VerticalAlignment = VerticalAlignment.Top
-            };
+            // caption (fills) | chevron — same reasoning as BuildChangeRow.
+            var headerRow = new Grid { VerticalAlignment = VerticalAlignment.Top };
+            headerRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            headerRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
-            headerRow.Children.Add(new TextBlock
+            var caption = new TextBlock
             {
                 Text = item.Summary,
                 TextWrapping = TextWrapping.Wrap,
                 FontSize = 13,
                 FontStyle = FontStyles.Italic,
                 VerticalAlignment = VerticalAlignment.Center,
-                MaxWidth = 380,
-                Foreground = (Brush)FindResource("MaterialDesignBodyLight")
-            });
+                Foreground = (Brush)FindResource("MaterialDesignBody")
+            };
+            Grid.SetColumn(caption, 0);
+            headerRow.Children.Add(caption);
 
-            MakeExpandable(headerRow, item.Detail, container);
+            MakeExpandable(headerRow, item.Detail, container, startExpanded);
             return container;
         }
 
@@ -181,11 +195,13 @@ namespace ClickyKeys
         {
             var container = new StackPanel { Margin = new Thickness(0, 3, 0, 0) };
 
-            var headerRow = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                VerticalAlignment = VerticalAlignment.Top
-            };
+            // badge | summary (fills) | chevron. A Grid rather than a horizontal
+            // StackPanel so the summary gets all the width left over and only
+            // wraps when it genuinely runs out, instead of at a fixed size.
+            var headerRow = new Grid { VerticalAlignment = VerticalAlignment.Top };
+            headerRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            headerRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            headerRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
             var badge = new Border
             {
@@ -203,14 +219,17 @@ namespace ClickyKeys
                 Foreground = Brushes.White
             };
 
+            Grid.SetColumn(badge, 0);
             headerRow.Children.Add(badge);
-            headerRow.Children.Add(new TextBlock
+
+            var summary = new TextBlock
             {
                 Text = item.Summary,
                 TextWrapping = TextWrapping.Wrap,
-                VerticalAlignment = VerticalAlignment.Center,
-                MaxWidth = 340
-            });
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            Grid.SetColumn(summary, 1);
+            headerRow.Children.Add(summary);
 
             MakeExpandable(headerRow, item.Detail, container);
             return container;
@@ -222,7 +241,8 @@ namespace ClickyKeys
         /// and adds a collapsed detail block to <paramref name="container"/>.
         /// When <paramref name="detail"/> is blank, the row stays static.
         /// </summary>
-        private void MakeExpandable(StackPanel headerRow, string detail, StackPanel container)
+        private void MakeExpandable(Panel headerRow, string detail, StackPanel container,
+                                    bool startExpanded = false)
         {
             bool hasDetail = !string.IsNullOrWhiteSpace(detail);
 
@@ -242,12 +262,16 @@ namespace ClickyKeys
 
             var chevron = new TextBlock
             {
-                Text = "▸", // ▸ collapsed
+                Text = startExpanded ? "▾" : "▸", // ▾ expanded / ▸ collapsed
                 FontSize = 11,
                 Margin = new Thickness(6, 2, 0, 0),
                 VerticalAlignment = VerticalAlignment.Center,
-                Foreground = (Brush)FindResource("MaterialDesignBodyLight")
+                Foreground = (Brush)FindResource("MaterialDesignBody")
             };
+            // The header is a Grid whose last column is reserved for the chevron,
+            // so the summary keeps the rest of the width.
+            if (headerRow is Grid grid && grid.ColumnDefinitions.Count > 0)
+                Grid.SetColumn(chevron, grid.ColumnDefinitions.Count - 1);
             headerRow.Children.Add(chevron);
 
             headerBorder.Child = headerRow;
@@ -259,8 +283,8 @@ namespace ClickyKeys
                 TextWrapping = TextWrapping.Wrap,
                 Margin = new Thickness(2, 4, 0, 2),
                 FontSize = 12,
-                Visibility = Visibility.Collapsed,
-                Foreground = (Brush)FindResource("MaterialDesignBodyLight")
+                Visibility = startExpanded ? Visibility.Visible : Visibility.Collapsed,
+                Foreground = (Brush)FindResource("MaterialDesignBody")
             };
             container.Children.Add(detailBlock);
 
@@ -287,6 +311,22 @@ namespace ClickyKeys
             "change"    => BrushChange,
             "breaking"  => BrushBreaking,
             _           => BrushOther
+        };
+
+        /// <summary>
+        /// Sort weight for change types, so each version lists its changes in a
+        /// predictable order — new first, then change, fix, breaking, and finally
+        /// anything unrecognised. Items sharing a type keep the order the feed
+        /// returned them in, because <c>OrderBy</c> is a stable sort.
+        /// ("info" never reaches this — those render as the version caption.)
+        /// </summary>
+        private static int TypeOrder(string type) => type.ToLowerInvariant() switch
+        {
+            "new"       => 0,
+            "change"    => 1,
+            "fix"       => 2,
+            "breaking"  => 3,
+            _           => 4
         };
 
         private static string FormatDate(string raw)
