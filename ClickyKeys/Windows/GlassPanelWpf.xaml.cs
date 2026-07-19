@@ -1,4 +1,5 @@
-﻿using ControlzEx.Standard;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using ControlzEx.Standard;
 using System;
 using System.ComponentModel;
 using System.Globalization;
@@ -110,6 +111,12 @@ namespace ClickyKeys
             InputBtn.SetResourceReference(ContentControl.ContentProperty, "Common_Input");
             IsEditorOpen = false;
             EditorBorder.Visibility = Visibility.Collapsed;
+
+            // Let an open tutorial verify the "close the editor" step — fired for
+            // BOTH confirm (✔, via SaveEditPanel) and discard (✖, via
+            // OnCloseEditor), so either button satisfies the step.
+            WeakReferenceMessenger.Default.Send(
+                new TutorialActionMessage(TutorialGate.PanelEditorClosed));
         }
 
 
@@ -349,6 +356,10 @@ namespace ClickyKeys
             EditorBorder.Visibility = Visibility.Visible;
             IsEditorOpen = true;
             TriggerFlash();
+
+            // Let an open tutorial verify the "open the panel editor" step.
+            WeakReferenceMessenger.Default.Send(
+                new TutorialActionMessage(TutorialGate.PanelEditorOpened));
         }
 
         // Shows the panel's current binding on the Input button, using the same

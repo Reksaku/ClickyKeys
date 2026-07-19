@@ -203,6 +203,8 @@
     <!-- Tutorial window -->
     <sys:String x:Key="Tutorial_Title">ClickyKeys-veiledning</sys:String>
     <sys:String x:Key="Tutorial_Skip">Hopp over</sys:String>
+    <sys:String x:Key="Tutorial_SkipStep">Hopp over steg</sys:String>
+    <sys:String x:Key="Tutorial_ActionDone">✓ Ferdig — du kan fortsette</sys:String>
     <sys:String x:Key="Tutorial_Back">◀ Tilbake</sys:String>
     <sys:String x:Key="Tutorial_Next">Neste ▶</sys:String>
     <sys:String x:Key="Tutorial_Finish">Fullfør</sys:String>
@@ -227,25 +229,33 @@
     <sys:String x:Key="Tutorial_S8_Title">Opprette et nytt oppsett</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Klikk Lagre som nederst i Utseende for å lagre oppsettet under et nytt navn. Skriv inn et nytt profilnavn og klikk Lagre.\nLagrede profiler kan lastes inn fra Last inn-fanen.</sys:String>
     <sys:String x:Key="Tutorial_S9_Title">Tilbakestill</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Knappen Tilbakestill (F12) nullstiller alle panel-tellere uten å endre konfigurasjonen eller oppsettet deres.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Knappen Tilbakestill {0} nullstiller alle panel-tellere uten å endre konfigurasjonen eller oppsettet deres.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Knappen Tilbakestill</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Visning</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Hold musepekeren over fanen Visning for å vise flere alternativer:\n• Gjennomsiktig modus — skjuler bakgrunnen og verktøylinjen, nyttig for strømmeoverlegg. Flytt det ved å dra et hvilket som helst panel (når «Gjennomklikk» er av), og endre gjennomsiktigheten i Utseende ▸ Alternativer for gjennomsiktig modus.\n• Alltid øverst — holder overlegget over andre vinduer.\n• Gjennomklikk — lar klikk gå gjennom til appen under.\n• Skjul verktøylinje (F11) — skjuler verktøylinjen.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Hold musepekeren over fanen Visning for å vise overleggsalternativene. La oss prøve hver enkelt.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Hold pekeren over fanen Visning</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Statistikk</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Statistikk-fanen viser hvor mange taster du har trykket totalt.\nDataene dine lagres kun på din lokale disk.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Statistikk-knappen</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Mer</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Hold musepekeren over fanen Mer for å vise Info-fanen og vinduet Innstillinger.</sys:String>
-    <sys:String x:Key="Tutorial_S12_Hint">👆 Hold pekeren over fanen Mer</sys:String>
-    <sys:String x:Key="Tutorial_S13_Title">Innstillinger</sys:String>
-    <sys:String x:Key="Tutorial_S13_Body">I vinduet Innstillinger kan du konfigurere appen: innsamling av oppetids- og tastetrykkdata, oppstart ved systemstart, minimert oppstart og språket i grensesnittet.</sys:String>
-    <sys:String x:Key="Tutorial_S13_Hint">👆 Fanen Mer ▸ Innstillinger</sys:String>
-    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S14_Body">Besøk Info-fanen for å lære mer om ClickyKeys-prosjektet eller se denne veiledningen på nytt.</sys:String>
-    <sys:String x:Key="Tutorial_S14_Hint">👆 Fanen Mer ▸ Info</sys:String>
-    <sys:String x:Key="Tutorial_S15_Title">Det var alt!</sys:String>
-    <sys:String x:Key="Tutorial_S15_Body">Kos deg med ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Skjul verktøylinje</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Skjul verktøylinje {0} skjuler verktøylinjen slik at bare panelene vises. Prøv det — trykk {0} på tastaturet for å hente den tilbake.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Veksle Skjul verktøylinje</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Gjennomsiktig modus</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Gjennomsiktig modus gjør panelene om til et flytende overlegg for strømming eller spill. Dra det med et hvilket som helst panel, og still gjennomsiktigheten i Utseende ▸ Alternativer for gjennomsiktig modus. Slå det på for å prøve. Flytting fungerer bare når Gjennomklikk er av.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Slå på gjennomsiktig modus</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Alltid øverst og Gjennomklikk</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">To flere overleggsbrytere i fanen Visning: Alltid øverst holder vinduet over andre apper, og Gjennomklikk lar museklikk gå gjennom til appen under — ideelt under spilling. Alltid øverst virker ikke over programmer i fullskjermmodus.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Statistikk</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Statistikk-fanen viser hvor mange taster du har trykket totalt.\nDataene dine lagres kun på din lokale disk.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Statistikk-knappen</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Mer</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Hold musepekeren over fanen Mer for å vise Info-fanen og vinduet Innstillinger.</sys:String>
+    <sys:String x:Key="Tutorial_S15_Hint">👆 Hold pekeren over fanen Mer</sys:String>
+    <sys:String x:Key="Tutorial_S16_Title">Innstillinger</sys:String>
+    <sys:String x:Key="Tutorial_S16_Body">I vinduet Innstillinger kan du konfigurere appen: innsamling av oppetids- og tastetrykkdata, oppstart ved systemstart, minimert oppstart og språket i grensesnittet.</sys:String>
+    <sys:String x:Key="Tutorial_S16_Hint">👆 Fanen Mer ▸ Innstillinger</sys:String>
+    <sys:String x:Key="Tutorial_S17_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S17_Body">Besøk Info-fanen for å lære mer om ClickyKeys-prosjektet eller se denne veiledningen på nytt.</sys:String>
+    <sys:String x:Key="Tutorial_S17_Hint">👆 Fanen Mer ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S18_Title">Det var alt!</sys:String>
+    <sys:String x:Key="Tutorial_S18_Body">Kos deg med ClickyKeys! 🎉</sys:String>
 
 
     <!-- Messages / Inbox -->

@@ -1,3 +1,4 @@
+﻿using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -19,6 +20,12 @@ namespace ClickyKeys
         private readonly IReadOnlyList<TutorialStep> _steps;
         private int _currentIndex = 0;
 
+        // Actions the user has performed so far (verified via
+        // TutorialActionMessage). A step whose RequiredAction is in this set is
+        // considered satisfied — including actions done before that step was
+        // reached, so the user is never asked to repeat something.
+        private readonly HashSet<TutorialGate> _completed = new();
+
         private FrameworkElement? _panelGrid;
         private FrameworkElement? _singlePanel;
         private FrameworkElement? _appearanceButton;
@@ -38,7 +45,8 @@ namespace ClickyKeys
         // language. Only the per-step keys differ; the spotlight targets are
         // structural and stay in code. T() falls back to the key name (and the
         // English baseline merged in App.xaml) if a translation is missing.
-        public static IReadOnlyList<TutorialStep> DefaultSteps() => new List<TutorialStep>
+        public static IReadOnlyList<TutorialStep> DefaultSteps(
+            string resetKeyLabel = "(F12)", string toggleKeyLabel = "(F11)") => new List<TutorialStep>
         {
             new()
             {
@@ -58,6 +66,7 @@ namespace ClickyKeys
                 Body   = LocalizationManager.T("Tutorial_S3_Body"),
                 Target = TutorialTarget.SinglePanel,
                 Hint   = LocalizationManager.T("Tutorial_S3_Hint"),
+                RequiredAction = TutorialGate.PanelEditorOpened,
             },
             new()
             {
@@ -70,6 +79,7 @@ namespace ClickyKeys
                 Title  = LocalizationManager.T("Tutorial_S5_Title"),
                 Body   = LocalizationManager.T("Tutorial_S5_Body"),
                 Target = TutorialTarget.PanelEditorConfirm,
+                RequiredAction = TutorialGate.PanelEditorClosed,
             },
             new()
             {
@@ -77,6 +87,7 @@ namespace ClickyKeys
                 Body   = LocalizationManager.T("Tutorial_S6_Body"),
                 Target = TutorialTarget.AppearanceButton,
                 Hint   = LocalizationManager.T("Tutorial_S6_Hint"),
+                RequiredAction = TutorialGate.AppearanceOpened,
             },
             new()
             {
@@ -93,9 +104,10 @@ namespace ClickyKeys
             new()
             {
                 Title  = LocalizationManager.T("Tutorial_S9_Title"),
-                Body   = LocalizationManager.T("Tutorial_S9_Body"),
+                Body   = LocalizationManager.Format("Tutorial_S9_Body", resetKeyLabel),
                 Target = TutorialTarget.ResetButton,
                 Hint   = LocalizationManager.T("Tutorial_S9_Hint"),
+                RequiredAction = TutorialGate.ResetPressed,
             },
             new()
             {
@@ -103,39 +115,68 @@ namespace ClickyKeys
                 Body   = LocalizationManager.T("Tutorial_S10_Body"),
                 Target = TutorialTarget.DisplayButton,
                 Hint   = LocalizationManager.T("Tutorial_S10_Hint"),
+                RequiredAction = TutorialGate.DisplayRevealed,
             },
+            // Display sub-steps: hide toolbar (gated), transparent mode (gated),
+            // and a descriptive step for Always on top / Click-through.
             new()
             {
                 Title  = LocalizationManager.T("Tutorial_S11_Title"),
-                Body   = LocalizationManager.T("Tutorial_S11_Body"),
-                Target = TutorialTarget.StatsButton,
+                Body   = LocalizationManager.Format("Tutorial_S11_Body", toggleKeyLabel),
+                Target = TutorialTarget.DisplayButton,
                 Hint   = LocalizationManager.T("Tutorial_S11_Hint"),
+                RequiredAction = TutorialGate.ToolbarToggled,
             },
             new()
             {
                 Title  = LocalizationManager.T("Tutorial_S12_Title"),
                 Body   = LocalizationManager.T("Tutorial_S12_Body"),
-                Target = TutorialTarget.MoreButton,
+                Target = TutorialTarget.DisplayButton,
                 Hint   = LocalizationManager.T("Tutorial_S12_Hint"),
+                RequiredAction = TutorialGate.TransparentModeEntered,
             },
             new()
             {
                 Title  = LocalizationManager.T("Tutorial_S13_Title"),
                 Body   = LocalizationManager.T("Tutorial_S13_Body"),
-                Target = TutorialTarget.SettingsButton,
-                Hint   = LocalizationManager.T("Tutorial_S13_Hint"),
+                Target = TutorialTarget.DisplayButton,
             },
             new()
             {
                 Title  = LocalizationManager.T("Tutorial_S14_Title"),
                 Body   = LocalizationManager.T("Tutorial_S14_Body"),
-                Target = TutorialTarget.MoreButton,
+                Target = TutorialTarget.StatsButton,
                 Hint   = LocalizationManager.T("Tutorial_S14_Hint"),
+                RequiredAction = TutorialGate.StatsOpened,
             },
             new()
             {
                 Title  = LocalizationManager.T("Tutorial_S15_Title"),
                 Body   = LocalizationManager.T("Tutorial_S15_Body"),
+                Target = TutorialTarget.MoreButton,
+                Hint   = LocalizationManager.T("Tutorial_S15_Hint"),
+                RequiredAction = TutorialGate.MoreRevealed,
+            },
+            new()
+            {
+                Title  = LocalizationManager.T("Tutorial_S16_Title"),
+                Body   = LocalizationManager.T("Tutorial_S16_Body"),
+                Target = TutorialTarget.SettingsButton,
+                Hint   = LocalizationManager.T("Tutorial_S16_Hint"),
+                RequiredAction = TutorialGate.SettingsOpened,
+            },
+            new()
+            {
+                Title  = LocalizationManager.T("Tutorial_S17_Title"),
+                Body   = LocalizationManager.T("Tutorial_S17_Body"),
+                Target = TutorialTarget.MoreButton,
+                Hint   = LocalizationManager.T("Tutorial_S17_Hint"),
+                RequiredAction = TutorialGate.InfoOpened,
+            },
+            new()
+            {
+                Title  = LocalizationManager.T("Tutorial_S18_Title"),
+                Body   = LocalizationManager.T("Tutorial_S18_Body"),
                 Target = TutorialTarget.PanelGrid,
             },
         };
@@ -157,6 +198,84 @@ namespace ClickyKeys
             // Reposition when the owner moves or resizes.
             owner.LocationChanged += (_, _) => { if (IsLoaded) PositionAndRender(); };
             owner.SizeChanged     += (_, _) => { if (IsLoaded) PositionAndRender(); };
+
+            // Listen for verified user actions so gated steps can unlock the
+            // Next button. Unregister on close so the window can be collected.
+            WeakReferenceMessenger.Default.Register<TutorialActionMessage>(
+                this, (_, m) => OnTutorialAction(m.Value));
+            Closed += (_, _) => WeakReferenceMessenger.Default.UnregisterAll(this);
+        }
+
+        // "Transient" gates (revealing a hover dropdown) must be performed WHILE
+        // the step that asks for them is on screen — otherwise every incidental
+        // hover would pre-satisfy the step. They are never banked in _completed;
+        // instead _transientSatisfied tracks the current step only and resets on
+        // navigation.
+        private bool _transientSatisfied = false;
+
+        private static bool IsTransient(TutorialGate g) =>
+            g == TutorialGate.DisplayRevealed || g == TutorialGate.MoreRevealed;
+
+        // Records a verified action and, if it satisfies the current step's
+        // gate, refreshes the Next button so the user can proceed.
+        private void OnTutorialAction(TutorialGate action)
+        {
+            if (action == TutorialGate.None) return;
+
+            var current = _steps[_currentIndex].RequiredAction;
+
+            if (IsTransient(action))
+            {
+                // Only counts for the step currently on screen; not remembered.
+                if (action == current)
+                {
+                    _transientSatisfied = true;
+                    UpdateNextGate();
+                }
+                return;
+            }
+
+            _completed.Add(action);
+            if (action == current)
+                UpdateNextGate();
+        }
+
+        // Enables/disables Next based on whether the current step's gate (if any)
+        // has been satisfied, and surfaces the matching cues: a green "done"
+        // line once satisfied, or a "skip this step" escape hatch while not.
+        private void UpdateNextGate()
+        {
+            var step = _steps[_currentIndex];
+            bool gated = step.RequiredAction != TutorialGate.None;
+
+            bool satisfied;
+            if (!gated)
+                satisfied = true;
+            else if (IsTransient(step.RequiredAction))
+                satisfied = _transientSatisfied;              // must happen on this step
+            else
+                satisfied = _completed.Contains(step.RequiredAction);
+
+            NextBtn.IsEnabled = satisfied;
+            GateDoneText.Visibility = (gated && satisfied) ? Visibility.Visible : Visibility.Collapsed;
+            // Offer a per-step skip only while the action is still pending, so a
+            // user who can't or won't perform it isn't stuck behind a disabled
+            // Next (the whole-tutorial Skip stays available regardless).
+            SkipStepBtn.Visibility = (gated && !satisfied) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        // Advances past a gated step without performing its action.
+        private void SkipStep_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentIndex < _steps.Count - 1)
+            {
+                _currentIndex++;
+                PositionAndRender();
+            }
+            else
+            {
+                FinishTutorial();
+            }
         }
 
         // ---------------------------------------------------------------
@@ -240,6 +359,10 @@ namespace ClickyKeys
             var step  = _steps[_currentIndex];
             bool last = _currentIndex == _steps.Count - 1;
 
+            // Each step starts with any transient (hover) gate unsatisfied, so
+            // the reveal must be performed while this step is shown.
+            _transientSatisfied = false;
+
             StepIndicator.Text = LocalizationManager.Format("Tutorial_StepFormat", _currentIndex + 1, _steps.Count);
 
             if (string.IsNullOrEmpty(step.Title))
@@ -269,6 +392,10 @@ namespace ClickyKeys
 
             BackBtn.Visibility = _currentIndex > 0 ? Visibility.Visible : Visibility.Collapsed;
             NextBtn.Content    = last ? LocalizationManager.T("Tutorial_Finish") : LocalizationManager.T("Tutorial_Next");
+
+            // Gate Next: if this step requires an action, Next stays disabled
+            // until that action has been verified (Skip always remains available).
+            UpdateNextGate();
         }
 
         private void PositionCard()

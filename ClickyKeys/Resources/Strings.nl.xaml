@@ -203,6 +203,8 @@
     <!-- Tutorial window -->
     <sys:String x:Key="Tutorial_Title">ClickyKeys-tutorial</sys:String>
     <sys:String x:Key="Tutorial_Skip">Overslaan</sys:String>
+    <sys:String x:Key="Tutorial_SkipStep">Stap overslaan</sys:String>
+    <sys:String x:Key="Tutorial_ActionDone">✓ Klaar — je kunt doorgaan</sys:String>
     <sys:String x:Key="Tutorial_Back">◀ Terug</sys:String>
     <sys:String x:Key="Tutorial_Next">Volgende ▶</sys:String>
     <sys:String x:Key="Tutorial_Finish">Voltooien</sys:String>
@@ -227,25 +229,33 @@
     <sys:String x:Key="Tutorial_S8_Title">Een nieuwe indeling maken</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Klik op Opslaan als onderaan Weergave om je indeling onder een nieuwe naam op te slaan. Voer een nieuwe profielnaam in en klik op Opslaan.\nOpgeslagen profielen kunnen worden geladen via het tabblad Laden.</sys:String>
     <sys:String x:Key="Tutorial_S9_Title">Opnieuw instellen</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">De knop Opnieuw instellen (F12) zet alle paneeltellers op nul zonder de configuratie of indeling te wijzigen.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">De knop Opnieuw instellen {0} zet alle paneeltellers op nul zonder de configuratie of indeling te wijzigen.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Knop Opnieuw instellen</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Weergeven</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Beweeg de muis over het tabblad Weergeven om extra opties te tonen:\n• Transparante modus — verbergt de achtergrond en werkbalk, handig voor stream-overlays. Verplaats hem door een willekeurig paneel te slepen (wanneer «Klikken doorlaten» uit staat) en pas de dekking aan via Weergave ▸ Opties transparante modus.\n• Altijd bovenop — houdt de overlay boven andere vensters.\n• Klikken doorlaten — laat klikken door naar de app eronder.\n• Werkbalk verbergen (F11) — verbergt de werkbalk.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Beweeg de muis over het tabblad Weergeven om de overlay-opties te tonen. Laten we ze allemaal proberen.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Beweeg over het tabblad Weergeven</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Statistieken</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Het tabblad Statistieken toont hoeveel toetsen je in totaal hebt ingedrukt.\nJe gegevens worden alleen op je lokale schijf opgeslagen.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Knop Statistieken</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Meer</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Beweeg de muis over het tabblad Meer om het tabblad Info en het venster Instellingen te tonen.</sys:String>
-    <sys:String x:Key="Tutorial_S12_Hint">👆 Beweeg over het tabblad Meer</sys:String>
-    <sys:String x:Key="Tutorial_S13_Title">Instellingen</sys:String>
-    <sys:String x:Key="Tutorial_S13_Body">In het venster Instellingen kun je de app configureren: het verzamelen van gegevens over actieve tijd en toetsaanslagen, starten bij het opstarten van het systeem, geminimaliseerd starten en de taal van de interface.</sys:String>
-    <sys:String x:Key="Tutorial_S13_Hint">👆 Tabblad Meer ▸ Instellingen</sys:String>
-    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S14_Body">Bezoek het tabblad Info voor meer informatie over het ClickyKeys-project of om deze tutorial opnieuw te bekijken.</sys:String>
-    <sys:String x:Key="Tutorial_S14_Hint">👆 Tabblad Meer ▸ Info</sys:String>
-    <sys:String x:Key="Tutorial_S15_Title">Dat is alles!</sys:String>
-    <sys:String x:Key="Tutorial_S15_Body">Veel plezier met ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Werkbalk verbergen</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Werkbalk verbergen {0} klapt de werkbalk in zodat alleen de panelen zichtbaar blijven. Probeer het — druk op {0} op je toetsenbord om hem terug te halen.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Werkbalk verbergen schakelen</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Transparante modus</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">De transparante modus maakt van de panelen een zwevende overlay voor streamen of gamen. Sleep hem met een willekeurig paneel en stel de dekking in via Weergave ▸ Opties transparante modus. Zet hem aan om te proberen. Slepen werkt alleen als Klikken doorlaten uit staat.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Zet transparante modus aan</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Altijd bovenop &amp; Klikken doorlaten</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">Nog twee overlay-schakelaars in het tabblad Weergeven: Altijd bovenop houdt het venster boven andere apps, en Klikken doorlaten laat muisklikken door naar de app eronder — ideaal tijdens het gamen. Altijd bovenop werkt niet over programma's in volledig scherm.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Statistieken</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Het tabblad Statistieken toont hoeveel toetsen je in totaal hebt ingedrukt.\nJe gegevens worden alleen op je lokale schijf opgeslagen.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Knop Statistieken</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Meer</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Beweeg de muis over het tabblad Meer om het tabblad Info en het venster Instellingen te tonen.</sys:String>
+    <sys:String x:Key="Tutorial_S15_Hint">👆 Beweeg over het tabblad Meer</sys:String>
+    <sys:String x:Key="Tutorial_S16_Title">Instellingen</sys:String>
+    <sys:String x:Key="Tutorial_S16_Body">In het venster Instellingen kun je de app configureren: het verzamelen van gegevens over actieve tijd en toetsaanslagen, starten bij het opstarten van het systeem, geminimaliseerd starten en de taal van de interface.</sys:String>
+    <sys:String x:Key="Tutorial_S16_Hint">👆 Tabblad Meer ▸ Instellingen</sys:String>
+    <sys:String x:Key="Tutorial_S17_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S17_Body">Bezoek het tabblad Info voor meer informatie over het ClickyKeys-project of om deze tutorial opnieuw te bekijken.</sys:String>
+    <sys:String x:Key="Tutorial_S17_Hint">👆 Tabblad Meer ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S18_Title">Dat is alles!</sys:String>
+    <sys:String x:Key="Tutorial_S18_Body">Veel plezier met ClickyKeys! 🎉</sys:String>
 
 
     <!-- Messages / Inbox -->

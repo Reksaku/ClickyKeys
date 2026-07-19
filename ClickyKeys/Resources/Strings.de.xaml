@@ -203,6 +203,8 @@
     <!-- Tutorial window -->
     <sys:String x:Key="Tutorial_Title">ClickyKeys-Tutorial</sys:String>
     <sys:String x:Key="Tutorial_Skip">Überspringen</sys:String>
+    <sys:String x:Key="Tutorial_SkipStep">Schritt überspringen</sys:String>
+    <sys:String x:Key="Tutorial_ActionDone">✓ Erledigt — du kannst fortfahren</sys:String>
     <sys:String x:Key="Tutorial_Back">◀ Zurück</sys:String>
     <sys:String x:Key="Tutorial_Next">Weiter ▶</sys:String>
     <sys:String x:Key="Tutorial_Finish">Fertig</sys:String>
@@ -227,25 +229,33 @@
     <sys:String x:Key="Tutorial_S8_Title">Ein neues Layout erstellen</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Klicke unten in Darstellung auf Speichern unter, um dein Layout unter einem neuen Namen zu speichern. Gib einen neuen Profilnamen ein und klicke auf Speichern.\nGespeicherte Profile können über den Tab Laden geladen werden.</sys:String>
     <sys:String x:Key="Tutorial_S9_Title">Zurücksetzen</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Die Schaltfläche Zurücksetzen (F12) setzt alle Panel-Zähler zurück, ohne deren Konfiguration oder Layout zu ändern.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Die Schaltfläche Zurücksetzen {0} setzt alle Panel-Zähler zurück, ohne deren Konfiguration oder Layout zu ändern.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Schaltfläche Zurücksetzen</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Anzeige</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Bewege den Mauszeiger über den Tab Anzeige, um weitere Optionen einzublenden:\n• Transparenter Modus — blendet Hintergrund und Symbolleiste aus, nützlich für Streaming-Overlays. Verschiebe ihn, indem du ein beliebiges Panel ziehst (wenn „Klicks durchlassen“ aus ist), und ändere die Deckkraft unter Darstellung ▸ Optionen für Transparent-Modus.\n• Immer im Vordergrund — hält das Overlay über anderen Fenstern.\n• Klicks durchlassen — Klicks gehen an die darunterliegende App.\n• Symbolleiste ausblenden (F11) — verbirgt die Symbolleiste.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Bewege den Mauszeiger über den Tab Anzeige, um die Overlay-Optionen einzublenden. Probieren wir jede aus.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Zeige auf den Tab Anzeige</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Statistik</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Der Tab Statistik zeigt, wie viele Tasten du insgesamt gedrückt hast.\nDeine Daten werden nur auf deiner lokalen Festplatte gespeichert.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Schaltfläche Statistik</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Mehr</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Bewege den Mauszeiger über den Tab Mehr, um den Tab Info und das Fenster Einstellungen einzublenden.</sys:String>
-    <sys:String x:Key="Tutorial_S12_Hint">👆 Zeige auf den Tab Mehr</sys:String>
-    <sys:String x:Key="Tutorial_S13_Title">Einstellungen</sys:String>
-    <sys:String x:Key="Tutorial_S13_Body">Im Fenster Einstellungen kannst du die App konfigurieren: Erfassung von Laufzeit- und Tastendruckdaten, Start beim Systemstart, minimierter Start und die Sprache der Oberfläche.</sys:String>
-    <sys:String x:Key="Tutorial_S13_Hint">👆 Tab Mehr ▸ Einstellungen</sys:String>
-    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S14_Body">Besuche den Tab Info, um mehr über das ClickyKeys-Projekt zu erfahren oder dieses Tutorial erneut anzusehen.</sys:String>
-    <sys:String x:Key="Tutorial_S14_Hint">👆 Tab Mehr ▸ Info</sys:String>
-    <sys:String x:Key="Tutorial_S15_Title">Das war's!</sys:String>
-    <sys:String x:Key="Tutorial_S15_Body">Viel Spaß mit ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Symbolleiste ausblenden</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Symbolleiste ausblenden {0} verbirgt die Symbolleiste, sodass nur die Panels sichtbar bleiben. Probiere es — drücke {0} auf der Tastatur, um sie zurückzuholen.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Symbolleiste ausblenden umschalten</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Transparenter Modus</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Der transparente Modus macht aus den Panels ein schwebendes Overlay für Streaming oder Spiele. Ziehe es an einem beliebigen Panel, und stelle die Deckkraft unter Darstellung ▸ Optionen für Transparent-Modus ein. Schalte ihn ein, um ihn auszuprobieren. Das Ziehen funktioniert nur, wenn Klicks durchlassen aus ist.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Transparenten Modus einschalten</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Immer im Vordergrund &amp; Klicks durchlassen</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">Zwei weitere Overlay-Schalter im Tab Anzeige: Immer im Vordergrund hält das Fenster über anderen Apps, und Klicks durchlassen leitet Mausklicks an die darunterliegende App weiter — ideal beim Spielen. Immer im Vordergrund wirkt nicht über Programmen im Vollbildmodus.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Der Tab Statistik zeigt, wie viele Tasten du insgesamt gedrückt hast.\nDeine Daten werden nur auf deiner lokalen Festplatte gespeichert.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Schaltfläche Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Mehr</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Bewege den Mauszeiger über den Tab Mehr, um den Tab Info und das Fenster Einstellungen einzublenden.</sys:String>
+    <sys:String x:Key="Tutorial_S15_Hint">👆 Zeige auf den Tab Mehr</sys:String>
+    <sys:String x:Key="Tutorial_S16_Title">Einstellungen</sys:String>
+    <sys:String x:Key="Tutorial_S16_Body">Im Fenster Einstellungen kannst du die App konfigurieren: Erfassung von Laufzeit- und Tastendruckdaten, Start beim Systemstart, minimierter Start und die Sprache der Oberfläche.</sys:String>
+    <sys:String x:Key="Tutorial_S16_Hint">👆 Tab Mehr ▸ Einstellungen</sys:String>
+    <sys:String x:Key="Tutorial_S17_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S17_Body">Besuche den Tab Info, um mehr über das ClickyKeys-Projekt zu erfahren oder dieses Tutorial erneut anzusehen.</sys:String>
+    <sys:String x:Key="Tutorial_S17_Hint">👆 Tab Mehr ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S18_Title">Das war's!</sys:String>
+    <sys:String x:Key="Tutorial_S18_Body">Viel Spaß mit ClickyKeys! 🎉</sys:String>
 
 
     <!-- Messages / Inbox -->

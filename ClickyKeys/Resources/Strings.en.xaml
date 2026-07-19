@@ -202,6 +202,8 @@
     <!-- Tutorial window -->
     <sys:String x:Key="Tutorial_Title">ClickyKeys Tutorial</sys:String>
     <sys:String x:Key="Tutorial_Skip">Skip</sys:String>
+    <sys:String x:Key="Tutorial_SkipStep">Skip step</sys:String>
+    <sys:String x:Key="Tutorial_ActionDone">✓ Done — you can continue</sys:String>
     <sys:String x:Key="Tutorial_Back">◀ Back</sys:String>
     <sys:String x:Key="Tutorial_Next">Next ▶</sys:String>
     <sys:String x:Key="Tutorial_Finish">Finish</sys:String>
@@ -226,25 +228,33 @@
     <sys:String x:Key="Tutorial_S8_Title">Creating a new layout</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Click Save As at the bottom of Appearance to save your layout under a new name. Enter a new profile name and click Save.\nSaved profiles can be loaded from the Load tab.</sys:String>
     <sys:String x:Key="Tutorial_S9_Title">Reset</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">The Reset button (F12) clears all panel counters without changing their configuration or layout.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">The Reset button {0} clears all panel counters without changing their configuration or layout.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Reset button</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Display</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Hover the Display tab to reveal extra options:\n• Transparent mode — hides the background and toolbar, useful for streaming overlays. Move it by dragging any panel (when Click-through is off), and change its opacity in Appearance ▸ Transparent mode options.\n• Always on top — keeps the overlay above other windows.\n• Click-through — lets clicks pass through to the app underneath.\n• Hide toolbar (F11) — collapses the toolbar.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Hover the Display tab to reveal the overlay options. Let's try each one.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Hover the Display tab</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Stats</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">The Stats tab shows how many keys you've pressed in total.\nYour data is stored only on your local drive.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Stats button</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">More</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Hover the More tab to reveal the Info tab and the Settings window.</sys:String>
-    <sys:String x:Key="Tutorial_S12_Hint">👆 Hover the More tab</sys:String>
-    <sys:String x:Key="Tutorial_S13_Title">Settings</sys:String>
-    <sys:String x:Key="Tutorial_S13_Body">The Settings window lets you configure the app: collecting uptime and key-press data, launching on system startup, starting minimized, and the interface language.</sys:String>
-    <sys:String x:Key="Tutorial_S13_Hint">👆 More tab ▸ Settings</sys:String>
-    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S14_Body">Visit the Info tab to learn more about the ClickyKeys project or watch this tutorial again.</sys:String>
-    <sys:String x:Key="Tutorial_S14_Hint">👆 More tab ▸ Info</sys:String>
-    <sys:String x:Key="Tutorial_S15_Title">That's it!</sys:String>
-    <sys:String x:Key="Tutorial_S15_Body">Enjoy using ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Hide toolbar</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Hide toolbar {0} collapses the toolbar so only the panels stay on screen. Try it now — press {0} on your keyboard to bring the toolbar back.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Toggle Hide toolbar</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Transparent mode</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Transparent mode turns the panels into a floating overlay for streaming or gaming. Drag it by any panel to move it, and set its opacity in Appearance ▸ Transparent mode options. Turn it on to try. Dragging works only when Click-through is off.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Turn on Transparent mode</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Always on top &amp; Click-through</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">Two more overlay toggles in the Display tab: Always on top keeps the window above other apps, and Click-through lets mouse clicks pass through to whatever is underneath — ideal while gaming. Always on top has no effect over programs running in fullscreen mode.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Stats</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">The Stats tab shows how many keys you've pressed in total.\nYour data is stored only on your local drive.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Stats button</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">More</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Hover the More tab to reveal the Info tab and the Settings window.</sys:String>
+    <sys:String x:Key="Tutorial_S15_Hint">👆 Hover the More tab</sys:String>
+    <sys:String x:Key="Tutorial_S16_Title">Settings</sys:String>
+    <sys:String x:Key="Tutorial_S16_Body">The Settings window lets you configure the app: collecting uptime and key-press data, launching on system startup, starting minimized, and the interface language.</sys:String>
+    <sys:String x:Key="Tutorial_S16_Hint">👆 More tab ▸ Settings</sys:String>
+    <sys:String x:Key="Tutorial_S17_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S17_Body">Visit the Info tab to learn more about the ClickyKeys project or watch this tutorial again.</sys:String>
+    <sys:String x:Key="Tutorial_S17_Hint">👆 More tab ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S18_Title">That's it!</sys:String>
+    <sys:String x:Key="Tutorial_S18_Body">Enjoy using ClickyKeys! 🎉</sys:String>
 
 
     <!-- Messages / Inbox -->

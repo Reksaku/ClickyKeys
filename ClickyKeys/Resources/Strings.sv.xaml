@@ -203,6 +203,8 @@
     <!-- Tutorial window -->
     <sys:String x:Key="Tutorial_Title">ClickyKeys-handledning</sys:String>
     <sys:String x:Key="Tutorial_Skip">Hoppa över</sys:String>
+    <sys:String x:Key="Tutorial_SkipStep">Hoppa över steg</sys:String>
+    <sys:String x:Key="Tutorial_ActionDone">✓ Klart — du kan fortsätta</sys:String>
     <sys:String x:Key="Tutorial_Back">◀ Tillbaka</sys:String>
     <sys:String x:Key="Tutorial_Next">Nästa ▶</sys:String>
     <sys:String x:Key="Tutorial_Finish">Slutför</sys:String>
@@ -227,25 +229,33 @@
     <sys:String x:Key="Tutorial_S8_Title">Skapa en ny layout</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Klicka på Spara som längst ner i Utseende för att spara din layout under ett nytt namn. Ange ett nytt profilnamn och klicka på Spara.\nSparade profiler kan läsas in från fliken Läs in.</sys:String>
     <sys:String x:Key="Tutorial_S9_Title">Återställ</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Knappen Återställ (F12) nollställer alla panelräknare utan att ändra deras konfiguration eller layout.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Knappen Återställ {0} nollställer alla panelräknare utan att ändra deras konfiguration eller layout.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Knappen Återställ</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Visning</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Håll muspekaren över fliken Visning för att visa fler alternativ:\n• Transparent läge — döljer bakgrunden och verktygsfältet, användbart för streaming-överlägg. Flytta det genom att dra valfri panel (när «Klick igenom» är av) och ändra opaciteten i Utseende ▸ Alternativ för transparent läge.\n• Alltid överst — håller överlägget ovanför andra fönster.\n• Klick igenom — släpper igenom klick till appen under.\n• Dölj verktygsfält (F11) — döljer verktygsfältet.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Håll muspekaren över fliken Visning för att visa överläggsalternativen. Låt oss prova var och en.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Håll pekaren över fliken Visning</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Statistik</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Fliken Statistik visar hur många tangenter du har tryckt på totalt.\nDina data lagras endast på din lokala disk.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Knappen Statistik</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Mer</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Håll muspekaren över fliken Mer för att visa fliken Info och fönstret Inställningar.</sys:String>
-    <sys:String x:Key="Tutorial_S12_Hint">👆 Håll pekaren över fliken Mer</sys:String>
-    <sys:String x:Key="Tutorial_S13_Title">Inställningar</sys:String>
-    <sys:String x:Key="Tutorial_S13_Body">I fönstret Inställningar kan du konfigurera appen: insamling av drifttids- och tangenttryckningsdata, start vid systemstart, minimerad start och gränssnittets språk.</sys:String>
-    <sys:String x:Key="Tutorial_S13_Hint">👆 Fliken Mer ▸ Inställningar</sys:String>
-    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S14_Body">Besök fliken Info för att läsa mer om ClickyKeys-projektet eller se den här handledningen igen.</sys:String>
-    <sys:String x:Key="Tutorial_S14_Hint">👆 Fliken Mer ▸ Info</sys:String>
-    <sys:String x:Key="Tutorial_S15_Title">Det var allt!</sys:String>
-    <sys:String x:Key="Tutorial_S15_Body">Ha det så kul med ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Dölj verktygsfält</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Dölj verktygsfält {0} fäller ihop verktygsfältet så att bara panelerna syns. Prova — tryck på {0} på tangentbordet för att ta tillbaka det.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Växla Dölj verktygsfält</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Transparent läge</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Transparent läge gör panelerna till ett svävande överlägg för streaming eller spel. Dra det med valfri panel och ställ in opaciteten i Utseende ▸ Alternativ för transparent läge. Slå på det för att prova. Att dra fungerar bara när Klick igenom är av.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Slå på transparent läge</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Alltid överst &amp; Klick igenom</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">Två fler överläggsreglage i fliken Visning: Alltid överst håller fönstret ovanför andra appar, och Klick igenom släpper igenom musklick till appen under — perfekt när du spelar. Alltid överst fungerar inte över program i helskärmsläge.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Fliken Statistik visar hur många tangenter du har tryckt på totalt.\nDina data lagras endast på din lokala disk.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Knappen Statistik</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Mer</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Håll muspekaren över fliken Mer för att visa fliken Info och fönstret Inställningar.</sys:String>
+    <sys:String x:Key="Tutorial_S15_Hint">👆 Håll pekaren över fliken Mer</sys:String>
+    <sys:String x:Key="Tutorial_S16_Title">Inställningar</sys:String>
+    <sys:String x:Key="Tutorial_S16_Body">I fönstret Inställningar kan du konfigurera appen: insamling av drifttids- och tangenttryckningsdata, start vid systemstart, minimerad start och gränssnittets språk.</sys:String>
+    <sys:String x:Key="Tutorial_S16_Hint">👆 Fliken Mer ▸ Inställningar</sys:String>
+    <sys:String x:Key="Tutorial_S17_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S17_Body">Besök fliken Info för att läsa mer om ClickyKeys-projektet eller se den här handledningen igen.</sys:String>
+    <sys:String x:Key="Tutorial_S17_Hint">👆 Fliken Mer ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S18_Title">Det var allt!</sys:String>
+    <sys:String x:Key="Tutorial_S18_Body">Ha det så kul med ClickyKeys! 🎉</sys:String>
 
 
     <!-- Messages / Inbox -->

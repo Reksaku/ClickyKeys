@@ -618,6 +618,8 @@ namespace ClickyKeys
         {
             _displayCloseTimer?.Stop();
             DisplayPopup.IsOpen = true;
+            WeakReferenceMessenger.Default.Send(
+                new TutorialActionMessage(TutorialGate.DisplayRevealed));
         }
 
         private void Display_Button_MouseLeave(object sender, MouseEventArgs e)
@@ -651,6 +653,8 @@ namespace ClickyKeys
             // reflects the latest fetch even though that ran async at startup.
             RefreshMessagesBadge();
             MorePopup.IsOpen = true;
+            WeakReferenceMessenger.Default.Send(
+                new TutorialActionMessage(TutorialGate.MoreRevealed));
         }
 
         private void More_Button_MouseLeave(object sender, MouseEventArgs e)
@@ -1031,7 +1035,10 @@ namespace ClickyKeys
 
         private void ShowTutorialWindow()
         {
-            var tutorial = new TutorialWindow(this);
+            // Build the steps with the user's actual reset / toggle-toolbar key
+            // labels so the tutorial reflects any reassigned shortcuts.
+            var tutorial = new TutorialWindow(
+                this, TutorialWindow.DefaultSteps(ResetKeyLabel, ToggleToolbarKeyLabel));
 
             // Pass named elements the tutorial needs to spotlight.
             // _panelsById[4] is a representative panel (centre of a 2×2 grid).
@@ -1215,6 +1222,10 @@ namespace ClickyKeys
                 _appearance.Show();
                 OpenedAppearance = true;
             }
+
+            // Let an open tutorial verify the "open Appearance" step.
+            WeakReferenceMessenger.Default.Send(
+                new TutorialActionMessage(TutorialGate.AppearanceOpened));
         }
         public void OnAppearanceClose(string appearancePath)
         {
@@ -1245,6 +1256,9 @@ namespace ClickyKeys
                     ToolStrip.Visibility = Visibility.Visible;
                     //this.Topmost = !this.Topmost;
                 }
+
+            WeakReferenceMessenger.Default.Send(
+                new TutorialActionMessage(TutorialGate.ToolbarToggled));
         }
 
         public void ResetCounter()
@@ -1263,6 +1277,10 @@ namespace ClickyKeys
                 // is shown only while transparent mode is active.
                 ClickThrough_Button.Visibility = Visibility.Visible;
                 InitTransparentMode();
+
+                // Let an open tutorial verify the "enter transparent mode" step.
+                WeakReferenceMessenger.Default.Send(
+                    new TutorialActionMessage(TutorialGate.TransparentModeEntered));
             }
             else
             {
@@ -1519,6 +1537,8 @@ namespace ClickyKeys
                 _infoPage.Show();
                 OpenedInfo = true;
             }
+            WeakReferenceMessenger.Default.Send(
+                new TutorialActionMessage(TutorialGate.InfoOpened));
         }
         public void OnInfoClose()
         {
@@ -1536,6 +1556,8 @@ namespace ClickyKeys
                 _statsPage.Show();
                 OpenedStats = true;
             }
+            WeakReferenceMessenger.Default.Send(
+                new TutorialActionMessage(TutorialGate.StatsOpened));
         }
         public void OnStatsClose()
         {
@@ -1554,6 +1576,8 @@ namespace ClickyKeys
                 _settingsPage.Show();
                 OpenedSettings = true;
             }
+            WeakReferenceMessenger.Default.Send(
+                new TutorialActionMessage(TutorialGate.SettingsOpened));
         }
         public void OnSettingsClose()
         {
@@ -1676,6 +1700,12 @@ namespace ClickyKeys
         {
             foreach (var panel in _panelsById.Values)
                 panel.Value = 0;
+
+            // Fires for every counter reset — Reset button AND the reset
+            // shortcut (F12 or the user's reassigned key) — so a tutorial reset
+            // step is satisfied by either.
+            WeakReferenceMessenger.Default.Send(
+                new TutorialActionMessage(TutorialGate.ResetPressed));
         }
 
         public void SetBackgroundRainbow(bool? IsTrue)

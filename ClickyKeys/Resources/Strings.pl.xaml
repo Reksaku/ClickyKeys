@@ -29,7 +29,7 @@
     <sys:String x:Key="Consent_Body">Chcielibyśmy zbierać anonimowe statystyki użytkowania, żeby zobaczyć, jak korzystasz z ClickyKeys, i wiedzieć, co rozwijać w pierwszej kolejności. To całkowicie dobrowolne, nie wpływa na działanie aplikacji, a swój wybór możesz zmienić w każdej chwili.</sys:String>
     <sys:String x:Key="Consent_KeyloggerAssurance">ClickyKeys to nie keylogger. Niezależnie od wybranej poniżej opcji — nawet Pełnej — aplikacja nigdy nie zapisuje tego, co wpisujesz, Twoich haseł, zawartości schowka ani tego, które konkretnie klawisze naciskasz lub gdzie klikasz. Bezpieczeństwo użytkowników jest dla tego projektu priorytetem, a cały kod źródłowy jest w pełni dostępny, więc możesz to sam sprawdzić — nie musisz wierzyć nam na słowo. Zobacz kod na GitHubie:</sys:String>
     <sys:String x:Key="Consent_FullTitle">Pełna — statystyki użytkowania i funkcji</sys:String>
-    <sys:String x:Key="Consent_FullBody">Wszystko z poziomu Podstawowego, plus sposób konfiguracji i użycia funkcji: układ paneli i rozmiar siatki, które tryby wyświetlania są włączone (przezroczysty, tęczowe tło), czy kolory/czcionki/skróty zostały dostosowane, ustawienia pada oraz zbiorcze liczniki klawiszy/myszy/czasu działania. Nigdy opisy paneli, dokładne kolory, dokładne przypisane skróty ani nic, co wpisujesz.</sys:String>
+    <sys:String x:Key="Consent_FullBody">Wszystko z poziomu Podstawowego, plus sposób konfiguracji i użycia funkcji: układ paneli i rozmiar siatki, które tryby wyświetlania są włączone (transparentny, tęczowe tło), czy kolory/czcionki/skróty zostały dostosowane, ustawienia pada oraz zbiorcze liczniki klawiszy/myszy/czasu działania. Nigdy opisy paneli, dokładne kolory, dokładne przypisane skróty ani nic, co wpisujesz.</sys:String>
     <sys:String x:Key="Consent_BasicTitle">Podstawowa — podstawowe użycie &amp; anonimowa tożsamość</sys:String>
     <sys:String x:Key="Consent_BasicBody">Losowo wygenerowany identyfikator (niepowiązany z Tobą ani Twoim komputerem), wersja aplikacji, wersja systemu operacyjnego, język interfejsu oraz łączna liczba naciśnięć klawiszy i łączny czas działania aplikacji.</sys:String>
     <sys:String x:Key="Consent_NoneTitle">Brak — nie zbieraj niczego</sys:String>
@@ -117,7 +117,7 @@
     <sys:String x:Key="Main_Stats">Statystyki</sys:String>
     <sys:String x:Key="Main_More">Więcej</sys:String>
     <sys:String x:Key="Main_Transparent">Tryb</sys:String>
-    <sys:String x:Key="Main_Mode">przezroczysty</sys:String>
+    <sys:String x:Key="Main_Mode">transparentny</sys:String>
     <sys:String x:Key="Main_HideToolbar">Ukryj pasek</sys:String>
     <sys:String x:Key="Main_AlwaysOnTop">Zawsze na wierzchu</sys:String>
     <sys:String x:Key="Main_ClickThrough">Kliknięcia na wylot</sys:String>
@@ -202,6 +202,8 @@
     <!-- Tutorial window -->
     <sys:String x:Key="Tutorial_Title">Samouczek ClickyKeys</sys:String>
     <sys:String x:Key="Tutorial_Skip">Pomiń</sys:String>
+    <sys:String x:Key="Tutorial_SkipStep">Pomiń krok</sys:String>
+    <sys:String x:Key="Tutorial_ActionDone">✓ Gotowe — możesz kontynuować</sys:String>
     <sys:String x:Key="Tutorial_Back">◀ Wstecz</sys:String>
     <sys:String x:Key="Tutorial_Next">Dalej ▶</sys:String>
     <sys:String x:Key="Tutorial_Finish">Zakończ</sys:String>
@@ -226,25 +228,33 @@
     <sys:String x:Key="Tutorial_S8_Title">Tworzenie nowego układu</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Kliknij Zapisz jako na dole karty Wygląd, aby zapisać układ pod nową nazwą. Wpisz nazwę nowego profilu i kliknij Zapisz.\nZapisane profile można wczytać z karty Wczytaj.</sys:String>
     <sys:String x:Key="Tutorial_S9_Title">Reset</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Przycisk Reset (klawisz F12) zeruje wszystkie liczniki paneli, nie zmieniając ich konfiguracji ani układu.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Przycisk Reset {0} zeruje wszystkie liczniki paneli, nie zmieniając ich konfiguracji ani układu.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Przycisk Reset</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Wyświetlanie</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Najedź na kartę Wyświetlanie, aby rozwinąć dodatkowe opcje:\n• Tryb przezroczysty — ukrywa tło i pasek narzędzi, przydatne do nakładek na transmisjach. Przesuwaj go, przeciągając dowolny panel (gdy Kliknięcia na wylot są wyłączone), a przezroczystość zmienisz w Wygląd ▸ Opcje trybu transparentnego.\n• Zawsze na wierzchu — utrzymuje nakładkę nad innymi oknami.\n• Kliknięcia na wylot — przepuszczają kliknięcia do aplikacji pod spodem.\n• Ukryj pasek (F11) — chowa pasek narzędzi.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Najedź na kartę Wyświetlanie, aby odsłonić opcje nakładki. Wypróbujmy każdą z nich.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Najedź na kartę Wyświetlanie</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Statystyki</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Karta Statystyki pokazuje, ile klawiszy nacisnąłeś łącznie.\nTwoje dane są przechowywane wyłącznie na lokalnym dysku.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Przycisk Statystyki</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Więcej</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Najedź na kartę Więcej, aby rozwinąć kartę Info oraz okno Ustawienia.</sys:String>
-    <sys:String x:Key="Tutorial_S12_Hint">👆 Najedź na kartę Więcej</sys:String>
-    <sys:String x:Key="Tutorial_S13_Title">Ustawienia</sys:String>
-    <sys:String x:Key="Tutorial_S13_Body">W oknie Ustawienia skonfigurujesz aplikację: zbieranie danych o czasie działania i statystyk klawiszy, uruchamianie przy starcie systemu, uruchamianie zminimalizowane oraz język interfejsu.</sys:String>
-    <sys:String x:Key="Tutorial_S13_Hint">👆 Karta Więcej ▸ Ustawienia</sys:String>
-    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S14_Body">Odwiedź kartę Info, aby dowiedzieć się więcej o projekcie ClickyKeys lub ponownie obejrzeć samouczek.</sys:String>
-    <sys:String x:Key="Tutorial_S14_Hint">👆 Karta Więcej ▸ Info</sys:String>
-    <sys:String x:Key="Tutorial_S15_Title">To wszystko!</sys:String>
-    <sys:String x:Key="Tutorial_S15_Body">Miłego korzystania z ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Ukryj pasek</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Ukryj pasek {0} zwija pasek narzędzi, zostawiając na ekranie same panele. Wypróbuj — naciśnij klawisz {0} na klawiaturze, aby przywrócić pasek.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Przełącz Ukryj pasek</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Tryb transparentny</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Tryb transparentny zamienia panele w pływającą nakładkę do streamowania lub gry. Przeciągaj ją dowolnym panelem, a przezroczystość ustawisz w Wygląd ▸ Opcje trybu transparentnego. Włącz go, aby wypróbować. Przeciąganie działa tylko, gdy Kliknięcia na wylot są wyłączone.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Włącz tryb transparentny</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Zawsze na wierzchu i Kliknięcia na wylot</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">Dwa kolejne przełączniki nakładki w karcie Wyświetlanie: Zawsze na wierzchu utrzymuje okno nad innymi aplikacjami, a Kliknięcia na wylot przepuszczają kliknięcia do aplikacji pod spodem — idealne podczas grania. Zawsze na wierzchu nie działa nad programami w trybie pełnoekranowym.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Statystyki</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Karta Statystyki pokazuje, ile klawiszy nacisnąłeś łącznie.\nTwoje dane są przechowywane wyłącznie na lokalnym dysku.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Przycisk Statystyki</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Więcej</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Najedź na kartę Więcej, aby rozwinąć kartę Info oraz okno Ustawienia.</sys:String>
+    <sys:String x:Key="Tutorial_S15_Hint">👆 Najedź na kartę Więcej</sys:String>
+    <sys:String x:Key="Tutorial_S16_Title">Ustawienia</sys:String>
+    <sys:String x:Key="Tutorial_S16_Body">W oknie Ustawienia skonfigurujesz aplikację: zbieranie danych o czasie działania i statystyk klawiszy, uruchamianie przy starcie systemu, uruchamianie zminimalizowane oraz język interfejsu.</sys:String>
+    <sys:String x:Key="Tutorial_S16_Hint">👆 Karta Więcej ▸ Ustawienia</sys:String>
+    <sys:String x:Key="Tutorial_S17_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S17_Body">Odwiedź kartę Info, aby dowiedzieć się więcej o projekcie ClickyKeys lub ponownie obejrzeć samouczek.</sys:String>
+    <sys:String x:Key="Tutorial_S17_Hint">👆 Karta Więcej ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S18_Title">To wszystko!</sys:String>
+    <sys:String x:Key="Tutorial_S18_Body">Miłego korzystania z ClickyKeys! 🎉</sys:String>
 
 
     <!-- Messages / Inbox -->

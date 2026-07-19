@@ -205,6 +205,8 @@
     <!-- Tutorial window -->
     <sys:String x:Key="Tutorial_Title">Tutorial de ClickyKeys</sys:String>
     <sys:String x:Key="Tutorial_Skip">Omitir</sys:String>
+    <sys:String x:Key="Tutorial_SkipStep">Omitir paso</sys:String>
+    <sys:String x:Key="Tutorial_ActionDone">✓ Hecho — puedes continuar</sys:String>
     <sys:String x:Key="Tutorial_Back">◀ Atrás</sys:String>
     <sys:String x:Key="Tutorial_Next">Siguiente ▶</sys:String>
     <sys:String x:Key="Tutorial_Finish">Finalizar</sys:String>
@@ -229,25 +231,33 @@
     <sys:String x:Key="Tutorial_S8_Title">Crear un nuevo diseño</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Haz clic en Guardar como en la parte inferior de Apariencia para guardar tu diseño con un nombre nuevo. Escribe un nombre de perfil y haz clic en Guardar.\nLos perfiles guardados se pueden cargar desde la pestaña Cargar.</sys:String>
     <sys:String x:Key="Tutorial_S9_Title">Restablecer</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">El botón Restablecer (F12) pone en cero todos los contadores de los paneles sin cambiar su configuración ni su disposición.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">El botón Restablecer {0} pone en cero todos los contadores de los paneles sin cambiar su configuración ni su disposición.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Botón Restablecer</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Visualización</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Pasa el cursor sobre la pestaña Visualización para mostrar opciones adicionales:\n• Modo transparente — oculta el fondo y la barra de herramientas, útil para overlays de streaming. Muévelo arrastrando cualquier panel (cuando «Clic pasante» está desactivado) y cambia su opacidad en Apariencia ▸ Opciones del modo transparente.\n• Siempre visible — mantiene la superposición por encima de otras ventanas.\n• Clic pasante — deja pasar los clics a la app de abajo.\n• Ocultar barra (F11) — oculta la barra de herramientas.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Pasa el cursor sobre la pestaña Visualización para mostrar las opciones de superposición. Probemos cada una.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Pasa el cursor sobre la pestaña Visualización</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Estadísticas</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">La pestaña Estadísticas muestra cuántas teclas has presionado en total.\nTus datos se almacenan únicamente en tu disco local.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Botón Estadísticas</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Más</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Pasa el cursor sobre la pestaña Más para mostrar la pestaña Info y la ventana Configuración.</sys:String>
-    <sys:String x:Key="Tutorial_S12_Hint">👆 Pasa el cursor sobre la pestaña Más</sys:String>
-    <sys:String x:Key="Tutorial_S13_Title">Configuración</sys:String>
-    <sys:String x:Key="Tutorial_S13_Body">La ventana Configuración te permite configurar la aplicación: recopilación de datos de tiempo de actividad y de pulsaciones de teclas, inicio al arrancar el sistema, inicio minimizado y el idioma de la interfaz.</sys:String>
-    <sys:String x:Key="Tutorial_S13_Hint">👆 Pestaña Más ▸ Configuración</sys:String>
-    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S14_Body">Visita la pestaña Info para conocer más sobre el proyecto ClickyKeys o volver a ver este tutorial.</sys:String>
-    <sys:String x:Key="Tutorial_S14_Hint">👆 Pestaña Más ▸ Info</sys:String>
-    <sys:String x:Key="Tutorial_S15_Title">¡Eso es todo!</sys:String>
-    <sys:String x:Key="Tutorial_S15_Body">¡Disfruta usando ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Ocultar barra</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Ocultar barra {0} contrae la barra de herramientas para dejar solo los paneles. Pruébalo — presiona {0} en el teclado para recuperarla.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Alternar Ocultar barra</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Modo transparente</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">El modo transparente convierte los paneles en una superposición flotante para streaming o juegos. Arrástrala desde cualquier panel y ajusta su opacidad en Apariencia ▸ Opciones del modo transparente. Actívalo para probarlo. Arrastrar solo funciona cuando Clic pasante está desactivado.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Activa el modo transparente</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Siempre visible y Clic pasante</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">Dos interruptores más de superposición en la pestaña Visualización: Siempre visible mantiene la ventana por encima de otras apps, y Clic pasante deja pasar los clics a la app de abajo — ideal al jugar. Siempre visible no funciona sobre programas en modo de pantalla completa.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Estadísticas</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">La pestaña Estadísticas muestra cuántas teclas has presionado en total.\nTus datos se almacenan únicamente en tu disco local.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Botón Estadísticas</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Más</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Pasa el cursor sobre la pestaña Más para mostrar la pestaña Info y la ventana Configuración.</sys:String>
+    <sys:String x:Key="Tutorial_S15_Hint">👆 Pasa el cursor sobre la pestaña Más</sys:String>
+    <sys:String x:Key="Tutorial_S16_Title">Configuración</sys:String>
+    <sys:String x:Key="Tutorial_S16_Body">La ventana Configuración te permite configurar la aplicación: recopilación de datos de tiempo de actividad y de pulsaciones de teclas, inicio al arrancar el sistema, inicio minimizado y el idioma de la interfaz.</sys:String>
+    <sys:String x:Key="Tutorial_S16_Hint">👆 Pestaña Más ▸ Configuración</sys:String>
+    <sys:String x:Key="Tutorial_S17_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S17_Body">Visita la pestaña Info para conocer más sobre el proyecto ClickyKeys o volver a ver este tutorial.</sys:String>
+    <sys:String x:Key="Tutorial_S17_Hint">👆 Pestaña Más ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S18_Title">¡Eso es todo!</sys:String>
+    <sys:String x:Key="Tutorial_S18_Body">¡Disfruta usando ClickyKeys! 🎉</sys:String>
 
 
     <!-- Messages / Inbox -->

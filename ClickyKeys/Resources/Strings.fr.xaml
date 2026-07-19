@@ -203,6 +203,8 @@
     <!-- Tutorial window -->
     <sys:String x:Key="Tutorial_Title">Tutoriel de ClickyKeys</sys:String>
     <sys:String x:Key="Tutorial_Skip">Ignorer</sys:String>
+    <sys:String x:Key="Tutorial_SkipStep">Passer l'étape</sys:String>
+    <sys:String x:Key="Tutorial_ActionDone">✓ Terminé — vous pouvez continuer</sys:String>
     <sys:String x:Key="Tutorial_Back">◀ Retour</sys:String>
     <sys:String x:Key="Tutorial_Next">Suivant ▶</sys:String>
     <sys:String x:Key="Tutorial_Finish">Terminer</sys:String>
@@ -227,25 +229,33 @@
     <sys:String x:Key="Tutorial_S8_Title">Créer une nouvelle disposition</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Cliquez sur Enregistrer sous en bas d'Apparence pour enregistrer votre disposition sous un nouveau nom. Saisissez un nouveau nom de profil et cliquez sur Enregistrer.\nLes profils enregistrés peuvent être chargés depuis l'onglet Charger.</sys:String>
     <sys:String x:Key="Tutorial_S9_Title">Réinitialiser</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Le bouton Réinitialiser (F12) remet à zéro tous les compteurs des panneaux sans modifier leur configuration ni leur disposition.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Le bouton Réinitialiser {0} remet à zéro tous les compteurs des panneaux sans modifier leur configuration ni leur disposition.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Bouton Réinitialiser</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Affichage</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Survolez l'onglet Affichage pour afficher des options supplémentaires :\n• Mode transparent — masque l'arrière-plan et la barre d'outils, utile pour les superpositions de streaming. Déplacez-le en faisant glisser n'importe quel panneau (lorsque « Clic traversant » est désactivé) et modifiez son opacité dans Apparence ▸ Options du mode transparent.\n• Toujours visible — garde la superposition au-dessus des autres fenêtres.\n• Clic traversant — laisse passer les clics vers l'application en dessous.\n• Masquer la barre (F11) — masque la barre d'outils.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Survolez l'onglet Affichage pour afficher les options de superposition. Essayons-les une par une.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Survolez l'onglet Affichage</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Stats</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">L'onglet Stats indique combien de touches vous avez appuyées au total.\nVos données sont stockées uniquement sur votre disque local.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Bouton Stats</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Plus</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Survolez l'onglet Plus pour afficher l'onglet Info et la fenêtre Paramètres.</sys:String>
-    <sys:String x:Key="Tutorial_S12_Hint">👆 Survolez l'onglet Plus</sys:String>
-    <sys:String x:Key="Tutorial_S13_Title">Paramètres</sys:String>
-    <sys:String x:Key="Tutorial_S13_Body">La fenêtre Paramètres vous permet de configurer l'application : collecte des données de temps d'activité et d'appuis de touches, lancement au démarrage du système, démarrage réduit et langue de l'interface.</sys:String>
-    <sys:String x:Key="Tutorial_S13_Hint">👆 Onglet Plus ▸ Paramètres</sys:String>
-    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S14_Body">Consultez l'onglet Info pour en savoir plus sur le projet ClickyKeys ou revoir ce tutoriel.</sys:String>
-    <sys:String x:Key="Tutorial_S14_Hint">👆 Onglet Plus ▸ Info</sys:String>
-    <sys:String x:Key="Tutorial_S15_Title">C'est tout !</sys:String>
-    <sys:String x:Key="Tutorial_S15_Body">Profitez bien de ClickyKeys ! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Masquer la barre</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Masquer la barre {0} replie la barre d'outils pour ne laisser que les panneaux. Essayez — appuyez sur {0} au clavier pour la ramener.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Basculer Masquer la barre</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Mode transparent</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Le mode transparent transforme les panneaux en une superposition flottante pour le streaming ou le jeu. Déplacez-la par n'importe quel panneau et réglez son opacité dans Apparence ▸ Options du mode transparent. Activez-le pour l'essayer. Le déplacement ne fonctionne que si Clic traversant est désactivé.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Activez le mode transparent</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Toujours visible et Clic traversant</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">Deux autres options de superposition dans l'onglet Affichage : Toujours visible garde la fenêtre au-dessus des autres applis, et Clic traversant laisse passer les clics vers l'application en dessous — idéal en jeu. Toujours visible n'a aucun effet au-dessus des programmes en plein écran.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Stats</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">L'onglet Stats indique combien de touches vous avez appuyées au total.\nVos données sont stockées uniquement sur votre disque local.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Bouton Stats</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Plus</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Survolez l'onglet Plus pour afficher l'onglet Info et la fenêtre Paramètres.</sys:String>
+    <sys:String x:Key="Tutorial_S15_Hint">👆 Survolez l'onglet Plus</sys:String>
+    <sys:String x:Key="Tutorial_S16_Title">Paramètres</sys:String>
+    <sys:String x:Key="Tutorial_S16_Body">La fenêtre Paramètres vous permet de configurer l'application : collecte des données de temps d'activité et d'appuis de touches, lancement au démarrage du système, démarrage réduit et langue de l'interface.</sys:String>
+    <sys:String x:Key="Tutorial_S16_Hint">👆 Onglet Plus ▸ Paramètres</sys:String>
+    <sys:String x:Key="Tutorial_S17_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S17_Body">Consultez l'onglet Info pour en savoir plus sur le projet ClickyKeys ou revoir ce tutoriel.</sys:String>
+    <sys:String x:Key="Tutorial_S17_Hint">👆 Onglet Plus ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S18_Title">C'est tout !</sys:String>
+    <sys:String x:Key="Tutorial_S18_Body">Profitez bien de ClickyKeys ! 🎉</sys:String>
 
 
     <!-- Messages / Inbox -->

@@ -205,6 +205,8 @@
     <!-- Tutorial window -->
     <sys:String x:Key="Tutorial_Title">Tutorial do ClickyKeys</sys:String>
     <sys:String x:Key="Tutorial_Skip">Ignorar</sys:String>
+    <sys:String x:Key="Tutorial_SkipStep">Ignorar passo</sys:String>
+    <sys:String x:Key="Tutorial_ActionDone">✓ Concluído — pode continuar</sys:String>
     <sys:String x:Key="Tutorial_Back">◀ Anterior</sys:String>
     <sys:String x:Key="Tutorial_Next">Seguinte ▶</sys:String>
     <sys:String x:Key="Tutorial_Finish">Concluir</sys:String>
@@ -229,25 +231,33 @@
     <sys:String x:Key="Tutorial_S8_Title">Criar um novo esquema</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Clique em Guardar como na parte inferior de Aspeto para guardar o esquema com um novo nome. Introduza um novo nome de perfil e clique em Guardar.\nOs perfis guardados podem ser carregados no separador Carregar.</sys:String>
     <sys:String x:Key="Tutorial_S9_Title">Repor</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">O botão Repor (F12) coloca a zero todos os contadores dos painéis sem alterar a sua configuração ou disposição.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">O botão Repor {0} coloca a zero todos os contadores dos painéis sem alterar a sua configuração ou disposição.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Botão Repor</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Apresentação</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Passe o rato sobre o separador Apresentação para mostrar opções adicionais:\n• Modo transparente — oculta o fundo e a barra de ferramentas, útil para sobreposições de transmissão. Mova-o arrastando qualquer painel (quando «Clique passante» está desativado) e altere a opacidade em Aspeto ▸ Opções do modo transparente.\n• Sempre visível — mantém a sobreposição acima de outras janelas.\n• Clique passante — deixa os cliques passarem para a aplicação por baixo.\n• Ocultar barra (F11) — oculta a barra de ferramentas.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Passe o rato sobre o separador Apresentação para mostrar as opções de sobreposição. Vamos experimentar cada uma.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Passe o rato sobre o separador Apresentação</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Estatísticas</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">O separador Estatísticas mostra quantas teclas premiu no total.\nOs seus dados são armazenados apenas no seu disco local.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Botão Estatísticas</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Mais</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Passe o rato sobre o separador Mais para mostrar o separador Info e a janela Definições.</sys:String>
-    <sys:String x:Key="Tutorial_S12_Hint">👆 Passe o rato sobre o separador Mais</sys:String>
-    <sys:String x:Key="Tutorial_S13_Title">Definições</sys:String>
-    <sys:String x:Key="Tutorial_S13_Body">A janela Definições permite-lhe configurar a aplicação: recolha de dados de tempo de atividade e de teclas premidas, arranque no início do sistema, arranque minimizado e o idioma da interface.</sys:String>
-    <sys:String x:Key="Tutorial_S13_Hint">👆 Separador Mais ▸ Definições</sys:String>
-    <sys:String x:Key="Tutorial_S14_Title">Info</sys:String>
-    <sys:String x:Key="Tutorial_S14_Body">Visite o separador Info para saber mais sobre o projeto ClickyKeys ou ver este tutorial novamente.</sys:String>
-    <sys:String x:Key="Tutorial_S14_Hint">👆 Separador Mais ▸ Info</sys:String>
-    <sys:String x:Key="Tutorial_S15_Title">É tudo!</sys:String>
-    <sys:String x:Key="Tutorial_S15_Body">Aproveite o ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Ocultar barra</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Ocultar barra {0} recolhe a barra de ferramentas, deixando apenas os painéis. Experimente — prima {0} no teclado para a trazer de volta.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Alternar Ocultar barra</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Modo transparente</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">O modo transparente transforma os painéis numa sobreposição flutuante para transmissão ou jogos. Arraste-a por qualquer painel e ajuste a opacidade em Aspeto ▸ Opções do modo transparente. Ative-o para experimentar. Arrastar só funciona quando Clique passante está desativado.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Ative o modo transparente</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Sempre visível e Clique passante</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">Mais dois interruptores de sobreposição no separador Apresentação: Sempre visível mantém a janela acima de outras aplicações, e Clique passante deixa os cliques passarem para a aplicação por baixo — ideal a jogar. Sempre visível não funciona sobre programas em ecrã inteiro.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Estatísticas</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">O separador Estatísticas mostra quantas teclas premiu no total.\nOs seus dados são armazenados apenas no seu disco local.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Botão Estatísticas</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Mais</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Passe o rato sobre o separador Mais para mostrar o separador Info e a janela Definições.</sys:String>
+    <sys:String x:Key="Tutorial_S15_Hint">👆 Passe o rato sobre o separador Mais</sys:String>
+    <sys:String x:Key="Tutorial_S16_Title">Definições</sys:String>
+    <sys:String x:Key="Tutorial_S16_Body">A janela Definições permite-lhe configurar a aplicação: recolha de dados de tempo de atividade e de teclas premidas, arranque no início do sistema, arranque minimizado e o idioma da interface.</sys:String>
+    <sys:String x:Key="Tutorial_S16_Hint">👆 Separador Mais ▸ Definições</sys:String>
+    <sys:String x:Key="Tutorial_S17_Title">Info</sys:String>
+    <sys:String x:Key="Tutorial_S17_Body">Visite o separador Info para saber mais sobre o projeto ClickyKeys ou ver este tutorial novamente.</sys:String>
+    <sys:String x:Key="Tutorial_S17_Hint">👆 Separador Mais ▸ Info</sys:String>
+    <sys:String x:Key="Tutorial_S18_Title">É tudo!</sys:String>
+    <sys:String x:Key="Tutorial_S18_Body">Aproveite o ClickyKeys! 🎉</sys:String>
 
 
     <!-- Messages / Inbox -->

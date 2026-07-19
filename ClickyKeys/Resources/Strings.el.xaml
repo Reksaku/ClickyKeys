@@ -203,6 +203,8 @@
     <!-- Tutorial window -->
     <sys:String x:Key="Tutorial_Title">Οδηγός του ClickyKeys</sys:String>
     <sys:String x:Key="Tutorial_Skip">Παράλειψη</sys:String>
+    <sys:String x:Key="Tutorial_SkipStep">Παράλειψη βήματος</sys:String>
+    <sys:String x:Key="Tutorial_ActionDone">✓ Έγινε — μπορείτε να συνεχίσετε</sys:String>
     <sys:String x:Key="Tutorial_Back">◀ Πίσω</sys:String>
     <sys:String x:Key="Tutorial_Next">Επόμενο ▶</sys:String>
     <sys:String x:Key="Tutorial_Finish">Τέλος</sys:String>
@@ -227,25 +229,33 @@
     <sys:String x:Key="Tutorial_S8_Title">Δημιουργία νέας διάταξης</sys:String>
     <sys:String x:Key="Tutorial_S8_Body">Κάντε κλικ στο Αποθήκευση ως στο κάτω μέρος της Εμφάνισης για να αποθηκεύσετε τη διάταξή σας με νέο όνομα. Εισαγάγετε ένα νέο όνομα προφίλ και κάντε κλικ στο Αποθήκευση.\nΤα αποθηκευμένα προφίλ μπορούν να φορτωθούν από την καρτέλα Φόρτωση.</sys:String>
     <sys:String x:Key="Tutorial_S9_Title">Επαναφορά</sys:String>
-    <sys:String x:Key="Tutorial_S9_Body">Το κουμπί Επαναφορά (F12) μηδενίζει όλους τους μετρητές των πλαισίων, χωρίς να αλλάζει τη διαμόρφωση ή τη διάταξή τους.</sys:String>
+    <sys:String x:Key="Tutorial_S9_Body">Το κουμπί Επαναφορά {0} μηδενίζει όλους τους μετρητές των πλαισίων, χωρίς να αλλάζει τη διαμόρφωση ή τη διάταξή τους.</sys:String>
     <sys:String x:Key="Tutorial_S9_Hint">👆 Κουμπί Επαναφορά</sys:String>
     <sys:String x:Key="Tutorial_S10_Title">Προβολή</sys:String>
-    <sys:String x:Key="Tutorial_S10_Body">Τοποθετήστε τον δείκτη πάνω στην καρτέλα Προβολή για να εμφανιστούν επιπλέον επιλογές:\n• Διαφανής λειτουργία — αποκρύπτει το φόντο και τη γραμμή εργαλείων, χρήσιμο για επικαλύψεις σε ζωντανές μεταδόσεις. Μετακινήστε το σύροντας οποιονδήποτε πίνακα (όταν το «Πέρασμα κλικ» είναι ανενεργό) και αλλάξτε την αδιαφάνεια από Εμφάνιση ▸ Επιλογές διαφανούς λειτουργίας.\n• Πάντα πάνω — κρατά την επικάλυψη πάνω από άλλα παράθυρα.\n• Πέρασμα κλικ — τα κλικ περνούν στην εφαρμογή από κάτω.\n• Απόκρυψη γραμμής (F11) — κρύβει τη γραμμή εργαλείων.</sys:String>
+    <sys:String x:Key="Tutorial_S10_Body">Τοποθετήστε τον δείκτη πάνω στην καρτέλα Προβολή για να εμφανιστούν οι επιλογές επικάλυψης. Ας δοκιμάσουμε την καθεμία.</sys:String>
     <sys:String x:Key="Tutorial_S10_Hint">👆 Δείξτε την καρτέλα Προβολή</sys:String>
-    <sys:String x:Key="Tutorial_S11_Title">Στατιστικά</sys:String>
-    <sys:String x:Key="Tutorial_S11_Body">Η καρτέλα Στατιστικά δείχνει πόσα πλήκτρα έχετε πατήσει συνολικά.\nΤα δεδομένα σας αποθηκεύονται μόνο στον τοπικό σας δίσκο.</sys:String>
-    <sys:String x:Key="Tutorial_S11_Hint">👆 Κουμπί Στατιστικά</sys:String>
-    <sys:String x:Key="Tutorial_S12_Title">Περισσότερα</sys:String>
-    <sys:String x:Key="Tutorial_S12_Body">Τοποθετήστε τον δείκτη πάνω στην καρτέλα Περισσότερα για να εμφανιστούν η καρτέλα Πληροφορίες και το παράθυρο Ρυθμίσεις.</sys:String>
-    <sys:String x:Key="Tutorial_S12_Hint">👆 Δείξτε την καρτέλα Περισσότερα</sys:String>
-    <sys:String x:Key="Tutorial_S13_Title">Ρυθμίσεις</sys:String>
-    <sys:String x:Key="Tutorial_S13_Body">Στο παράθυρο Ρυθμίσεις μπορείτε να διαμορφώσετε την εφαρμογή: συλλογή δεδομένων χρόνου λειτουργίας και στατιστικών πατημάτων πλήκτρων, εκκίνηση κατά την έναρξη του συστήματος, εκκίνηση ελαχιστοποιημένη και τη γλώσσα της διεπαφής.</sys:String>
-    <sys:String x:Key="Tutorial_S13_Hint">👆 Καρτέλα Περισσότερα ▸ Ρυθμίσεις</sys:String>
-    <sys:String x:Key="Tutorial_S14_Title">Πληροφορίες</sys:String>
-    <sys:String x:Key="Tutorial_S14_Body">Επισκεφθείτε την καρτέλα Πληροφορίες για να μάθετε περισσότερα για το έργο ClickyKeys ή για να δείτε ξανά αυτόν τον οδηγό.</sys:String>
-    <sys:String x:Key="Tutorial_S14_Hint">👆 Καρτέλα Περισσότερα ▸ Πληροφορίες</sys:String>
-    <sys:String x:Key="Tutorial_S15_Title">Αυτό ήταν!</sys:String>
-    <sys:String x:Key="Tutorial_S15_Body">Απολαύστε το ClickyKeys! 🎉</sys:String>
+    <sys:String x:Key="Tutorial_S11_Title">Απόκρυψη γραμμής</sys:String>
+    <sys:String x:Key="Tutorial_S11_Body">Η Απόκρυψη γραμμής {0} κρύβει τη γραμμή εργαλείων ώστε να μένουν μόνο τα πλαίσια. Δοκιμάστε το — πατήστε {0} στο πληκτρολόγιο για να την επαναφέρετε.</sys:String>
+    <sys:String x:Key="Tutorial_S11_Hint">👆 Εναλλαγή Απόκρυψης γραμμής</sys:String>
+    <sys:String x:Key="Tutorial_S12_Title">Διαφανής λειτουργία</sys:String>
+    <sys:String x:Key="Tutorial_S12_Body">Η διαφανής λειτουργία μετατρέπει τα πλαίσια σε αιωρούμενη επικάλυψη για μεταδόσεις ή παιχνίδια. Σύρετέ την από οποιοδήποτε πλαίσιο και ρυθμίστε την αδιαφάνεια από Εμφάνιση ▸ Επιλογές διαφανούς λειτουργίας. Ενεργοποιήστε την για δοκιμή. Η μετακίνηση λειτουργεί μόνο όταν το Πέρασμα κλικ είναι ανενεργό.</sys:String>
+    <sys:String x:Key="Tutorial_S12_Hint">👆 Ενεργοποιήστε τη διαφανή λειτουργία</sys:String>
+    <sys:String x:Key="Tutorial_S13_Title">Πάντα πάνω &amp; Πέρασμα κλικ</sys:String>
+    <sys:String x:Key="Tutorial_S13_Body">Δύο ακόμη διακόπτες επικάλυψης στην καρτέλα Προβολή: το Πάντα πάνω κρατά το παράθυρο πάνω από άλλες εφαρμογές και το Πέρασμα κλικ αφήνει τα κλικ να περνούν στην εφαρμογή από κάτω — ιδανικό στο παιχνίδι. Το Πάντα πάνω δεν λειτουργεί πάνω από προγράμματα σε λειτουργία πλήρους οθόνης.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Title">Στατιστικά</sys:String>
+    <sys:String x:Key="Tutorial_S14_Body">Η καρτέλα Στατιστικά δείχνει πόσα πλήκτρα έχετε πατήσει συνολικά.\nΤα δεδομένα σας αποθηκεύονται μόνο στον τοπικό σας δίσκο.</sys:String>
+    <sys:String x:Key="Tutorial_S14_Hint">👆 Κουμπί Στατιστικά</sys:String>
+    <sys:String x:Key="Tutorial_S15_Title">Περισσότερα</sys:String>
+    <sys:String x:Key="Tutorial_S15_Body">Τοποθετήστε τον δείκτη πάνω στην καρτέλα Περισσότερα για να εμφανιστούν η καρτέλα Πληροφορίες και το παράθυρο Ρυθμίσεις.</sys:String>
+    <sys:String x:Key="Tutorial_S15_Hint">👆 Δείξτε την καρτέλα Περισσότερα</sys:String>
+    <sys:String x:Key="Tutorial_S16_Title">Ρυθμίσεις</sys:String>
+    <sys:String x:Key="Tutorial_S16_Body">Στο παράθυρο Ρυθμίσεις μπορείτε να διαμορφώσετε την εφαρμογή: συλλογή δεδομένων χρόνου λειτουργίας και στατιστικών πατημάτων πλήκτρων, εκκίνηση κατά την έναρξη του συστήματος, εκκίνηση ελαχιστοποιημένη και τη γλώσσα της διεπαφής.</sys:String>
+    <sys:String x:Key="Tutorial_S16_Hint">👆 Καρτέλα Περισσότερα ▸ Ρυθμίσεις</sys:String>
+    <sys:String x:Key="Tutorial_S17_Title">Πληροφορίες</sys:String>
+    <sys:String x:Key="Tutorial_S17_Body">Επισκεφθείτε την καρτέλα Πληροφορίες για να μάθετε περισσότερα για το έργο ClickyKeys ή για να δείτε ξανά αυτόν τον οδηγό.</sys:String>
+    <sys:String x:Key="Tutorial_S17_Hint">👆 Καρτέλα Περισσότερα ▸ Πληροφορίες</sys:String>
+    <sys:String x:Key="Tutorial_S18_Title">Αυτό ήταν!</sys:String>
+    <sys:String x:Key="Tutorial_S18_Body">Απολαύστε το ClickyKeys! 🎉</sys:String>
 
 
     <!-- Messages / Inbox -->
